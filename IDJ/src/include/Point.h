@@ -30,17 +30,10 @@ class Point
 	bool Equals(Point p);
 	float Distance(Point p);
 
-	Point operator+(const Point& rhs) const {
-        return Point(x + rhs.x, y + rhs.y);
-    }
+	Point operator+(const Point& rhs) const;
+    Point operator-(const Point& rhs) const;
+    Point operator*(const float rhs) const;
 
-    Point operator-(const Point& rhs) const {
-        return Point(x - rhs.x, y - rhs.y);
-    }
-
-    Point operator*(const float rhs) const {
-        return Point(x * rhs, y * rhs);
-    }
   private:
 	float x, y;
 };

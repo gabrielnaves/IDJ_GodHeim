@@ -10,6 +10,9 @@
 
 #include "Rect.h"
 
+/**
+ * Base class for all objects in the game.
+ */
 class GameObject
 {
   public:
