@@ -55,14 +55,13 @@ void InputManager::Update()
                 quitGame = true;
                 break;
             case SDL_MOUSEBUTTONDOWN:
-                if (mouseState[event.button.button] == PRESSED) break;
                 mouseState[event.button.button] = JUST_PRESSED;
                 break;
             case SDL_MOUSEBUTTONUP:
                 mouseState[event.button.button] = JUST_RELEASED;
                 break;
             case SDL_KEYDOWN:
-                if (keyState[event.key.keysym.sym] == PRESSED) break;
+                if (event.key.repeat) break;
                 keyState[event.key.keysym.sym] = JUST_PRESSED;
                 break;
             case SDL_KEYUP:
@@ -94,12 +93,12 @@ bool InputManager::MousePress(int button)
 
 bool InputManager::MouseRelease(int button)
 {
-    return (keyState[button] == JUST_RELEASED ? true : false);
+    return (mouseState[button] == JUST_RELEASED ? true : false);
 }
 
 bool InputManager::IsMouseDown(int button)
 {
-    return (keyState[button] == PRESSED ? true : false);
+    return (mouseState[button] == PRESSED ? true : false);
 }
 
 int InputManager::GetMouseX()

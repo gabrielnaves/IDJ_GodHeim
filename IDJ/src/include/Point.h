@@ -17,18 +17,18 @@ class Point
 	Point(float x, float y);
 
 	void SetPoint(float x, float y);
-	void SetPoint(Point point);
+	void SetPoint(const Point& point);
 
-	float GetX();
-	float GetY();
+	float GetX() const;
+	float GetY() const;
 
 	void MovePointWithAngle(float distance, float angle);
 	void MovePoint(float x, float y);
 	void Multiply(float c);
 
-	float FindAngle(Point p);
-	bool Equals(Point p);
-	float Distance(Point p);
+	float FindAngle(const Point& point);
+	bool Equals(const Point& point);
+	float Distance(const Point& point);
 
 	Point operator+(const Point& rhs) const;
     Point operator-(const Point& rhs) const;

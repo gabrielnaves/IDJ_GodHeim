@@ -1,13 +1,13 @@
 /*
- * main.cpp
+ * Main.cpp
  *
- *  Created on: Apr 4, 2014
+ *  Created on: Mar 22, 2014
  *      Author: Gabriel Naves
  */
 
+#include "../include/Game.h"
+
 int main(int argc, char** argv)
 {
-//	Game game;
-//	game.Run();
 	return 0;
 }

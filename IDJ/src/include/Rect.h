@@ -19,13 +19,14 @@ class Rect
 	void SetRect(float x, float y, float w, float h);
 	void SetRect(Point point, float w, float h);
 	void SetPoint(Point point);
+	void SetPoint(float x, float y);
 
-	Point GetCenter();
-	Point GetPoint();
-	float GetX();
-	float GetY();
-	float GetW();
-	float GetH();
+	Point GetCenter() const;
+	Point GetPoint() const;
+	float GetX() const;
+	float GetY() const;
+	float GetW() const;
+	float GetH() const;
 
 	bool IsInside(float x, float y);
 	bool IsInside(Point point);

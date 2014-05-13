@@ -8,14 +8,16 @@
 #ifndef SPRITE_H_
 #define SPRITE_H_
 
-#include "GameBase.h"
+#include "Resource.h"
+#include "Game.h"
 
 class Sprite
 {
   public:
     Sprite();
+    Sprite(const Sprite& sp);
     Sprite(std::string file, int frameCount = 1, float frameTime = 1, bool repeat = true);
-    virtual ~Sprite();
+    ~Sprite();
 
     void Open(std::string file);
     void Update(float dt);
@@ -42,7 +44,10 @@ class Sprite
     int frameCount, currentFrame;
     bool repeat;
 
-    static std::unordered_map<std::string, SDL_Texture*> assetTable;
+    // Name of the file containing the texture currently opened.
+    std::string fileName;
+
+    static std::unordered_map<std::string, Resource> assetTable;
 };
 
 #endif /* SPRITE_H_ */

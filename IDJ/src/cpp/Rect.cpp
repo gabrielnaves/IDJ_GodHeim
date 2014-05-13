@@ -42,11 +42,16 @@ void Rect::SetPoint(Point point)
     p.SetPoint(point);
 }
 
-Point Rect::GetPoint() { return p; }
-float Rect::GetX() { return p.GetX(); }
-float Rect::GetY() { return p.GetY(); }
-float Rect::GetW() { return w; }
-float Rect::GetH() { return h; }
+void Rect::SetPoint(float x, float y)
+{
+    p.SetPoint(x, y);
+}
+
+Point Rect::GetPoint() const { return p; }
+float Rect::GetX() const { return p.GetX(); }
+float Rect::GetY() const { return p.GetY(); }
+float Rect::GetW() const { return w; }
+float Rect::GetH() const { return h; }
 
 bool Rect::IsInside(float x, float y)
 {
@@ -64,7 +69,7 @@ bool Rect::IsInside(Point point)
     return false;
 }
 
-Point Rect::GetCenter()
+Point Rect::GetCenter() const
 {
     return Point((p.GetX()+w/2), (p.GetY()+h/2));
 }

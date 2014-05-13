@@ -7,8 +7,7 @@
 
 #ifndef COLLISION_H_
 #define COLLISION_H_
-/*
-#include <cmath>
+
 #include <algorithm>
 
 #include "Rect.h"
@@ -16,7 +15,7 @@
 // Essa é uma implementação do SAT feita pelo Lucas Neves.
 // Recebe dois Rects e suas rotações, e detecta se os retângulos colidem.
 // Mais informações sobre o método podem ser encontradas nos seguintes links:
-// http://www.metanetsoftware.com/technique/tutorialA.html
+// http://www.metanetsoftware.com/technique/tutoriala.GetH()tml
 // http://www.gamedev.net/page/resources/_/technical/game-programming/2d-rotated-rectangle-collision-r2604
 
 class Collision
@@ -24,15 +23,15 @@ class Collision
   public:
     static inline bool IsColliding(const Rect& a, const Rect& b, float angleOfA, float angleOfB)
     {
-        Point A[] = { Point( a.p.x, a.p.y + a.h ),
-                      Point( a.p.x + a.w, a.p.y + a.h ),
-                      Point( a.p.x + a.w, a.p.y ),
-                      Point( a.p.x, a.p.y )
+        Point A[] = { Point( a.GetX(), a.GetY() + a.GetH() ),
+                      Point( a.GetX() + a.GetW(), a.GetY() + a.GetH() ),
+                      Point( a.GetX() + a.GetW(), a.GetY() ),
+                      Point( a.GetX(), a.GetY() )
                     };
-        Point B[] = { Point( b.p.x, b.p.y + b.h ),
-                      Point( b.p.x + b.w, b.p.y + b.h ),
-                      Point( b.p.x + b.w, b.p.y ),
-                      Point( b.p.x, b.p.y )
+        Point B[] = { Point( b.GetX(), b.GetY() + b.GetH() ),
+                      Point( b.GetX() + b.GetW(), b.GetY() + b.GetH() ),
+                      Point( b.GetX() + b.GetW(), b.GetY() ),
+                      Point( b.GetX(), b.GetY() )
                     };
 
         for (auto& v : A) {
@@ -67,7 +66,7 @@ class Collision
 
   private:
     static inline float Mag(const Point& p) {
-        return std::sqrt(p.x * p.x + p.y * p.y);
+        return std::sqrt(p.GetX() * p.GetX() + p.GetY() * p.GetY());
     }
 
     static inline Point Norm(const Point& p) {
@@ -75,12 +74,12 @@ class Collision
     }
 
     static inline float Dot(const Point& a, const Point& b) {
-        return a.x * b.x + a.y * b.y;
+        return a.GetX() * b.GetX() + a.GetY() * b.GetY();
     }
 
     static inline Point Rotate(const Point& p, float angle) {
         float cs = std::cos(angle), sn = std::sin(angle);
-        return Point ( p.x * cs - p.y * sn, p.x * sn + p.y * cs );
+        return Point ( p.GetX() * cs - p.GetY() * sn, p.GetX() * sn + p.GetY() * cs );
     }
 };
 
@@ -99,5 +98,5 @@ class Collision
 // Point Point::operator*(const float rhs) const {
 //    return Point(x * rhs, y * rhs);
 // }
-*/
+
 #endif /* COLLISION_H_ */

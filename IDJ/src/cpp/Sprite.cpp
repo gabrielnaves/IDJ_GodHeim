@@ -7,7 +7,7 @@
 
 #include "../include/Sprite.h"
 
-std::unordered_map<std::string, SDL_Texture*> Sprite::assetTable;
+std::unordered_map<std::string, Resource> Sprite::assetTable;
 
 Sprite::Sprite()
 {
@@ -20,34 +20,64 @@ Sprite::Sprite()
     repeat = true;
 }
 
+/**
+ * Copy constructor. Copies all data from the sprite given as parameter
+ * and increases the user count for the texture being used.
+ */
+Sprite::Sprite(const Sprite& sp)
+{
+    texture = sp.texture;
+    dimensions = sp.dimensions;
+    clipRect = sp.clipRect;
+    scaleX = sp.scaleX;
+    scaleY = sp.scaleY;
+    frameCount = sp.frameCount;
+    frameTime = sp.frameTime;
+    timeElapsed = sp.timeElapsed;
+    currentFrame = sp.currentFrame;
+    repeat = sp.repeat;
+    fileName = sp.fileName;
+    assetTable.at(fileName).UserCount++;
+}
+
 Sprite::Sprite(std::string file, int frameCount, float frameTime, bool repeat)
 {
     texture = NULL;
     scaleX = scaleY = 1;
-    this->frameCount = frameCount;
-    this->frameTime = frameTime;
     timeElapsed = 0;
     currentFrame = 1;
+    this->frameCount = frameCount;
+    this->frameTime = frameTime;
     this->repeat = repeat;
     Open(file);
 }
 
 Sprite::~Sprite()
 {
+    if (texture != NULL)
+        assetTable.at(fileName).UserCount--;
 }
 
 void Sprite::Open(std::string file)
 {
+    if (texture != NULL)
+        assetTable.at(fileName).UserCount--;
+    fileName = file;
     if (assetTable.find(file) == assetTable.end())
     {
-        texture = IMG_LoadTexture(GameBase::GetInstance().GetRenderer(), file.c_str());
+        texture = IMG_LoadTexture(Game::GetInstance().GetRenderer(), file.c_str());
         if (texture == NULL)
             std::cerr << "ERROR! " << SDL_GetError() << std::endl;
-        else
-            assetTable.emplace(file, texture);
+        Resource resource;
+        resource.UserCount = 1;
+        resource.data.texture = texture;
+        assetTable.emplace(file, resource);
     }
     else
-        texture = assetTable.at(file);
+    {
+        texture = assetTable.at(file).data.texture;
+        assetTable.at(file).UserCount++;
+    }
 
     SDL_QueryTexture(texture, 0, 0, &dimensions.w, &dimensions.h);
     SetClip(0, 0 , dimensions.w/frameCount, dimensions.h);
@@ -84,16 +114,21 @@ void Sprite::Render(int x, int y, float angle)
     dstrect.w = clipRect.w * scaleX;
     dstrect.h = clipRect.h * scaleY;
 
-    SDL_RenderCopyEx(GameBase::GetInstance().GetRenderer(), texture, &clipRect,
+    SDL_RenderCopyEx(Game::GetInstance().GetRenderer(), texture, &clipRect,
                      &dstrect, angle, NULL, SDL_FLIP_NONE);
 }
 
 void Sprite::Clear()
 {
+    std::vector<std::string> filesToErase;
     for (auto it = assetTable.begin(); it != assetTable.end(); ++it)
-        if (it->second != NULL)
-            SDL_DestroyTexture(it->second); // If a texture is allocated, destroy it.
-    assetTable.clear();
+        if (it->second.UserCount == 0)
+        {
+            SDL_DestroyTexture(it->second.data.texture); // If a texture is allocated, destroy it.
+            filesToErase.push_back(it->first);
+        }
+    for (int i = 0; i < (int)filesToErase.size(); i++)
+        assetTable.erase(filesToErase[i]);
 }
 
 bool Sprite::IsOpen() { return (texture != NULL ? true : false); }

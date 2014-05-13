@@ -7,113 +7,87 @@
 
 #include "../include/Point.h"
 
-// Constructors
-Point::Point() { x = 0, y = 0; }
-Point::Point(float x, float y) { SetPoint(x, y); }
+Point::Point()
+{
+	x = 0, y = 0;
+}
 
-// Set Methods
+Point::Point(float x, float y)
+{
+	SetPoint(x, y);
+}
+
 void Point::SetPoint(float x, float y)
 {
 	this->x = x;
 	this->y = y;
 }
 
-void Point::SetPoint(Point point)
+void Point::SetPoint(const Point& point)
 {
-    x = point.GetX();
-    y = point.GetY();
+    x = point.x;
+    y = point.y;
 }
 
-// Get Methods
-float Point::GetX() { return x; }
-float Point::GetY() { return y; }
+float Point::GetX() const { return x; }
+float Point::GetY() const { return y; }
 
-/**
- * Moves the point to another position, given the distance
- * to the new position and its angle in radians.
- */
 void Point::MovePointWithAngle(float distance, float angle)
 {
 	x = x + cos(angle) * distance;
 	y = y + sin(angle) * distance;
 }
 
-/**
- * Moves the point to another position, given the amount
- * to be incremented on both axes.
- */
 void Point::MovePoint(float x, float y)
 {
     this->x += x;
     this->y += y;
 }
 
-/**
- * Multiplies both the x and y values by a constant.
- */
 void Point::Multiply(float c)
 {
     x = x * c;
     y = y * c;
 }
 
-/**
- * Finds the angle in radians of the line defined by
- * the current point and the point given as a parameter,
- * relative to the positive x axis. The angle returned
- * is on the interval 0 <= angle < 2*PI.
- */
-float Point::FindAngle(Point p)
+float Point::FindAngle(const Point& point)
 {
-    if (p.GetY() == y)
-        return (p.GetX() >= x ? 0 : M_PI);
-    if (p.GetX() == x)
-        return (p.GetY() >= y ? M_PI/2 : 3*M_PI/2);
-    if (p.GetX() > x && p.GetY() > y)
-        return (atan((p.GetY() - y)/(p.GetX()-x)));
-    if (p.GetX() > x && p.GetY() < y)
-        return (2*M_PI - atan((y - p.GetY())/(p.GetX()-x)));
-    if (p.GetX() < x && p.GetY() < y)
-        return (M_PI + atan((y - p.GetY())/(x-p.GetX())));
-    if (p.GetX() < x && p.GetY() > y)
-        return (M_PI - atan((p.GetY() - y)/(x-p.GetX())));
+    if (point.y == y)
+        return (point.x >= x ? 0 : M_PI);
+    if (point.x == x)
+        return (point.y >= y ? M_PI/2 : 3*M_PI/2);
+    if (point.x > x && point.y > y)
+        return (atan((point.y - y)/(point.x-x)));
+    if (point.x > x && point.y < y)
+        return (2*M_PI - atan((y - point.y)/(point.x-x)));
+    if (point.x < x && point.y < y)
+        return (M_PI + atan((y - point.y)/(x-point.x)));
+    if (point.x < x && point.y > y)
+        return (M_PI - atan((point.y - y)/(x-point.x)));
     return 0;
 }
 
-/**
- * Checks if the current point is equal to the point
- * given as a parameter. Two points will be considered
- * to be equal if the distance between them is less
- * than 6 pixels.
- */
-bool Point::Equals(Point p)
+bool Point::Equals(const Point& point)
 {
-    if (Distance(p) < 6)
-        return true;
-    return false;
+    return Distance(point) < 10 ? true : false;
 }
 
-/**
- * Returns the distance between the current point and the
- * point given as a parameter.
- */
-float Point::Distance(Point p)
+float Point::Distance(const Point& point)
 {
-    return (sqrt(pow(p.GetX()-x, 2) + pow(p.GetY()-y, 2)));
+    return (sqrt(pow(point.x-x, 2) + pow(point.y-y, 2)));
 }
 
-// TODO comment the operator overloads properly.
 Point Point::operator+(const Point& rhs) const
 {
-	return Point(x + rhs.x, y + rhs.y);
+    return Point(x + rhs.x, y + rhs.y);
 }
 
 Point Point::operator-(const Point& rhs) const
 {
-	return Point(x - rhs.x, y - rhs.y);
+    return Point(x - rhs.x, y - rhs.y);
 }
 
 Point Point::operator*(const float rhs) const
 {
-	return Point(x * rhs, y * rhs);
+    return Point(x * rhs, y * rhs);
 }
