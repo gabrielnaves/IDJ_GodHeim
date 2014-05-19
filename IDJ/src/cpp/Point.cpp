@@ -32,25 +32,23 @@ void Point::SetPoint(const Point& point)
 float Point::GetX() const { return x; }
 float Point::GetY() const { return y; }
 
+/**
+ * Moves the point to a new position using a distance and an angle
+ * given in radians.
+ */
 void Point::MovePointWithAngle(float distance, float angle)
 {
 	x = x + cos(angle) * distance;
 	y = y + sin(angle) * distance;
 }
 
-void Point::MovePoint(float x, float y)
-{
-    this->x += x;
-    this->y += y;
-}
-
-void Point::Multiply(float c)
-{
-    x = x * c;
-    y = y * c;
-}
-
-float Point::FindAngle(const Point& point)
+/**
+ * Finds the angle in radians of the semiline defined by
+ * two points (the one at hand and the one given as parameter)
+ * relative to the positive x axis.
+ * @param point The other point that defines the semiline
+ */
+float Point::FindAngle(const Point& point) const
 {
     if (point.y == y)
         return (point.x >= x ? 0 : M_PI);
@@ -67,6 +65,10 @@ float Point::FindAngle(const Point& point)
     return 0;
 }
 
+/**
+ * Returns true if the distance between both points is lower than
+ * a tolerance, and false otherwise.
+ */
 bool Point::Equals(const Point& point)
 {
     return Distance(point) < 10 ? true : false;

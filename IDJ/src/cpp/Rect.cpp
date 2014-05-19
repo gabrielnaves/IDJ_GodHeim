@@ -61,6 +61,10 @@ bool Rect::IsInside(float x, float y)
 	return false;
 }
 
+/**
+ * Checks whether a given point is inside the rectangle.
+ * TODO: Implement this method with a rotation angle.
+ */
 bool Rect::IsInside(Point point)
 {
     if (point.GetX() >= p.GetX() && point.GetX() <= (p.GetX() + w))
@@ -69,14 +73,20 @@ bool Rect::IsInside(Point point)
     return false;
 }
 
+/**
+ * Returns the position of the center of the rectangle.
+ */
 Point Rect::GetCenter() const
 {
     return Point((p.GetX()+w/2), (p.GetY()+h/2));
 }
 
+/**
+ * Moves the rectangle by adding
+ */
 void Rect::MoveRect(float x, float y)
 {
-    p.MovePoint(x, y);
+    p = p + Point(x, y);
 }
 
 void Rect::MoveRectWithAngle(float distance, float angle)

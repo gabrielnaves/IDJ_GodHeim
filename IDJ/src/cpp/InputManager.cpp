@@ -7,6 +7,10 @@
 
 #include "../include/InputManager.h"
 
+/**
+ * Initializes the mouseState, quitGame,
+ * mouseX, mouseY variables.
+ */
 InputManager::InputManager()
 {
     for (int i = 0; i < N_MOUSE_BUTTONS; i++)
@@ -25,6 +29,10 @@ InputManager& InputManager::GetInstance()
     return inputManager;
 }
 
+/**
+ * Gets all the input events and manages the keyState map
+ * and mouseState vector.
+ */
 void InputManager::Update()
 {
     SDL_Event event;

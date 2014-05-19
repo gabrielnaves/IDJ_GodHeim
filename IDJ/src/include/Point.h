@@ -23,10 +23,8 @@ class Point
 	float GetY() const;
 
 	void MovePointWithAngle(float distance, float angle);
-	void MovePoint(float x, float y);
-	void Multiply(float c);
 
-	float FindAngle(const Point& point);
+	float FindAngle(const Point& point) const;
 	bool Equals(const Point& point);
 	float Distance(const Point& point);
 
