@@ -10,6 +10,7 @@
 
 #include "../../engine/include/State.h"
 #include "../../engine/include/Sprite.h"
+#include "../../characters/include/Loki.h"
 
 class Level1State: public State
 {
