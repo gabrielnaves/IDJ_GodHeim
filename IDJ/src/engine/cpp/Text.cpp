@@ -51,8 +51,8 @@ void Text::Render(int cameraX, int cameraY)
     SDL_Rect clipRect, dstrect;
     dstrect.x = box.GetX() - cameraX, clipRect.x = 0;
     dstrect.y = box.GetY() - cameraY, clipRect.x = 0;
-    dstrect.w = clipRect.w = box.GetW(), clipRect.w = box.GetW();
-    dstrect.h = box.GetH(), clipRect.h = box.GetH();
+    dstrect.w = clipRect.w = box.GetW();
+    dstrect.h = clipRect.h = box.GetH();
     SDL_RenderCopy(Game::GetInstance().GetRenderer(), texture, &clipRect, &dstrect);
 }
 
