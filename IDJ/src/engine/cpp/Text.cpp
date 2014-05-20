@@ -27,15 +27,13 @@ Text::Text(std::string fontFile, int fontSize, TextStyle style,
         font = TTF_OpenFont(fontFile.c_str(), fontSize);
         if (font == NULL)
             std::cerr << "ERROR! " << SDL_GetError() << std::endl;
-        Resource resource;
-        resource.UserCount = 1;
-        resource.data.font = font;
+        Resource resource(font);
         assetTable.emplace(key, resource);
     }
     else
     {
         font = assetTable.at(key).data.font;
-        assetTable.at(key).UserCount++;
+        assetTable.at(key).userCount++;
     }
     if (font != NULL)
         RemakeTexture();
@@ -43,7 +41,7 @@ Text::Text(std::string fontFile, int fontSize, TextStyle style,
 
 Text::~Text()
 {
-    assetTable.at(fontFile+std::to_string(fontSize)).UserCount--;
+    assetTable.at(fontFile+std::to_string(fontSize)).userCount--;
     if (texture != NULL)
         SDL_DestroyTexture(texture);
 }
@@ -87,7 +85,7 @@ void Text::SetStyle(TextStyle style)
 
 void Text::SetFontSize(int fontSize)
 {
-    assetTable.at(fontFile+std::to_string(this->fontSize)).UserCount--;
+    assetTable.at(fontFile+std::to_string(this->fontSize)).userCount--;
     this->fontSize = fontSize;
 
     std::string key = fontFile + std::to_string(fontSize);
@@ -96,15 +94,13 @@ void Text::SetFontSize(int fontSize)
         font = TTF_OpenFont(fontFile.c_str(), fontSize);
         if (font == NULL)
             std::cerr << "ERROR! " << SDL_GetError() << std::endl;
-        Resource resource;
-        resource.UserCount = 1;
-        resource.data.font = font;
+        Resource resource(font);
         assetTable.emplace(key, resource);
     }
     else
     {
         font = assetTable.at(key).data.font;
-        assetTable.at(key).UserCount++;
+        assetTable.at(key).userCount++;
     }
     if (font != NULL)
         RemakeTexture();
@@ -114,7 +110,7 @@ void Text::Clear()
 {
     std::vector<std::string> filesToErase;
     for (auto it = assetTable.begin(); it != assetTable.end(); ++it)
-        if (it->second.UserCount == 0)
+        if (it->second.userCount == 0)
         {
             TTF_CloseFont(it->second.data.font); // If a texture is allocated, destroy it.
             filesToErase.push_back(it->first);

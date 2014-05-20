@@ -37,7 +37,7 @@ Sprite::Sprite(const Sprite& sp)
     currentFrame = sp.currentFrame;
     repeat = sp.repeat;
     fileName = sp.fileName;
-    assetTable.at(fileName).UserCount++;
+    assetTable.at(fileName).userCount++;
 }
 
 Sprite::Sprite(std::string file, int frameCount, float frameTime, bool repeat)
@@ -55,28 +55,26 @@ Sprite::Sprite(std::string file, int frameCount, float frameTime, bool repeat)
 Sprite::~Sprite()
 {
     if (texture != NULL)
-        assetTable.at(fileName).UserCount--;
+        assetTable.at(fileName).userCount--;
 }
 
 void Sprite::Open(std::string file)
 {
     if (texture != NULL)
-        assetTable.at(fileName).UserCount--;
+        assetTable.at(fileName).userCount--;
     fileName = file;
     if (assetTable.find(file) == assetTable.end())
     {
         texture = IMG_LoadTexture(Game::GetInstance().GetRenderer(), file.c_str());
         if (texture == NULL)
             std::cerr << "ERROR! " << SDL_GetError() << std::endl;
-        Resource resource;
-        resource.UserCount = 1;
-        resource.data.texture = texture;
+        Resource resource(texture);
         assetTable.emplace(file, resource);
     }
     else
     {
         texture = assetTable.at(file).data.texture;
-        assetTable.at(file).UserCount++;
+        assetTable.at(file).userCount++;
     }
 
     SDL_QueryTexture(texture, 0, 0, &dimensions.w, &dimensions.h);
@@ -122,7 +120,7 @@ void Sprite::Clear()
 {
     std::vector<std::string> filesToErase;
     for (auto it = assetTable.begin(); it != assetTable.end(); ++it)
-        if (it->second.UserCount == 0)
+        if (it->second.userCount == 0)
         {
             SDL_DestroyTexture(it->second.data.texture); // If a texture is allocated, destroy it.
             filesToErase.push_back(it->first);

@@ -23,9 +23,13 @@ class Resource
         TTF_Font* font;
     };
 
-    int UserCount;
-    ResourcePtr data;
+    Resource(SDL_Texture* texture);
+    Resource(Mix_Music* music);
+    Resource(Mix_Chunk* chunk);
+    Resource(TTF_Font* font);
 
+    int userCount;
+    ResourcePtr data;
 };
 
 #endif /* RESOURCE_H_ */

@@ -23,7 +23,7 @@ Music::Music(std::string file)
 Music::~Music()
 {
     if (music != NULL)
-        assetTable.at(file).UserCount--;
+        assetTable.at(file).userCount--;
 }
 
 void Music::Play(int times)
@@ -39,22 +39,20 @@ void Music::Stop()
 void Music::Open(std::string file)
 {
     if (music != NULL)
-        assetTable.at(file).UserCount--;
+        assetTable.at(file).userCount--;
     this->file = file;
     if (assetTable.find(file) == assetTable.end())
     {
         music = Mix_LoadMUS(file.c_str());
         if (music == NULL)
             std::cerr << "ERROR! " << SDL_GetError() << std::endl;
-        Resource resource;
-        resource.UserCount = 1;
-        resource.data.music = music;
+        Resource resource(music);
         assetTable.emplace(file, resource);
     }
     else
     {
         music = assetTable.at(file).data.music;
-        assetTable.at(file).UserCount++;
+        assetTable.at(file).userCount++;
     }
 }
 
@@ -67,7 +65,7 @@ void Music::Clear()
 {
     std::vector<std::string> filesToErase;
     for (auto it = assetTable.begin(); it != assetTable.end(); ++it)
-        if (it->second.UserCount == 0)
+        if (it->second.userCount == 0)
         {
             Mix_FreeMusic(it->second.data.music); // If a texture is allocated, destroy it.
             filesToErase.push_back(it->first);
