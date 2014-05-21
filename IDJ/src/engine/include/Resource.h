@@ -11,6 +11,9 @@
 #include <SDL.h>
 #include <SDL_mixer.h>
 #include <SDL_ttf.h>
+#include <unordered_map>
+#include <vector>
+#include <string>
 
 class Resource
 {
@@ -28,8 +31,16 @@ class Resource
     Resource(Mix_Chunk* chunk);
     Resource(TTF_Font* font);
 
+    static void Clear();
+
     int userCount;
     ResourcePtr data;
+
+    static std::unordered_map<std::string, Resource> assetTable;
+
+  private:
+    enum dataType { TEXTURE, MUSIC, CHUNK, FONT };
+    dataType type;
 };
 
 #endif /* RESOURCE_H_ */

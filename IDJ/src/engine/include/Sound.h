@@ -22,14 +22,10 @@ class Sound
     void Open(std::string file);
     bool IsOpen();
 
-    static void Clear();
-
   private:
     std::string file;
     Mix_Chunk* chunk;
     int channel;
-
-    static std::unordered_map<std::string, Resource> assetTable;
 };
 
 #endif /* SOUND_H_ */

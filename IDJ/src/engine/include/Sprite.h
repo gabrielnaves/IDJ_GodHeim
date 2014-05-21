@@ -34,8 +34,6 @@ class Sprite
     int GetHeight();
     bool IsOpen();
 
-    static void Clear();
-
   private:
     SDL_Texture* texture;
     SDL_Rect dimensions, clipRect;
@@ -46,8 +44,6 @@ class Sprite
 
     // Name of the file containing the texture currently opened.
     std::string fileName;
-
-    static std::unordered_map<std::string, Resource> assetTable;
 };
 
 #endif /* SPRITE_H_ */

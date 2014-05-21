@@ -7,8 +7,6 @@
 
 #include "../include/Text.h"
 
-std::unordered_map<std::string, Resource> Text::assetTable;
-
 Text::Text(std::string fontFile, int fontSize, TextStyle style,
            std::string text, SDL_Color color, int x, int y)
 {
@@ -22,18 +20,18 @@ Text::Text(std::string fontFile, int fontSize, TextStyle style,
     font = NULL;
 
     std::string key = fontFile + std::to_string(fontSize);
-    if (assetTable.find(key) == assetTable.end())
+    if (Resource::assetTable.find(key) == Resource::assetTable.end())
     {
         font = TTF_OpenFont(fontFile.c_str(), fontSize);
         if (font == NULL)
             std::cerr << "ERROR! " << SDL_GetError() << std::endl;
         Resource resource(font);
-        assetTable.emplace(key, resource);
+        Resource::assetTable.emplace(key, resource);
     }
     else
     {
-        font = assetTable.at(key).data.font;
-        assetTable.at(key).userCount++;
+        font = Resource::assetTable.at(key).data.font;
+        Resource::assetTable.at(key).userCount++;
     }
     if (font != NULL)
         RemakeTexture();
@@ -41,7 +39,7 @@ Text::Text(std::string fontFile, int fontSize, TextStyle style,
 
 Text::~Text()
 {
-    assetTable.at(fontFile+std::to_string(fontSize)).userCount--;
+    Resource::assetTable.at(fontFile+std::to_string(fontSize)).userCount--;
     if (texture != NULL)
         SDL_DestroyTexture(texture);
 }
@@ -85,38 +83,25 @@ void Text::SetStyle(TextStyle style)
 
 void Text::SetFontSize(int fontSize)
 {
-    assetTable.at(fontFile+std::to_string(this->fontSize)).userCount--;
+    Resource::assetTable.at(fontFile+std::to_string(this->fontSize)).userCount--;
     this->fontSize = fontSize;
 
     std::string key = fontFile + std::to_string(fontSize);
-    if (assetTable.find(key) == assetTable.end())
+    if (Resource::assetTable.find(key) == Resource::assetTable.end())
     {
         font = TTF_OpenFont(fontFile.c_str(), fontSize);
         if (font == NULL)
             std::cerr << "ERROR! " << SDL_GetError() << std::endl;
         Resource resource(font);
-        assetTable.emplace(key, resource);
+        Resource::assetTable.emplace(key, resource);
     }
     else
     {
-        font = assetTable.at(key).data.font;
-        assetTable.at(key).userCount++;
+        font = Resource::assetTable.at(key).data.font;
+        Resource::assetTable.at(key).userCount++;
     }
     if (font != NULL)
         RemakeTexture();
-}
-
-void Text::Clear()
-{
-    std::vector<std::string> filesToErase;
-    for (auto it = assetTable.begin(); it != assetTable.end(); ++it)
-        if (it->second.userCount == 0)
-        {
-            TTF_CloseFont(it->second.data.font); // If a texture is allocated, destroy it.
-            filesToErase.push_back(it->first);
-        }
-    for (int i = 0; i < (int)filesToErase.size(); i++)
-        assetTable.erase(filesToErase[i]);
 }
 
 void Text::RemakeTexture()

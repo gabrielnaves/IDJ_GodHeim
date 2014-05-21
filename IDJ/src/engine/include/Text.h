@@ -29,8 +29,6 @@ class Text
     void SetStyle(TextStyle style);
     void SetFontSize(int fontSize);
 
-    static void Clear();
-
   private:
     void RemakeTexture();
 
@@ -43,8 +41,6 @@ class Text
     int fontSize;
     SDL_Color color;
     Rect box;
-
-    static std::unordered_map<std::string, Resource> assetTable;
 };
 
 #endif /* TEXT_H_ */

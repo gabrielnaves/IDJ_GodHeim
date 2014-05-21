@@ -83,7 +83,6 @@ State& Game::GetCurrentState()
  * Stores the state given at a temporary pointer. The state
  * will be stored on the stack at the beggining of the next
  * frame.
- * @param state Pointer to the new state to be pushed
  */
 void Game::Push(State* state)
 {
@@ -110,6 +109,7 @@ void Game::Run()
     }
     while (stateStack.size()>0)
         stateStack.pop();
+    Resource::Clear();
 }
 
 /**
@@ -132,7 +132,7 @@ int Game::ManageStates()
     if (stateStack.top()->RequestedDelete())
     {
         stateStack.pop();
-        ClearResources();
+        Resource::Clear();
     }
     if (storedState)
     {
@@ -142,17 +142,4 @@ int Game::ManageStates()
     if (stateStack.size() == 0)
         return 1;
     return 0;
-}
-
-/**
- * Calls the clear function of the classes Sprite, Music and Sound,
- * in order to remove the resources that have no users from the
- * respective asset tables.
- */
-void Game::ClearResources()
-{
-    Sprite::Clear();
-    Music::Clear();
-    Sound::Clear();
-    Text::Clear();
 }

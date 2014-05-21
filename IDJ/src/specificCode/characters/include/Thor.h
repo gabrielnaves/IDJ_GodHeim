@@ -8,7 +8,7 @@
 #ifndef THOR_H_
 #define THOR_H_
 
-#include "../../engine/include/GameObject.h"
+#include "../../../engine/include/GameObject.h"
 
 class Thor : public GameObject
 {

@@ -7,8 +7,6 @@
 
 #include "../include/Sound.h"
 
-std::unordered_map<std::string, Resource> Sound::assetTable;
-
 Sound::Sound()
 {
     chunk = NULL;
@@ -24,7 +22,7 @@ Sound::Sound(std::string file)
 Sound::~Sound()
 {
     if (chunk != NULL)
-        assetTable.at(file).userCount--;
+        Resource::assetTable.at(file).userCount--;
 }
 
 void Sound::Play(int times)
@@ -40,37 +38,24 @@ void Sound::Stop()
 void Sound::Open(std::string file)
 {
     if (chunk != NULL)
-        assetTable.at(file).userCount--;
+        Resource::assetTable.at(file).userCount--;
     this->file = file;
-    if (assetTable.find(file) == assetTable.end())
+    if (Resource::assetTable.find(file) == Resource::assetTable.end())
     {
         chunk = Mix_LoadWAV(file.c_str());
         if (chunk == NULL)
             std::cerr << "ERROR! " << SDL_GetError() << std::endl;
         Resource resource(chunk);
-        assetTable.emplace(file, resource);
+        Resource::assetTable.emplace(file, resource);
     }
     else
     {
-        chunk = assetTable.at(file).data.chunk;
-        assetTable.at(file).userCount++;
+        chunk = Resource::assetTable.at(file).data.chunk;
+        Resource::assetTable.at(file).userCount++;
     }
 }
 
 bool Sound::IsOpen()
 {
     return chunk != NULL ? true : false;
-}
-
-void Sound::Clear()
-{
-    std::vector<std::string> filesToErase;
-    for (auto it = assetTable.begin(); it != assetTable.end(); ++it)
-        if (it->second.userCount == 0)
-        {
-            Mix_FreeChunk(it->second.data.chunk); // If a texture is allocated, destroy it.
-            filesToErase.push_back(it->first);
-        }
-    for (int i = 0; i < (int)filesToErase.size(); i++)
-        assetTable.erase(filesToErase[i]);
 }

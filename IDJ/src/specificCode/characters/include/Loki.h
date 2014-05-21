@@ -8,8 +8,8 @@
 #ifndef LOKI_H_
 #define LOKI_H_
 
-#include "../../engine/include/GameObject.h"
-#include "../../engine/include/Sprite.h"
+#include "../../../engine/include/GameObject.h"
+#include "../../../engine/include/Sprite.h"
 
 
 class Loki : public GameObject

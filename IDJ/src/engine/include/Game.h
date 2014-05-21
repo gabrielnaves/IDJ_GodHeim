@@ -8,12 +8,9 @@
 #ifndef GAME_H_
 #define GAME_H_
 
-#include "InputManager.h"
 #include "Camera.h"
 #include "State.h"
-#include "Sprite.h"
-#include "Sound.h"
-#include "Text.h"
+#include "Resource.h"
 
 class Game
 {
@@ -33,7 +30,6 @@ class Game
     float dt;
     void CalculateDeltaTime();
     int ManageStates();
-    void ClearResources();
 
     static Game* instance;
 
