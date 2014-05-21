@@ -83,6 +83,7 @@ State& Game::GetCurrentState()
  * Stores the state given at a temporary pointer. The state
  * will be stored on the stack at the beggining of the next
  * frame.
+ * @param state Pointer to the new state to be pushed.
  */
 void Game::Push(State* state)
 {
