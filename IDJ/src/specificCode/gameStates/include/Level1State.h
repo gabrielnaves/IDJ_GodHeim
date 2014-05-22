@@ -12,6 +12,8 @@
 #include "../../../engine/include/State.h"
 #include "../../../engine/include/Sprite.h"
 #include "../../characters/include/Loki.h"
+#include "../../../engine/include/BlockTileSet.h"
+#include "../../../engine/include/TileMap.h"
 
 class Level1State: public State
 {
@@ -25,7 +27,9 @@ class Level1State: public State
   private:
 	void Input();
 
-	Sprite bg;
+	Sprite bg, tempBlackBackground;
+	BlockTileSet tileSet;
+	TileMap tileMap;
 };
 
 #endif /* LEVEL1STATE_H_ */

@@ -7,31 +7,35 @@
 
 #include "../include/Level1State.h"
 
-Level1State::Level1State() : State()
+Level1State::Level1State() : State(), tileSet(55,55,"img/tiles2.png"),
+                             tileMap("map/firstLevelMap.txt", &tileSet)
 {
-	bg.Open("img/background primeira fase tamanho total.png");
+	tempBlackBackground.Open("img/Canvas Master.png");
+    bg.Open("img/background primeira fase tamanho total.png");
 }
 
 Level1State::~Level1State()
 {
-	// TODO Auto-generated destructor stub
+    // TODO Auto-generated destructor stub
 }
 
 void Level1State::Update(float dt)
 {
-	UpdateArray(dt);
-	Camera::Update(dt);
-	Input();
+    UpdateArray(dt);
+    Camera::Update(dt);
+    Input();
 }
 
 void Level1State::Render()
 {
-	bg.Render(-Camera::pos.GetX(),-Camera::pos.GetY());
-	RenderArray();
+	tempBlackBackground.Render(0, 0);
+    bg.Render(-Camera::pos.GetX(),-Camera::pos.GetY());
+    tileMap.RenderLayer(0,+Camera::pos.GetX(), +Camera::pos.GetY());
+    RenderArray();
 }
 
 void Level1State::Input()
 {
-	if (InputManager::GetInstance().ShouldQuit() || InputManager::GetInstance().KeyPress(ESCAPE_KEY))
-		requestQuit = true;
+    if (InputManager::GetInstance().ShouldQuit() || InputManager::GetInstance().KeyPress(ESCAPE_KEY))
+        requestQuit = true;
 }
