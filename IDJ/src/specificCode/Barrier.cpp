@@ -1,0 +1,78 @@
+/*
+ * Barrier.cpp
+ *
+ *  Created on: May 22, 2014
+ *      Author: icaro
+ */
+
+#include "Barrier.h"
+
+Barrier* Barrier::barrier;
+
+Barrier::Barrier()
+{
+	SetCorner();
+	barrier = this;
+	rotation = 0;
+}
+
+Barrier::~Barrier()
+{
+	barrier = NULL;
+}
+
+/**
+ * Sets the point in box based on the coordinate of the center of the barrier
+ */
+void Barrier::SetCorner()
+{
+	Point center = FindCenter();
+	box.SetPoint(center.GetX() - DIAMETER/2, center.GetY() - DIAMETER/2);
+}
+
+/**
+ * Find the center of the barrier, which is located in the middle of the 2 characters
+ */
+Point Barrier::FindCenter()
+{
+	Point thor = Thor::characterThor->box.GetCenter();
+	Point loki = Loki::characterLoki->box.GetCenter();
+	Point center;
+
+	float Y, y; //Y > y
+	float X, x; //X > x
+
+	//sees where is the greater Y value
+	if (thor.GetY() > loki.GetY())
+		Y = thor.GetY(), y = loki.GetY();
+	else
+		Y = loki.GetY(), y = thor.GetY();
+	//sees where is the greater X value
+	if (thor.GetX() > loki.GetX())
+		X = thor.GetX(), x = loki.GetX();
+	else
+		X = loki.GetX(), x = thor.GetX();
+
+	center.SetPoint((X-x)/2 + x,(Y-y)/2 + y);
+	return(center);
+}
+
+void Barrier::Update(float dt)
+{
+	SetCorner();
+}
+
+void Barrier::Render() {}
+/**
+ * Should not have to colide with anything
+ */
+void Barrier::NotifyCollision(GameObject& other){}
+
+bool Barrier::IsDead()
+{
+	return(false);
+}
+bool Barrier::Is(std::string type)
+{
+	return type == "Barrier" ? true : false;
+}
