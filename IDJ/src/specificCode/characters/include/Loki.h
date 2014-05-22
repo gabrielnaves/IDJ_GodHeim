@@ -8,10 +8,10 @@
 #ifndef LOKI_H_
 #define LOKI_H_
 
+#include "../../../engine/include/InputManager.h"
 #include "../../../engine/include/GameObject.h"
 #include "../../../engine/include/Sprite.h"
 #include "../../../engine/include/Camera.h"
-
 
 class Loki : public GameObject
 {
@@ -24,10 +24,19 @@ class Loki : public GameObject
 	void NotifyCollision(GameObject& other);
 	bool IsDead();
 	bool Is(std::string type);
+	static Loki *characterLoki;
 
   private:
 	int hp;
 	Sprite tempLoki;
+
+	int horizontal;
+	int vertical;
+
+	const float vel = 100;
+
+	void Input();
+	void Move(float dt);
 };
 
 #endif /* LOKI_H_ */
