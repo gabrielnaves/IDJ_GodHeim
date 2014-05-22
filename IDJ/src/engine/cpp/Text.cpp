@@ -19,20 +19,7 @@ Text::Text(std::string fontFile, int fontSize, TextStyle style,
     texture = NULL;
     font = NULL;
 
-    std::string key = fontFile + std::to_string(fontSize);
-    if (Resource::assetTable.find(key) == Resource::assetTable.end())
-    {
-        font = TTF_OpenFont(fontFile.c_str(), fontSize);
-        if (font == NULL)
-            std::cerr << "ERROR! " << SDL_GetError() << std::endl;
-        Resource resource(font);
-        Resource::assetTable.emplace(key, resource);
-    }
-    else
-    {
-        font = Resource::assetTable.at(key).data.font;
-        Resource::assetTable.at(key).userCount++;
-    }
+    EmplaceFont();
     if (font != NULL)
         RemakeTexture();
 }
