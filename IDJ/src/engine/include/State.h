@@ -3,6 +3,9 @@
  *
  *  Created on: May 3, 2014
  *      Author: Gabriel Naves
+ *
+ *  Description: Implements a basic interface of the behavior and communication of a state of the game
+ *
  */
 
 #ifndef STATE_H_

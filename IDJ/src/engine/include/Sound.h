@@ -3,6 +3,9 @@
  *
  *  Created on: May 4, 2014
  *      Author: Gabriel Naves
+ *
+ *  Description: Manages the sounds of the game.
+ *
  */
 
 #ifndef SOUND_H_

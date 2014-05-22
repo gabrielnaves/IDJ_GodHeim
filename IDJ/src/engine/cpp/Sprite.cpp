@@ -40,8 +40,8 @@ Sprite::Sprite(const Sprite& sp)
 
 Sprite::Sprite(std::string file, int frameCount, float frameTime, bool repeat)
 {
-    texture = NULL;
     scaleX = scaleY = 1;
+    texture = NULL;
     timeElapsed = 0;
     currentFrame = 1;
     this->frameCount = frameCount;
@@ -61,30 +61,30 @@ void Sprite::Open(std::string file)
     if (texture != NULL)
     	Resource::assetTable.at(fileName).userCount--;
     fileName = file;
+    //if the image does not exist in the table of assets, sets the texture to the one of the given image
     if (Resource::assetTable.find(file) == Resource::assetTable.end())
     {
         texture = IMG_LoadTexture(Game::GetInstance().GetRenderer(), file.c_str());
+        //checks for eventual errors
         if (texture == NULL)
             std::cerr << "ERROR! " << SDL_GetError() << std::endl;
         Resource resource(texture);
-        Resource::assetTable.emplace(file, resource);
+        Resource::assetTable.emplace(file, resource); //puts the new texture in the hash map
     }
     else
     {
-        texture = Resource::assetTable.at(file).data.texture;
-        Resource::assetTable.at(file).userCount++;
+        texture = Resource::assetTable.at(file).data.texture; //if the image already exists, copies it into texture
+        Resource::assetTable.at(file).userCount++; //adds to the count of users of that image
     }
 
+    //this sets the widght and height of the picture into dimensions
     SDL_QueryTexture(texture, 0, 0, &dimensions.w, &dimensions.h);
     SetClip(0, 0 , dimensions.w/frameCount, dimensions.h);
 }
 
 void Sprite::SetClip(int x, int y, int w, int h)
 {
-    clipRect.x = x;
-    clipRect.y = y;
-    clipRect.w = w;
-    clipRect.h = h;
+    clipRect.x = x; clipRect.y = y; clipRect.w = w; clipRect.h = h;
 }
 
 void Sprite::Update(float dt)
@@ -104,10 +104,11 @@ void Sprite::Update(float dt)
 
 void Sprite::Render(int x, int y, float angle)
 {
+	/*Angle is given in degrees*/
     SDL_Rect dstrect = dimensions;
     dstrect.x = x;
     dstrect.y = y;
-    dstrect.w = clipRect.w * scaleX;
+    	dstrect.w = clipRect.w * scaleX;
     dstrect.h = clipRect.h * scaleY;
 
     SDL_RenderCopyEx(Game::GetInstance().GetRenderer(), texture, &clipRect,

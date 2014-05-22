@@ -3,6 +3,9 @@
  *
  *  Created on: Mar 22, 2014
  *      Author: Gabriel Naves
+ *
+ *  Description: Loads and renders an image
+ *
  */
 
 #ifndef SPRITE_H_

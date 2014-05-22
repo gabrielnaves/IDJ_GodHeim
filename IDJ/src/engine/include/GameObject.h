@@ -3,6 +3,9 @@
  *
  *  Created on: Mar 28, 2014
  *      Author: Gabriel Naves
+ *
+ *	Description: Sets all the characteristics of an object
+ *
  */
 
 #ifndef GAMEOBJECT_H_

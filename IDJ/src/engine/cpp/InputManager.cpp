@@ -14,9 +14,7 @@
 InputManager::InputManager()
 {
     for (int i = 0; i < N_MOUSE_BUTTONS; i++)
-    {
         mouseState[i] = RELEASED;
-    }
     quitGame = false;
     mouseX = 0, mouseY = 0;
 }
@@ -25,6 +23,7 @@ InputManager::~InputManager(){}
 
 InputManager& InputManager::GetInstance()
 {
+	/*Utilizes Meyers' Singleton*/
     static InputManager inputManager;
     return inputManager;
 }
@@ -37,8 +36,9 @@ void InputManager::Update()
 {
     SDL_Event event;
 
-    SDL_GetMouseState(&mouseX, &mouseY);
+    SDL_GetMouseState(&mouseX, &mouseY); //updates the coordinates of the mouse
     quitGame = false;
+    //runs the map and sees which elements are pressed and released
     for (auto it = keyState.begin(); it != keyState.end(); ++it)
     {
         if (it->second == JUST_PRESSED)
@@ -46,7 +46,7 @@ void InputManager::Update()
         else if (it->second == JUST_RELEASED)
             it->second = RELEASED;
     }
-
+    //does the same for the array
     for (int i = 0; i < N_MOUSE_BUTTONS; ++i)
     {
         if (mouseState[i] == JUST_PRESSED)
@@ -55,6 +55,7 @@ void InputManager::Update()
             mouseState[i] = RELEASED;
     }
 
+    //if there is an event yet to be processed, returns true and stores in event. else, returns false
     while (SDL_PollEvent(&event))
     {
         switch (event.type)
@@ -69,7 +70,7 @@ void InputManager::Update()
                 mouseState[event.button.button] = JUST_RELEASED;
                 break;
             case SDL_KEYDOWN:
-                if (event.key.repeat) break;
+                if (event.key.repeat) break; //so a pressed key will not behave as if it were pressed many times
                 keyState[event.key.keysym.sym] = JUST_PRESSED;
                 break;
             case SDL_KEYUP:

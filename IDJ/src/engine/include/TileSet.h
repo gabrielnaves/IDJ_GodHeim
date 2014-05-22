@@ -3,6 +3,9 @@
  *
  *  Created on: Apr 4, 2014
  *      Author: Gabriel Naves
+ *
+ *  Description: Responsible for storing the tiles used for rendering the TileMap
+ *
  */
 
 #ifndef TILESET_H_

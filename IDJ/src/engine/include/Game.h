@@ -3,6 +3,9 @@
  *
  *  Created on: May 3, 2014
  *      Author: Gabriel Naves
+ *
+ *  Description: Has the main loop of the game. Manages all the states.
+ *
  */
 
 #ifndef GAME_H_

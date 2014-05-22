@@ -3,6 +3,10 @@
  *
  *  Created on: Apr 20, 2014
  *      Author: Gabriel Naves
+ *
+ *  Description: Class that determines the position of the camera in the game, as well as how fast it moves.
+ *  			 Has the option of following an object, so the camera will always be fixed on it.
+ *
  */
 
 #ifndef CAMERA_H_

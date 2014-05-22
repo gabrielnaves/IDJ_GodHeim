@@ -3,6 +3,9 @@
  *
  *  Created on: Apr 24, 2014
  *      Author: Gabriel Naves
+ *
+ *  Description: Work with tiles as a block.
+ *
  */
 
 #ifndef BLOCKTILESET_H_
@@ -18,6 +21,7 @@ class BlockTileSet : public TileSet
     void Render(unsigned int index, int x, int y);
 
   private:
+    Point FindMatrixPos(unsigned int index);
     Sprite tileSet;
     int rows, columns;
 };

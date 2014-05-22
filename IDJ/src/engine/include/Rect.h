@@ -3,6 +3,9 @@
  *
  *  Created on: Mar 28, 2014
  *      Author: Gabriel Naves
+ *
+ *  Description: Expresses a position (upper left corner of the rectangle) and dimensions of the rectangle
+ *
  */
 
 #ifndef RECT_H_

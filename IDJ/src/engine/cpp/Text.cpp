@@ -81,12 +81,10 @@ void Text::SetStyle(TextStyle style)
     RemakeTexture();
 }
 
-void Text::SetFontSize(int fontSize)
+/*Emplaces a font in the hash map*/
+void Text::EmplaceFont()
 {
-    Resource::assetTable.at(fontFile+std::to_string(this->fontSize)).userCount--;
-    this->fontSize = fontSize;
-
-    std::string key = fontFile + std::to_string(fontSize);
+    std::string key = fontFile + std::to_string(fontSize); //a key is composed of the fontSize and its name
     if (Resource::assetTable.find(key) == Resource::assetTable.end())
     {
         font = TTF_OpenFont(fontFile.c_str(), fontSize);
@@ -100,6 +98,13 @@ void Text::SetFontSize(int fontSize)
         font = Resource::assetTable.at(key).data.font;
         Resource::assetTable.at(key).userCount++;
     }
+}
+
+void Text::SetFontSize(int fontSize)
+{
+    Resource::assetTable.at(fontFile+std::to_string(this->fontSize)).userCount--;
+    this->fontSize = fontSize;
+    EmplaceFont();
     if (font != NULL)
         RemakeTexture();
 }
@@ -113,7 +118,7 @@ void Text::RemakeTexture()
             surface = TTF_RenderText_Solid(font, text.c_str(), color);
             break;
         case TEXT_SHADED:
-            surface = TTF_RenderText_Shaded(font, text.c_str(), color, SDL_Color());
+            surface = TTF_RenderText_Shaded(font, text.c_str(), color, SDL_Color()); //empty constructor SDL_COLOR() returns black
             break;
         case TEXT_BLENDED:
             surface = TTF_RenderText_Blended (font, text.c_str(), color);

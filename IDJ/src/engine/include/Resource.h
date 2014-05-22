@@ -3,6 +3,10 @@
  *
  *  Created on: May 3, 2014
  *      Author: Gabriel Naves
+ *
+ *  Description: Has a union so the elements texture, music, chunk and font may be all used and cleared in the same way
+ *  			 Has a hash map that allocates all these different elements
+ *
  */
 
 #ifndef RESOURCE_H_

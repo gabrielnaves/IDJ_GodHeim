@@ -3,6 +3,9 @@
  *
  *  Created on: May 4, 2014
  *      Author: Gabriel Naves
+ *
+ *  Description: A text that has a font type, size, and a color.
+ *
  */
 
 #ifndef TEXT_H_
@@ -30,6 +33,7 @@ class Text
     void SetFontSize(int fontSize);
 
   private:
+    void EmplaceFont();
     void RemakeTexture();
 
     TTF_Font* font;

@@ -3,6 +3,9 @@
  *
  *  Created on: May 4, 2014
  *      Author: Gabriel Naves
+ *
+ *  Description: Has the information that must be shared between states.
+ *
  */
 
 #ifndef STATEDATA_H_

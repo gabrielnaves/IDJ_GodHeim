@@ -18,6 +18,7 @@ StillAnimation::StillAnimation(float x, float y, float rotation, Sprite sprite, 
 void StillAnimation::Update(float dt)
 {
     sp.Update(dt);
+    //Updates the timer for finite animations
     if (oneTimeOnly)
         endTimer.Update(dt);
 }

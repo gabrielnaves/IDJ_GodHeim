@@ -40,18 +40,20 @@ void Sound::Open(std::string file)
     if (chunk != NULL)
         Resource::assetTable.at(file).userCount--;
     this->file = file;
+    //if the music does not exist in the table of assets, loads it now
     if (Resource::assetTable.find(file) == Resource::assetTable.end())
     {
         chunk = Mix_LoadWAV(file.c_str());
+        //checks for eventual errors
         if (chunk == NULL)
             std::cerr << "ERROR! " << SDL_GetError() << std::endl;
         Resource resource(chunk);
-        Resource::assetTable.emplace(file, resource);
+        Resource::assetTable.emplace(file, resource); //puts the new resource in the hash map
     }
     else
     {
-        chunk = Resource::assetTable.at(file).data.chunk;
-        Resource::assetTable.at(file).userCount++;
+        chunk = Resource::assetTable.at(file).data.chunk; //if the sound already exists, copies it into chunk
+        Resource::assetTable.at(file).userCount++; //adds to the count of users of that sound
     }
 }
 

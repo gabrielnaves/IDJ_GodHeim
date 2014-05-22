@@ -21,27 +21,35 @@ void BlockTileSet::Open(std::string file)
     columns = tileSet.GetWidth();
 }
 
+/**
+ * Returns the matrix position equivalent to the given index of the vector
+ */
+Point BlockTileSet::FindMatrixPos(unsigned int index)
+{
+	++index;
+    int quocient = index / (columns/tileWidth);
+    int remainder = index % (columns/tileWidth);
+
+    if (remainder == 0)
+    {
+        remainder = (columns/tileWidth);
+        quocient--;
+    }
+    remainder--;
+	return(Point (remainder*tileWidth,quocient*tileHeight));
+}
+
+
 void BlockTileSet::Render(unsigned int index, int x, int y)
 {
     if (index >= 0 && (int)index < (columns/tileWidth)*(rows/tileHeight))
     {
-        int tilePosX = 0, tilePosY = 0, quocient, remainder;
+    	//Sets the position of the tile, so the program can render it
+    	Point tilePos;
+    	tilePos = tilePos + FindMatrixPos(index);
 
-        ++index;
-        quocient = index / (columns/tileWidth);
-        remainder = index % (columns/tileWidth);
-
-        if (remainder == 0)
-        {
-            remainder = (columns/tileWidth);
-            quocient--;
-        }
-        remainder--;
-
-        tilePosX = tilePosX + remainder * tileWidth;
-        tilePosY = tilePosY + quocient * tileHeight;
-
-        tileSet.SetClip(tilePosX, tilePosY, tileWidth, tileHeight);
+    	//Clips and renders.
+        tileSet.SetClip(tilePos.GetX(), tilePos.GetY(), tileWidth, tileHeight);
         tileSet.Render(x, y);
     }
 }

@@ -3,6 +3,9 @@
  *
  *  Created on: Mar 28, 2014
  *      Author: Gabriel Naves
+ *
+ *  Description: Expresses a position of a point in 2D
+ *
  */
 
 #ifndef POINT_H_
@@ -31,6 +34,7 @@ class Point
 	Point operator+(const Point& rhs) const;
     Point operator-(const Point& rhs) const;
     Point operator*(const float rhs) const;
+    Point operator/(const float rhs) const;
 
   private:
 	float x, y;

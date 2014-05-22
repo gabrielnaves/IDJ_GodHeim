@@ -3,6 +3,10 @@
  *
  *  Created on: Apr 4, 2014
  *      Author: Gabriel Naves
+ *
+ *  Description: Simulates a 3D matrix, representing the map and its layers.
+ *  			 It contains, in each position, an index of tile in TileSet
+ *
  */
 
 #ifndef TILEMAP_H_

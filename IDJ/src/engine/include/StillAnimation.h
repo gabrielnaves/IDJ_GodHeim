@@ -3,6 +3,9 @@
  *
  *  Created on: May 2, 2014
  *      Author: Gabriel Naves
+ *
+ *  Description: Executes an animation without interacting with other objects
+ *
  */
 
 #ifndef STILLANIMATION_H_

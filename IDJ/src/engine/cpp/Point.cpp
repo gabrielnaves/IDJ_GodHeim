@@ -93,3 +93,9 @@ Point Point::operator*(const float rhs) const
 {
     return Point(x * rhs, y * rhs);
 }
+
+Point Point::operator/(const float rhs) const
+{
+	//beware: does not treat divisions by 0
+    return Point(x / rhs, y / rhs);
+}

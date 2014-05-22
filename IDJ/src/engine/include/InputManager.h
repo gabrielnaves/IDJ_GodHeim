@@ -3,6 +3,9 @@
  *
  *  Created on: Apr 11, 2014
  *      Author: Gabriel Naves
+ *
+ *  Description: Class that manages inputs of the keyboard and mouse.
+ *
  */
 
 #ifndef INPUTMANAGER_H_

@@ -3,6 +3,9 @@
  *
  *  Created on: May 4, 2014
  *      Author: Gabriel Naves
+ *
+ *  Description: Manages the musics that will be played in the game. Only one music may be played at a time.
+ *
  */
 
 #ifndef MUSIC_H_

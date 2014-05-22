@@ -3,6 +3,9 @@
  *
  *  Created on: May 2, 2014
  *      Author: Gabriel Naves
+ *
+ *  Description: A time counter;
+ *
  */
 
 #ifndef TIMER_H_

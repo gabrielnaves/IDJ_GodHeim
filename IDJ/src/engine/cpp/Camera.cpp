@@ -38,7 +38,7 @@ void Camera::Update(float dt)
 {
     if (focus)
     {
-        pos.SetPoint(focus->box.GetCenter());
+        pos.SetPoint(focus->box.GetCenter()); //sets the position of the camera on the center of the focus
         pos = pos + Point(-512, -300);
     }
     else
@@ -46,6 +46,7 @@ void Camera::Update(float dt)
         InputManager &im = InputManager::GetInstance();
         float hm = 0, vm = 0;
 
+        //sets the directions in which the camera must move
         if (im.IsKeyDown(RIGHT_ARROW_KEY) || im.KeyPress(RIGHT_ARROW_KEY))
             hm = hm + 1;
         if (im.IsKeyDown(LEFT_ARROW_KEY) || im.KeyPress(LEFT_ARROW_KEY))
@@ -55,6 +56,8 @@ void Camera::Update(float dt)
         if (im.IsKeyDown(UP_ARROW_KEY) || im.KeyPress(UP_ARROW_KEY))
             vm = vm - 1;
 
+        //updates the position of the camera in the directions asked
+        //remembering that the absolute value of the speed must be constant, even when moving diagonally
         pos = pos + Point(hm * (hm != 0 && vm != 0 ? speed * cos(M_PI/4) : speed) * dt,
                           vm * (hm != 0 && vm != 0 ? speed * cos(M_PI/4) : speed) * dt);
     }

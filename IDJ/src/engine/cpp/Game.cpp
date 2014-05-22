@@ -18,9 +18,10 @@ std::stack<std::unique_ptr<State>> Game::stateStack;
  */
 Game::Game(std::string title, int width, int height)
 {
-    if (Game::instance == NULL) instance = this;
+    if (Game::instance == NULL) instance = this; //instances the class
     else std::cerr << "ERROR! Instance not NULL!" << std::endl, exit(1);
 
+    //initializes the SDL library
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER) != 0)
         std::cerr << SDL_GetError() << std::endl, exit (1);
 
@@ -31,6 +32,7 @@ Game::Game(std::string title, int width, int height)
 
     renderer  = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
+    //makes sure the window and the renderer were created correctly. if not, exits the game
     if (window == NULL || renderer == NULL)
         std::cerr << "ERROR! Could not create window and/or renderer!" << std::endl, exit (1);
 
@@ -43,7 +45,7 @@ Game::Game(std::string title, int width, int height)
     if (TTF_Init() != 0)
         std::cerr << SDL_GetError() << std::endl, exit(1);
 
-    srand(time(NULL));
+    srand(time(NULL)); //initializes the seed so the function rand() can be called anywhere in the program
     frameStart = SDL_GetTicks();
     dt = 0;
     storedState  = NULL;

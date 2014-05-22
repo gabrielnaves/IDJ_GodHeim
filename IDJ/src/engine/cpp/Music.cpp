@@ -39,18 +39,20 @@ void Music::Open(std::string file)
     if (music != NULL)
         Resource::assetTable.at(file).userCount--;
     this->file = file;
+    //if the music does not exist in the table of assets, loads it now
     if (Resource::assetTable.find(file) == Resource::assetTable.end())
     {
         music = Mix_LoadMUS(file.c_str());
+        //checks for eventual errors
         if (music == NULL)
             std::cerr << "ERROR! " << SDL_GetError() << std::endl;
         Resource resource(music);
-        Resource::assetTable.emplace(file, resource);
+        Resource::assetTable.emplace(file, resource); //puts the new resource in the hash map
     }
     else
     {
-        music = Resource::assetTable.at(file).data.music;
-        Resource::assetTable.at(file).userCount++;
+        music = Resource::assetTable.at(file).data.music; //if the music already exists, copies it into music
+        Resource::assetTable.at(file).userCount++; //adds to the count of users of that music
     }
 }
 
