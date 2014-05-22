@@ -29,23 +29,19 @@ void Loki::Input()
 {
 	InputManager &input = InputManager::GetInstance();
 	//sets the directions in which the camera must move
-	if (input.KeyPress(RIGHT_ARROW_KEY) || input.IsKeyDown(RIGHT_ARROW_KEY))
+	if (input.KeyPress(SDLK_d) || input.IsKeyDown(SDLK_d))
 		horizontal+=1;
-	if (input.KeyPress(LEFT_ARROW_KEY) || input.IsKeyDown(LEFT_ARROW_KEY))
+	if (input.KeyPress(SDLK_a) || input.IsKeyDown(SDLK_a))
 		horizontal-=1;
-	if (input.KeyPress(UP_ARROW_KEY) || input.IsKeyDown(UP_ARROW_KEY))
+	if (input.KeyPress(SDLK_w) || input.IsKeyDown(SDLK_w))
 		vertical-=1;
-	if (input.KeyPress(DOWN_ARROW_KEY) || input.IsKeyDown(DOWN_ARROW_KEY))
+	if (input.KeyPress(SDLK_s) || input.IsKeyDown(SDLK_s))
 		vertical+=1;
 }
 
 void Loki::Move(float dt)
 {
 	float linearSpeed;
-	vertical = 0;
-	horizontal = 0;
-
-	Input();
 
 	if (vertical!=0 && horizontal!=0) //in case the camera moves diagonally
 		//must reduce the speed of x and y so the absolute value of the vectorial speed is constant
@@ -54,10 +50,14 @@ void Loki::Move(float dt)
 		linearSpeed=vel;
 
 	box.MoveRect(linearSpeed*horizontal*dt,linearSpeed*vertical*dt);
+
+	vertical = 0;
+	horizontal = 0;
 }
 
 void Loki::Update(float dt)
 {
+	Input();
 	Move(dt);
 }
 

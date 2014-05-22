@@ -12,6 +12,7 @@
 #include "../../../engine/include/State.h"
 #include "../../../engine/include/Sprite.h"
 #include "../../characters/include/Loki.h"
+#include "../../characters/include/Thor.h"
 #include "../../../engine/include/BlockTileSet.h"
 #include "../../../engine/include/TileMap.h"
 

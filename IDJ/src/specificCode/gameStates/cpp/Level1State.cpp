@@ -15,6 +15,7 @@ Level1State::Level1State() : State(), tileSet(55,55,"img/tiles2.png"),
     Loki *loki = new Loki(600,408);
     Camera::Follow(loki);
     objectArray.emplace_back(loki);
+    objectArray.emplace_back(new Thor(400,408));
 }
 
 Level1State::~Level1State()
