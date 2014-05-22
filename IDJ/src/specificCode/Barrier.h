@@ -21,6 +21,12 @@ class Barrier : public GameObject
 	Barrier();
 	virtual ~Barrier();
 
+	void Update(float dt);
+	void Render();
+	void NotifyCollision(GameObject& other);
+	bool IsDead();
+	bool Is(std::string type);
+
 	static Barrier* barrier;
 
 	void SetCorner();
