@@ -8,6 +8,7 @@
 #ifndef LEVEL1STATE_H_
 #define LEVEL1STATE_H_
 
+#include "../../../engine/include/Camera.h"
 #include "../../../engine/include/State.h"
 #include "../../../engine/include/Sprite.h"
 #include "../../characters/include/Loki.h"

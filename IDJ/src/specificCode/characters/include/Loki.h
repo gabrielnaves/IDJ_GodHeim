@@ -10,12 +10,13 @@
 
 #include "../../../engine/include/GameObject.h"
 #include "../../../engine/include/Sprite.h"
+#include "../../../engine/include/Camera.h"
 
 
 class Loki : public GameObject
 {
   public:
-	Loki();
+	Loki(float x, float y);
 	~Loki();
 
 	void Update(float dt);
@@ -26,6 +27,7 @@ class Loki : public GameObject
 
   private:
 	int hp;
+	Sprite tempLoki;
 };
 
 #endif /* LOKI_H_ */

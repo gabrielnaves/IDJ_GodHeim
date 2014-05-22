@@ -17,6 +17,7 @@
 
 #include "GameObject.h"
 #include "InputManager.h"
+#include "Game.h"
 
 class Camera
 {

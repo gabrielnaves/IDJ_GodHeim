@@ -19,9 +19,9 @@ Level1State::~Level1State()
 
 void Level1State::Update(float dt)
 {
+	UpdateArray(dt);
 	Camera::Update(dt);
 	Input();
-	UpdateArray(dt);
 }
 
 void Level1State::Render()

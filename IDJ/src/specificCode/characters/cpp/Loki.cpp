@@ -7,10 +7,12 @@
 
 #include "../include/Loki.h"
 
-Loki::Loki()
+Loki::Loki(float x, float y)
 {
 	hp = 100;
 	rotation = 0;
+	tempLoki.Open("img/tempLoki.jpg");
+	box.SetRect(x-tempLoki.GetWidth()/2, y-tempLoki.GetHeight()/2, tempLoki.GetWidth(), tempLoki.GetHeight());
 }
 
 Loki::~Loki()
@@ -20,12 +22,11 @@ Loki::~Loki()
 
 void Loki::Update(float dt)
 {
-
 }
 
 void Loki::Render()
 {
-
+	tempLoki.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY());
 }
 
 void Loki::NotifyCollision(GameObject& other)

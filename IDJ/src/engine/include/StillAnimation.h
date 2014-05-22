@@ -13,6 +13,7 @@
 
 #include "GameObject.h"
 #include "Sprite.h"
+#include "Camera.h"
 #include "Timer.h"
 
 class StillAnimation : public GameObject

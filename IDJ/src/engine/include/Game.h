@@ -11,7 +11,7 @@
 #ifndef GAME_H_
 #define GAME_H_
 
-#include "Camera.h"
+#include "InputManager.h"
 #include "State.h"
 #include "Resource.h"
 
@@ -28,6 +28,9 @@ class Game
     void Push(State* state);
     void Run();
 
+    int GetWindowWidth();
+    int GetWindowHeight();
+
   private:
     int frameStart;
     float dt;
@@ -36,6 +39,7 @@ class Game
 
     static Game* instance;
 
+    int windowWidth, windowHeight;
     State* storedState;
     SDL_Window* window;
     SDL_Renderer* renderer;

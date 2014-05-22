@@ -49,6 +49,8 @@ Game::Game(std::string title, int width, int height)
     frameStart = SDL_GetTicks();
     dt = 0;
     storedState  = NULL;
+
+    windowWidth = width, windowHeight = height;
 }
 
 /**
@@ -146,3 +148,9 @@ int Game::ManageStates()
         return 1;
     return 0;
 }
+
+/**
+ * Returns the window dimensions.
+ */
+int Game::GetWindowWidth() { return windowWidth; }
+int Game::GetWindowHeight() { return windowHeight; }

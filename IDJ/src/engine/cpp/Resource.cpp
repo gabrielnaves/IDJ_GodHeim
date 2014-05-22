@@ -37,6 +37,10 @@ Resource::Resource(TTF_Font* font)
 	type = FONT;
 }
 
+/**
+ * Deallocates any unused resources (resources that no longer have
+ * users).
+ */
 void Resource::Clear()
 {
 	std::vector<std::string> filesToErase;
@@ -50,13 +54,13 @@ void Resource::Clear()
 					SDL_DestroyTexture(it->second.data.texture); // If a texture is allocated, destroy it.
 					break;
 				case MUSIC:
-					Mix_FreeMusic(it->second.data.music); // If a music is allocated, destroy it.
+					Mix_FreeMusic(it->second.data.music); // If a music is allocated, free it.
 					break;
 				case CHUNK:
-					Mix_FreeChunk(it->second.data.chunk); // If a chunk is allocated, destroy it.
+					Mix_FreeChunk(it->second.data.chunk); // If a chunk is allocated, free it.
 					break;
 				case FONT:
-					TTF_CloseFont(it->second.data.font); // If a font is allocated, destroy it.
+					TTF_CloseFont(it->second.data.font); // If a font is allocated, close it.
 					break;
 			}
 		}
