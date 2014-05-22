@@ -116,3 +116,20 @@ int TileMap::GetDepth()
 {
     return mapDepth;
 }
+
+/**
+ * Returns the index of the tile corresponding to a given pixel position.
+ * If the given point is outside the limits of the map, returns -2.
+ * (-1 means that there is no tile).
+ */
+int TileMap::GetTile(int x, int y, int layer)
+{
+    if (x < 0 || x > mapWidth*tileSet->GetTileWidth()) return -2;
+    if (y < 0 || y > mapHeight*tileSet->GetTileHeight()) return -2;
+    int x_index=0, y_index=0;
+    for (int i = 1; x >= tileSet->GetTileWidth()*i; i++)
+        x_index++;
+    for (int i = 1; y >= tileSet->GetTileHeight()*i; i++)
+        y_index++;
+    return At(x_index, y_index, layer);
+}

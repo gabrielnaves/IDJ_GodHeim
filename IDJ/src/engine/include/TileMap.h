@@ -28,6 +28,7 @@ class TileMap
     int GetWidth();
     int GetHeight();
     int GetDepth();
+    int GetTile(int x, int y, int layer = 0);
 
   private:
     std::vector<int> tileMatrix;
