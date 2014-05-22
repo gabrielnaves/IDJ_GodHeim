@@ -29,11 +29,10 @@ class Barrier : public GameObject
 
 	static Barrier* barrier;
 
-	void SetCorner();
+	Point GetCorner();
+	const float DIAMETER = 500;
   private:
 	Point FindCenter();
-
-	const float DIAMETER = 500;
 };
 
 #endif /* BARRIER_H_ */

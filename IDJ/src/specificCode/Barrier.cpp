@@ -11,9 +11,9 @@ Barrier* Barrier::barrier;
 
 Barrier::Barrier()
 {
-	SetCorner();
-	barrier = this;
+	box.SetRect(GetCorner(),DIAMETER,DIAMETER);
 	rotation = 0;
+	barrier = this;
 }
 
 Barrier::~Barrier()
@@ -24,10 +24,9 @@ Barrier::~Barrier()
 /**
  * Sets the point in box based on the coordinate of the center of the barrier
  */
-void Barrier::SetCorner()
+Point Barrier::GetCorner()
 {
-	Point center = FindCenter();
-	box.SetPoint(center.GetX() - DIAMETER/2, center.GetY() - DIAMETER/2);
+	return (Point(FindCenter().GetX() - DIAMETER/2, FindCenter().GetY() - DIAMETER/2));
 }
 
 /**
@@ -59,7 +58,7 @@ Point Barrier::FindCenter()
 
 void Barrier::Update(float dt)
 {
-	SetCorner();
+	box.SetPoint(GetCorner());
 }
 
 void Barrier::Render() {}

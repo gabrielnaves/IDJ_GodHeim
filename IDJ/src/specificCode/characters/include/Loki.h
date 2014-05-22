@@ -12,6 +12,8 @@
 #include "../../../engine/include/GameObject.h"
 #include "../../../engine/include/Sprite.h"
 #include "../../../engine/include/Camera.h"
+#include "../../Barrier.h"
+#include <cmath>
 
 class Loki : public GameObject
 {

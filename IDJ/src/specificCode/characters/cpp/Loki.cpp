@@ -49,7 +49,13 @@ void Loki::Move(float dt)
 	else
 		linearSpeed=vel;
 
-	box.MoveRect(linearSpeed*horizontal*dt,linearSpeed*vertical*dt);
+	float dx = linearSpeed*horizontal*dt;
+	float dy = linearSpeed*vertical*dt;
+
+//	if (abs(box.GetCenter().GetX() + dx - Barrier::barrier->box.GetCenter().GetX()) >= Barrier::barrier->DIAMETER/2)
+//		dx = 0;
+
+	box.MoveRect(dx,dy);
 
 	vertical = 0;
 	horizontal = 0;
