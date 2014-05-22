@@ -33,7 +33,7 @@ class Loki : public GameObject
 	int horizontal;
 	int vertical;
 
-	const float vel = 100;
+	const float vel = 200;
 
 	void Input();
 	void Move(float dt);

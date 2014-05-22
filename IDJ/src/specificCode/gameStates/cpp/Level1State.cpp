@@ -12,6 +12,9 @@ Level1State::Level1State() : State(), tileSet(55,55,"img/tiles2.png"),
 {
 	tempBlackBackground.Open("img/Canvas Master.png");
     bg.Open("img/background primeira fase tamanho total.png");
+    Loki *loki = new Loki(600,408);
+    Camera::Follow(loki);
+    objectArray.emplace_back(loki);
 }
 
 Level1State::~Level1State()
