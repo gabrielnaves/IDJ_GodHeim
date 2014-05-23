@@ -8,14 +8,9 @@
 #ifndef LOKI_H_
 #define LOKI_H_
 
-#include "../../../engine/include/InputManager.h"
-#include "../../../engine/include/GameObject.h"
-#include "../../../engine/include/Sprite.h"
-#include "../../../engine/include/Camera.h"
-#include "../../Barrier.h"
-#include <cmath>
+#include "Character.h"
 
-class Loki : public GameObject
+class Loki : public Character
 {
   public:
 	Loki(float x, float y);
@@ -23,25 +18,12 @@ class Loki : public GameObject
 
 	void Update(float dt);
 	void Render();
-	void NotifyCollision(GameObject& other);
-	bool IsDead();
 	bool Is(std::string type);
+	void NotifyCollision(GameObject& other);
 	static Loki *characterLoki;
 
   private:
-	int hp;
-	Sprite tempLoki;
-
-	int horizontal;
-	int vertical;
-
-	const float vel = 200;
-
-	void Input();
 	void Move(float dt);
-	void Walk(float dt);
-	void Jump(float dt);
-	bool HasReachedBarrier(float dx, float dy);
 };
 
 #endif /* LOKI_H_ */
