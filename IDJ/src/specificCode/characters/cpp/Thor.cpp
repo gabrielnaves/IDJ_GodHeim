@@ -18,6 +18,7 @@ Thor::Thor(float x, float y, MovementMap movementMap) : movementMap(movementMap)
 	characterThor = this;
 	horizontal = 0;
 	vertical = 0;
+	state = STANDING;
 }
 
 Thor::~Thor()
