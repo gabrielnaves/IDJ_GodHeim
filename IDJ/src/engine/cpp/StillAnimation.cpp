@@ -9,7 +9,7 @@
 
 StillAnimation::StillAnimation(float x, float y, float rotation, Sprite sprite, float timeLimit, bool ends) : sp(sprite)
 {
-    box.SetRect(x-sp.GetWidth()/2, y-sp.GetHeight()/2, sp.GetWidth(), sp.GetHeight());
+    box.Set(x-sp.GetWidth()/2, y-sp.GetHeight()/2, sp.GetWidth(), sp.GetHeight());
     this->rotation = rotation;
     this->timeLimit = timeLimit;
     oneTimeOnly = ends;

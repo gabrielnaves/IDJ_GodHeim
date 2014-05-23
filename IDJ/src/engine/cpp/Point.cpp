@@ -14,16 +14,16 @@ Point::Point()
 
 Point::Point(float x, float y)
 {
-	SetPoint(x, y);
+	Set(x, y);
 }
 
-void Point::SetPoint(float x, float y)
+void Point::Set(float x, float y)
 {
 	this->x = x;
 	this->y = y;
 }
 
-void Point::SetPoint(const Point& point)
+void Point::Set(const Point& point)
 {
     x = point.x;
     y = point.y;

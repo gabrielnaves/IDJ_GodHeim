@@ -38,7 +38,7 @@ void Camera::Update(float dt)
 {
     if (focus)
     {
-        pos.SetPoint(focus->box.GetCenter()); //sets the position of the camera on the center of the focus
+        pos.Set(focus->box.Center()); //sets the position of the camera on the center of the focus
         pos = pos + Point(-Game::GetInstance().GetWindowWidth()/2, -Game::GetInstance().GetWindowHeight()/2);
     }
     else

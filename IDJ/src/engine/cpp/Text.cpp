@@ -117,5 +117,5 @@ void Text::RemakeTexture()
     SDL_FreeSurface (surface);
     int width, height;
     SDL_QueryTexture(texture, 0, 0, &width, &height);
-    box.SetRect(box.GetPoint(), width, height);
+    box.Set(box.GetPoint(), width, height);
 }

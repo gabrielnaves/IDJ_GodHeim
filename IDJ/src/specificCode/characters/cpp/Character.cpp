@@ -17,15 +17,15 @@ Character::Character(MovementMap movMap) : movementMap(movMap)
 
 bool Character::HasReachedBarrier(float dx, float dy)
 {
-    float x_distance = box.GetCenter().GetX() + dx - Barrier::barrier->box.GetCenter().GetX();
-    float y_distance = box.GetCenter().GetY() + dy - Barrier::barrier->box.GetCenter().GetY();
+    float x_distance = box.Center().GetX() + dx - Barrier::barrier->box.Center().GetX();
+    float y_distance = box.Center().GetY() + dy - Barrier::barrier->box.Center().GetY();
     float distance = sqrt(pow(x_distance,2)+pow(y_distance,2));
     return (distance >= Barrier::barrier->DIAMETER/2 ? true : false);
 }
 
 void Character::Walk(float dt)
 {
-    speed.SetPoint(VEL*horizontal,0);
+    speed.Set(VEL*horizontal,0);
     float dx = speed.GetX()*dt;
     if (HasReachedBarrier(dx,0))
         dx = 0;

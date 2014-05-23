@@ -19,12 +19,12 @@ class Rect
 	Rect();
 	Rect(Point point, float w, float h);
 	Rect(float x, float y, float w, float h);
-	void SetRect(float x, float y, float w, float h);
-	void SetRect(Point point, float w, float h);
+	void Set(float x, float y, float w, float h);
+	void Set(Point point, float w, float h);
 	void SetPoint(Point point);
 	void SetPoint(float x, float y);
 
-	Point GetCenter() const;
+	Point Center() const;
 	Point GetPoint() const;
 	float GetX() const;
 	float GetY() const;

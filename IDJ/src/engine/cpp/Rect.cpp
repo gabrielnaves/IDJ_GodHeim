@@ -9,42 +9,42 @@
 
 Rect::Rect()
 {
-	p.SetPoint(0, 0);
+	p.Set(0, 0);
 	w = 0, h = 0;
 }
 
 Rect::Rect(Point point, float w, float h)
 {
-    SetRect(point, w, h);
+    Set(point, w, h);
 }
 
 Rect::Rect(float x, float y, float w, float h)
 {
-	SetRect(x, y, w, h);
+	Set(x, y, w, h);
 }
 
-void Rect::SetRect(float x, float y, float w, float h)
+void Rect::Set(float x, float y, float w, float h)
 {
-	p.SetPoint(x, y);
+	p.Set(x, y);
 	this->w = w;
 	this->h = h;
 }
 
-void Rect::SetRect(Point point, float w, float h)
+void Rect::Set(Point point, float w, float h)
 {
-    p.SetPoint(point);
+    p.Set(point);
     this->w = w;
     this->h = h;
 }
 
 void Rect::SetPoint(Point point)
 {
-    p.SetPoint(point);
+    p.Set(point);
 }
 
 void Rect::SetPoint(float x, float y)
 {
-    p.SetPoint(x, y);
+    p.Set(x, y);
 }
 
 Point Rect::GetPoint() const { return p; }
@@ -76,7 +76,7 @@ bool Rect::IsInside(Point point)
 /**
  * Returns the position of the center of the rectangle.
  */
-Point Rect::GetCenter() const
+Point Rect::Center() const
 {
     return Point((p.GetX()+w/2), (p.GetY()+h/2));
 }

@@ -11,7 +11,7 @@ Barrier* Barrier::barrier;
 
 Barrier::Barrier()
 {
-	box.SetRect(GetCorner(),DIAMETER,DIAMETER);
+	box.Set(GetCorner(),DIAMETER,DIAMETER);
 	rotation = 0;
 	barrier = this;
 }
@@ -34,8 +34,8 @@ Point Barrier::GetCorner()
  */
 Point Barrier::FindCenter()
 {
-	Point thor = Thor::characterThor->box.GetCenter();
-	Point loki = Loki::characterLoki->box.GetCenter();
+	Point thor = Thor::characterThor->box.Center();
+	Point loki = Loki::characterLoki->box.Center();
 	Point center;
 
 	float Y, y; //Y > y
@@ -52,7 +52,7 @@ Point Barrier::FindCenter()
 	else
 		X = loki.GetX(), x = thor.GetX();
 
-	center.SetPoint((X-x)/2 + x,(Y-y)/2 + y);
+	center.Set((X-x)/2 + x,(Y-y)/2 + y);
 	return(center);
 }
 

@@ -19,8 +19,8 @@ class Point
 	Point();
 	Point(float x, float y);
 
-	void SetPoint(float x, float y);
-	void SetPoint(const Point& point);
+	void Set(float x, float y);
+	void Set(const Point& point);
 
 	float GetX() const;
 	float GetY() const;

@@ -14,7 +14,7 @@ Thor::Thor(float x, float y, MovementMap movMap) : Character(movMap)
     hp = 100;
     rotation = 0;
     tempCharacterSp.Open("img/tempThor.jpg");
-    box.SetRect(x-tempCharacterSp.GetWidth()/2, y-tempCharacterSp.GetHeight()/2, tempCharacterSp.GetWidth(), tempCharacterSp.GetHeight());
+    box.Set(x-tempCharacterSp.GetWidth()/2, y-tempCharacterSp.GetHeight()/2, tempCharacterSp.GetWidth(), tempCharacterSp.GetHeight());
     characterThor = this;
     horizontal = 0;
     vertical = 0;
