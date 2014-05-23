@@ -13,7 +13,7 @@ Thor::Thor(float x, float y)
 {
 	hp = 100;
 	rotation = 0;
-	tempThor.Open("img/penguinface.png");
+	tempThor.Open("img/tempThor.jpg");
 	box.SetRect(x-tempThor.GetWidth()/2, y-tempThor.GetHeight()/2, tempThor.GetWidth(), tempThor.GetHeight());
 	characterThor = this;
 	horizontal = 0;
