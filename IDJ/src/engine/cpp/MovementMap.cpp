@@ -90,15 +90,14 @@ int& MovementMap::At(int x, int y)
 }
 
 /**
- * Returns true if the point given is in
- * Returns the index of the tile corresponding to a given pixel position.
- * If the given point is outside the limits of the map, returns -2.
- * (-1 means that there is no tile).
+ * Returns true if the value of the tile corresponding to
+ * a given pixel position is 0, false if the value of the tile is 1.
+ * If the given point is outside the limits of the map, returns false.
  */
 bool MovementMap::IsZero(int x, int y)
 {
-    if (x < 0 || x > mapWidth*tileWidth) return -2;
-    if (y < 0 || y > mapHeight*tileHeight) return -2;
+    if (x < 0 || x > mapWidth*tileWidth) return false;
+    if (y < 0 || y > mapHeight*tileHeight) return false;
     int x_index=0, y_index=0;
     for (int i = 1; x >= tileWidth*i; i++)
         x_index++;
