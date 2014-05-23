@@ -18,7 +18,8 @@ bool Character::HasReachedBarrier(float dx, float dy)
 
 void Character::Walk(float dt)
 {
-	float dx = vel*horizontal*dt;
+	speed.SetPoint(VEL*horizontal,0);
+	float dx = speed.GetX()*dt;
 	if (HasReachedBarrier(dx,0))
 		dx = 0;
 	box.MoveRect(dx,0);
@@ -27,7 +28,7 @@ void Character::Walk(float dt)
 
 void Character::Jump(float dt)
 {
-	float dy = vel*vertical*dt;
+	float dy = VEL*vertical*dt;
 	if (HasReachedBarrier(0,dy))
 		dy = 0;
 	box.MoveRect(0,dy);

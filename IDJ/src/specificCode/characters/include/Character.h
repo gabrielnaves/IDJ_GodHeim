@@ -27,15 +27,16 @@ class Character : public GameObject
 	bool IsDead();
 
   protected:
-	enum State {STANDING, WALKING, JUMPING};
+	enum State {STANDING, JUMPING, MOVING_RIGHT, MOVING_LEFT};
 	int hp;
 	Sprite tempCharacterSp;
+	Point speed;
 
 	State state;
 	int horizontal;
 	int vertical;
 
-	const float vel = 200;
+	const float VEL = 200;
 
 	virtual void Move(float dt) = 0;
 	void Walk(float dt);
