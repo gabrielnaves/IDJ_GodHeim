@@ -15,6 +15,11 @@ MovementMap::MovementMap(std::string file, const TileSet& tileSet, int layer)
     BuildMovementMap(file, layer);
 }
 
+/**
+ * Builds the movement map. The movement map consists of a
+ * two-dimensional integer matrix, with values that can be 0 or 1,
+ * 1 for the spaces on the map that cannot be walked into, 0 for the rest.
+ */
 void MovementMap::BuildMovementMap(std::string file, int layer)
 {
     std::ifstream mapFile;
@@ -28,10 +33,8 @@ void MovementMap::BuildMovementMap(std::string file, int layer)
     std::string str;
     char a;
     int mapDepth;
-    mapFile >> this->mapWidth;
-    mapFile >> a;
-    mapFile >> this->mapHeight;
-    mapFile >> a;
+    mapFile >> this->mapWidth; mapFile >> a;
+    mapFile >> this->mapHeight; mapFile >> a;
     mapFile >> mapDepth;
     getline(mapFile, str);
     getline(mapFile, str);
@@ -72,9 +75,34 @@ void MovementMap::BuildMovementMap(std::string file, int layer)
         i = 0;
         ++j;
     }
+
+    for (i = 0; i < (int)movementMatrix.size(); i++)
+        if (movementMatrix[i] == -1)
+        {
+            std::cout << "Error! The movement map was not built correctly." << std::endl;
+            break;
+        }
 }
 
 int& MovementMap::At(int x, int y)
 {
     return movementMatrix[x + mapWidth * y];
+}
+
+/**
+ * Returns true if the point given is in
+ * Returns the index of the tile corresponding to a given pixel position.
+ * If the given point is outside the limits of the map, returns -2.
+ * (-1 means that there is no tile).
+ */
+bool MovementMap::IsZero(int x, int y)
+{
+    if (x < 0 || x > mapWidth*tileWidth) return -2;
+    if (y < 0 || y > mapHeight*tileHeight) return -2;
+    int x_index=0, y_index=0;
+    for (int i = 1; x >= tileWidth*i; i++)
+        x_index++;
+    for (int i = 1; y >= tileHeight*i; i++)
+        y_index++;
+    return At(x_index, y_index) == 0 ? true : false;
 }

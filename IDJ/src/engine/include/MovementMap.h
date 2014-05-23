@@ -15,6 +15,7 @@ class MovementMap
   public:
     MovementMap(std::string file, const TileSet& tileSet, int layer = 0);
     int& At(int x, int y);
+    bool IsZero(int x, int y);
 
   private:
     void BuildMovementMap(std::string file, int layer);

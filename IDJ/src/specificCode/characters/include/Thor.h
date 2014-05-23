@@ -30,6 +30,7 @@ class Thor : public GameObject
   private:
 	int hp;
 	Sprite tempThor;
+	MovementMap movementMap;
 
 	int horizontal;
 	int vertical;
