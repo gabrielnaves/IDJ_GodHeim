@@ -39,6 +39,9 @@ class Loki : public GameObject
 
 	void Input();
 	void Move(float dt);
+	void Walk(float dt);
+	void Jump(float dt);
+	bool HasReachedBarrier(float dx, float dy);
 };
 
 #endif /* LOKI_H_ */
