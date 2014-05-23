@@ -11,12 +11,12 @@ TileSet::~TileSet()
 {
 }
 
-int TileSet::GetTileWidth()
+int TileSet::GetTileWidth() const
 {
     return tileWidth;
 }
 
-int TileSet::GetTileHeight()
+int TileSet::GetTileHeight() const
 {
     return tileHeight;
 }

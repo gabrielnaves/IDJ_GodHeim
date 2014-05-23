@@ -15,6 +15,7 @@
 #include "../../characters/include/Thor.h"
 #include "../../../engine/include/BlockTileSet.h"
 #include "../../../engine/include/TileMap.h"
+#include "../../../engine/include/MovementMap.h"
 
 class Level1State: public State
 {

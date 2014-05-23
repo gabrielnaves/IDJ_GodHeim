@@ -9,7 +9,7 @@
 
 Thor* Thor::characterThor;
 
-Thor::Thor(float x, float y)
+Thor::Thor(float x, float y, MovementMap movementMap)
 {
 	hp = 100;
 	rotation = 0;

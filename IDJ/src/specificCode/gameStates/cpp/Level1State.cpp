@@ -14,7 +14,7 @@ Level1State::Level1State() : State(), tileSet(55,55,"img/tiles2.png"),
     bg.Open("img/background primeira fase tamanho total.png");
 
     objectArray.emplace_back(new Loki(600,408));
-    objectArray.emplace_back(new Thor(400,408));
+    objectArray.emplace_back(new Thor(400,408, MovementMap("map/firstLevelMap.txt", tileSet)));
     Barrier *barrier = new Barrier();
     Camera::Follow(barrier);
     objectArray.emplace_back(barrier);

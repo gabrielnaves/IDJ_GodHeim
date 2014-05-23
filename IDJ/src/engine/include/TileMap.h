@@ -25,9 +25,9 @@ class TileMap
     void Render(int cameraX = 0, int cameraY = 0);
     void RenderLayer(int layer, int cameraX = 0, int cameraY = 0);
 
-    int GetWidth();
-    int GetHeight();
-    int GetDepth();
+    int GetWidth() const;
+    int GetHeight() const;
+    int GetDepth() const;
     int GetTile(int x, int y, int layer = 0);
 
   private:

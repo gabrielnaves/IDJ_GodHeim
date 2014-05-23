@@ -22,8 +22,8 @@ class TileSet
     virtual ~TileSet();
     virtual void Open(std::string file) = 0;
     virtual void Render(unsigned int index, int x, int y) = 0;
-    int GetTileWidth();
-    int GetTileHeight();
+    int GetTileWidth() const;
+    int GetTileHeight() const;
 
   protected:
     int tileWidth;

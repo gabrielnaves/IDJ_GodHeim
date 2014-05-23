@@ -102,17 +102,17 @@ void TileMap::RenderLayer(int layer, int cameraX, int cameraY)
     }
 }
 
-int TileMap::GetWidth()
+int TileMap::GetWidth() const
 {
     return mapWidth;
 }
 
-int TileMap::GetHeight()
+int TileMap::GetHeight() const
 {
     return mapHeight;
 }
 
-int TileMap::GetDepth()
+int TileMap::GetDepth() const
 {
     return mapDepth;
 }

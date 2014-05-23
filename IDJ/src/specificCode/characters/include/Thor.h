@@ -12,11 +12,12 @@
 #include "../../../engine/include/GameObject.h"
 #include "../../../engine/include/Sprite.h"
 #include "../../../engine/include/Camera.h"
+#include "../../../engine/include/MovementMap.h"
 
 class Thor : public GameObject
 {
   public:
-	Thor(float x, float y);
+	Thor(float x, float y, MovementMap movementMap);
 	~Thor();
 
 	void Update(float dt);
