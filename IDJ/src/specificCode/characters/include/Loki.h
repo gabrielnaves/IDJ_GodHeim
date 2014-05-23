@@ -23,6 +23,7 @@ class Loki : public Character
 	static Loki *characterLoki;
 
   private:
+	void Input();
 	void Move(float dt);
 };
 

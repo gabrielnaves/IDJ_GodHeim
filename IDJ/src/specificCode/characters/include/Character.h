@@ -12,6 +12,7 @@
 #include "../../../engine/include/GameObject.h"
 #include "../../../engine/include/Sprite.h"
 #include "../../../engine/include/Camera.h"
+#include "../../../engine/include/MovementMap.h"
 #include <cmath>
 
 class Character : public GameObject
@@ -36,7 +37,6 @@ class Character : public GameObject
 
 	const float vel = 200;
 
-	void Input();
 	virtual void Move(float dt) = 0;
 	void Walk(float dt);
 	void Jump(float dt);

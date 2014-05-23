@@ -8,13 +8,9 @@
 #ifndef THOR_H_
 #define THOR_H_
 
-#include "../../../engine/include/InputManager.h"
-#include "../../../engine/include/GameObject.h"
-#include "../../../engine/include/Sprite.h"
-#include "../../../engine/include/Camera.h"
-#include "../../../engine/include/MovementMap.h"
+#include "Character.h"
 
-class Thor : public GameObject
+class Thor : public Character
 {
   public:
 	Thor(float x, float y, MovementMap movementMap);
@@ -23,20 +19,11 @@ class Thor : public GameObject
 	void Update(float dt);
 	void Render();
 	void NotifyCollision(GameObject& other);
-	bool IsDead();
 	bool Is(std::string type);
 	static Thor *characterThor;
 
   private:
-	int hp;
-	Sprite tempThor;
 	MovementMap movementMap;
-
-	int horizontal;
-	int vertical;
-
-	const float vel = 200;
-
 	void Input();
 	void Move(float dt);
 };

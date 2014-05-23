@@ -13,8 +13,8 @@ Thor::Thor(float x, float y, MovementMap movementMap) : movementMap(movementMap)
 {
 	hp = 100;
 	rotation = 0;
-	tempThor.Open("img/tempThor.jpg");
-	box.SetRect(x-tempThor.GetWidth()/2, y-tempThor.GetHeight()/2, tempThor.GetWidth(), tempThor.GetHeight());
+	tempCharacterSp.Open("img/tempThor.jpg");
+	box.SetRect(x-tempCharacterSp.GetWidth()/2, y-tempCharacterSp.GetHeight()/2, tempCharacterSp.GetWidth(), tempCharacterSp.GetHeight());
 	characterThor = this;
 	horizontal = 0;
 	vertical = 0;
@@ -37,22 +37,14 @@ void Thor::Input()
 		vertical-=1;
 	if (input.KeyPress(SDLK_k) || input.IsKeyDown(SDLK_k))
 		vertical+=1;
+	if (input.KeyPress(SDLK_u)) return; //TODO: action button
 }
+
 
 void Thor::Move(float dt)
 {
-	float linearSpeed;
-
-	if (vertical!=0 && horizontal!=0) //in case the camera moves diagonally
-		//must reduce the speed of x and y so the absolute value of the vectorial speed is constant
-		linearSpeed=vel/sqrt(pow(vertical,2)+pow(horizontal,2));
-	else
-		linearSpeed=vel;
-
-	box.MoveRect(linearSpeed*horizontal*dt,linearSpeed*vertical*dt);
-
-	vertical = 0;
-	horizontal = 0;
+	if (vertical!=0) Jump(dt);
+	if (horizontal!=0) Walk(dt);
 }
 
 void Thor::Update(float dt)
@@ -63,17 +55,12 @@ void Thor::Update(float dt)
 
 void Thor::Render()
 {
-	tempThor.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY());
+	tempCharacterSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY());
 }
 
 void Thor::NotifyCollision(GameObject& other)
 {
 
-}
-
-bool Thor::IsDead()
-{
-	return hp <= 0 ? true : false;
 }
 
 bool Thor::Is(std::string type)

@@ -26,6 +26,22 @@ Loki::~Loki()
 	characterLoki = NULL;
 }
 
+void Loki::Input()
+{
+	InputManager &input = InputManager::GetInstance();
+	//sets the directions in which the camera must move
+	if (input.KeyPress(SDLK_d) || input.IsKeyDown(SDLK_d))
+		horizontal+=1;
+	if (input.KeyPress(SDLK_a) || input.IsKeyDown(SDLK_a))
+		horizontal-=1;
+	if (input.KeyPress(SDLK_w) || input.IsKeyDown(SDLK_w))
+		vertical-=1;
+	if (input.KeyPress(SDLK_s) || input.IsKeyDown(SDLK_s))
+		vertical+=1;
+	if (input.KeyPress(SDLK_e)) return; //TODO: action button
+}
+
+
 void Loki::Move(float dt)
 {
 	if (vertical!=0) Jump(dt);
