@@ -9,54 +9,53 @@
 
 Thor* Thor::characterThor;
 
-Thor::Thor(float x, float y, MovementMap movementMap) : movementMap(movementMap)
+Thor::Thor(float x, float y, MovementMap movMap) : Character(movMap)
 {
-	hp = 100;
-	rotation = 0;
-	tempCharacterSp.Open("img/tempThor.jpg");
-	box.SetRect(x-tempCharacterSp.GetWidth()/2, y-tempCharacterSp.GetHeight()/2, tempCharacterSp.GetWidth(), tempCharacterSp.GetHeight());
-	characterThor = this;
-	horizontal = 0;
-	vertical = 0;
-	state = STANDING;
+    hp = 100;
+    rotation = 0;
+    tempCharacterSp.Open("img/tempThor.jpg");
+    box.SetRect(x-tempCharacterSp.GetWidth()/2, y-tempCharacterSp.GetHeight()/2, tempCharacterSp.GetWidth(), tempCharacterSp.GetHeight());
+    characterThor = this;
+    horizontal = 0;
+    vertical = 0;
 }
 
 Thor::~Thor()
 {
-	characterThor = NULL;
+    characterThor = NULL;
 }
 
 void Thor::Input()
 {
-	InputManager &input = InputManager::GetInstance();
-	//sets the directions in which the camera must move
-	if (input.KeyPress(SDLK_l) || input.IsKeyDown(SDLK_l))
-		horizontal+=1;
-	if (input.KeyPress(SDLK_j) || input.IsKeyDown(SDLK_j))
-		horizontal-=1;
-	if (input.KeyPress(SDLK_i) || input.IsKeyDown(SDLK_i))
-		vertical-=1;
-	if (input.KeyPress(SDLK_k) || input.IsKeyDown(SDLK_k))
-		vertical+=1;
-	if (input.KeyPress(SDLK_u)) return; //TODO: action button
+    InputManager &input = InputManager::GetInstance();
+    //sets the directions in which the camera must move
+    if (input.KeyPress(SDLK_l) || input.IsKeyDown(SDLK_l))
+        horizontal+=1;
+    if (input.KeyPress(SDLK_j) || input.IsKeyDown(SDLK_j))
+        horizontal-=1;
+    if (input.KeyPress(SDLK_i) || input.IsKeyDown(SDLK_i))
+        vertical-=1;
+    if (input.KeyPress(SDLK_k) || input.IsKeyDown(SDLK_k))
+        vertical+=1;
+    if (input.KeyPress(SDLK_u)) return; //TODO: action button
 }
 
 
 void Thor::Move(float dt)
 {
-	if (vertical!=0) Jump(dt);
-	if (horizontal!=0) Walk(dt);
+    if (vertical!=0) Jump(dt);
+    if (horizontal!=0) Walk(dt);
 }
 
 void Thor::Update(float dt)
 {
-	Input();
-	Move(dt);
+    Input();
+    Move(dt);
 }
 
 void Thor::Render()
 {
-	tempCharacterSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY());
+    tempCharacterSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY());
 }
 
 void Thor::NotifyCollision(GameObject& other)
@@ -66,5 +65,5 @@ void Thor::NotifyCollision(GameObject& other)
 
 bool Thor::Is(std::string type)
 {
-	return type == "Thor" ? true : false;
+    return type == "Thor" ? true : false;
 }

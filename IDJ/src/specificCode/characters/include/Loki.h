@@ -13,7 +13,7 @@
 class Loki : public Character
 {
   public:
-	Loki(float x, float y);
+	Loki(float x, float y, MovementMap movMap);
 	~Loki();
 
 	void Update(float dt);

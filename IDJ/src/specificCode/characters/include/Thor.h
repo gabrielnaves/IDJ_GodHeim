@@ -13,19 +13,18 @@
 class Thor : public Character
 {
   public:
-	Thor(float x, float y, MovementMap movementMap);
-	~Thor();
+    Thor(float x, float y, MovementMap movMap);
+    ~Thor();
 
-	void Update(float dt);
-	void Render();
-	void NotifyCollision(GameObject& other);
-	bool Is(std::string type);
-	static Thor *characterThor;
+    void Update(float dt);
+    void Render();
+    void NotifyCollision(GameObject& other);
+    bool Is(std::string type);
+    static Thor *characterThor;
 
   private:
-	MovementMap movementMap;
-	void Input();
-	void Move(float dt);
+    void Input();
+    void Move(float dt);
 };
 
 #endif /* THOR_H_ */

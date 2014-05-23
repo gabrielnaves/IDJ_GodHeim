@@ -10,10 +10,10 @@
 Level1State::Level1State() : State(), tileSet(55,55,"img/tiles2.png"),
                              tileMap("map/firstLevelMap.txt", &tileSet)
 {
-	tempBlackBackground.Open("img/Canvas Master.png");
+    tempBlackBackground.Open("img/Canvas Master.png");
     bg.Open("img/background primeira fase tamanho total.png");
 
-    objectArray.emplace_back(new Loki(600,408));
+    objectArray.emplace_back(new Loki(600,408, MovementMap("map/firstLevelMap.txt", tileSet)));
     objectArray.emplace_back(new Thor(400,408, MovementMap("map/firstLevelMap.txt", tileSet)));
     Barrier *barrier = new Barrier();
     Camera::Follow(barrier);
@@ -34,7 +34,7 @@ void Level1State::Update(float dt)
 
 void Level1State::Render()
 {
-	tempBlackBackground.Render(0, 0);
+    tempBlackBackground.Render(0, 0);
     bg.Render(-Camera::pos.GetX(),-Camera::pos.GetY());
     tileMap.RenderLayer(0,+Camera::pos.GetX(), +Camera::pos.GetY());
     RenderArray();

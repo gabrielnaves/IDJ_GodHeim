@@ -19,18 +19,18 @@
 class Level1State: public State
 {
   public:
-	Level1State();
-	~Level1State();
+    Level1State();
+    ~Level1State();
 
-	void Update(float dt);
-	void Render();
+    void Update(float dt);
+    void Render();
 
   private:
-	void Input();
+    void Input();
 
-	Sprite bg, tempBlackBackground;
-	BlockTileSet tileSet;
-	TileMap tileMap;
+    Sprite bg, tempBlackBackground;
+    BlockTileSet tileSet;
+    TileMap tileMap;
 };
 
 #endif /* LEVEL1STATE_H_ */

@@ -105,3 +105,10 @@ bool MovementMap::IsZero(int x, int y)
         y_index++;
     return At(x_index, y_index) == 0 ? true : false;
 }
+
+int MovementMap::FindXDistance(int x_pos, int y_pos)
+{
+    int distance = 0;
+
+    return distance;
+}
