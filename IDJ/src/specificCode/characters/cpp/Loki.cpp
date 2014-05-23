@@ -37,28 +37,39 @@ void Loki::Input()
 		vertical-=1;
 	if (input.KeyPress(SDLK_s) || input.IsKeyDown(SDLK_s))
 		vertical+=1;
+	if (input.KeyPress(SDLK_e)) return; //TODO: action button
+}
+
+bool Loki::HasReachedBarrier(float dx, float dy)
+{
+	float x_distance = box.GetCenter().GetX() + dx - Barrier::barrier->box.GetCenter().GetX();
+	float y_distance = box.GetCenter().GetY() + dy - Barrier::barrier->box.GetCenter().GetY();
+	float distance = sqrt(pow(x_distance,2)+pow(y_distance,2));
+	return (distance >= Barrier::barrier->DIAMETER/2 ? true : false);
+}
+
+void Loki::Walk(float dt)
+{
+	float dx = vel*horizontal*dt;
+	if (HasReachedBarrier(dx,0))
+		dx = 0;
+	box.MoveRect(dx,0);
+	horizontal = 0;
+}
+
+void Loki::Jump(float dt)
+{
+	float dy = vel*vertical*dt;
+	if (HasReachedBarrier(0,dy))
+		dy = 0;
+	box.MoveRect(0,dy);
+	vertical = 0;
 }
 
 void Loki::Move(float dt)
 {
-	float linearSpeed;
-
-	if (vertical!=0 && horizontal!=0) //in case the camera moves diagonally
-		//must reduce the speed of x and y so the absolute value of the vectorial speed is constant
-		linearSpeed=vel/sqrt(pow(vertical,2)+pow(horizontal,2));
-	else
-		linearSpeed=vel;
-
-	float dx = linearSpeed*horizontal*dt;
-	float dy = linearSpeed*vertical*dt;
-
-//	if (abs(box.GetCenter().GetX() + dx - Barrier::barrier->box.GetCenter().GetX()) >= Barrier::barrier->DIAMETER/2)
-//		dx = 0;
-
-	box.MoveRect(dx,dy);
-
-	vertical = 0;
-	horizontal = 0;
+	if (vertical!=0) Jump(dt);
+	if (horizontal!=0) Walk(dt);
 }
 
 void Loki::Update(float dt)
