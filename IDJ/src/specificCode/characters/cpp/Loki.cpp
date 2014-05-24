@@ -51,6 +51,7 @@ void Loki::Update(float dt)
 {
 	Input();
 	Move(dt);
+	CheckMovementLimits();
 }
 
 void Loki::Render()

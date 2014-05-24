@@ -32,6 +32,7 @@ class Character : public GameObject
     void Walk(float dt);
     void Jump(float dt);
     bool HasReachedBarrier(float dx, float dy);
+    void CheckMovementLimits();
 
     enum State { STANDING, JUMPING, MOVING_RIGHT, MOVING_LEFT };
     int hp;

@@ -45,6 +45,7 @@ void Thor::Move(float dt)
 {
     if (vertical!=0) Jump(dt);
     if (horizontal!=0) Walk(dt);
+    CheckMovementLimits();
 }
 
 void Thor::Update(float dt)
