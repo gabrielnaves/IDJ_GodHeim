@@ -56,22 +56,14 @@ void Character::CheckMovementLimits()
 {
     // Checks the right limit
     if (!movementMap.IsZero(box.Center().GetX() + box.GetW()/2, box.Center().GetY()))
-    {
         box.MoveRect(movementMap.FindXDistance(box.Center().GetX() + box.GetW()/2, box.Center().GetY()),0);
-    }
     // Checks the left limit
     if (!movementMap.IsZero(box.Center().GetX() - box.GetW()/2, box.Center().GetY()))
-    {
         box.MoveRect(movementMap.FindXDistance(box.Center().GetX() - box.GetW()/2, box.Center().GetY()),0);
-    }
     // Checks the above limit
     if (!movementMap.IsZero(box.Center().GetX(), box.Center().GetY() - box.GetH()/2))
-    {
         box.MoveRect(0,movementMap.FindYDistance(box.Center().GetX(), box.Center().GetY() - box.GetH()/2));
-    }
     // Checks the lower limit
     if (!movementMap.IsZero(box.Center().GetX(), box.Center().GetY() + box.GetH()/2))
-    {
         box.MoveRect(0,movementMap.FindYDistance(box.Center().GetX(), box.Center().GetY() + box.GetH()/2));
-    }
 }
