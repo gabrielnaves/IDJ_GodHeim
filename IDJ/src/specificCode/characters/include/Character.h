@@ -28,6 +28,7 @@ class Character : public GameObject
     bool IsDead();
 
   protected:
+    void UpdateSpeed(float dt);
     virtual void Move(float dt) = 0;
     void Walk(float dt);
     void Jump(float dt);
@@ -35,12 +36,13 @@ class Character : public GameObject
     void CheckMovementLimits();
 
     enum State { STANDING, JUMPING, MOVING_RIGHT, MOVING_LEFT };
+
+    State state;
     int hp;
     Sprite tempCharacterSp;
     MovementMap movementMap;
     Point speed;
 
-    State state;
     int horizontal;
     int vertical;
 

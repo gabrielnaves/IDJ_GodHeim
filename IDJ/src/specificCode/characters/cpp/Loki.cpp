@@ -50,6 +50,7 @@ void Loki::Move(float dt)
 void Loki::Update(float dt)
 {
 	Input();
+	UpdateSpeed(dt);
 	Move(dt);
 	CheckMovementLimits();
 }

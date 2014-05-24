@@ -23,6 +23,21 @@ bool Character::HasReachedBarrier(float dx, float dy)
     return (distance >= Barrier::barrier->DIAMETER/2 ? true : false);
 }
 
+void Character::UpdateSpeed(float dt)
+{
+	switch(state)
+	{
+		case STANDING:
+			break;
+		case JUMPING:
+			break;
+		case MOVING_RIGHT:
+			break;
+		case MOVING_LEFT:
+			break;
+	}
+}
+
 void Character::Walk(float dt)
 {
     speed.Set(VEL*horizontal,0);
