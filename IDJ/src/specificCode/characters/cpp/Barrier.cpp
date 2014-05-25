@@ -75,3 +75,11 @@ bool Barrier::Is(std::string type)
 {
 	return type == "Barrier" ? true : false;
 }
+
+bool Barrier::CollidesWith(Character *character)
+{
+    float x_distance = character->box.Center().GetX() - box.Center().GetX();
+    float y_distance = character->box.Center().GetY() - box.Center().GetY();
+    float distance = sqrt(pow(x_distance,2)+pow(y_distance,2));
+    return (distance >= DIAMETER/2 ? true : false);
+}

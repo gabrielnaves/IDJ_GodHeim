@@ -16,8 +16,6 @@ Thor::Thor(float x, float y, MovementMap movMap) : Character(movMap)
     tempCharacterSp.Open("img/tempThor.jpg");
     box.Set(x-tempCharacterSp.GetWidth()/2, y-tempCharacterSp.GetHeight()/2, tempCharacterSp.GetWidth(), tempCharacterSp.GetHeight());
     characterThor = this;
-    horizontal = 0;
-    vertical = 0;
 }
 
 Thor::~Thor()
@@ -25,7 +23,7 @@ Thor::~Thor()
     characterThor = NULL;
 }
 
-void Thor::Input()
+/*void Thor::Input()
 {
     InputManager &input = InputManager::GetInstance();
     //sets the directions in which the camera must move
@@ -40,17 +38,17 @@ void Thor::Input()
     if (input.KeyPress(SDLK_u)) return; //TODO: action button
 }
 
-
+*/
 void Thor::Move(float dt)
 {
-    if (vertical!=0) Jump(dt);
-    if (horizontal!=0) Walk(dt);
-    CheckMovementLimits();
+//    if (vertical!=0) Jump(dt);
+//    if (horizontal!=0) Walk(dt);
+//    CheckMovementLimits();
 }
 
 void Thor::Update(float dt)
 {
-    Input();
+    //Input();
     Move(dt);
 }
 

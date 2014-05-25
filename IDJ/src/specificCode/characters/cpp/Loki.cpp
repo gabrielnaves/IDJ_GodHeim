@@ -16,8 +16,6 @@ Loki::Loki(float x, float y, MovementMap movMap) : Character(movMap)
 	tempCharacterSp.Open("img/tempLoki.jpg");
 	box.Set(x-tempCharacterSp.GetWidth()/2, y-tempCharacterSp.GetHeight()/2, tempCharacterSp.GetWidth(), tempCharacterSp.GetHeight());
 	characterLoki = this;
-	horizontal = 0;
-	vertical = 0;
 }
 
 Loki::~Loki()
@@ -27,30 +25,30 @@ Loki::~Loki()
 
 void Loki::Input()
 {
+    int horizontal = 0;
 	InputManager &input = InputManager::GetInstance();
 	//sets the directions in which the camera must move
 	if (input.KeyPress(SDLK_d) || input.IsKeyDown(SDLK_d))
-		horizontal+=1;
+		horizontal += 1;
 	if (input.KeyPress(SDLK_a) || input.IsKeyDown(SDLK_a))
-		horizontal-=1;
-	if (input.KeyPress(SDLK_w) || input.IsKeyDown(SDLK_w))
-		vertical-=1;
-	if (input.KeyPress(SDLK_s) || input.IsKeyDown(SDLK_s))
-		vertical+=1;
-	if (input.KeyPress(SDLK_e)) return; //TODO: action button
+		horizontal -= 1;
+	UpdateHorizontalState(horizontal);
+
+	if (input.KeyPress(SDLK_w) and vState == STANDING)
+		vState = JUMPING;
 }
 
 
 void Loki::Move(float dt)
 {
-	if (vertical!=0) Jump(dt);
-	if (horizontal!=0) Walk(dt);
+    UpdateSpeed(dt);
+	if (vState == JUMPING) vState = FALLING;
+	box.MoveRect(speed.GetX()*dt,speed.GetY()*dt);
 }
 
 void Loki::Update(float dt)
 {
 	Input();
-	UpdateSpeed(dt);
 	Move(dt);
 	CheckMovementLimits();
 }

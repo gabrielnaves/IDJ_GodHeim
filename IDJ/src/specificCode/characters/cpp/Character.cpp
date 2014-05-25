@@ -11,50 +11,29 @@
 Character::Character(MovementMap movMap) : movementMap(movMap)
 {
     hp = 100;
-    vertical = horizontal = 0;
-    state = STANDING;
-}
-
-bool Character::HasReachedBarrier(float dx, float dy)
-{
-    float x_distance = box.Center().GetX() + dx - Barrier::barrier->box.Center().GetX();
-    float y_distance = box.Center().GetY() + dy - Barrier::barrier->box.Center().GetY();
-    float distance = sqrt(pow(x_distance,2)+pow(y_distance,2));
-    return (distance >= Barrier::barrier->DIAMETER/2 ? true : false);
+    vState = STANDING;
+    hState = STANDING_RIGHT;
 }
 
 void Character::UpdateSpeed(float dt)
 {
-	switch(state)
-	{
-		case STANDING:
-			break;
-		case JUMPING:
-			break;
-		case MOVING_RIGHT:
-			break;
-		case MOVING_LEFT:
-			break;
-	}
+    if (vState == STANDING) speed.Set(speed.GetX(),0);
+    else if (vState == JUMPING) speed.Set(speed.GetX(),JUMP_SPEED);
+    else if (vState == FALLING) speed = speed + Point(speed.GetX(),GRAVITY*dt);
+
+    if (hState == STANDING_LEFT or hState == STANDING_RIGHT) speed.Set(0,speed.GetY());
+    else if (hState == MOVING_RIGHT) speed.Set(VEL,speed.GetY());
+    else if (hState == MOVING_LEFT) speed.Set(-VEL,speed.GetY());
+
+    if (speed.GetY() >= MAX_FALLING_SPEED) speed.Set(speed.GetX(), MAX_FALLING_SPEED);
 }
 
 void Character::Walk(float dt)
 {
-    speed.Set(VEL*horizontal,0);
-    float dx = speed.GetX()*dt;
-    if (HasReachedBarrier(dx,0))
-        dx = 0;
-    box.MoveRect(dx,0);
-    horizontal = 0;
 }
 
 void Character::Jump(float dt)
 {
-    float dy = VEL*vertical*dt;
-    if (HasReachedBarrier(0,dy))
-        dy = 0;
-    box.MoveRect(0,dy);
-    vertical = 0;
 }
 
 void Character::NotifyCollision(GameObject& other)
@@ -65,6 +44,13 @@ void Character::NotifyCollision(GameObject& other)
 bool Character::IsDead()
 {
     return (hp <= 0 ? true : false);
+}
+
+void Character::UpdateHorizontalState(int horizontal)
+{
+    if (horizontal > 0) hState = MOVING_RIGHT;
+    else if (horizontal < 0) hState = MOVING_LEFT;
+    else (hState == MOVING_RIGHT or hState == STANDING_RIGHT) ? hState = STANDING_RIGHT : hState = STANDING_LEFT;
 }
 
 void Character::CheckMovementLimits()
@@ -80,5 +66,9 @@ void Character::CheckMovementLimits()
         box.MoveRect(0,movementMap.FindYDistance(box.Center().GetX(), box.Center().GetY() - box.GetH()/2));
     // Checks the lower limit
     if (!movementMap.IsZero(box.Center().GetX(), box.Center().GetY() + box.GetH()/2))
+    {
         box.MoveRect(0,movementMap.FindYDistance(box.Center().GetX(), box.Center().GetY() + box.GetH()/2));
+        vState = STANDING;
+    }
+    else vState = FALLING;
 }

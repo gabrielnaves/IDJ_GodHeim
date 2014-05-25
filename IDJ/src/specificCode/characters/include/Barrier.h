@@ -26,6 +26,7 @@ class Barrier : public GameObject
 	void NotifyCollision(GameObject& other);
 	bool IsDead();
 	bool Is(std::string type);
+	bool CollidesWith(Character *character);
 
 	static Barrier* barrier;
 

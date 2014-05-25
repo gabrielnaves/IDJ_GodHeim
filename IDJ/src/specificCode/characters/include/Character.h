@@ -29,24 +29,25 @@ class Character : public GameObject
 
   protected:
     void UpdateSpeed(float dt);
+    void UpdateHorizontalState(int horizontal);
     virtual void Move(float dt) = 0;
     void Walk(float dt);
     void Jump(float dt);
-    bool HasReachedBarrier(float dx, float dy);
     void CheckMovementLimits();
 
-    enum State { STANDING, JUMPING, MOVING_RIGHT, MOVING_LEFT };
-
-    State state;
+    enum VerticalState { STANDING, JUMPING, FALLING };
+    enum HorizontalState { STANDING_RIGHT, STANDING_LEFT, MOVING_RIGHT, MOVING_LEFT};
+    VerticalState vState;
+    HorizontalState hState;
     int hp;
     Sprite tempCharacterSp;
     MovementMap movementMap;
     Point speed;
 
-    int horizontal;
-    int vertical;
-
     const float VEL = 200;
+    const float JUMP_SPEED = -400;
+    const float GRAVITY = 1000;
+    const float MAX_FALLING_SPEED = 400;
 };
 
 #endif /* CHARACTER_H_ */
