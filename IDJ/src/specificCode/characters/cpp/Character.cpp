@@ -64,7 +64,7 @@ void Character::NotifyCollision(GameObject& other)
 
 bool Character::IsDead()
 {
-    return hp <= 0 ? true : false;
+    return (Thor::characterThor == NULL or Loki::characterLoki == NULL);
 }
 
 void Character::CheckMovementLimits()
