@@ -11,9 +11,9 @@
 #ifndef BARRIER_H_
 #define BARRIER_H_
 
-#include "../engine/include/GameObject.h"
-#include "characters/include/Thor.h"
-#include "characters/include/Loki.h"
+#include "../../../engine/include/GameObject.h"
+#include "Thor.h"
+#include "Loki.h"
 
 class Barrier : public GameObject
 {

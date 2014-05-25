@@ -11,7 +11,7 @@
 #include "../../../engine/include/Camera.h"
 #include "../../../engine/include/State.h"
 #include "../../../engine/include/Sprite.h"
-#include "../../Barrier.h"
+#include "../../characters/include/Barrier.h"
 #include "../../../engine/include/BlockTileSet.h"
 #include "../../../engine/include/TileMap.h"
 #include "../../../engine/include/MovementMap.h"

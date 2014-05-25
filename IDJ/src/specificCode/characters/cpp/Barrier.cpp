@@ -5,7 +5,7 @@
  *      Author: icaro
  */
 
-#include "Barrier.h"
+#include "../include/Barrier.h"
 
 Barrier* Barrier::barrier;
 

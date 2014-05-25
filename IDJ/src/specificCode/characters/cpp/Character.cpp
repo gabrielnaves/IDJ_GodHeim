@@ -6,7 +6,7 @@
  */
 
 #include "../include/Character.h"
-#include "../../Barrier.h"
+#include "../include/Barrier.h"
 
 Character::Character(MovementMap movMap) : movementMap(movMap)
 {
