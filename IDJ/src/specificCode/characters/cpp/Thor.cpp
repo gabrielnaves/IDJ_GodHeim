@@ -23,33 +23,34 @@ Thor::~Thor()
     characterThor = NULL;
 }
 
-/*void Thor::Input()
+void Thor::Input()
 {
+    int horizontal = 0;
     InputManager &input = InputManager::GetInstance();
     //sets the directions in which the camera must move
     if (input.KeyPress(SDLK_l) || input.IsKeyDown(SDLK_l))
-        horizontal+=1;
+        horizontal += 1;
     if (input.KeyPress(SDLK_j) || input.IsKeyDown(SDLK_j))
-        horizontal-=1;
-    if (input.KeyPress(SDLK_i) || input.IsKeyDown(SDLK_i))
-        vertical-=1;
-    if (input.KeyPress(SDLK_k) || input.IsKeyDown(SDLK_k))
-        vertical+=1;
-    if (input.KeyPress(SDLK_u)) return; //TODO: action button
+        horizontal -= 1;
+    UpdateHorizontalState(horizontal);
+
+    if (input.KeyPress(SDLK_i) and vState == STANDING)
+        vState = JUMPING;
 }
 
-*/
+
 void Thor::Move(float dt)
 {
-//    if (vertical!=0) Jump(dt);
-//    if (horizontal!=0) Walk(dt);
-//    CheckMovementLimits();
+    UpdateSpeed(dt);
+    if (vState == JUMPING) vState = FALLING;
+    box.MoveRect(speed.GetX()*dt,speed.GetY()*dt);
 }
 
 void Thor::Update(float dt)
 {
-    //Input();
+    Input();
     Move(dt);
+    CheckMovementLimits();
 }
 
 void Thor::Render()
