@@ -113,12 +113,12 @@ bool MovementMap::IsZero(int x, int y)
  * The distance will be negative if the closest valid tile is to the left
  * of the position, and positive if to the right.
  */
-int MovementMap::FindXDistance(int xPos, int yPos)
+float MovementMap::FindXDistance(float xPos, float yPos)
 {
     if (IsZero(xPos, yPos)) return 0;
     if ((yPos < 0 || yPos > mapHeight*tileHeight)) return 0;
-    int leftDistance = -999999, rightDistance = 999999;
-    int x = xPos;
+    float leftDistance = -999999, rightDistance = 999999;
+    float x = xPos;
     // Checks for closest position to the left
     while (x > 0)
     {
@@ -146,7 +146,7 @@ int MovementMap::FindXDistance(int xPos, int yPos)
             break;
         }
     }
-    return fabs(leftDistance) <= rightDistance ? leftDistance : rightDistance;
+    return abs(leftDistance) <= rightDistance ? leftDistance : rightDistance;
 }
 
 /**
@@ -156,12 +156,12 @@ int MovementMap::FindXDistance(int xPos, int yPos)
  * The distance will be negative if the closest valid tile is above
  * the position, and positive if below it.
  */
-int MovementMap::FindYDistance(int xPos, int yPos)
+float MovementMap::FindYDistance(float xPos, float yPos)
 {
     if (IsZero(xPos, yPos)) return 0;
     if ((xPos < 0 || xPos > mapWidth*tileWidth)) return 0;
-    int aboveDistance = -999999, belowDistance = 999999;
-    int y = yPos;
+    float aboveDistance = -999999, belowDistance = 999999;
+    float y = yPos;
     // Checks for closest position above
     while (y > 0)
     {
@@ -188,5 +188,5 @@ int MovementMap::FindYDistance(int xPos, int yPos)
             break;
         }
     }
-    return fabs(aboveDistance) <= belowDistance ? aboveDistance : belowDistance;
+    return abs(aboveDistance) <= belowDistance ? aboveDistance : belowDistance;
 }
