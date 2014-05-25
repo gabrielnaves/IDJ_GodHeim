@@ -9,6 +9,7 @@
 #define THOR_H_
 
 #include "Character.h"
+#include "Barrier.h"
 
 class Thor : public Character
 {

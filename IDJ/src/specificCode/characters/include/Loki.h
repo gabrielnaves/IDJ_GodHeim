@@ -9,6 +9,7 @@
 #define LOKI_H_
 
 #include "Character.h"
+#include "Barrier.h"
 
 class Loki : public Character
 {

@@ -13,13 +13,11 @@ Level1State::Level1State() : State(), tileSet(55,55,"img/tiles2.png"),
     tempBlackBackground.Open("img/Canvas Master.png");
     bg.Open("img/background primeira fase tamanho total.png");
 
-    Loki *loki = new Loki(70,100, MovementMap("map/firstLevelMap.txt", tileSet));
-    Camera::Follow(loki);
-    objectArray.emplace_back(loki);
+    objectArray.emplace_back(new Loki(70,100, MovementMap("map/firstLevelMap.txt", tileSet)));
     objectArray.emplace_back(new Thor(20,100, MovementMap("map/firstLevelMap.txt", tileSet)));
-    //Barrier *barrier = new Barrier();
-    //Camera::Follow(barrier);
-    //objectArray.emplace_back(barrier);
+    Barrier *barrier = new Barrier();
+    Camera::Follow(barrier);
+    objectArray.emplace_back(barrier);
 }
 
 Level1State::~Level1State()

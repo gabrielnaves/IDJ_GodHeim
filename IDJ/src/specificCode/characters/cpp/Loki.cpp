@@ -44,6 +44,7 @@ void Loki::Move(float dt)
     UpdateSpeed(dt);
 	if (vState == JUMPING) vState = FALLING;
 	box.MoveRect(speed.GetX()*dt,speed.GetY()*dt);
+	Barrier::barrier->CheckCollision(this);
 }
 
 void Loki::Update(float dt)

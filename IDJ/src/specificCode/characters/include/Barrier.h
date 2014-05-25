@@ -26,12 +26,12 @@ class Barrier : public GameObject
 	void NotifyCollision(GameObject& other);
 	bool IsDead();
 	bool Is(std::string type);
-	bool CollidesWith(Character *character);
+	void CheckCollision(Character* character);
 
 	static Barrier* barrier;
 
 	Point GetCorner();
-	const float DIAMETER = 500;
+	const float DIAMETER = 200;
   private:
 	Point FindCenter();
 };

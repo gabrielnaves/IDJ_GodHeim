@@ -71,15 +71,28 @@ bool Barrier::IsDead()
 {
 	return (Thor::characterThor == NULL or Loki::characterLoki == NULL);
 }
+
 bool Barrier::Is(std::string type)
 {
 	return type == "Barrier" ? true : false;
 }
 
-bool Barrier::CollidesWith(Character *character)
+void Barrier::CheckCollision(Character* character)
 {
-    float x_distance = character->box.Center().GetX() - box.Center().GetX();
-    float y_distance = character->box.Center().GetY() - box.Center().GetY();
-    float distance = sqrt(pow(x_distance,2)+pow(y_distance,2));
-    return (distance >= DIAMETER/2 ? true : false);
+    Character* other = NULL;
+    if (character->Is("Loki")) other = Thor::characterThor;
+    else other = Loki::characterLoki;
+    if (abs(character->box.GetX() - other->box.GetX()) > DIAMETER)
+    {
+        if (character->box.GetX() > other->box.GetX())
+            character->box.SetPoint(other->box.GetX() + DIAMETER, character->box.GetY());
+        else character->box.SetPoint(other->box.GetX() - DIAMETER, character->box.GetY());
+    }
+    if (abs(character->box.GetY() - other->box.GetY()) > DIAMETER)
+    {
+        if (character->box.GetY() > other->box.GetY())
+            character->box.SetPoint(character->box.GetX(), other->box.GetY() + DIAMETER);
+        else
+            character->box.SetPoint(character->box.GetX(), other->box.GetY() - DIAMETER);
+    }
 }
