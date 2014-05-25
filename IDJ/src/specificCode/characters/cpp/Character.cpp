@@ -15,6 +15,9 @@ Character::Character(MovementMap movMap) : movementMap(movMap)
     hState = STANDING_RIGHT;
 }
 
+/**
+ * Updates the vector speed accordingly to the state of the character.
+ */
 void Character::UpdateSpeed(float dt)
 {
     if (vState == STANDING) speed.Set(speed.GetX(),0);
@@ -46,6 +49,10 @@ bool Character::IsDead()
     return (hp <= 0 ? true : false);
 }
 
+/**
+ * Updates the state of the horizontal movement based on the input.
+ * If the user presses both the left and right buttons, the character will not move.
+ */
 void Character::UpdateHorizontalState(int horizontal)
 {
     if (horizontal > 0) hState = MOVING_RIGHT;
