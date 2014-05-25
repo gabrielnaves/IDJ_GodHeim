@@ -69,7 +69,7 @@ void Barrier::NotifyCollision(GameObject& other){}
 
 bool Barrier::IsDead()
 {
-	return(false);
+	return (Thor::characterThor == NULL or Loki::characterLoki == NULL);
 }
 bool Barrier::Is(std::string type)
 {
