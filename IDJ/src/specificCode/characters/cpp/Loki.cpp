@@ -3,6 +3,7 @@
  *
  *  Created on: May 19, 2014
  *      Author: Gabriel Naves
+ *              Icaro Mota
  */
 
 #include "../include/Loki.h"

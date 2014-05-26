@@ -2,7 +2,8 @@
  * Barrier.h
  *
  *  Created on: May 22, 2014
- *      Author: icaro
+ *      Author: Icaro Mota
+ *              Gabriel Naves
  *
  * Description: An object that keeps Thor and Loki from spliting up too much.
  *

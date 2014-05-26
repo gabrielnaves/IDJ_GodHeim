@@ -2,7 +2,8 @@
  * Character.cpp
  *
  *  Created on: May 23, 2014
- *      Author: icaro
+ *      Author: Icaro Mota
+ *              Gabriel Naves
  */
 
 #include "../include/Character.h"

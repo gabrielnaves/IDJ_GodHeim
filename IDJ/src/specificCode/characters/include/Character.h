@@ -2,7 +2,8 @@
  * Character.h
  *
  *  Created on: May 23, 2014
- *      Author: icaro
+ *      Author: Icaro Mota
+ *              Gabriel Naves
  */
 
 #ifndef CHARACTER_H_

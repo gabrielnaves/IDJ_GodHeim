@@ -2,7 +2,8 @@
  * Barrier.cpp
  *
  *  Created on: May 22, 2014
- *      Author: icaro
+ *      Author: Icaro Mota
+ *              Gabriel Naves
  */
 
 #include "../include/Barrier.h"
