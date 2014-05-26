@@ -31,9 +31,8 @@ class Character : public GameObject
     void UpdateSpeed(float dt);
     void UpdateHorizontalState(int horizontal);
     virtual void Move(float dt) = 0;
-    void Walk(float dt);
-    void Jump(float dt);
     void CheckMovementLimits();
+    virtual void UpdateSprite() = 0;
 
     enum VerticalState { STANDING, JUMPING, FALLING };
     enum HorizontalState { STANDING_RIGHT, STANDING_LEFT, MOVING_RIGHT, MOVING_LEFT};

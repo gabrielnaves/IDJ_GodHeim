@@ -50,6 +50,7 @@ void Loki::Move(float dt)
 void Loki::Update(float dt)
 {
 	Input();
+	UpdateSprite();
 	Move(dt);
 	CheckMovementLimits();
 }
@@ -67,4 +68,12 @@ void Loki::NotifyCollision(GameObject& other)
 bool Loki::Is(std::string type)
 {
 	return type == "Loki" ? true : false;
+}
+
+void Loki::UpdateSprite()
+{
+    if (hState == MOVING_RIGHT or hState == STANDING_RIGHT)
+        tempCharacterSp.Open("img/tempLokiinvertido.jpg");
+    else if (hState == MOVING_LEFT or hState == STANDING_LEFT)
+        tempCharacterSp.Open("img/tempLoki.jpg");
 }

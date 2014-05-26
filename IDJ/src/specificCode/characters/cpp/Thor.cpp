@@ -49,6 +49,7 @@ void Thor::Move(float dt)
 void Thor::Update(float dt)
 {
     Input();
+    UpdateSprite();
     Move(dt);
     CheckMovementLimits();
 }
@@ -66,4 +67,12 @@ void Thor::NotifyCollision(GameObject& other)
 bool Thor::Is(std::string type)
 {
     return type == "Thor" ? true : false;
+}
+
+void Thor::UpdateSprite()
+{
+    if (hState == MOVING_RIGHT or hState == STANDING_RIGHT)
+        tempCharacterSp.Open("img/tempThorinvertido.jpg");
+    else if (hState == MOVING_LEFT or hState == STANDING_LEFT)
+        tempCharacterSp.Open("img/tempThor.jpg");
 }

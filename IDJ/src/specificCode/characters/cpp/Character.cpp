@@ -31,14 +31,6 @@ void Character::UpdateSpeed(float dt)
     if (speed.GetY() >= MAX_FALLING_SPEED) speed.Set(speed.GetX(), MAX_FALLING_SPEED);
 }
 
-void Character::Walk(float dt)
-{
-}
-
-void Character::Jump(float dt)
-{
-}
-
 void Character::NotifyCollision(GameObject& other)
 {
 
