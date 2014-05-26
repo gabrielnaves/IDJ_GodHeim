@@ -25,6 +25,8 @@ class Loki : public Character
 	static Loki *characterLoki;
 
   private:
+	enum TransformState {LOKI, EAGLE};
+	TransformState appearance;
 	void Input();
 	void Move(float dt);
 	void UpdateSprite();

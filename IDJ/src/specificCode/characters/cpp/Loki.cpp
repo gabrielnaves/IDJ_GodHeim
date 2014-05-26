@@ -17,6 +17,7 @@ Loki::Loki(float x, float y, MovementMap movMap) : Character(movMap)
 	tempCharacterSp.Open("img/tempLoki.jpg");
 	box.Set(x-tempCharacterSp.GetWidth()/2, y-tempCharacterSp.GetHeight()/2, tempCharacterSp.GetWidth(), tempCharacterSp.GetHeight());
 	characterLoki = this;
+	appearance = LOKI;
 }
 
 Loki::~Loki()
@@ -37,6 +38,10 @@ void Loki::Input()
 
 	if (input.KeyPress(SDLK_w) and vState == STANDING)
 		vState = JUMPING;
+	if (input.KeyPress(SDLK_w) and vState == FALLING and appearance == LOKI){
+	    appearance = EAGLE;
+	    vState = JUMPING;
+	}
 }
 
 
@@ -54,6 +59,7 @@ void Loki::Update(float dt)
 	UpdateSprite();
 	Move(dt);
 	CheckMovementLimits();
+	if (vState == STANDING) appearance = LOKI;
 }
 
 void Loki::Render()
