@@ -30,6 +30,7 @@ class Loki : public Character
 	void Input();
 	void Move(float dt);
 	void UpdateSprite();
+	void UpdateEagleSpeed(float dt);
 };
 
 #endif /* LOKI_H_ */
