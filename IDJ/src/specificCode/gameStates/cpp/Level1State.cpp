@@ -38,8 +38,8 @@ void Level1State::Render()
 {
     tempBlackBackground.Render(0, 0);
     bg.Render(-Camera::pos.GetX(),-Camera::pos.GetY());
-    tileMap.RenderLayer(0,+Camera::pos.GetX(), +Camera::pos.GetY());
     rochas.Render(-Camera::pos.GetX(),-Camera::pos.GetY());
+    tileMap.RenderLayer(0,+Camera::pos.GetX(), +Camera::pos.GetY());
     RenderArray();
 }
 
