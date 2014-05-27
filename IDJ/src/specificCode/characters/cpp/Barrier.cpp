@@ -78,6 +78,9 @@ bool Barrier::Is(std::string type)
 	return type == "Barrier" ? true : false;
 }
 
+/**
+ * Does not allow the characters to have a distance bigger than DIAMETER in any direction
+ */
 void Barrier::CheckCollision(Character* character)
 {
     Character* other = NULL;
@@ -96,4 +99,16 @@ void Barrier::CheckCollision(Character* character)
         else
             character->box.SetPoint(character->box.GetX(), other->box.GetY() - DIAMETER);
     }
+}
+
+/**
+ * Returns true if the characters collide with the upper limit of the barrier.
+ */
+bool Barrier::CollidesAbove(Character* character)
+{
+    Character* other = NULL;
+    if (character->Is("Loki")) other = Thor::characterThor;
+    else other = Loki::characterLoki;
+
+    return(character->box.GetY() <= other->box.GetY() ? true : false);
 }

@@ -11,6 +11,7 @@
 
 #include "Character.h"
 #include "Barrier.h"
+#include "../../../engine/include/Timer.h"
 
 class Loki : public Character
 {
@@ -34,7 +35,7 @@ class Loki : public Character
 
     const float MAX_FALLING_SPEED_EAGLE = 100;
     const float EAGLE_JUMP_SPEED = -200;
-    const float EAGLE_GRAVITY = 200;
+    const float EAGLE_AIR_RESISTANCE = 200;
 };
 
 #endif /* LOKI_H_ */

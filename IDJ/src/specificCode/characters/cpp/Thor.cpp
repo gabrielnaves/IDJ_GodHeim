@@ -36,13 +36,14 @@ void Thor::Input()
     UpdateHorizontalState(horizontal);
 
     if (input.KeyPress(SDLK_i) and vState == STANDING)
-        vState = JUMPING;
+        vState = JUST_JUMPED;
 }
 
 void Thor::Move(float dt)
 {
     UpdateSpeed(dt);
-    if (vState == JUMPING) vState = FALLING;
+    if (vState == JUST_JUMPED) vState = JUMPING;
+    if (speed.GetY() > 0) vState = FALLING;
     box.MoveRect(speed.GetX()*dt,speed.GetY()*dt);
     Barrier::barrier->CheckCollision(this);
 }

@@ -36,21 +36,32 @@ void Loki::Input()
         horizontal -= 1;
     UpdateHorizontalState(horizontal);
 
-    if (input.KeyPress(SDLK_w) and vState == STANDING)
-        vState = JUMPING;
-    else if (input.KeyPress(SDLK_w) and vState == FALLING and appearance == LOKI)
+    if (appearance == LOKI)
     {
-        appearance = EAGLE;
-        speed.Set(speed.GetX(),0);
+        if (input.KeyPress(SDLK_w) and vState == STANDING)
+            vState = JUST_JUMPED;
+        else if (input.KeyPress(SDLK_w) and vState == FALLING)
+            appearance = EAGLE;
     }
-    else if (input.KeyPress(SDLK_w) and appearance == EAGLE)
-        vState = JUMPING;
+    else if (appearance == EAGLE)
+    {
+        if (input.KeyPress(SDLK_w))
+            vState = JUST_JUMPED;
+        else if (input.KeyPress(SDLK_s))
+            appearance = LOKI;
+    }
 }
 
 void Loki::UpdateEagleSpeed(float dt)
 {
-    if (vState == JUMPING) speed.Set(speed.GetX(),EAGLE_JUMP_SPEED);
-    else if (vState == FALLING) speed = speed + Point(speed.GetX(),(EAGLE_GRAVITY)*dt);
+    if (vState == JUST_JUMPED) speed.Set(speed.GetX(),EAGLE_JUMP_SPEED);
+    else if (vState == FALLING or vState == JUMPING)
+    {
+        if (Barrier::barrier->CollidesAbove(this)) //TODO: STILL NOT WORKING
+            speed = speed + Point(speed.GetX(),GRAVITY*dt);
+        else
+            speed = speed + Point(speed.GetX(),(GRAVITY - EAGLE_AIR_RESISTANCE)*dt);
+    }
 
     if (hState == STANDING_LEFT or hState == STANDING_RIGHT) speed.Set(0,speed.GetY());
     else if (hState == MOVING_RIGHT) speed.Set(VEL,speed.GetY());
@@ -63,8 +74,12 @@ void Loki::Move(float dt)
 {
     if (appearance == LOKI) UpdateSpeed(dt);
     if (appearance == EAGLE) UpdateEagleSpeed(dt);
-    if (vState == JUMPING and (Thor::characterThor->box.GetY() - box.GetY() >= Barrier::barrier->DIAMETER/2)) speed.Set(speed.GetX(),0);
-    if (vState == JUMPING) vState = FALLING;
+
+    if ((vState == JUMPING or vState == JUST_JUMPED) and (Thor::characterThor->box.GetY() - box.GetY() >= Barrier::barrier->DIAMETER))
+        speed.Set(speed.GetX(),0); //sets the Y speed to 0 when it hits the upper limmit of the barrier
+    if (vState == JUST_JUMPED) vState = JUMPING;
+    if (speed.GetY()>0) vState = FALLING;
+
     box.MoveRect(speed.GetX()*dt,speed.GetY()*dt);
     Barrier::barrier->CheckCollision(this);
 }
@@ -95,8 +110,13 @@ bool Loki::Is(std::string type)
 
 void Loki::UpdateSprite()
 {
-    if (hState == MOVING_RIGHT or hState == STANDING_RIGHT)
-        tempCharacterSp.Open("img/Characters/tempLokiInvertido.png");
-    else if (hState == MOVING_LEFT or hState == STANDING_LEFT)
-        tempCharacterSp.Open("img/Characters/tempLoki.jpg");
+    if (appearance == LOKI)
+    {
+        if (hState == MOVING_RIGHT or hState == STANDING_RIGHT)
+            tempCharacterSp.Open("img/Characters/tempLokiInvertido.png");
+        else if (hState == MOVING_LEFT or hState == STANDING_LEFT)
+            tempCharacterSp.Open("img/Characters/tempLoki.jpg");
+    }
+    else if (appearance == EAGLE)
+        tempCharacterSp.Open("img/Characters/aguia.png");
 }

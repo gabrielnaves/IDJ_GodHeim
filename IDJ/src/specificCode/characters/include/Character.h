@@ -27,6 +27,7 @@ class Character : public GameObject
 
     virtual void NotifyCollision(GameObject& other) = 0;
     bool IsDead();
+    Point GetSpeed();
 
   protected:
     void UpdateSpeed(float dt);
@@ -35,7 +36,7 @@ class Character : public GameObject
     void CheckMovementLimits();
     virtual void UpdateSprite() = 0;
 
-    enum VerticalState { STANDING, JUMPING, FALLING };
+    enum VerticalState { STANDING, JUST_JUMPED, JUMPING, FALLING };
     enum HorizontalState { STANDING_RIGHT, STANDING_LEFT, MOVING_RIGHT, MOVING_LEFT};
     VerticalState vState;
     HorizontalState hState;
@@ -47,7 +48,7 @@ class Character : public GameObject
     const float VEL = 200;
     const float JUMP_SPEED = -400;
     const float GRAVITY = 1000;
-    const float MAX_FALLING_SPEED = 400;
+    const float MAX_FALLING_SPEED = 600;
 };
 
 #endif /* CHARACTER_H_ */

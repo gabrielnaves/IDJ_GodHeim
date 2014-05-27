@@ -16,14 +16,19 @@ Character::Character(MovementMap movMap) : movementMap(movMap)
     hState = STANDING_RIGHT;
 }
 
+Point Character::GetSpeed()
+{
+    return(speed);
+}
+
 /**
  * Updates the vector speed accordingly to the state of the character.
  */
 void Character::UpdateSpeed(float dt)
 {
     if (vState == STANDING) speed.Set(speed.GetX(),0);
-    else if (vState == JUMPING) speed.Set(speed.GetX(),JUMP_SPEED);
-    else if (vState == FALLING) speed = speed + Point(speed.GetX(),GRAVITY*dt);
+    else if (vState == JUST_JUMPED) speed.Set(speed.GetX(),JUMP_SPEED);
+    else if (vState == FALLING or vState == JUMPING) speed = speed + Point(speed.GetX(),GRAVITY*dt);
 
     if (hState == STANDING_LEFT or hState == STANDING_RIGHT) speed.Set(0,speed.GetY());
     else if (hState == MOVING_RIGHT) speed.Set(VEL,speed.GetY());
