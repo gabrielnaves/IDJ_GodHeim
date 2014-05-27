@@ -14,7 +14,7 @@ Loki::Loki(float x, float y, MovementMap movMap) : Character(movMap)
 {
 	hp = 100;
 	rotation = 0;
-	tempCharacterSp.Open("img/tempLoki.jpg");
+	tempCharacterSp.Open("img/Characters/tempLoki.jpg");
 	box.Set(x-tempCharacterSp.GetWidth()/2, y-tempCharacterSp.GetHeight()/2, tempCharacterSp.GetWidth(), tempCharacterSp.GetHeight());
 	characterLoki = this;
 	appearance = LOKI;
@@ -92,7 +92,7 @@ bool Loki::Is(std::string type)
 void Loki::UpdateSprite()
 {
     if (hState == MOVING_RIGHT or hState == STANDING_RIGHT)
-        tempCharacterSp.Open("img/tempLokiinvertido.jpg");
+        tempCharacterSp.Open("img/Characters/tempLokiInvertido.png");
     else if (hState == MOVING_LEFT or hState == STANDING_LEFT)
-        tempCharacterSp.Open("img/tempLoki.jpg");
+        tempCharacterSp.Open("img/Characters/tempLoki.jpg");
 }

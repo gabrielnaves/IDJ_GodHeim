@@ -29,7 +29,7 @@ class Level1State: public State
   private:
     void Input();
 
-    Sprite bg, tempBlackBackground;
+    Sprite bg, tempBlackBackground, rochas;
     BlockTileSet tileSet;
     TileMap tileMap;
 };

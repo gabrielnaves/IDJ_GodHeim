@@ -13,6 +13,7 @@ Level1State::Level1State() : State(), tileSet(55,55,"img/tiles2.png"),
 {
     tempBlackBackground.Open("img/Canvas Master.png");
     bg.Open("img/background primeira fase tamanho total.png");
+    rochas.Open("img/rochas.png");
 
     objectArray.emplace_back(new Loki(70,100, MovementMap("map/firstLevelMap.txt", tileSet)));
     objectArray.emplace_back(new Thor(20,100, MovementMap("map/firstLevelMap.txt", tileSet)));
@@ -38,6 +39,7 @@ void Level1State::Render()
     tempBlackBackground.Render(0, 0);
     bg.Render(-Camera::pos.GetX(),-Camera::pos.GetY());
     tileMap.RenderLayer(0,+Camera::pos.GetX(), +Camera::pos.GetY());
+    rochas.Render(-Camera::pos.GetX(),-Camera::pos.GetY());
     RenderArray();
 }
 
