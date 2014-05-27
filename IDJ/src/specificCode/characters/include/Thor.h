@@ -28,6 +28,7 @@ class Thor : public Character
     void Input();
     void Move(float dt);
     void UpdateSprite();
+    void UpdateVerticalState();
 };
 
 #endif /* THOR_H_ */

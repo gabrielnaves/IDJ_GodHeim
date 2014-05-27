@@ -19,6 +19,7 @@ Loki::Loki(float x, float y, MovementMap movMap) : Character(movMap)
 	characterLoki = this;
 	appearance = LOKI;
 	flappedWings = 0;
+	TIMES_FLAPS_WINGS = 1;
 }
 
 Loki::~Loki()
@@ -30,13 +31,13 @@ void Loki::Input()
 {
     int horizontal = 0;
     InputManager &input = InputManager::GetInstance();
-    //sets the directions in which the camera must move
+    //Gets the inputs for moving horizontally
     if (input.KeyPress(SDLK_d) || input.IsKeyDown(SDLK_d))
         horizontal += 1;
     if (input.KeyPress(SDLK_a) || input.IsKeyDown(SDLK_a))
         horizontal -= 1;
     UpdateHorizontalState(horizontal);
-
+    //Gets the inputs for moving vertically
     if (appearance == LOKI)
     {
         if (input.KeyPress(SDLK_w) and vState == STANDING)
@@ -46,7 +47,7 @@ void Loki::Input()
     }
     else if (appearance == EAGLE)
     {
-        if (input.KeyPress(SDLK_w) and flappedWings == 0)
+        if (input.KeyPress(SDLK_w) and flappedWings < TIMES_FLAPS_WINGS)
             vState = JUST_JUMPED;
         else if (input.KeyPress(SDLK_s))
             appearance = LOKI;
