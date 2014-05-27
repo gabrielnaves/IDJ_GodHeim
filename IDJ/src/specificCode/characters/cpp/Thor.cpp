@@ -48,7 +48,6 @@ void Thor::UpdateVerticalState()
 void Thor::Move(float dt)
 {
     UpdateSpeed(dt);
-    if (vState == JUST_JUMPED) vState = JUMPING;
     UpdateVerticalState();
     box.MoveRect(speed.GetX()*dt,speed.GetY()*dt);
     Barrier::barrier->CheckCollision(this);
