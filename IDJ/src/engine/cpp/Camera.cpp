@@ -10,14 +10,22 @@
 GameObject* Camera::focus = NULL;
 Point Camera::pos;
 float Camera::speed = 450;
+float Camera::upperLimit = 0;
+float Camera::lowerLimit = 0;
+float Camera::leftLimit = 0;
+float Camera::rightLimit = 0;
+bool Camera::isLimited = false;
 
 /**
  * Follows a new object. An object that is being followed will
  * always be centered on the screen.
  */
-void Camera::Follow(GameObject* newFocus)
+void Camera::Follow(GameObject* newFocus, bool isLimited, float left, float upper, float right, float lower)
 {
     focus = newFocus;
+    Camera::isLimited = isLimited;
+    if (isLimited)
+        SetLimit(left, upper, right, lower);
 }
 
 /**
@@ -26,6 +34,15 @@ void Camera::Follow(GameObject* newFocus)
 void Camera::Unfollow()
 {
     focus = NULL;
+}
+
+/**
+ * Sets the limits of the camera movement, when needed.
+ */
+void Camera::SetLimit(float left, float upper, float right, float lower)
+{
+    upperLimit = upper, lowerLimit = lower;
+    leftLimit = left, rightLimit = right;
 }
 
 /**
@@ -40,6 +57,13 @@ void Camera::Update(float dt)
     {
         pos.Set(focus->box.Center()); //sets the position of the camera on the center of the focus
         pos = pos + Point(-Game::GetInstance().GetWindowWidth()/2, -Game::GetInstance().GetWindowHeight()/2);
+        if (isLimited)
+        {
+            if (pos.GetX() < leftLimit) pos.Set(leftLimit, pos.GetY());
+            if (pos.GetX() > rightLimit) pos.Set(rightLimit, pos.GetY());
+            if (pos.GetY() < upperLimit) pos.Set(pos.GetX(), upperLimit);
+            if (pos.GetY() > lowerLimit) pos.Set(pos.GetX(), lowerLimit);
+        }
     }
     else
     {

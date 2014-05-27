@@ -24,12 +24,17 @@ class Camera
   public:
     static Point pos;
     static float speed;
-    static void Follow(GameObject* newFocus);
+    static void Follow(GameObject* newFocus, bool isLimited = false,
+                       float left=0, float upper=0, float right=0, float lower=0);
+    static void SetLimit(float left, float upper, float right, float lower);
     static void Unfollow();
     static void Update(float dt);
 
   private:
     static GameObject* focus;
+    static bool isLimited;
+    static float upperLimit, lowerLimit;
+    static float leftLimit, rightLimit;
 };
 
 #endif /* CAMERA_H_ */
