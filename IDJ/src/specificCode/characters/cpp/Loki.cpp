@@ -18,6 +18,7 @@ Loki::Loki(float x, float y, MovementMap movMap) : Character(movMap)
 	box.Set(x-tempCharacterSp.GetWidth()/2, y-tempCharacterSp.GetHeight()/2, tempCharacterSp.GetWidth(), tempCharacterSp.GetHeight());
 	characterLoki = this;
 	appearance = LOKI;
+	flappedWings = 0;
 }
 
 Loki::~Loki()
@@ -45,7 +46,7 @@ void Loki::Input()
     }
     else if (appearance == EAGLE)
     {
-        if (input.KeyPress(SDLK_w))
+        if (input.KeyPress(SDLK_w) and flappedWings == 0)
             vState = JUST_JUMPED;
         else if (input.KeyPress(SDLK_s))
             appearance = LOKI;
@@ -70,15 +71,23 @@ void Loki::UpdateEagleSpeed(float dt)
     if (speed.GetY() >= MAX_FALLING_SPEED_EAGLE) speed.Set(speed.GetX(), MAX_FALLING_SPEED_EAGLE);
 }
 
+void Loki::UpdateVerticalState()
+{
+    if ((vState == JUMPING or vState == JUST_JUMPED) and (Thor::characterThor->box.GetY() - box.GetY() >= Barrier::barrier->DIAMETER))
+        speed.Set(speed.GetX(),0); //sets the Y speed to 0 when it hits the upper limmit of the barrier
+    if (vState == JUST_JUMPED)
+    {
+        vState = JUMPING;
+        if (appearance == EAGLE) flappedWings++;
+    }
+    if (speed.GetY()>0) vState = FALLING;
+}
+
 void Loki::Move(float dt)
 {
     if (appearance == LOKI) UpdateSpeed(dt);
     if (appearance == EAGLE) UpdateEagleSpeed(dt);
-
-    if ((vState == JUMPING or vState == JUST_JUMPED) and (Thor::characterThor->box.GetY() - box.GetY() >= Barrier::barrier->DIAMETER))
-        speed.Set(speed.GetX(),0); //sets the Y speed to 0 when it hits the upper limmit of the barrier
-    if (vState == JUST_JUMPED) vState = JUMPING;
-    if (speed.GetY()>0) vState = FALLING;
+    UpdateVerticalState();
 
     box.MoveRect(speed.GetX()*dt,speed.GetY()*dt);
     Barrier::barrier->CheckCollision(this);
@@ -90,7 +99,11 @@ void Loki::Update(float dt)
     UpdateSprite();
     Move(dt);
     CheckMovementLimits();
-    if (vState == STANDING) appearance = LOKI;
+    if (vState == STANDING)
+    {
+        appearance = LOKI;
+        flappedWings = 0;
+    }
 }
 
 void Loki::Render()

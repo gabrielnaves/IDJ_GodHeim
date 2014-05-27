@@ -23,7 +23,7 @@ Barrier::~Barrier()
 }
 
 /**
- * Sets the point in box based on the coordinate of the center of the barrier
+ * Gets the corner of the box based on the coordinate of the center of the barrier
  */
 Point Barrier::GetCorner()
 {
@@ -57,6 +57,9 @@ Point Barrier::FindCenter()
 	return(center);
 }
 
+/**
+ * Updates the position of the barrier
+ */
 void Barrier::Update(float dt)
 {
 	box.SetPoint(GetCorner());
@@ -68,6 +71,9 @@ void Barrier::Render() {}
  */
 void Barrier::NotifyCollision(GameObject& other){}
 
+/**
+ * The barrier dies when any of the characters die
+ */
 bool Barrier::IsDead()
 {
 	return (Thor::characterThor == NULL or Loki::characterLoki == NULL);
