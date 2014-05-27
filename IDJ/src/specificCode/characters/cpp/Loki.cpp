@@ -28,50 +28,54 @@ Loki::~Loki()
 void Loki::Input()
 {
     int horizontal = 0;
-	InputManager &input = InputManager::GetInstance();
-	//sets the directions in which the camera must move
-	if (input.KeyPress(SDLK_d) || input.IsKeyDown(SDLK_d))
-		horizontal += 1;
-	if (input.KeyPress(SDLK_a) || input.IsKeyDown(SDLK_a))
-		horizontal -= 1;
-	UpdateHorizontalState(horizontal);
+    InputManager &input = InputManager::GetInstance();
+    //sets the directions in which the camera must move
+    if (input.KeyPress(SDLK_d) || input.IsKeyDown(SDLK_d))
+        horizontal += 1;
+    if (input.KeyPress(SDLK_a) || input.IsKeyDown(SDLK_a))
+        horizontal -= 1;
+    UpdateHorizontalState(horizontal);
 
-	if (input.KeyPress(SDLK_w) and vState == STANDING)
-		vState = JUMPING;
-	else if (input.KeyPress(SDLK_w) and vState == FALLING and appearance == LOKI)
-	    appearance = EAGLE;
-	else if (input.KeyPress(SDLK_w) and appearance == EAGLE)
-	    vState = JUMPING;
+    if (input.KeyPress(SDLK_w) and vState == STANDING)
+        vState = JUMPING;
+    else if (input.KeyPress(SDLK_w) and vState == FALLING and appearance == LOKI)
+    {
+        appearance = EAGLE;
+        speed.Set(speed.GetX(),0);
+    }
+    else if (input.KeyPress(SDLK_w) and appearance == EAGLE)
+        vState = JUMPING;
 }
 
 void Loki::UpdateEagleSpeed(float dt)
 {
-    if (vState == JUMPING) speed.Set(speed.GetX(),JUMP_SPEED/2);
-    else if (vState == FALLING) speed = speed + Point(speed.GetX(),(GRAVITY/4)*dt);
+    if (vState == JUMPING) speed.Set(speed.GetX(),EAGLE_JUMP_SPEED);
+    else if (vState == FALLING) speed = speed + Point(speed.GetX(),(EAGLE_GRAVITY)*dt);
 
     if (hState == STANDING_LEFT or hState == STANDING_RIGHT) speed.Set(0,speed.GetY());
     else if (hState == MOVING_RIGHT) speed.Set(VEL,speed.GetY());
     else if (hState == MOVING_LEFT) speed.Set(-VEL,speed.GetY());
 
-    if (speed.GetY() >= MAX_FALLING_SPEED) speed.Set(speed.GetX(), MAX_FALLING_SPEED);
+    if (speed.GetY() >= MAX_FALLING_SPEED_EAGLE) speed.Set(speed.GetX(), MAX_FALLING_SPEED_EAGLE);
 }
 
 void Loki::Move(float dt)
 {
     if (appearance == LOKI) UpdateSpeed(dt);
-	if (appearance == EAGLE) UpdateEagleSpeed(dt);
+    if (appearance == EAGLE) UpdateEagleSpeed(dt);
+    if (vState == JUMPING and (Thor::characterThor->box.GetY() - box.GetY() >= Barrier::barrier->DIAMETER/2)) speed.Set(speed.GetX(),0);
     if (vState == JUMPING) vState = FALLING;
-	box.MoveRect(speed.GetX()*dt,speed.GetY()*dt);
-	Barrier::barrier->CheckCollision(this);
+    box.MoveRect(speed.GetX()*dt,speed.GetY()*dt);
+    Barrier::barrier->CheckCollision(this);
 }
 
 void Loki::Update(float dt)
 {
-	Input();
-	UpdateSprite();
-	Move(dt);
-	CheckMovementLimits();
-	if (vState == STANDING) appearance = LOKI;
+    Input();
+    UpdateSprite();
+    Move(dt);
+    CheckMovementLimits();
+    if (vState == STANDING) appearance = LOKI;
 }
 
 void Loki::Render()
