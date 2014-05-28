@@ -129,11 +129,17 @@ void Loki::UpdateSprite()
 {
     if (appearance == LOKI)
     {
-        if (hState == MOVING_RIGHT or hState == STANDING_RIGHT)
+        if (hState == MOVING_RIGHT)
             tempCharacterSp.Open("img/Characters/tempLokiInvertido.png");
-        else if (hState == MOVING_LEFT or hState == STANDING_LEFT)
+        if (hState == STANDING_RIGHT)
+            tempCharacterSp.Open("img/Characters/tempLokiInvertido.png");
+        if (hState == MOVING_LEFT)
+            tempCharacterSp.Open("img/Characters/tempLoki.jpg");
+        if (hState == STANDING_LEFT)
             tempCharacterSp.Open("img/Characters/tempLoki.jpg");
     }
     else if (appearance == EAGLE)
+    {
         tempCharacterSp.Open("img/Characters/aguia.png");
+    }
 }

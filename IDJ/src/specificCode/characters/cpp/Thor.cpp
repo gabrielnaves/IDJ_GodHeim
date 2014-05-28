@@ -82,8 +82,12 @@ bool Thor::Is(std::string type)
  */
 void Thor::UpdateSprite()
 {
-    if (hState == MOVING_RIGHT or hState == STANDING_RIGHT)
+    if (hState == MOVING_RIGHT)
         tempCharacterSp.Open("img/Characters/tempThorInvertido.png");
-    else if (hState == MOVING_LEFT or hState == STANDING_LEFT)
+    if (hState == STANDING_RIGHT)
+        tempCharacterSp.Open("img/Characters/tempThorInvertido.png");
+    if (hState == MOVING_LEFT)
+        tempCharacterSp.Open("img/Characters/tempThor.png");
+    if (hState == STANDING_LEFT)
         tempCharacterSp.Open("img/Characters/tempThor.png");
 }
