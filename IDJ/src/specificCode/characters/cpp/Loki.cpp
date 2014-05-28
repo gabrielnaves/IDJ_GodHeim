@@ -122,6 +122,9 @@ bool Loki::Is(std::string type)
 	return type == "Loki" ? true : false;
 }
 
+/**
+ * Updates the sprite based on the state of the character
+ */
 void Loki::UpdateSprite()
 {
     if (appearance == LOKI)

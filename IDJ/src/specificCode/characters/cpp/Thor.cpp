@@ -76,6 +76,10 @@ bool Thor::Is(std::string type)
     return type == "Thor" ? true : false;
 }
 
+
+/**
+ * Updates the sprite based on the state of the character
+ */
 void Thor::UpdateSprite()
 {
     if (hState == MOVING_RIGHT or hState == STANDING_RIGHT)
