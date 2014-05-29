@@ -52,10 +52,9 @@ void Loki::Input()
         else if (input.KeyPress(SDLK_s))
             appearance = LOKI;
     }
+    //Action button
     if (input.KeyPress(SDLK_e))
-    {
         actionButton = true;
-    }
 }
 
 void Loki::Shoot()
@@ -64,6 +63,7 @@ void Loki::Shoot()
     float shootingAngle = (hState == MOVING_RIGHT or hState == STANDING_RIGHT) ? 0 : M_PI;
     Bullet* fireBall=new Bullet(box.Center().GetX(),box.Center().GetY(),shootingAngle,FIREBALL_SPEED,FIREBALL_DISTANCE,spBullet,"Loki");
     Game::GetInstance().GetCurrentState().AddObject(fireBall); //add the bullet to the objectArray
+    shootCooldown.Restart(); //restart the timer
 }
 
 void Loki::UpdateEagleSpeed(float dt)
@@ -71,12 +71,7 @@ void Loki::UpdateEagleSpeed(float dt)
     if (vState == JUST_JUMPED)
         speed.Set(speed.GetX(),EAGLE_JUMP_SPEED);
     else if (vState == FALLING or vState == JUMPING) //unnecessary if. it is hero only in case more vStates are implemented
-    {
-        if (Barrier::barrier->CollidesAbove(this)) //TODO: STILL NOT WORKING
-            speed = speed + Point(speed.GetX(),GRAVITY*dt);
-        else
-            speed = speed + Point(speed.GetX(),(GRAVITY - EAGLE_AIR_RESISTANCE)*dt);
-    }
+        speed = speed + Point(speed.GetX(),(GRAVITY - EAGLE_AIR_RESISTANCE)*dt);
 
     if (hState == STANDING_LEFT or hState == STANDING_RIGHT) speed.Set(0,speed.GetY());
     else if (hState == MOVING_RIGHT) speed.Set(VEL,speed.GetY());
@@ -107,10 +102,18 @@ void Loki::Move(float dt)
     Barrier::barrier->CheckCollision(this);
 }
 
+/**
+ * Calls the right action Loki must do, depending on the situation
+ */
 void Loki::Action()
 {
-    if (appearance == LOKI and not (vState == JUMPING or vState == FALLING or vState == JUST_JUMPED))
-        Shoot();
+    //Shoot
+    if (appearance == LOKI)
+    {
+        if(shootCooldown.Get() >= COOLDOWN and (vState == STANDING))
+            Shoot();
+    }
+
     actionButton = false;
 }
 
@@ -120,6 +123,7 @@ void Loki::Update(float dt)
     UpdateSprite();
     Move(dt);
     if (actionButton) Action();
+    shootCooldown.Update(dt);
     CheckMovementLimits();
     if (vState == STANDING)
     {

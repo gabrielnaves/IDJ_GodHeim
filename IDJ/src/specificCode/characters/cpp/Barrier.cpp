@@ -106,15 +106,3 @@ void Barrier::CheckCollision(Character* character)
             character->box.SetPoint(character->box.GetX(), other->box.GetY() - DIAMETER);
     }
 }
-
-/**
- * Returns true if the characters collide with the upper limit of the barrier.
- */
-bool Barrier::CollidesAbove(Character* character)
-{
-    Character* other = NULL;
-    if (character->Is("Loki")) other = Thor::characterThor;
-    else other = Loki::characterLoki;
-
-    return(character->box.GetY() <= other->box.GetY() ? true : false);
-}

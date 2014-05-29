@@ -29,8 +29,6 @@ class Barrier : public GameObject
 	bool Is(std::string type);
 	void CheckCollision(Character* character);
 
-	bool CollidesAbove(Character* character);
-
 	static Barrier* barrier;
 
 	Point GetCorner();
