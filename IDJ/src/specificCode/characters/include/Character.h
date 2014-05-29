@@ -36,6 +36,7 @@ class Character : public GameObject
     void CheckMovementLimits();
     virtual void UpdateSprite() = 0;
     virtual void UpdateVerticalState() = 0;
+    virtual void Action() = 0;
 
     enum VerticalState { STANDING, JUST_JUMPED, JUMPING, FALLING };
     enum HorizontalState { STANDING_RIGHT, STANDING_LEFT, MOVING_RIGHT, MOVING_LEFT};
@@ -45,6 +46,8 @@ class Character : public GameObject
     Sprite tempCharacterSp;
     MovementMap movementMap;
     Point speed;
+
+    bool actionButton;
 
     const float VEL = 200;
     const float JUMP_SPEED = -400;

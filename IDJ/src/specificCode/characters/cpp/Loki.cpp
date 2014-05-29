@@ -52,12 +52,25 @@ void Loki::Input()
         else if (input.KeyPress(SDLK_s))
             appearance = LOKI;
     }
+    if (input.KeyPress(SDLK_e))
+    {
+        actionButton = true;
+    }
+}
+
+void Loki::Shoot()
+{
+    Sprite spBullet("img/Characters/minionbullet.png",3,0.1);
+    float shootingAngle = (hState == MOVING_RIGHT or hState == STANDING_RIGHT) ? 0 : M_PI;
+    Bullet* fireBall=new Bullet(box.Center().GetX(),box.Center().GetY(),shootingAngle,FIREBALL_SPEED,FIREBALL_DISTANCE,spBullet,"Loki");
+    Game::GetInstance().GetCurrentState().AddObject(fireBall); //add the bullet to the objectArray
 }
 
 void Loki::UpdateEagleSpeed(float dt)
 {
-    if (vState == JUST_JUMPED) speed.Set(speed.GetX(),EAGLE_JUMP_SPEED);
-    else if (vState == FALLING or vState == JUMPING)
+    if (vState == JUST_JUMPED)
+        speed.Set(speed.GetX(),EAGLE_JUMP_SPEED);
+    else if (vState == FALLING or vState == JUMPING) //unnecessary if. it is hero only in case more vStates are implemented
     {
         if (Barrier::barrier->CollidesAbove(this)) //TODO: STILL NOT WORKING
             speed = speed + Point(speed.GetX(),GRAVITY*dt);
@@ -94,11 +107,19 @@ void Loki::Move(float dt)
     Barrier::barrier->CheckCollision(this);
 }
 
+void Loki::Action()
+{
+    if (appearance == LOKI and not (vState == JUMPING or vState == FALLING or vState == JUST_JUMPED))
+        Shoot();
+    actionButton = false;
+}
+
 void Loki::Update(float dt)
 {
     Input();
     UpdateSprite();
     Move(dt);
+    if (actionButton) Action();
     CheckMovementLimits();
     if (vState == STANDING)
     {

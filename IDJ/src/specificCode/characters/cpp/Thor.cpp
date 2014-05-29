@@ -39,6 +39,11 @@ void Thor::Input()
         vState = JUST_JUMPED;
 }
 
+void Thor::Action()
+{
+
+}
+
 void Thor::UpdateVerticalState()
 {
     if (speed.GetY() > 0) vState = FALLING;

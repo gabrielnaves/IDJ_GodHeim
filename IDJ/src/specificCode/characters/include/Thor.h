@@ -26,10 +26,11 @@ class Thor : public Character
 
   private:
     void Input();
+
     void Move(float dt);
     void UpdateSprite();
     void UpdateVerticalState();
-    void UpdateState();
+    void Action();
 };
 
 #endif /* THOR_H_ */

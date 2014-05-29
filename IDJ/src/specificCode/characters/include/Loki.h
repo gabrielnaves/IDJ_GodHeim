@@ -11,7 +11,7 @@
 
 #include "Character.h"
 #include "Barrier.h"
-#include "../../../engine/include/Timer.h"
+#include "Bullet.h"
 
 class Loki : public Character
 {
@@ -28,12 +28,18 @@ class Loki : public Character
   private:
 	enum TransformState {LOKI, EAGLE};
 	TransformState appearance;
+
 	void Input();
 	void Move(float dt);
 	void UpdateSprite();
-	void UpdateEagleSpeed(float dt);
 	void UpdateVerticalState();
+	void Action();
 
+	void UpdateEagleSpeed(float dt);
+	void Shoot();
+
+	const float FIREBALL_SPEED = 500;
+	const float FIREBALL_DISTANCE = 1000;
     const float MAX_FALLING_SPEED_EAGLE = 100;
     const float EAGLE_JUMP_SPEED = -250;
     const float EAGLE_AIR_RESISTANCE = 200;
