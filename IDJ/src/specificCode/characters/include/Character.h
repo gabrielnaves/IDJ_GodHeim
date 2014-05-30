@@ -31,7 +31,8 @@ class Character : public GameObject
 
   protected:
     void UpdateSpeed(float dt);
-    void UpdateHorizontalState(int horizontal);
+    void UpdateHorizontalState();
+    void UpdateState();
     virtual void Move(float dt) = 0;
     void CheckMovementLimits();
     virtual void UpdateSprite() = 0;
@@ -40,6 +41,7 @@ class Character : public GameObject
 
     enum VerticalState { STANDING, JUST_JUMPED, JUMPING, FALLING };
     enum HorizontalState { STANDING_RIGHT, STANDING_LEFT, MOVING_RIGHT, MOVING_LEFT};
+
     VerticalState vState;
     HorizontalState hState;
     int hp;
@@ -47,6 +49,7 @@ class Character : public GameObject
     MovementMap movementMap;
     Point speed;
 
+    int horizontal;
     bool actionButton;
 
     const float VEL = 200;

@@ -26,14 +26,13 @@ Thor::~Thor()
 
 void Thor::Input()
 {
-    int horizontal = 0;
+    horizontal = 0;
     InputManager &input = InputManager::GetInstance();
     //sets the directions in which the camera must move
     if (input.KeyPress(SDLK_l) || input.IsKeyDown(SDLK_l))
         horizontal += 1;
     if (input.KeyPress(SDLK_j) || input.IsKeyDown(SDLK_j))
         horizontal -= 1;
-    UpdateHorizontalState(horizontal);
 
     if (input.KeyPress(SDLK_i) and vState == STANDING)
         vState = JUST_JUMPED;
@@ -53,7 +52,6 @@ void Thor::UpdateVerticalState()
 void Thor::Move(float dt)
 {
     UpdateSpeed(dt);
-    UpdateVerticalState();
     box.MoveRect(speed.GetX()*dt,speed.GetY()*dt);
     Barrier::barrier->CheckCollision(this);
 }
@@ -63,6 +61,7 @@ void Thor::Update(float dt)
     Input();
     UpdateSprite();
     Move(dt);
+    UpdateState();
     CheckMovementLimits();
 }
 

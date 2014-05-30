@@ -29,14 +29,14 @@ Loki::~Loki()
 
 void Loki::Input()
 {
-    int horizontal = 0;
+    horizontal = 0;
     InputManager &input = InputManager::GetInstance();
     //Gets the inputs for moving horizontally
     if (input.KeyPress(SDLK_d) || input.IsKeyDown(SDLK_d))
         horizontal += 1;
     if (input.KeyPress(SDLK_a) || input.IsKeyDown(SDLK_a))
         horizontal -= 1;
-    UpdateHorizontalState(horizontal);
+
     //Gets the inputs for moving vertically
     if (appearance == LOKI)
     {
@@ -70,7 +70,7 @@ void Loki::UpdateEagleSpeed(float dt)
 {
     if (vState == JUST_JUMPED)
         speed.Set(speed.GetX(),EAGLE_JUMP_SPEED);
-    else if (vState == FALLING or vState == JUMPING) //unnecessary if. it is hero only in case more vStates are implemented
+    else if (vState == FALLING or vState == JUMPING) //unnecessary if. it is here only in case more vStates are implemented
         speed = speed + Point(speed.GetX(),(GRAVITY - EAGLE_AIR_RESISTANCE)*dt);
 
     if (hState == STANDING_LEFT or hState == STANDING_RIGHT) speed.Set(0,speed.GetY());
@@ -96,7 +96,6 @@ void Loki::Move(float dt)
 {
     if (appearance == LOKI) UpdateSpeed(dt);
     if (appearance == EAGLE) UpdateEagleSpeed(dt);
-    UpdateVerticalState();
 
     box.MoveRect(speed.GetX()*dt,speed.GetY()*dt);
     Barrier::barrier->CheckCollision(this);
@@ -120,8 +119,9 @@ void Loki::Action()
 void Loki::Update(float dt)
 {
     Input();
-    UpdateSprite();
     Move(dt);
+    UpdateState();
+    UpdateSprite();
     if (actionButton) Action();
     shootCooldown.Update(dt);
     CheckMovementLimits();

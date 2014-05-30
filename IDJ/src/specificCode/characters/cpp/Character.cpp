@@ -15,6 +15,7 @@ Character::Character(MovementMap movMap) : movementMap(movMap)
     vState = STANDING;
     hState = STANDING_RIGHT;
     actionButton = false;
+    horizontal = 0;
 }
 
 Point Character::GetSpeed()
@@ -52,11 +53,17 @@ bool Character::IsDead()
  * Updates the state of the horizontal movement based on the input.
  * If the user presses both the left and right buttons, the character will not move.
  */
-void Character::UpdateHorizontalState(int horizontal)
+void Character::UpdateHorizontalState()
 {
     if (horizontal > 0) hState = MOVING_RIGHT;
     else if (horizontal < 0) hState = MOVING_LEFT;
     else (hState == MOVING_RIGHT or hState == STANDING_RIGHT) ? hState = STANDING_RIGHT : hState = STANDING_LEFT;
+}
+
+void Character::UpdateState()
+{
+    UpdateHorizontalState();
+    UpdateVerticalState();
 }
 
 void Character::CheckMovementLimits()
