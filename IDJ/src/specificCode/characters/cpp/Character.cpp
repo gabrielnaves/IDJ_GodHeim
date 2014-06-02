@@ -15,7 +15,7 @@ Character::Character(MovementMap movMap) : movementMap(movMap)
     vState = STANDING;
     hState = STANDING_RIGHT;
     actionButton = false;
-    horizontal = 0;
+    horizontal = vertical = 0;
 }
 
 Point Character::GetSpeed()
@@ -28,15 +28,17 @@ Point Character::GetSpeed()
  */
 void Character::UpdateSpeed(float dt)
 {
+    //Updates the vertical state
     if (vState == STANDING) speed.Set(speed.GetX(),0);
     else if (vState == JUST_JUMPED) speed.Set(speed.GetX(),JUMP_SPEED);
     else if (vState == FALLING or vState == JUMPING) speed = speed + Point(speed.GetX(),GRAVITY*dt);
+    //Sets a limit to the falling speed
+    if (speed.GetY() >= MAX_FALLING_SPEED) speed.Set(speed.GetX(), MAX_FALLING_SPEED);
+    //Updates the horizontal state
 
     if (hState == STANDING_LEFT or hState == STANDING_RIGHT) speed.Set(0,speed.GetY());
     else if (hState == MOVING_RIGHT) speed.Set(VEL,speed.GetY());
     else if (hState == MOVING_LEFT) speed.Set(-VEL,speed.GetY());
-
-    if (speed.GetY() >= MAX_FALLING_SPEED) speed.Set(speed.GetX(), MAX_FALLING_SPEED);
 }
 
 void Character::NotifyCollision(GameObject& other)
@@ -60,6 +62,9 @@ void Character::UpdateHorizontalState()
     else (hState == MOVING_RIGHT or hState == STANDING_RIGHT) ? hState = STANDING_RIGHT : hState = STANDING_LEFT;
 }
 
+/**
+ * Updates the horizontal and vertical states of the character after receving input
+ */
 void Character::UpdateState()
 {
     UpdateHorizontalState();

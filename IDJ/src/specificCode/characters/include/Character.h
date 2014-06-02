@@ -50,6 +50,7 @@ class Character : public GameObject
     Point speed;
 
     int horizontal;
+    int vertical;
     bool actionButton;
 
     const float VEL = 200;
