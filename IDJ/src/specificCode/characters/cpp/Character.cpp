@@ -71,6 +71,9 @@ void Character::UpdateState()
     UpdateVerticalState();
 }
 
+/**
+ * Checks the limits of the cenario and stops the character from going into undesired places
+ */
 void Character::CheckMovementLimits()
 {
     // Checks the right limit

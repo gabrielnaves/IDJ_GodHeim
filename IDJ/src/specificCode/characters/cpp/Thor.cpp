@@ -26,16 +26,16 @@ Thor::~Thor()
 
 void Thor::Input()
 {
-    horizontal = 0;
+    horizontal = vertical = 0;
     InputManager &input = InputManager::GetInstance();
     //sets the directions in which the camera must move
+
     if (input.KeyPress(SDLK_l) || input.IsKeyDown(SDLK_l))
         horizontal += 1;
     if (input.KeyPress(SDLK_j) || input.IsKeyDown(SDLK_j))
         horizontal -= 1;
-
-    if (input.KeyPress(SDLK_i) and vState == STANDING)
-        vState = JUST_JUMPED;
+    if (input.KeyPress(SDLK_i))
+        vertical += 1;
 }
 
 void Thor::Action()
@@ -45,8 +45,8 @@ void Thor::Action()
 
 void Thor::UpdateVerticalState()
 {
-    if (speed.GetY() > 0) vState = FALLING;
-    if (vState == JUST_JUMPED) vState = JUMPING;
+    if (vertical == 1 and vState == STANDING)
+        vState = JUST_JUMPED;
 }
 
 void Thor::Move(float dt)
@@ -56,12 +56,19 @@ void Thor::Move(float dt)
     Barrier::barrier->CheckCollision(this);
 }
 
+void Thor::UpdatesStateOnTheFall()
+{
+    if (vState == JUST_JUMPED) vState = JUMPING;
+    if (speed.GetY() > 0) vState = FALLING;
+}
+
 void Thor::Update(float dt)
 {
     Input();
+    UpdateState();
     UpdateSprite();
     Move(dt);
-    UpdateState();
+    UpdatesStateOnTheFall();
     CheckMovementLimits();
 }
 

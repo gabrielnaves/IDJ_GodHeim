@@ -29,29 +29,18 @@ Loki::~Loki()
 
 void Loki::Input()
 {
-    horizontal = 0;
+    horizontal = vertical = 0;
     InputManager &input = InputManager::GetInstance();
     //Gets the inputs for moving horizontally
     if (input.KeyPress(SDLK_d) || input.IsKeyDown(SDLK_d))
         horizontal += 1;
     if (input.KeyPress(SDLK_a) || input.IsKeyDown(SDLK_a))
         horizontal -= 1;
-
     //Gets the inputs for moving vertically
-    if (appearance == LOKI)
-    {
-        if (input.KeyPress(SDLK_w) and vState == STANDING)
-            vState = JUST_JUMPED;
-        else if (input.KeyPress(SDLK_w) and vState == FALLING)
-            appearance = EAGLE;
-    }
-    else if (appearance == EAGLE)
-    {
-        if (input.KeyPress(SDLK_w) and flappedWings < TIMES_FLAPS_WINGS)
-            vState = JUST_JUMPED;
-        else if (input.KeyPress(SDLK_s))
-            appearance = LOKI;
-    }
+    if (input.KeyPress(SDLK_w))
+        vertical += 1;
+    if (input.KeyPress(SDLK_s))
+        vertical -= 1;
     //Action button
     if (input.KeyPress(SDLK_e))
         actionButton = true;
@@ -82,14 +71,22 @@ void Loki::UpdateEagleSpeed(float dt)
 
 void Loki::UpdateVerticalState()
 {
-    if ((vState == JUMPING or vState == JUST_JUMPED) and (Thor::characterThor->box.GetY() - box.GetY() >= Barrier::barrier->DIAMETER))
-        speed.Set(speed.GetX(),0); //sets the Y speed to 0 when it hits the upper limmit of the barrier
-    if (vState == JUST_JUMPED)
+    if (appearance == LOKI)
     {
-        vState = JUMPING;
-        if (appearance == EAGLE) flappedWings++;
+        if (vertical == 1 and vState == STANDING)
+            vState = JUST_JUMPED;
+        else if (vertical == 1 and vState == FALLING)
+            appearance = EAGLE;
     }
-    if (speed.GetY()>0) vState = FALLING;
+    else if (appearance == EAGLE)
+    {
+        if (vertical == 1 and flappedWings < TIMES_FLAPS_WINGS){
+            vState = JUST_JUMPED;
+            flappedWings++;
+        }
+        else if (vertical == -1)
+            appearance = LOKI;
+    }
 }
 
 void Loki::Move(float dt)
@@ -99,6 +96,10 @@ void Loki::Move(float dt)
 
     box.MoveRect(speed.GetX()*dt,speed.GetY()*dt);
     Barrier::barrier->CheckCollision(this);
+
+    //If the character colided with the upper limit of the barrier, makes sure it will not keep on jumping
+    if ((vState == JUMPING or vState == JUST_JUMPED) and (Thor::characterThor->box.GetY() - box.GetY() >= Barrier::barrier->DIAMETER))
+        speed.Set(speed.GetX(),0); //sets the Y speed to 0 when it hits the upper limmit of the barrier
 }
 
 /**
@@ -108,28 +109,33 @@ void Loki::Action()
 {
     //Shoot
     if (appearance == LOKI)
-    {
         if(shootCooldown.Get() >= COOLDOWN and (vState == STANDING))
             Shoot();
-    }
-
     actionButton = false;
 }
 
-void Loki::Update(float dt)
+void Loki::UpdatesStateOnTheFall()
 {
-    Input();
-    Move(dt);
-    UpdateState();
-    UpdateSprite();
-    if (actionButton) Action();
-    shootCooldown.Update(dt);
-    CheckMovementLimits();
+    if (vState == JUST_JUMPED)
+        vState = JUMPING;
     if (vState == STANDING)
     {
         appearance = LOKI;
         flappedWings = 0;
     }
+    else if (speed.GetY()>0) vState = FALLING;
+}
+
+void Loki::Update(float dt)
+{
+    Input();
+    UpdateState();
+    Move(dt);
+    UpdateSprite();
+    if (actionButton) Action();
+    shootCooldown.Update(dt);
+    CheckMovementLimits();
+    UpdatesStateOnTheFall();
 }
 
 void Loki::Render()

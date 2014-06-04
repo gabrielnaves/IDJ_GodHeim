@@ -30,14 +30,16 @@ class Character : public GameObject
     Point GetSpeed();
 
   protected:
-    void UpdateSpeed(float dt);
-    void UpdateHorizontalState();
-    void UpdateState();
     virtual void Move(float dt) = 0;
-    void CheckMovementLimits();
     virtual void UpdateSprite() = 0;
     virtual void UpdateVerticalState() = 0;
     virtual void Action() = 0;
+    virtual void UpdatesStateOnTheFall() = 0;
+
+    void UpdateSpeed(float dt);
+    void UpdateHorizontalState();
+    void UpdateState();
+    void CheckMovementLimits();
 
     enum VerticalState { STANDING, JUST_JUMPED, JUMPING, FALLING };
     enum HorizontalState { STANDING_RIGHT, STANDING_LEFT, MOVING_RIGHT, MOVING_LEFT};

@@ -30,6 +30,7 @@ class Thor : public Character
     void Move(float dt);
     void UpdateSprite();
     void UpdateVerticalState();
+    void UpdatesStateOnTheFall();
     void Action();
 };
 
