@@ -154,3 +154,10 @@ int Game::ManageStates()
  */
 int Game::GetWindowWidth() { return windowWidth; }
 int Game::GetWindowHeight() { return windowHeight; }
+
+void Game::ResetWindowSize(int width, int height)
+{
+    SDL_SetWindowSize(window,width,height);
+    windowWidth = width;
+    windowHeight = height;
+}

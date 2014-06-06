@@ -25,6 +25,8 @@ class Game
     static Game& GetInstance();
     static State& GetCurrentState();
 
+    void ResetWindowSize(int width, int height);
+
     void Push(State* state);
     void Run();
 

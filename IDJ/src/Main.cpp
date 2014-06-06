@@ -7,11 +7,12 @@
 
 #include "engine/include/Game.h"
 #include "specificCode/gameStates/include/Level1State.h"
+#include "specificCode/gameStates/include/TitleState.h"
 
 int main(int argc, char** argv)
 {
-	Game game("Godheim", 1200, 650);
-	game.Push(new Level1State());
+	Game game("Godheim", 574, 600);
+	game.Push(new TitleState());
 	game.Run();
 	return 0;
 }
