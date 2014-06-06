@@ -36,6 +36,8 @@ void Thor::Input()
         horizontal -= 1;
     if (input.KeyPress(SDLK_i))
         vertical += 1;
+    if (input.KeyPress(SDLK_u))
+        actionButton = true;
 }
 
 void Thor::Action()

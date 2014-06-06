@@ -111,6 +111,7 @@ void Loki::Action()
     if (appearance == LOKI)
         if(shootCooldown.Get() >= COOLDOWN and (vState == STANDING))
             Shoot();
+
     actionButton = false;
 }
 
@@ -131,11 +132,11 @@ void Loki::Update(float dt)
     Input();
     UpdateState();
     Move(dt);
+    UpdatesStateOnTheFall();
     UpdateSprite();
     if (actionButton) Action();
     shootCooldown.Update(dt);
     CheckMovementLimits();
-    UpdatesStateOnTheFall();
 }
 
 void Loki::Render()
