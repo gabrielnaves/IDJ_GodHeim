@@ -6,7 +6,6 @@
  */
 
 #include "engine/include/Game.h"
-#include "specificCode/gameStates/include/Level1State.h"
 #include "specificCode/gameStates/include/TitleState.h"
 
 int main(int argc, char** argv)
