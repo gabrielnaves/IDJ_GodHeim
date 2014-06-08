@@ -20,6 +20,7 @@ Loki::Loki(float x, float y, MovementMap movMap) : Character(movMap)
 	appearance = LOKI;
 	flappedWings = 0;
 	TIMES_FLAPS_WINGS = 1;
+	actionState = NONE;
 }
 
 Loki::~Loki()
@@ -39,7 +40,7 @@ void Loki::Input()
     //Gets the inputs for moving vertically
     if (input.KeyPress(SDLK_w))
         vertical += 1;
-    if (input.KeyPress(SDLK_s))
+    if (input.KeyPress(SDLK_s) || input.IsKeyDown(SDLK_s))
         vertical -= 1;
     //Action button
     if (input.KeyPress(SDLK_e))
@@ -52,7 +53,9 @@ void Loki::Shoot()
     float shootingAngle = (hState == MOVING_RIGHT or hState == STANDING_RIGHT) ? 0 : M_PI;
     Bullet* fireBall=new Bullet(box.Center().GetX(),box.Center().GetY(),shootingAngle,FIREBALL_SPEED,FIREBALL_DISTANCE,spBullet,"Loki");
     Game::GetInstance().GetCurrentState().AddObject(fireBall); //add the bullet to the objectArray
+
     shootCooldown.Restart(); //restart the timer
+    actionState = NONE;
 }
 
 void Loki::UpdateEagleSpeed(float dt)
@@ -105,12 +108,17 @@ void Loki::Move(float dt)
 /**
  * Calls the right action Loki must do, depending on the situation
  */
-void Loki::Action()
+void Loki::DecideAction()
 {
     //Shoot
     if (appearance == LOKI)
         if(shootCooldown.Get() >= COOLDOWN and (vState == STANDING))
-            Shoot();
+            actionState = SHOOTING;
+}
+
+void Loki::Act()
+{
+    if (actionState == SHOOTING) Shoot();
 
     actionButton = false;
 }
@@ -134,7 +142,7 @@ void Loki::Update(float dt)
     Move(dt);
     UpdatesStateOnTheFall();
     UpdateSprite();
-    if (actionButton) Action();
+    if (actionButton) DecideAction(), Act();
     shootCooldown.Update(dt);
     CheckMovementLimits();
 }
@@ -146,7 +154,8 @@ void Loki::Render()
 
 void Loki::NotifyCollision(GameObject& other)
 {
-
+    if (other.Is("Stairs"))
+        vState = STANDING;
 }
 
 bool Loki::Is(std::string type)

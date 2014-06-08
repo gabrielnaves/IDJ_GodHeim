@@ -9,6 +9,7 @@
 #ifndef LEVEL1STATE_H_
 #define LEVEL1STATE_H_
 
+#include "../../../engine/include/Collision.h"
 #include "../../../engine/include/Camera.h"
 #include "../../../engine/include/State.h"
 #include "../../../engine/include/Sprite.h"
@@ -17,6 +18,7 @@
 #include "../../../engine/include/MovementMap.h"
 #include "../../characters/include/Barrier.h"
 #include "../../objects/include/BrokenHouse.h"
+#include "../../objects/include/Stairs.h"
 
 class Level1State: public State
 {
@@ -29,6 +31,8 @@ class Level1State: public State
 
   private:
     void Input();
+    void ChecksForCollisions();
+    void ErasesDeadObjects();
 
     Sprite bg, rochas;
     BrokenHouse brokenHouse;

@@ -25,13 +25,15 @@ class Thor : public Character
     static Thor *characterThor;
 
   private:
-    void Input();
+    enum ActionState {NONE};
+    ActionState actionState;
 
+    void Input();
     void Move(float dt);
     void UpdateSprite();
     void UpdateVerticalState();
     void UpdatesStateOnTheFall();
-    void Action();
+    void DecideAction();
 };
 
 #endif /* THOR_H_ */

@@ -17,6 +17,7 @@ Thor::Thor(float x, float y, MovementMap movMap) : Character(movMap)
     tempCharacterSp.Open("img/Characters/tempThor.png");
     box.Set(x-tempCharacterSp.GetWidth()/2, y-tempCharacterSp.GetHeight()/2, tempCharacterSp.GetWidth(), tempCharacterSp.GetHeight());
     characterThor = this;
+    actionState = NONE;
 }
 
 Thor::~Thor()
@@ -36,13 +37,14 @@ void Thor::Input()
         horizontal -= 1;
     if (input.KeyPress(SDLK_i))
         vertical += 1;
+    if (input.KeyPress(SDLK_k) or input.IsKeyDown(SDLK_k))
+        vertical -= 1;
     if (input.KeyPress(SDLK_u))
         actionButton = true;
 }
 
-void Thor::Action()
+void Thor::DecideAction()
 {
-
 }
 
 void Thor::UpdateVerticalState()
@@ -81,14 +83,14 @@ void Thor::Render()
 
 void Thor::NotifyCollision(GameObject& other)
 {
-
+    if (other.Is("Stairs"))
+        vState = STANDING;
 }
 
 bool Thor::Is(std::string type)
 {
     return type == "Thor" ? true : false;
 }
-
 
 /**
  * Updates the sprite based on the state of the character

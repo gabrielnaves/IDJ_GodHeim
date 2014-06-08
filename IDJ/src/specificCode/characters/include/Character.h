@@ -33,7 +33,7 @@ class Character : public GameObject
     virtual void Move(float dt) = 0;
     virtual void UpdateSprite() = 0;
     virtual void UpdateVerticalState() = 0;
-    virtual void Action() = 0;
+    virtual void DecideAction() = 0;
     virtual void UpdatesStateOnTheFall() = 0;
 
     void UpdateSpeed(float dt);

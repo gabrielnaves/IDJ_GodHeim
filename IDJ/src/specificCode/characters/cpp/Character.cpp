@@ -41,11 +41,6 @@ void Character::UpdateSpeed(float dt)
     else if (hState == MOVING_LEFT) speed.Set(-VEL,speed.GetY());
 }
 
-void Character::NotifyCollision(GameObject& other)
-{
-
-}
-
 bool Character::IsDead()
 {
     return (hp <= 0 ? true : false);
