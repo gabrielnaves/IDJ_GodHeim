@@ -45,6 +45,6 @@ void Level1State::Render()
 
 void Level1State::Input()
 {
-    if (InputManager::GetInstance().ShouldQuit() || InputManager::GetInstance().KeyPress(ESCAPE_KEY))
+    if (InputManager::GetInstance().ShouldQuit())
         requestQuit = true;
 }

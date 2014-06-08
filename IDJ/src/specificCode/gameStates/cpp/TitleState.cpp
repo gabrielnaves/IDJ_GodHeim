@@ -49,4 +49,6 @@ void TitleState::Input()
 
         }
     }
+    if (input.ShouldQuit())
+        requestQuit = true;
 }
