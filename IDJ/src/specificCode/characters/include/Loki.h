@@ -45,6 +45,7 @@ class Loki : public Character
 	void UpdateEagleSpeed(float dt);
 	void Shoot();
 
+	float TIMES_FLAPS_WINGS;
 	//constants
 	const float FIREBALL_SPEED = 500;
 	const float FIREBALL_DISTANCE = 1000;
@@ -52,7 +53,7 @@ class Loki : public Character
     const float EAGLE_JUMP_SPEED = -250;
     const float EAGLE_AIR_RESISTANCE = 200;
     const float COOLDOWN = 1;
-    float TIMES_FLAPS_WINGS;
+    const float TOLERANCE = 5;
 };
 
 #endif /* LOKI_H_ */

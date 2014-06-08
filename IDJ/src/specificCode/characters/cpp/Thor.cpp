@@ -84,7 +84,13 @@ void Thor::Render()
 void Thor::NotifyCollision(GameObject& other)
 {
     if (other.Is("Stairs"))
-        vState = STANDING;
+    {
+        if (other.box.GetY() >= box.GetY())
+        {
+            vState = STANDING;
+            box.Set(box.GetX(),other.box.GetY()-box.GetH(),box.GetW(),box.GetH());
+        }
+    }
 }
 
 bool Thor::Is(std::string type)

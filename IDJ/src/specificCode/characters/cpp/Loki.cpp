@@ -156,7 +156,11 @@ void Loki::NotifyCollision(GameObject& other)
 {
     if (other.Is("Stairs"))
     {
-        vState = STANDING;
+        if (other.box.GetY() >= box.GetY())
+        {
+            vState = STANDING;
+            box.Set(box.GetX(),other.box.GetY()-box.GetH(),box.GetW(),box.GetH());
+        }
     }
 }
 
