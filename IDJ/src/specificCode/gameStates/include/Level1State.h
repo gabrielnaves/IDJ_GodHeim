@@ -12,10 +12,11 @@
 #include "../../../engine/include/Camera.h"
 #include "../../../engine/include/State.h"
 #include "../../../engine/include/Sprite.h"
-#include "../../characters/include/Barrier.h"
 #include "../../../engine/include/BlockTileSet.h"
 #include "../../../engine/include/TileMap.h"
 #include "../../../engine/include/MovementMap.h"
+#include "../../characters/include/Barrier.h"
+#include "../../objects/include/BrokenHouse.h"
 
 class Level1State: public State
 {
@@ -30,6 +31,7 @@ class Level1State: public State
     void Input();
 
     Sprite bg, rochas;
+    BrokenHouse brokenHouse;
     BlockTileSet tileSet;
     TileMap tileMap;
 };

@@ -41,6 +41,7 @@ void Level1State::Render()
     tileMap.RenderLayer(0,+Camera::pos.GetX(), +Camera::pos.GetY());
     RenderArray();
     tileMap.RenderLayer(1,+Camera::pos.GetX(), +Camera::pos.GetY());
+    brokenHouse.RenderFront();
 }
 
 void Level1State::Input()
