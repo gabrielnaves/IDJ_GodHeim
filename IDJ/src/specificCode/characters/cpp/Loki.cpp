@@ -155,7 +155,9 @@ void Loki::Render()
 void Loki::NotifyCollision(GameObject& other)
 {
     if (other.Is("Stairs"))
+    {
         vState = STANDING;
+    }
 }
 
 bool Loki::Is(std::string type)
