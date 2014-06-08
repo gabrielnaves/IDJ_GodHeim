@@ -80,9 +80,9 @@ int& MovementMap::At(int x, int y, int z)
  * a given pixel position is 0, false if the value of the tile is 1.
  * If the given point is outside the limits of the map, returns false.
  */
-bool MovementMap::IsZero(int x, int y, int z)
+bool MovementMap::IsZero(int x, int y, int layer)
 {
-    if (z == -1) z = currentLayer;
+    if (layer == -1) layer = currentLayer;
     if (x < 0 || x > mapWidth*tileWidth) return false;
     if (y < 0 || y > mapHeight*tileHeight) return false;
     int x_index=0, y_index=0;
@@ -90,7 +90,7 @@ bool MovementMap::IsZero(int x, int y, int z)
         x_index++;
     for (int i = 1; y >= tileHeight*i; i++)
         y_index++;
-    return At(x_index, y_index, z) == 0 ? true : false;
+    return At(x_index, y_index, layer) == 0 ? true : false;
 }
 
 /**

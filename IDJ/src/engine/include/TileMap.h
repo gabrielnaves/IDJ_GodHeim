@@ -29,6 +29,8 @@ class TileMap
     int GetHeight() const;
     int GetDepth() const;
 
+    bool HasTile(int x, int y, int layer);
+
   private:
     std::vector<int> tileMatrix;
     TileSet* tileSet;

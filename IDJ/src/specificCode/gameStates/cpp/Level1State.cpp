@@ -45,7 +45,9 @@ void Level1State::Render()
     tileMap.RenderLayer(0,+Camera::pos.GetX(), +Camera::pos.GetY());
     RenderArray();
     tileMap.RenderLayer(1,+Camera::pos.GetX(), +Camera::pos.GetY());
-    tileMap.RenderLayer(2,+Camera::pos.GetX(), +Camera::pos.GetY());
+    if (!tileMap.HasTile(Loki::characterLoki->box.Center().GetX(), Loki::characterLoki->box.Center().GetY(), 2) &&
+        !tileMap.HasTile(Thor::characterThor->box.Center().GetX(), Thor::characterThor->box.Center().GetY(), 2))
+        tileMap.RenderLayer(2,+Camera::pos.GetX(), +Camera::pos.GetY());
     //brokenHouse.RenderFront();
 }
 

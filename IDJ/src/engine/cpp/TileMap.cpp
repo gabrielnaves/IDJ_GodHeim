@@ -116,3 +116,16 @@ int TileMap::GetDepth() const
 {
     return mapDepth;
 }
+
+bool TileMap::HasTile(int x, int y, int layer)
+{
+    if (x < 0 || x > mapWidth*tileSet->GetTileWidth()) return false;
+    if (y < 0 || y > mapHeight*tileSet->GetTileHeight()) return false;
+    int x_index=0, y_index=0;
+    for (int i = 1; x >= tileSet->GetTileWidth()*i; i++)
+        x_index++;
+    for (int i = 1; y >= tileSet->GetTileHeight()*i; i++)
+        y_index++;
+    return At(x_index, y_index, layer) == -1 ? false : true;
+    return false;
+}
