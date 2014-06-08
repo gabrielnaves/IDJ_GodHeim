@@ -10,7 +10,7 @@
 
 Level1State::Level1State() : State(), tileSet(55,55,"img/firstLevelTiles.png"),
                              tileMap("map/firstLevel.txt", &tileSet),
-                             movementMap("map/firstLevel.txt", tileSet)
+                             movementMap("map/firstLevelMovementMap.txt", tileSet)
 {
     bg.Open("img/background primeira fase tamanho total.png");
     rochas.Open("img/rochas.png");

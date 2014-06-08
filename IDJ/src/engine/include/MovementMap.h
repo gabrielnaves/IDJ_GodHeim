@@ -13,18 +13,19 @@
 class MovementMap
 {
   public:
-    MovementMap(std::string file, const TileSet& tileSet, int layer = 0);
-    int& At(int x, int y);
-    bool IsZero(int x, int y);
+    MovementMap(std::string file, const TileSet& tileSet);
+    int& At(int x, int y, int z = -1);
+    bool IsZero(int x, int y, int z = -1);
     float FindXDistance(float xPos, float yPos);
     float FindYDistance(float xPos, float yPos);
+    void SetCurrentLayer(int layer);
 
   private:
-    void BuildMovementMap(std::string file, int layer);
+    void BuildMovementMap(std::string file);
 
     std::vector<int> movementMatrix;
 
-    int mapWidth, mapHeight;
+    int mapWidth, mapHeight, mapDepth, currentLayer;
     int tileWidth, tileHeight;
 };
 
