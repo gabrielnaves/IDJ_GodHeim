@@ -9,14 +9,15 @@
 #include "../include/Level1State.h"
 
 Level1State::Level1State() : State(), tileSet(55,55,"img/firstLevelTiles.png"),
-                             tileMap("map/firstLevel.txt", &tileSet)
+                             tileMap("map/firstLevel.txt", &tileSet),
+                             movementMap("map/firstLevel.txt", tileSet)
 {
     bg.Open("img/background primeira fase tamanho total.png");
     rochas.Open("img/rochas.png");
 
     objectArray.emplace_back(new Stairs());
-    objectArray.emplace_back(new Loki(70,100, MovementMap("map/firstLevel.txt", tileSet)));
-    objectArray.emplace_back(new Thor(20,100, MovementMap("map/firstLevel.txt", tileSet)));
+    objectArray.emplace_back(new Loki(70,100, movementMap));
+    objectArray.emplace_back(new Thor(20,100, movementMap));
     Barrier *barrier = new Barrier();
     Camera::Follow(barrier, true, 0, 0, tileMap.GetWidth()*tileSet.GetTileWidth() - Game::GetInstance().GetWindowWidth(),
                    tileMap.GetHeight()*tileSet.GetTileHeight() - Game::GetInstance().GetWindowHeight());

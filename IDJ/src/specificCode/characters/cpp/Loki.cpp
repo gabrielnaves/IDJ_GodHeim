@@ -10,7 +10,7 @@
 
 Loki* Loki::characterLoki;
 
-Loki::Loki(float x, float y, MovementMap movMap) : Character(movMap)
+Loki::Loki(float x, float y, MovementMap& movMap) : Character(movMap)
 {
 	hp = 100;
 	rotation = 0;

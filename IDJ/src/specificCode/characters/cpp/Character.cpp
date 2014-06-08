@@ -9,7 +9,7 @@
 #include "../include/Character.h"
 #include "../include/Barrier.h"
 
-Character::Character(MovementMap movMap) : movementMap(movMap)
+Character::Character(MovementMap& movMap) : movementMap(movMap)
 {
     hp = 100;
     vState = STANDING;

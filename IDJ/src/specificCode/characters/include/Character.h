@@ -19,7 +19,7 @@
 class Character : public GameObject
 {
   public:
-    Character(MovementMap movMap);
+    Character(MovementMap& movMap);
     virtual ~Character() {}
     virtual void Update(float dt) = 0;
     virtual void Render() = 0;
@@ -48,7 +48,7 @@ class Character : public GameObject
     HorizontalState hState;
     int hp;
     Sprite tempCharacterSp;
-    MovementMap movementMap;
+    MovementMap& movementMap;
     Point speed;
 
     int horizontal;

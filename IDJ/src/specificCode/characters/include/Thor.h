@@ -15,7 +15,7 @@
 class Thor : public Character
 {
   public:
-    Thor(float x, float y, MovementMap movMap);
+    Thor(float x, float y, MovementMap& movMap);
     ~Thor();
 
     void Update(float dt);

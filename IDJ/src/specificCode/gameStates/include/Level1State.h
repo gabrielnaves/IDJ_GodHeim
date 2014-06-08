@@ -38,6 +38,7 @@ class Level1State: public State
     BrokenHouse brokenHouse;
     BlockTileSet tileSet;
     TileMap tileMap;
+    MovementMap movementMap;
 };
 
 #endif /* LEVEL1STATE_H_ */
