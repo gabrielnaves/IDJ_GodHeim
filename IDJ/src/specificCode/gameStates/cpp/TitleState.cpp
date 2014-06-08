@@ -10,9 +10,9 @@
 TitleState::TitleState() : State()
 {
     bg.Open("img/Opening.jpg");
-    startOption.Set(150,350,280,75);
-    newGameOption.Set(150,430,280,75);
-    optionsOption.Set(150,510,280,75);
+    startOption.Set(140,270,300,90);
+    newGameOption.Set(140,375,300,90);
+    optionsOption.Set(140,460,300,90);
 }
 
 TitleState::~TitleState()
