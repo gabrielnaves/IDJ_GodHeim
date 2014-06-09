@@ -18,10 +18,15 @@ class MovementMap
     bool IsZero(int x, int y, int layer = -1);
     float FindXDistance(float xPos, float yPos);
     float FindYDistance(float xPos, float yPos);
+    Point FindClosestVector(float xPos, float yPos);
     void SetCurrentLayer(int layer);
 
   private:
     void BuildMovementMap(std::string file);
+    float GetLeftDistance(float xPos, float yPos);
+    float GetRightDistance(float xPos, float yPos);
+    float GetUpperDistance(float xPos, float yPos);
+    float GetLowerDistance(float xPos, float yPos);
 
     std::vector<int> movementMatrix;
 

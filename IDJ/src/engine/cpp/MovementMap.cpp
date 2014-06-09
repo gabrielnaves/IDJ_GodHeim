@@ -103,10 +103,33 @@ bool MovementMap::IsZero(int x, int y, int layer)
 float MovementMap::FindXDistance(float xPos, float yPos)
 {
     if (IsZero(xPos, yPos)) return 0;
-    if ((yPos < 0 || yPos > mapHeight*tileHeight)) return 0;
-    float leftDistance = -999999, rightDistance = 999999;
+    float leftDistance, rightDistance;
+    // Gets the left distance
+    leftDistance = GetLeftDistance(xPos, yPos);
+    if (!IsZero(xPos, yPos-tileHeight))
+        if (abs(GetLeftDistance(xPos, yPos-tileHeight)) < abs(leftDistance))
+            leftDistance = GetLeftDistance(xPos, yPos-tileHeight);
+    if (!IsZero(xPos, yPos+tileHeight))
+        if (abs(GetLeftDistance(xPos, yPos+tileHeight)) < abs(leftDistance))
+            leftDistance = GetLeftDistance(xPos, yPos+tileHeight);
+    // Gets the right distance
+    rightDistance = GetRightDistance(xPos, yPos);
+    if (!IsZero(xPos, yPos-tileHeight))
+        if (abs(GetRightDistance(xPos, yPos-tileHeight)) < abs(leftDistance))
+            leftDistance = GetRightDistance(xPos, yPos-tileHeight);
+    if (!IsZero(xPos, yPos+tileHeight))
+        if (abs(GetRightDistance(xPos, yPos+tileHeight)) < abs(leftDistance))
+            leftDistance = GetRightDistance(xPos, yPos+tileHeight);
+    return abs(leftDistance) <= rightDistance ? leftDistance : rightDistance;
+}
+
+/**
+ * Returns the distance between a given position and the nearest
+ * valid tile, looking to the left of the position.
+ */
+float MovementMap::GetLeftDistance(float xPos, float yPos)
+{
     float x = xPos;
-    // Checks for closest position to the left
     while (x > 0)
     {
         x = x - tileWidth;
@@ -115,12 +138,19 @@ float MovementMap::FindXDistance(float xPos, float yPos)
             int xIndex = 0;
             for (int i = 1; x >= tileWidth*i; i++)
                 xIndex++;
-            leftDistance = tileWidth*(xIndex+1) - xPos;
-            break;
+            return tileWidth*(xIndex+1) - xPos;
         }
     }
-    x = xPos;
-    // Checks for closest position to the right
+    return -999999;
+}
+
+/**
+ * Returns the distance between a given position and the nearest
+ * valid tile, looking to the right of the position.
+ */
+float MovementMap::GetRightDistance(float xPos, float yPos)
+{
+    float x = xPos;
     while (x < mapWidth * tileWidth)
     {
         x = x + tileWidth;
@@ -129,11 +159,10 @@ float MovementMap::FindXDistance(float xPos, float yPos)
             int xIndex = 0;
             for (int i = 1; x >= tileWidth*i; i++)
                 xIndex++;
-            rightDistance = tileWidth*xIndex - xPos;
-            break;
+            return tileWidth*xIndex - xPos;
         }
     }
-    return abs(leftDistance) <= rightDistance ? leftDistance : rightDistance;
+    return 999999;
 }
 
 /**
@@ -146,10 +175,29 @@ float MovementMap::FindXDistance(float xPos, float yPos)
 float MovementMap::FindYDistance(float xPos, float yPos)
 {
     if (IsZero(xPos, yPos)) return 0;
-    if ((xPos < 0 || xPos > mapWidth*tileWidth)) return 0;
-    float aboveDistance = -999999, belowDistance = 999999;
-    float y = yPos;
+    float upperDistance, lowerDistance;
     // Checks for closest position above
+    upperDistance = GetUpperDistance(xPos, yPos);
+    if (!IsZero(xPos+tileWidth, yPos))
+        if (abs(GetUpperDistance(xPos+tileWidth, yPos)) < abs(upperDistance))
+            upperDistance = GetUpperDistance(xPos+tileWidth, yPos);
+    if (!IsZero(xPos-tileWidth, yPos))
+        if (abs(GetUpperDistance(xPos-tileWidth, yPos)) < abs(upperDistance))
+            upperDistance = GetUpperDistance(xPos-tileWidth, yPos);
+    // Checks for closest position below
+    lowerDistance = GetLowerDistance(xPos, yPos);
+    if (!IsZero(xPos+tileWidth, yPos))
+        if (abs(GetLowerDistance(xPos+tileWidth, yPos)) < abs(upperDistance))
+            upperDistance = GetLowerDistance(xPos+tileWidth, yPos);
+    if (!IsZero(xPos-tileWidth, yPos))
+        if (abs(GetLowerDistance(xPos-tileWidth, yPos)) < abs(upperDistance))
+            upperDistance = GetLowerDistance(xPos-tileWidth, yPos);
+    return abs(upperDistance) <= lowerDistance ? upperDistance : lowerDistance;
+}
+
+float MovementMap::GetUpperDistance(float xPos, float yPos)
+{
+    float y = yPos;
     while (y > 0)
     {
         y = y - tileHeight;
@@ -158,11 +206,15 @@ float MovementMap::FindYDistance(float xPos, float yPos)
             int yIndex = 0;
             for (int i = 1; y >= tileHeight*i; i++)
                 yIndex++;
-            aboveDistance = tileHeight*(yIndex+1) - yPos;
-            break;
+            return tileHeight*(yIndex+1) - yPos;
         }
     }
-    // Checks for closest position below
+    return -999999;
+}
+
+float MovementMap::GetLowerDistance(float xPos, float yPos)
+{
+    float y = yPos;
     while (y < mapHeight * tileHeight)
     {
         y = y + tileHeight;
@@ -171,11 +223,10 @@ float MovementMap::FindYDistance(float xPos, float yPos)
             int yIndex = 0;
             for (int i = 1; y >= tileHeight*i; i++)
                 yIndex++;
-            belowDistance = tileHeight*yIndex - yPos;
-            break;
+            return tileHeight*yIndex - yPos;
         }
     }
-    return abs(aboveDistance) <= belowDistance ? aboveDistance : belowDistance;
+    return 999999;
 }
 
 /**
@@ -189,4 +240,66 @@ void MovementMap::SetCurrentLayer(int layer)
         return;
     }
     currentLayer = layer;
+}
+
+Point MovementMap::FindClosestVector(float xPos, float yPos)
+{
+    Point result(99999, 99999);
+    // Look Right
+    if (IsZero(xPos + tileWidth, yPos))
+    {
+        Point temp(GetRightDistance(xPos, yPos), 0);
+        if (temp.Distance(Point()) < result.Distance(Point()))
+            result = temp;
+    }
+    // Look Down-Right
+    if (IsZero(xPos + tileWidth, yPos + tileHeight))
+    {
+        Point temp(GetRightDistance(xPos, yPos+tileHeight), GetLowerDistance(xPos+tileWidth, yPos));
+        if (temp.Distance(Point()) < result.Distance(Point()))
+            result = temp;
+    }
+    // Look Down
+    if (IsZero(xPos, yPos + tileHeight))
+    {
+        Point temp(0, GetLowerDistance(xPos, yPos));
+        if (temp.Distance(Point()) < result.Distance(Point()))
+            result = temp;
+    }
+    // Look Down-Left
+    if (IsZero(xPos - tileWidth, yPos + tileHeight))
+    {
+        Point temp(GetLeftDistance(xPos, yPos+tileHeight), GetLowerDistance(xPos-tileWidth, yPos));
+        if (temp.Distance(Point()) < result.Distance(Point()))
+            result = temp;
+    }
+    // Look Left
+    if (IsZero(xPos - tileWidth, yPos))
+    {
+        Point temp(GetLeftDistance(xPos, yPos), 0);
+        if (temp.Distance(Point()) < result.Distance(Point()))
+            result = temp;
+    }
+    // Look Up-Left
+    if (IsZero(xPos - tileWidth, yPos - tileHeight))
+    {
+        Point temp(GetLeftDistance(xPos, yPos-tileHeight), GetUpperDistance(xPos-tileWidth, yPos));
+        if (temp.Distance(Point()) < result.Distance(Point()))
+            result = temp;
+    }
+    // Look Up
+    if (IsZero(xPos, yPos - tileHeight))
+    {
+        Point temp(0, GetUpperDistance(xPos, yPos));
+        if (temp.Distance(Point()) < result.Distance(Point()))
+            result = temp;
+    }
+    // Look Up-Right
+    if (IsZero(xPos + tileWidth, yPos - tileHeight))
+    {
+        Point temp(GetRightDistance(xPos, yPos-tileHeight), GetUpperDistance(xPos+tileWidth, yPos));
+        if (temp.Distance(Point()) < result.Distance(Point()))
+            result = temp;
+    }
+    return result;
 }
