@@ -79,6 +79,8 @@ int& MovementMap::At(int x, int y, int z)
  * Returns true if the value of the tile corresponding to
  * a given pixel position is 0, false if the value of the tile is 1.
  * If the given point is outside the limits of the map, returns false.
+ * If the desired layer of the movement map is not given, it uses the
+ * current one.
  */
 bool MovementMap::IsZero(int x, int y, int layer)
 {
@@ -91,36 +93,6 @@ bool MovementMap::IsZero(int x, int y, int layer)
     for (int i = 1; y >= tileHeight*i; i++)
         y_index++;
     return At(x_index, y_index, layer) == 0 ? true : false;
-}
-
-/**
- * Finds the shortest absolute distance between a given position
- * and the nearest valid tile, relative to the x axis. Valid tiles
- * are 0 on the movementMatrix,and invalid ones are 1.
- * The distance will be negative if the closest valid tile is to the left
- * of the position, and positive if to the right.
- */
-float MovementMap::FindXDistance(float xPos, float yPos)
-{
-    if (IsZero(xPos, yPos)) return 0;
-    float leftDistance, rightDistance;
-    // Gets the left distance
-    leftDistance = GetLeftDistance(xPos, yPos);
-    if (!IsZero(xPos, yPos-tileHeight))
-        if (abs(GetLeftDistance(xPos, yPos-tileHeight)) < abs(leftDistance))
-            leftDistance = GetLeftDistance(xPos, yPos-tileHeight);
-    if (!IsZero(xPos, yPos+tileHeight))
-        if (abs(GetLeftDistance(xPos, yPos+tileHeight)) < abs(leftDistance))
-            leftDistance = GetLeftDistance(xPos, yPos+tileHeight);
-    // Gets the right distance
-    rightDistance = GetRightDistance(xPos, yPos);
-    if (!IsZero(xPos, yPos-tileHeight))
-        if (abs(GetRightDistance(xPos, yPos-tileHeight)) < abs(leftDistance))
-            leftDistance = GetRightDistance(xPos, yPos-tileHeight);
-    if (!IsZero(xPos, yPos+tileHeight))
-        if (abs(GetRightDistance(xPos, yPos+tileHeight)) < abs(leftDistance))
-            leftDistance = GetRightDistance(xPos, yPos+tileHeight);
-    return abs(leftDistance) <= rightDistance ? leftDistance : rightDistance;
 }
 
 /**
@@ -166,35 +138,9 @@ float MovementMap::GetRightDistance(float xPos, float yPos)
 }
 
 /**
- * Finds the shortest absolute distance between a given position
- * and the nearest valid tile, relative to the y axis. Valid tiles
- * are 0 on the movementMatrix,and invalid ones are 1.
- * The distance will be negative if the closest valid tile is above
- * the position, and positive if below it.
+ * Returns the distance between a given position and the nearest
+ * valid tile, looking up.
  */
-float MovementMap::FindYDistance(float xPos, float yPos)
-{
-    if (IsZero(xPos, yPos)) return 0;
-    float upperDistance, lowerDistance;
-    // Checks for closest position above
-    upperDistance = GetUpperDistance(xPos, yPos);
-    if (!IsZero(xPos+tileWidth, yPos))
-        if (abs(GetUpperDistance(xPos+tileWidth, yPos)) < abs(upperDistance))
-            upperDistance = GetUpperDistance(xPos+tileWidth, yPos);
-    if (!IsZero(xPos-tileWidth, yPos))
-        if (abs(GetUpperDistance(xPos-tileWidth, yPos)) < abs(upperDistance))
-            upperDistance = GetUpperDistance(xPos-tileWidth, yPos);
-    // Checks for closest position below
-    lowerDistance = GetLowerDistance(xPos, yPos);
-    if (!IsZero(xPos+tileWidth, yPos))
-        if (abs(GetLowerDistance(xPos+tileWidth, yPos)) < abs(upperDistance))
-            upperDistance = GetLowerDistance(xPos+tileWidth, yPos);
-    if (!IsZero(xPos-tileWidth, yPos))
-        if (abs(GetLowerDistance(xPos-tileWidth, yPos)) < abs(upperDistance))
-            upperDistance = GetLowerDistance(xPos-tileWidth, yPos);
-    return abs(upperDistance) <= lowerDistance ? upperDistance : lowerDistance;
-}
-
 float MovementMap::GetUpperDistance(float xPos, float yPos)
 {
     float y = yPos;
@@ -212,6 +158,10 @@ float MovementMap::GetUpperDistance(float xPos, float yPos)
     return -999999;
 }
 
+/**
+ * Returns the distance between a given position and the nearest
+ * valid tile, looking down.
+ */
 float MovementMap::GetLowerDistance(float xPos, float yPos)
 {
     float y = yPos;
@@ -245,6 +195,8 @@ void MovementMap::SetCurrentLayer(int layer)
 Point MovementMap::FindClosestVector(float xPos, float yPos)
 {
     Point result(99999, 99999);
+    // Check if the position given is a valid tile
+    if (IsZero(xPos, yPos)) return Point();
     // Look Right
     if (IsZero(xPos + tileWidth, yPos))
     {

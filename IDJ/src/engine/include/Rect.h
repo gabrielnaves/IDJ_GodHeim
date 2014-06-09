@@ -35,6 +35,7 @@ class Rect
 	bool IsInside(Point point);
 
 	void MoveRect(float x, float y);
+	void MoveRect(const Point& point);
 	void MoveRectWithAngle(float distance, float angle);
 
   private:

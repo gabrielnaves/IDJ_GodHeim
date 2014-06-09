@@ -89,6 +89,11 @@ void Rect::MoveRect(float x, float y)
     p = p + Point(x, y);
 }
 
+void Rect::MoveRect(const Point& point)
+{
+    p = p + point;
+}
+
 void Rect::MoveRectWithAngle(float distance, float angle)
 {
     p.MovePointWithAngle(distance, angle);

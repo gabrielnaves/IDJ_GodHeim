@@ -74,19 +74,44 @@ void Character::UpdateState()
  */
 void Character::CheckMovementLimits()
 {
+    Point movementVector;
+    // Checks the upper-right limit
+    if (!movementMap.IsZero(box.GetX()+box.GetW(), box.GetY()))
+    {
+        movementVector.Set(movementMap.FindClosestVector(box.GetX()+box.GetW(), box.GetY()));
+        box.MoveRect(movementVector);
+    }
+    // Checks the upper-left limit
+    if (!movementMap.IsZero(box.GetX(), box.GetY()))
+    {
+        movementVector.Set(movementMap.FindClosestVector(box.GetX(), box.GetY()));
+        box.MoveRect(movementVector);
+    }
+    // Checks the lower-right limit
+    if (!movementMap.IsZero(box.GetX()+box.GetW(), box.GetY()+box.GetH()))
+    {
+        movementVector.Set(movementMap.FindClosestVector(box.GetX()+box.GetW(), box.GetY()+box.GetH()));
+        box.MoveRect(movementVector);
+    }
+    // Checks the lower-left limit
+    if (!movementMap.IsZero(box.GetX(), box.GetY()+box.GetH()))
+    {
+        movementVector.Set(movementMap.FindClosestVector(box.GetX(), box.GetY()+box.GetH()));
+        box.MoveRect(movementVector);
+    }
     // Checks the right limit
     if (!movementMap.IsZero(box.Center().GetX() + box.GetW()/2, box.Center().GetY()))
-        box.MoveRect(movementMap.FindXDistance(box.Center().GetX() + box.GetW()/2, box.Center().GetY()),0);
+        box.MoveRect(movementMap.FindClosestVector(box.Center().GetX() + box.GetW()/2, box.Center().GetY()));
     // Checks the left limit
     if (!movementMap.IsZero(box.Center().GetX() - box.GetW()/2, box.Center().GetY()))
-        box.MoveRect(movementMap.FindXDistance(box.Center().GetX() - box.GetW()/2, box.Center().GetY()),0);
+        box.MoveRect(movementMap.FindClosestVector(box.Center().GetX() - box.GetW()/2, box.Center().GetY()));
     // Checks the above limit
     if (!movementMap.IsZero(box.Center().GetX(), box.Center().GetY() - box.GetH()/2))
-        box.MoveRect(0,movementMap.FindYDistance(box.Center().GetX(), box.Center().GetY() - box.GetH()/2));
+        box.MoveRect(movementMap.FindClosestVector(box.Center().GetX(), box.Center().GetY() - box.GetH()/2));
     // Checks the lower limit
     if (!movementMap.IsZero(box.Center().GetX(), box.Center().GetY() + box.GetH()/2))
     {
-        box.MoveRect(0,movementMap.FindYDistance(box.Center().GetX(), box.Center().GetY() + box.GetH()/2));
+        box.MoveRect(movementMap.FindClosestVector(box.Center().GetX(), box.Center().GetY() + box.GetH()/2));
         vState = STANDING;
     }
     else vState = FALLING;

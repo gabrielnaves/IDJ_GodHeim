@@ -57,7 +57,7 @@ class Character : public GameObject
     bool actionButton;
 
     const float VEL = 200;
-    const float JUMP_SPEED = -400;
+    const float JUMP_SPEED = -500;
     const float GRAVITY = 1000;
     const float MAX_FALLING_SPEED = 600;
     const float CLIMBING_SPEED = -200;

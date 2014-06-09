@@ -16,8 +16,6 @@ class MovementMap
     MovementMap(std::string file, const TileSet& tileSet);
     int& At(int x, int y, int z = -1);
     bool IsZero(int x, int y, int layer = -1);
-    float FindXDistance(float xPos, float yPos);
-    float FindYDistance(float xPos, float yPos);
     Point FindClosestVector(float xPos, float yPos);
     void SetCurrentLayer(int layer);
 
