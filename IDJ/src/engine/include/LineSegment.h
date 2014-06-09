@@ -20,6 +20,9 @@ class LineSegment
     void Set(const Point& p1, const Point& p2);
     void Set(float x1, float y1, float x2, float y2);
 
+    float GetHighestX();
+    float GetLowestX();
+
     bool IsAbove(const Point& point);
 
   private:

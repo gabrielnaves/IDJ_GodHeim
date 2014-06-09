@@ -34,10 +34,20 @@ bool LineSegment::IsAbove(const Point& point)
     // y = ax+b
     float a, b;
 
-    //y-y0 = a(x-x0)
+    // y-y0 = a(x-x0)
     a = (p1.GetY() - p2.GetY()) / (p1.GetX() - p2.GetX());
     b = p1.GetY() - a * p1.GetX();
 
     if (a*point.GetX() + b >= point.GetY()) return true;
     return false;
+}
+
+float LineSegment::GetHighestX()
+{
+    return p1.GetX() >= p2.GetX() ? p1.GetX() : p2.GetX();
+}
+
+float LineSegment::GetLowestX()
+{
+    return p1.GetX() <= p2.GetX() ? p1.GetX() : p2.GetX();
 }

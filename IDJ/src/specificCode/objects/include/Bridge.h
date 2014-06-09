@@ -12,6 +12,8 @@
 #include "../../../engine/include/Sprite.h"
 #include "../../../engine/include/Camera.h"
 #include "../../../engine/include/LineSegment.h"
+#include "../../../engine/include/Collision.h"
+#include "../../characters/include/Barrier.h"
 
 class Bridge : public GameObject
 {
@@ -27,8 +29,12 @@ class Bridge : public GameObject
     bool Is(std::string type);
 
   private:
+    void CheckPointPosition(Point& p);
+
     Sprite bridgeSp;
     LineSegment segment1, segment2, segment3;
+
+    bool lokiColliding, thorColliding;
 };
 
 #endif /* BRIDGE_H_ */
