@@ -8,14 +8,14 @@
 
 #include "../include/Level1State.h"
 
-Level1State::Level1State() : State(), tileSet(55,55,"img/firstLevelTiles.png"),
+Level1State::Level1State() : State(), tileSet(55,55,"img/primeira fase/firstLevelTiles.png"),
                              tileMap("map/firstLevel.txt", &tileSet),
                              movementMap("map/firstLevelMovementMap.txt", tileSet)
 {
-    bg.Open("img/background primeira fase tamanho total.png");
-    rochas.Open("img/rochas.png");
+    bg.Open("img/primeira fase/background primeira fase tamanho total - Cópia.png");
+    rochas.Open("img/primeira fase/rochas.png");
 
-    objectArray.emplace_back(new Stairs());
+//    objectArray.emplace_back(new Stairs());
     objectArray.emplace_back(new Loki(70,100, movementMap));
     objectArray.emplace_back(new Thor(20,100, movementMap));
     Barrier *barrier = new Barrier();

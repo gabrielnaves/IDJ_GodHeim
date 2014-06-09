@@ -9,7 +9,7 @@
 
 TitleState::TitleState() : State()
 {
-    bg.Open("img/Opening.jpg");
+    bg.Open("img/menu/tela menu 9 fases1.png");
     startOption.Set(140,270,300,90);
     newGameOption.Set(140,375,300,90);
     optionsOption.Set(140,460,300,90);

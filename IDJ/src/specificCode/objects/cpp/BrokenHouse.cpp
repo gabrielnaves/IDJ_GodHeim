@@ -8,7 +8,7 @@
 #include "../include/BrokenHouse.h"
 
 BrokenHouse::BrokenHouse() {
-   frontHouseSp.Open("img/Objects/casa-2.png");
+   frontHouseSp.Open("img/primeira fase/casa-2.png");
    box.Set(510,297,backHouseSp.GetWidth(),backHouseSp.GetHeight());
 }
 
