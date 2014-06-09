@@ -108,7 +108,7 @@ void Sprite::Render(int x, int y, float angle)
     SDL_Rect dstrect = dimensions;
     dstrect.x = x;
     dstrect.y = y;
-    	dstrect.w = clipRect.w * scaleX;
+    dstrect.w = clipRect.w * scaleX;
     dstrect.h = clipRect.h * scaleY;
 
     SDL_RenderCopyEx(Game::GetInstance().GetRenderer(), texture, &clipRect,
