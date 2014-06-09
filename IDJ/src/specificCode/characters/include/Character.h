@@ -26,6 +26,7 @@ class Character : public GameObject
     virtual bool Is(std::string type) = 0;
     virtual void NotifyCollision(GameObject& other) = 0;
 
+    bool canUseStairs;
     bool IsDead();
     Point GetSpeed();
 
@@ -41,7 +42,7 @@ class Character : public GameObject
     void UpdateState();
     void CheckMovementLimits();
 
-    enum VerticalState { STANDING, JUST_JUMPED, JUMPING, FALLING };
+    enum VerticalState { STANDING, JUST_JUMPED, JUMPING, FALLING};
     enum HorizontalState { STANDING_RIGHT, STANDING_LEFT, MOVING_RIGHT, MOVING_LEFT};
 
     VerticalState vState;
@@ -59,6 +60,7 @@ class Character : public GameObject
     const float JUMP_SPEED = -400;
     const float GRAVITY = 1000;
     const float MAX_FALLING_SPEED = 600;
+    const float CLIMBING_SPEED = -200;
 };
 
 #endif /* CHARACTER_H_ */

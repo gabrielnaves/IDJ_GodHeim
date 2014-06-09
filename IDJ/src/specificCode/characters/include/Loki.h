@@ -12,6 +12,7 @@
 #include "Character.h"
 #include "Barrier.h"
 #include "Bullet.h"
+#include "../../objects/include/Stairs.h"
 #include "../../../engine/include/Timer.h"
 
 class Loki : public Character
@@ -28,7 +29,7 @@ class Loki : public Character
 
   private:
 	enum TransformState {LOKI, EAGLE};
-	enum ActionState {NONE, SHOOTING};
+	enum ActionState {NONE, SHOOTING, CLIMBING_UP, CLIMBING_DOWN};
 	TransformState appearance;
 	ActionState actionState;
     int flappedWings;

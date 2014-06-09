@@ -16,6 +16,7 @@ Character::Character(MovementMap& movMap) : movementMap(movMap)
     hState = STANDING_RIGHT;
     actionButton = false;
     horizontal = vertical = 0;
+    canUseStairs=false;
 }
 
 Point Character::GetSpeed()

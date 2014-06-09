@@ -110,14 +110,19 @@ void Loki::Move(float dt)
  */
 void Loki::DecideAction()
 {
-    //Shoot
     if (appearance == LOKI)
-        if(shootCooldown.Get() >= COOLDOWN and (vState == STANDING))
+    {
+        if (canUseStairs)
+            actionState = CLIMBING_DOWN;
+        //Shoot
+        else if(shootCooldown.Get() >= COOLDOWN and (vState == STANDING))
             actionState = SHOOTING;
+    }
 }
 
 void Loki::Act()
 {
+    if (actionState == CLIMBING_DOWN) speed.Set(0,10);
     if (actionState == SHOOTING) Shoot();
 
     actionButton = false;
@@ -138,12 +143,12 @@ void Loki::UpdatesStateOnTheFall()
 void Loki::Update(float dt)
 {
     Input();
+    if (actionButton) DecideAction(), Act();
+    shootCooldown.Update(dt);
     UpdateState();
     Move(dt);
     UpdatesStateOnTheFall();
     UpdateSprite();
-    if (actionButton) DecideAction(), Act();
-    shootCooldown.Update(dt);
     CheckMovementLimits();
 }
 
@@ -156,11 +161,9 @@ void Loki::NotifyCollision(GameObject& other)
 {
     if (other.Is("Stairs"))
     {
-        if (other.box.GetY() >= box.GetY())
-        {
+        if (not actionButton)
             vState = STANDING;
-            box.Set(box.GetX(),other.box.GetY()-box.GetH(),box.GetW(),box.GetH());
-        }
+        else vState = FALLING;
     }
 }
 
