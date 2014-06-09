@@ -14,7 +14,8 @@
 #include "../../../engine/include/Camera.h"
 #include "../../../engine/include/Sprite.h"
 
-class BrokenHouse : public GameObject{
+class BrokenHouse : public GameObject
+{
   public:
     BrokenHouse();
     virtual ~BrokenHouse();

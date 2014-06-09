@@ -11,6 +11,8 @@
 #include "../../../engine/include/GameObject.h"
 #include "../../../engine/include/Camera.h"
 #include "../../../engine/include/Sprite.h"
+#include "../../characters/include/Loki.h"
+#include "../../characters/include/Thor.h"
 
 class Stairs: public GameObject
 {
