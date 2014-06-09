@@ -33,6 +33,8 @@ void Character::UpdateSpeed(float dt)
     if (vState == STANDING) speed.Set(speed.GetX(),0);
     else if (vState == JUST_JUMPED) speed.Set(speed.GetX(),JUMP_SPEED);
     else if (vState == FALLING or vState == JUMPING) speed = speed + Point(speed.GetX(),GRAVITY*dt);
+    else if (vState == CLIMBING) speed.Set(0,speed.GetY());
+
     //Sets a limit to the falling speed
     if (speed.GetY() >= MAX_FALLING_SPEED) speed.Set(speed.GetX(), MAX_FALLING_SPEED);
 

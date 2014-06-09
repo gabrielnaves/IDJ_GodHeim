@@ -42,8 +42,8 @@ class Character : public GameObject
     void UpdateState();
     void CheckMovementLimits();
 
-    enum VerticalState { STANDING, JUST_JUMPED, JUMPING, FALLING};
-    enum HorizontalState { STANDING_RIGHT, STANDING_LEFT, MOVING_RIGHT, MOVING_LEFT};
+    enum VerticalState {STANDING, JUST_JUMPED, JUMPING, FALLING, CLIMBING};
+    enum HorizontalState {STANDING_RIGHT, STANDING_LEFT, MOVING_RIGHT, MOVING_LEFT};
 
     VerticalState vState;
     HorizontalState hState;
