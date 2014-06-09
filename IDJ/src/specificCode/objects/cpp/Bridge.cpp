@@ -7,10 +7,10 @@
 
 #include "../include/Bridge.h"
 
-Bridge::Bridge()
+Bridge::Bridge(float x, float y)
 {
-    // TODO Auto-generated constructor stub
-
+    bridgeSp.Open("img/primeira fase/ponte.png");
+    box.Set(x, y, bridgeSp.GetWidth(), bridgeSp.GetHeight());
 }
 
 Bridge::~Bridge()
@@ -25,7 +25,7 @@ void Bridge::Update(float dt)
 
 void Bridge::Render()
 {
-
+    bridgeSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY());
 }
 
 void Bridge::NotifyCollision(GameObject& other)
