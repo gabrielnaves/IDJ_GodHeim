@@ -11,6 +11,9 @@ Bridge::Bridge(float x, float y)
 {
     bridgeSp.Open("img/primeira fase/ponte.png");
     box.Set(x, y, bridgeSp.GetWidth(), bridgeSp.GetHeight());
+    segment1.Set(x+10, y+110, x+65, y+70);
+    segment2.Set(x+65, y+70, x+210, y+70);
+    segment3.Set(x+210, y+70, x+260, y+110);
 }
 
 Bridge::~Bridge()

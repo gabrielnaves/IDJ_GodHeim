@@ -11,6 +11,7 @@
 #include "../../../engine/include/GameObject.h"
 #include "../../../engine/include/Sprite.h"
 #include "../../../engine/include/Camera.h"
+#include "../../../engine/include/LineSegment.h"
 
 class Bridge : public GameObject
 {
@@ -27,6 +28,7 @@ class Bridge : public GameObject
 
   private:
     Sprite bridgeSp;
+    LineSegment segment1, segment2, segment3;
 };
 
 #endif /* BRIDGE_H_ */
