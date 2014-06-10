@@ -20,6 +20,7 @@
 #include "../../objects/include/BrokenHouse.h"
 #include "../../objects/include/Stairs.h"
 #include "../../objects/include/Bridge.h"
+#include "../../objects/include/Spikes.h"
 
 class Level1State: public State
 {
