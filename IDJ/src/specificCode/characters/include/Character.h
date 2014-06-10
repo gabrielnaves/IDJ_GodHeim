@@ -14,7 +14,9 @@
 #include "../../../engine/include/Sprite.h"
 #include "../../../engine/include/Camera.h"
 #include "../../../engine/include/MovementMap.h"
-#include <cmath>
+
+enum VerticalState {STANDING, JUST_JUMPED, JUMPING, FALLING};
+enum HorizontalState {STANDING_RIGHT, STANDING_LEFT, MOVING_RIGHT, MOVING_LEFT};
 
 class Character : public GameObject
 {
@@ -25,17 +27,16 @@ class Character : public GameObject
     virtual void Render() = 0;
     virtual bool Is(std::string type) = 0;
     virtual void NotifyCollision(GameObject& other) = 0;
-    virtual bool IsClimbing() = 0;
 
     bool canHoldStairs;
     bool IsDead();
     Point GetSpeed();
 
-    enum VerticalState {STANDING, JUST_JUMPED, JUMPING, FALLING};
-    enum HorizontalState {STANDING_RIGHT, STANDING_LEFT, MOVING_RIGHT, MOVING_LEFT};
 
-    VerticalState vState;
-    HorizontalState hState;
+    VerticalState GetVState();
+    void SetVState(VerticalState vS);
+    HorizontalState GetHState();
+    void SetHState(HorizontalState hS);
 
   protected:
     virtual void Move(float dt) = 0;
@@ -54,6 +55,9 @@ class Character : public GameObject
     Sprite tempCharacterSp;
     MovementMap& movementMap;
     Point speed;
+
+    VerticalState vState;
+    HorizontalState hState;
 
     int horizontal;
     int vertical;

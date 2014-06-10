@@ -52,7 +52,7 @@ void Bridge::Update(float dt)
 
 float Bridge::CheckPointPosition(Point& p)
 {
-    if (p.GetX() < segment1.GetHighestX())
+    if (p.GetX() >= segment1.GetLowestX() && p.GetX() < segment1.GetHighestX())
     {
         if (segment1.IsAbove(p)) return 0;
         else return segment1.GetVerticalDistance(p);
@@ -62,7 +62,7 @@ float Bridge::CheckPointPosition(Point& p)
         if (segment2.IsAbove(p)) return 0;
         else return segment2.GetVerticalDistance(p);
     }
-    else
+    else if (p.GetX() >= segment3.GetLowestX() && p.GetX() < segment3.GetHighestX())
     {
         if (segment3.IsAbove(p)) return 0;
         else return segment3.GetVerticalDistance(p);

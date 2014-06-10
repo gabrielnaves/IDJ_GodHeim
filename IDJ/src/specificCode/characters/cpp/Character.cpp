@@ -128,3 +128,23 @@ void Character::CheckMovementLimits()
     }
     else vState = FALLING;
 }
+
+VerticalState Character::GetVState()
+{
+    return vState;
+}
+
+void Character::SetVState(VerticalState vS)
+{
+    vState = vS;
+}
+
+HorizontalState Character::GetHState()
+{
+    return hState;
+}
+
+void Character::SetHState(HorizontalState hS)
+{
+    hState = hS;
+}

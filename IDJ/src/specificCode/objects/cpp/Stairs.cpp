@@ -36,7 +36,7 @@ void Stairs::ReleasesStairs(Character *character)
     if (character->box.GetY() <= box.GetY() - character->box.GetH())
         character->canHoldStairs = false;
     //if the character hits the ground
-    if (character->vState == 0)
+    if (character->GetVState() == 0)
         character->canHoldStairs = false;
 }
 
