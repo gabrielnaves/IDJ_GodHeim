@@ -29,7 +29,7 @@ class Bridge : public GameObject
     bool Is(std::string type);
 
   private:
-    void CheckPointPosition(Point& p);
+    float CheckPointPosition(Point& p);
 
     Sprite bridgeSp;
     LineSegment segment1, segment2, segment3;

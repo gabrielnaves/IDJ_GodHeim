@@ -27,45 +27,47 @@ void Bridge::Update(float dt)
 {
     Loki* loki = Loki::characterLoki;
     Thor* thor = Thor::characterThor;
-    if (!Collision::IsColliding(loki->box, box, loki->rotation*2*M_PI/360, rotation*2*M_PI/360))
-        lokiColliding = false;
-    if (!Collision::IsColliding(thor->box, box, thor->rotation*2*M_PI/360, rotation*2*M_PI/360))
-        thorColliding = false;
+    if (box.Center().Distance(loki->box.Center()) < 300 || box.Center().Distance(thor->box.Center()) < 300)
+    {
+        if (!Collision::IsColliding(loki->box, box, loki->rotation*2*M_PI/360, rotation*2*M_PI/360))
+            lokiColliding = false;
+        if (!Collision::IsColliding(thor->box, box, thor->rotation*2*M_PI/360, rotation*2*M_PI/360))
+            thorColliding = false;
+    }
+    else lokiColliding = thorColliding = false;
 
     if (lokiColliding)
     {
         Point p(loki->box.GetPoint());
         p = p + Point(loki->box.GetW()/2, loki->box.GetH());
-        CheckPointPosition(p);
+        loki->box.MoveRect(0, CheckPointPosition(p));
     }
     if (thorColliding)
     {
         Point p(thor->box.GetPoint());
         p = p + Point(thor->box.GetW()/2, thor->box.GetH());
-        CheckPointPosition(p);
+        thor->box.MoveRect(0, CheckPointPosition(p));
     }
 }
 
-void Bridge::CheckPointPosition(Point& p)
+float Bridge::CheckPointPosition(Point& p)
 {
     if (p.GetX() < segment1.GetHighestX())
     {
-        if (segment1.IsAbove(p))
-            std::cout << "Above segment" << std::endl;
-        else std::cout << "Below segment" << std::endl;
+        if (segment1.IsAbove(p)) return 0;
+        else return segment1.GetVerticalDistance(p);
     }
     else if (p.GetX() >= segment2.GetLowestX() && p.GetX() < segment2.GetHighestX())
     {
-        if (segment2.IsAbove(p))
-            std::cout << "Above segment" << std::endl;
-        else std::cout << "Below segment" << std::endl;
+        if (segment2.IsAbove(p)) return 0;
+        else return segment2.GetVerticalDistance(p);
     }
     else
     {
-        if (segment3.IsAbove(p))
-            std::cout << "Above segment" << std::endl;
-        else std::cout << "Below segment" << std::endl;
+        if (segment3.IsAbove(p)) return 0;
+        else return segment3.GetVerticalDistance(p);
     }
+    return 0;
 }
 
 void Bridge::Render()

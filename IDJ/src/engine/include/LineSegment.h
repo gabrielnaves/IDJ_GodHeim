@@ -22,11 +22,14 @@ class LineSegment
 
     float GetHighestX();
     float GetLowestX();
+    float GetVerticalDistance(const Point& point);
 
     bool IsAbove(const Point& point);
 
   private:
+    void FindAandB();
     Point p1, p2;
+    float a, b;
 };
 
 #endif /* LINESEGMENT_H_ */
