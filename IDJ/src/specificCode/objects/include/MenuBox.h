@@ -11,12 +11,12 @@
 #include "../../../engine/include/GameObject.h"
 #include "../../../engine/include/Camera.h"
 #include "../../../engine/include/Sprite.h"
+#include "../../../engine/include/State.h"
 
 class MenuBox : public GameObject
 {
   public:
-    MenuBox(float x, float y, Sprite sprite1, Sprite sprite2);
-    ~MenuBox();
+    MenuBox(float x, float y, std::string spFile1, std::string spFile2, std::string type);
 
     void Update(float dt);
     void Render();
@@ -27,7 +27,8 @@ class MenuBox : public GameObject
 
   private:
     Sprite sp1, sp2;
-    bool isMouseInside;
+    bool isMouseInside, click;
+    std::string type;
 };
 
 #endif /* MENUBOX_H_ */

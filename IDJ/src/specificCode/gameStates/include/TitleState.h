@@ -20,13 +20,11 @@ class TitleState : public State
     ~TitleState();
     void Update(float dt);
     void Render();
-  private:
-    void Input();
-    Sprite bg;
 
-    Rect startOption;
-    Rect newGameOption;
-    Rect optionsOption;
+    void UpdateArray(float dt);
+
+  private:
+    Sprite bg;
 };
 
 #endif /* TITLESTATE_H_ */

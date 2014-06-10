@@ -39,7 +39,6 @@ class State
     bool RequestedDelete();
     bool RequestedQuit();
 
-    std::vector<std::unique_ptr<GameObject>>& GetObjectArray() {return(objectArray);}
   protected:
     bool requestDelete;
     bool requestQuit;
