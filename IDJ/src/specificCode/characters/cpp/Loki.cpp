@@ -119,6 +119,7 @@ void Loki::Act()
         //releases the stairs
         if (actionState == CLIMBING)
             actionState = NONE;
+        //holds the stairs
         else if (canHoldStairs)
             actionState = CLIMBING;
         //Shoot
