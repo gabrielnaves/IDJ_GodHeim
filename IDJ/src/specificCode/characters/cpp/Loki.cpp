@@ -161,6 +161,9 @@ void Loki::Render()
 
 void Loki::NotifyCollision(GameObject& other)
 {
+    if (other.Is("Stairs"))
+    {
+    }
 }
 
 bool Loki::Is(std::string type)
@@ -188,4 +191,9 @@ void Loki::UpdateSprite()
     {
         tempCharacterSp.Open("img/Characters/aguia.png");
     }
+}
+
+bool Loki::IsClimbing()
+{
+    return (actionState == CLIMBING ? true : false);
 }

@@ -25,6 +25,7 @@ class Character : public GameObject
     virtual void Render() = 0;
     virtual bool Is(std::string type) = 0;
     virtual void NotifyCollision(GameObject& other) = 0;
+    virtual bool IsClimbing() = 0;
 
     bool canHoldStairs;
     bool IsDead();

@@ -22,6 +22,7 @@ class Thor : public Character
     void Render();
     void NotifyCollision(GameObject& other);
     bool Is(std::string type);
+    bool IsClimbing();
     static Thor *characterThor;
 
   private:

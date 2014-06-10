@@ -62,7 +62,7 @@ void Stairs::NotifyCollision(GameObject& other)
 {
 
     if (other.Is("Loki"))
-        (abs(other.box.Center().GetX() - box.Center().GetX()) >= box.GetW()/4) ? //if it is far from the middle of the stairs
+        (abs(other.box.Center().GetX() - box.Center().GetX()) >= box.GetW()/8) ? //if it is far from the middle of the stairs
                 Loki::characterLoki->canHoldStairs = false : Loki::characterLoki->canHoldStairs = true;
     if (other.Is("Thor"))
         (abs(other.box.Center().GetX() - box.Center().GetX()) >= box.GetW()/4) ?

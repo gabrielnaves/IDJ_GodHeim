@@ -121,3 +121,8 @@ void Thor::UpdateSprite()
     if (hState == STANDING_LEFT)
         tempCharacterSp.Open("img/Characters/tempThor.png");
 }
+
+bool Thor::IsClimbing()
+{
+    return (actionState == CLIMBING ? true : false);
+}
