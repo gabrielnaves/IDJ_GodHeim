@@ -100,7 +100,7 @@ void Thor::Render()
 void Thor::NotifyCollision(GameObject& other)
 {
     if (other.Is("Spikes"))
-        hp -= HP;
+        hp -= HP/20;
 }
 
 bool Thor::Is(std::string type)

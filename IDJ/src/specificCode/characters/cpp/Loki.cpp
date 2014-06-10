@@ -164,7 +164,7 @@ void Loki::NotifyCollision(GameObject& other)
     {
     }
     if (other.Is("Spikes"))
-        hp -= HP;
+        hp -= HP/20;
 }
 
 bool Loki::Is(std::string type)
