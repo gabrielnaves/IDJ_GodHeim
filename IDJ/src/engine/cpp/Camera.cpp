@@ -85,4 +85,5 @@ void Camera::Update(float dt)
         pos = pos + Point(hm * (hm != 0 && vm != 0 ? speed * cos(M_PI/4) : speed) * dt,
                           vm * (hm != 0 && vm != 0 ? speed * cos(M_PI/4) : speed) * dt);
     }
+    pos.Set(floor(pos.GetX()), floor(pos.GetY()));
 }
