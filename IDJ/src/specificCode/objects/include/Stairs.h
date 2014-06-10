@@ -13,6 +13,7 @@
 #include "../../../engine/include/Sprite.h"
 #include "../../characters/include/Loki.h"
 #include "../../characters/include/Thor.h"
+#include <cmath>
 
 class Stairs: public GameObject
 {

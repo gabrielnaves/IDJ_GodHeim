@@ -60,10 +60,13 @@ void Stairs::Render()
 
 void Stairs::NotifyCollision(GameObject& other)
 {
-    if (!other.Is("Loki") or !other.Is("Thor")) return;
-    Rect loki = Loki::characterLoki->box;
-    if ((loki.GetX() >= box.GetX()) and ((loki.GetX()+loki.GetW()) <= (box.GetX()+box.GetW())))
-        Loki::characterLoki->canHoldStairs = true;
+
+    if (other.Is("Loki"))
+        (abs(other.box.Center().GetX() - box.Center().GetX()) >= box.GetW()/4) ? //if it is far from the middle of the stairs
+                Loki::characterLoki->canHoldStairs = false : Loki::characterLoki->canHoldStairs = true;
+    if (other.Is("Thor"))
+        (abs(other.box.Center().GetX() - box.Center().GetX()) >= box.GetW()/4) ?
+                Thor::characterThor->canHoldStairs = false : Thor::characterThor->canHoldStairs = true;
 }
 
 bool Stairs::IsDead()
