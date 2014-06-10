@@ -63,6 +63,7 @@ class Character : public GameObject
     int vertical;
     bool actionButton;
 
+    const float HP = 100;
     const float VEL = 200;
     const float JUMP_SPEED = -500;
     const float GRAVITY = 1000;

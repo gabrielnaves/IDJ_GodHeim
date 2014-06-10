@@ -12,7 +12,6 @@ Thor* Thor::characterThor;
 
 Thor::Thor(float x, float y, MovementMap& movMap) : Character(movMap)
 {
-    hp = 100;
     rotation = 0;
     tempCharacterSp.Open("img/Characters/tempThor.png");
     box.Set(x-tempCharacterSp.GetWidth()/2, y-tempCharacterSp.GetHeight()/2, tempCharacterSp.GetWidth(), tempCharacterSp.GetHeight());
@@ -100,6 +99,8 @@ void Thor::Render()
 
 void Thor::NotifyCollision(GameObject& other)
 {
+    if (other.Is("Spikes"))
+        hp -= HP;
 }
 
 bool Thor::Is(std::string type)

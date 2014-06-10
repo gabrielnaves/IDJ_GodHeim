@@ -12,7 +12,6 @@ Loki* Loki::characterLoki;
 
 Loki::Loki(float x, float y, MovementMap& movMap) : Character(movMap)
 {
-	hp = 100;
 	rotation = 0;
 	tempCharacterSp.Open("img/Characters/tempLoki.jpg");
 	box.Set(x-tempCharacterSp.GetWidth()/2, y-tempCharacterSp.GetHeight()/2, tempCharacterSp.GetWidth(), tempCharacterSp.GetHeight());
@@ -164,6 +163,8 @@ void Loki::NotifyCollision(GameObject& other)
     if (other.Is("Stairs"))
     {
     }
+    if (other.Is("Spikes"))
+        hp -= HP;
 }
 
 bool Loki::Is(std::string type)

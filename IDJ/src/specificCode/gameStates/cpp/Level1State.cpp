@@ -28,7 +28,6 @@ Level1State::Level1State() : State(), tileSet(55,55,"img/primeira fase/firstLeve
 
 Level1State::~Level1State()
 {
-    // TODO Auto-generated destructor stub
 }
 
 void Level1State::Update(float dt)

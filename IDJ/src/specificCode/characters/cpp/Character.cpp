@@ -11,7 +11,7 @@
 
 Character::Character(MovementMap& movMap) : movementMap(movMap)
 {
-    hp = 100;
+    hp = HP;
     vState = STANDING;
     hState = STANDING_RIGHT;
     actionButton = false;
