@@ -30,6 +30,12 @@ class Character : public GameObject
     bool IsDead();
     Point GetSpeed();
 
+    enum VerticalState {STANDING, JUST_JUMPED, JUMPING, FALLING};
+    enum HorizontalState {STANDING_RIGHT, STANDING_LEFT, MOVING_RIGHT, MOVING_LEFT};
+
+    VerticalState vState;
+    HorizontalState hState;
+
   protected:
     virtual void Move(float dt) = 0;
     virtual void UpdateSprite() = 0;
@@ -43,11 +49,6 @@ class Character : public GameObject
     void UpdateState();
     void CheckMovementLimits();
 
-    enum VerticalState {STANDING, JUST_JUMPED, JUMPING, FALLING};
-    enum HorizontalState {STANDING_RIGHT, STANDING_LEFT, MOVING_RIGHT, MOVING_LEFT};
-
-    VerticalState vState;
-    HorizontalState hState;
     int hp;
     Sprite tempCharacterSp;
     MovementMap& movementMap;

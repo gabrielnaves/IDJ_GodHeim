@@ -26,6 +26,7 @@ class Stairs: public GameObject
     bool Is(std::string type);
   private:
     void LookForCharacterAbove(Character *character);
+    void ReleasesStairs(Character *character);
     Sprite stairsSp;
 };
 

@@ -86,6 +86,7 @@ void Thor::Update(float dt)
     Input();
     if (actionButton) Act();
     UpdateState();
+    if (actionState == CLIMBING and !canHoldStairs) actionState = NONE;
     UpdateSprite();
     Move(dt);
     UpdatesStateOnTheFall();

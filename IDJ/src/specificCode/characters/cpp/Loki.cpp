@@ -147,6 +147,7 @@ void Loki::Update(float dt)
     if (actionButton) Act();
     shootCooldown.Update(dt);
     UpdateState();
+    if (actionState == CLIMBING and !canHoldStairs) actionState = NONE;
     Move(dt);
     UpdatesStateOnTheFall();
     UpdateSprite();

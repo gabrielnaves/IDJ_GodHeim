@@ -22,6 +22,22 @@ void Stairs::Update(float dt)
 {
     LookForCharacterAbove(Loki::characterLoki);
     LookForCharacterAbove(Thor::characterThor);
+    ReleasesStairs(Loki::characterLoki);
+    ReleasesStairs(Thor::characterThor);
+}
+
+/**
+ * Sets canHoldStairs to false when the character is not on a valid area anymore
+ */
+void Stairs::ReleasesStairs(Character *character)
+{
+    if (character->canHoldStairs == false) return;
+    //if the character is above the stairs
+    if (character->box.GetY() <= box.GetY() - character->box.GetH())
+        character->canHoldStairs = false;
+    //if the character hits the ground
+    if (character->vState == 0)
+        character->canHoldStairs = false;
 }
 
 /**
@@ -44,6 +60,7 @@ void Stairs::Render()
 
 void Stairs::NotifyCollision(GameObject& other)
 {
+    if (!other.Is("Loki") or !other.Is("Thor")) return;
     Rect loki = Loki::characterLoki->box;
     if ((loki.GetX() >= box.GetX()) and ((loki.GetX()+loki.GetW()) <= (box.GetX()+box.GetW())))
         Loki::characterLoki->canHoldStairs = true;

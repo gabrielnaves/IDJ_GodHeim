@@ -29,7 +29,7 @@ class Loki : public Character
 
   private:
 	enum TransformState {LOKI, EAGLE};
-	enum ActionState {NONE, SHOOTING, CLIMBING};
+	enum ActionState {NONE, CLIMBING};
 	TransformState appearance;
 	ActionState actionState;
     int flappedWings;
