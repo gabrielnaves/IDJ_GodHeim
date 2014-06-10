@@ -16,12 +16,22 @@ Character::Character(MovementMap& movMap) : movementMap(movMap)
     hState = STANDING_RIGHT;
     actionButton = false;
     horizontal = vertical = 0;
-    canUseStairs=false;
+    canHoldStairs=false;
 }
 
 Point Character::GetSpeed()
 {
     return(speed);
+}
+
+/**
+ * Updates the vector speed when climbing stairs
+ */
+void Character::Climb(float dt)
+{
+    if (vertical == 0) speed.Set(speed.GetX(),0);
+    if (vertical > 0) speed.Set(speed.GetX(),-VEL);
+    if (vertical < 0) speed.Set(speed.GetX(), VEL);
 }
 
 /**
@@ -33,7 +43,6 @@ void Character::UpdateSpeed(float dt)
     if (vState == STANDING) speed.Set(speed.GetX(),0);
     else if (vState == JUST_JUMPED) speed.Set(speed.GetX(),JUMP_SPEED);
     else if (vState == FALLING or vState == JUMPING) speed = speed + Point(speed.GetX(),GRAVITY*dt);
-    else if (vState == CLIMBING) speed.Set(0,speed.GetY());
 
     //Sets a limit to the falling speed
     if (speed.GetY() >= MAX_FALLING_SPEED) speed.Set(speed.GetX(), MAX_FALLING_SPEED);
@@ -75,6 +84,12 @@ void Character::UpdateState()
 void Character::CheckMovementLimits()
 {
     Point movementVector;
+    // Checks the above limit
+    if (!movementMap.IsZero(box.Center().GetX(), box.Center().GetY() - box.GetH()/2))
+    {
+        speed.Set(speed.GetX(),0);
+        box.MoveRect(movementMap.FindClosestVector(box.Center().GetX(), box.Center().GetY() - box.GetH()/2));
+    }
     // Checks the upper-right limit
     if (!movementMap.IsZero(box.GetX()+box.GetW(), box.GetY()))
     {
@@ -105,9 +120,6 @@ void Character::CheckMovementLimits()
     // Checks the left limit
     if (!movementMap.IsZero(box.Center().GetX() - box.GetW()/2, box.Center().GetY()))
         box.MoveRect(movementMap.FindClosestVector(box.Center().GetX() - box.GetW()/2, box.Center().GetY()));
-    // Checks the above limit
-    if (!movementMap.IsZero(box.Center().GetX(), box.Center().GetY() - box.GetH()/2))
-        box.MoveRect(movementMap.FindClosestVector(box.Center().GetX(), box.Center().GetY() - box.GetH()/2));
     // Checks the lower limit
     if (!movementMap.IsZero(box.Center().GetX(), box.Center().GetY() + box.GetH()/2))
     {

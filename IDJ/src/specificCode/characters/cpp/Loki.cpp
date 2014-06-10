@@ -40,6 +40,8 @@ void Loki::Input()
     //Gets the inputs for moving vertically
     if (input.KeyPress(SDLK_w))
         vertical += 1;
+    else if (input.IsKeyDown(SDLK_w))
+        vertical = 2;
     if (input.KeyPress(SDLK_s) || input.IsKeyDown(SDLK_s))
         vertical -= 1;
     //Action button
@@ -78,7 +80,7 @@ void Loki::UpdateVerticalState()
     {
         if (vertical == 1 and vState == STANDING)
             vState = JUST_JUMPED;
-        else if (vertical == 1 and vState == FALLING)
+        else if (vertical == 1 and vState == FALLING and actionState == NONE)
             appearance = EAGLE;
     }
     else if (appearance == EAGLE)
@@ -94,8 +96,10 @@ void Loki::UpdateVerticalState()
 
 void Loki::Move(float dt)
 {
-    if (appearance == LOKI) UpdateSpeed(dt);
-    if (appearance == EAGLE) UpdateEagleSpeed(dt);
+    if (actionState == CLIMBING)
+        Climb(dt);
+    else if (appearance == LOKI) UpdateSpeed(dt);
+    else if (appearance == EAGLE) UpdateEagleSpeed(dt);
 
     box.MoveRect(speed.GetX()*dt,speed.GetY()*dt);
     Barrier::barrier->CheckCollision(this);
@@ -108,23 +112,19 @@ void Loki::Move(float dt)
 /**
  * Calls the right action Loki must do, depending on the situation
  */
-void Loki::DecideAction()
+void Loki::Act()
 {
     if (appearance == LOKI)
     {
-        if (canUseStairs)
-            actionState = CLIMBING_DOWN;
+        //releases the stairs
+        if (actionState == CLIMBING)
+            actionState = NONE;
+        else if (canHoldStairs)
+            actionState = CLIMBING;
         //Shoot
-        else if(shootCooldown.Get() >= COOLDOWN and (vState == STANDING))
-            actionState = SHOOTING;
+        else if(shootCooldown.Get() >= COOLDOWN and vState == STANDING)
+            Shoot();
     }
-}
-
-void Loki::Act()
-{
-    if (actionState == CLIMBING_DOWN) speed.Set(0,10);
-    if (actionState == SHOOTING) Shoot();
-
     actionButton = false;
 }
 
@@ -143,7 +143,7 @@ void Loki::UpdatesStateOnTheFall()
 void Loki::Update(float dt)
 {
     Input();
-    if (actionButton) DecideAction(), Act();
+    if (actionButton) Act();
     shootCooldown.Update(dt);
     UpdateState();
     Move(dt);
@@ -159,12 +159,6 @@ void Loki::Render()
 
 void Loki::NotifyCollision(GameObject& other)
 {
-    if (other.Is("Stairs"))
-    {
-        if (not actionButton)
-            vState = STANDING;
-        else vState = FALLING;
-    }
 }
 
 bool Loki::Is(std::string type)

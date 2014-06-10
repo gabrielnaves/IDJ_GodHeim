@@ -29,7 +29,7 @@ class Loki : public Character
 
   private:
 	enum TransformState {LOKI, EAGLE};
-	enum ActionState {NONE, SHOOTING, CLIMBING_UP, CLIMBING_DOWN};
+	enum ActionState {NONE, SHOOTING, CLIMBING};
 	TransformState appearance;
 	ActionState actionState;
     int flappedWings;
@@ -40,7 +40,6 @@ class Loki : public Character
 	void UpdateSprite();
 	void UpdateVerticalState();
 	void UpdatesStateOnTheFall();
-	void DecideAction();
 	void Act();
 
 	void UpdateEagleSpeed(float dt);
@@ -51,10 +50,9 @@ class Loki : public Character
 	const float FIREBALL_SPEED = 500;
 	const float FIREBALL_DISTANCE = 1000;
     const float MAX_FALLING_SPEED_EAGLE = 100;
-    const float EAGLE_JUMP_SPEED = -250;
+    const float EAGLE_JUMP_SPEED = -300;
     const float EAGLE_AIR_RESISTANCE = 200;
     const float COOLDOWN = 1;
-    const float TOLERANCE = 5;
 };
 
 #endif /* LOKI_H_ */

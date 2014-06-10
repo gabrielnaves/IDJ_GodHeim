@@ -25,7 +25,7 @@ class Thor : public Character
     static Thor *characterThor;
 
   private:
-    enum ActionState {NONE};
+    enum ActionState {NONE, CLIMBING};
     ActionState actionState;
 
     void Input();
@@ -33,7 +33,7 @@ class Thor : public Character
     void UpdateSprite();
     void UpdateVerticalState();
     void UpdatesStateOnTheFall();
-    void DecideAction();
+    void Act();
 };
 
 #endif /* THOR_H_ */

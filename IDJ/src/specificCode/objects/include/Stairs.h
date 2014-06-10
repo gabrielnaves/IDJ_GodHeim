@@ -25,6 +25,7 @@ class Stairs: public GameObject
     bool IsDead();
     bool Is(std::string type);
   private:
+    void LookForCharacterAbove(Character *character);
     Sprite stairsSp;
 };
 

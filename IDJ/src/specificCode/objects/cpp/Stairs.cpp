@@ -20,16 +20,23 @@ Stairs::~Stairs()
 
 void Stairs::Update(float dt)
 {
-    Loki *loki = Loki::characterLoki;
-    Thor *thor = Thor::characterThor;
-
-    if ((loki->box.GetX() >= box.GetX()) and ((loki->box.GetX()+loki->box.GetW()) <= (box.GetX()+box.GetW())))
-    {
-        if ((loki->box.GetY()+loki->box.GetH() <= box.GetY()) and ((loki->box.GetY()+loki->box.GetH())>=(box.GetY()-10)))
-            loki->canUseStairs = true;
-        else loki->canUseStairs = false;
-    }
+    LookForCharacterAbove(Loki::characterLoki);
+    LookForCharacterAbove(Thor::characterThor);
 }
+
+/**
+ * Sees if the character is inside an valid area above the stairs so he can use it
+ */
+void Stairs::LookForCharacterAbove(Character *character)
+{
+    //if the character is inside an rectangle limited by the sides of the stairs
+    if ((character->box.GetX() >= box.GetX()) and ((character->box.GetX()+character->box.GetW()) <= (box.GetX()+box.GetW())))
+        //if the character is close enough in the y axis to go down the stairs
+        if (character->box.GetY()<=(box.GetY()-character->box.GetH()+10) and
+            character->box.GetY()>=(box.GetY()-character->box.GetH()-10))
+            character->canHoldStairs = true;
+}
+
 void Stairs::Render()
 {
     stairsSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY());
@@ -37,6 +44,9 @@ void Stairs::Render()
 
 void Stairs::NotifyCollision(GameObject& other)
 {
+    Rect loki = Loki::characterLoki->box;
+    if ((loki.GetX() >= box.GetX()) and ((loki.GetX()+loki.GetW()) <= (box.GetX()+box.GetW())))
+        Loki::characterLoki->canHoldStairs = true;
 }
 
 bool Stairs::IsDead()

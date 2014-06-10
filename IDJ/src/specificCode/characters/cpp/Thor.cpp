@@ -37,14 +37,19 @@ void Thor::Input()
         horizontal -= 1;
     if (input.KeyPress(SDLK_i))
         vertical += 1;
+    if (input.IsKeyDown(SDLK_i))
+        vertical = 2;
     if (input.KeyPress(SDLK_k) or input.IsKeyDown(SDLK_k))
         vertical -= 1;
     if (input.KeyPress(SDLK_u))
         actionButton = true;
 }
 
-void Thor::DecideAction()
+void Thor::Act()
 {
+    if (canHoldStairs)
+        actionState = CLIMBING;
+    actionButton = false;
 }
 
 void Thor::UpdateVerticalState()
@@ -53,9 +58,18 @@ void Thor::UpdateVerticalState()
         vState = JUST_JUMPED;
 }
 
+/**
+ * Calls the right action Thor must do, depending on the situation
+ */
 void Thor::Move(float dt)
 {
-    UpdateSpeed(dt);
+    //releases the stairs
+    if (actionState == CLIMBING)
+        actionState = NONE;
+    else if (actionState == CLIMBING)
+        Climb(dt);
+    else
+        UpdateSpeed(dt);
     box.MoveRect(speed.GetX()*dt,speed.GetY()*dt);
     Barrier::barrier->CheckCollision(this);
 }
@@ -69,6 +83,7 @@ void Thor::UpdatesStateOnTheFall()
 void Thor::Update(float dt)
 {
     Input();
+    if (actionButton) Act();
     UpdateState();
     UpdateSprite();
     Move(dt);
@@ -83,14 +98,6 @@ void Thor::Render()
 
 void Thor::NotifyCollision(GameObject& other)
 {
-    if (other.Is("Stairs"))
-    {
-        if (other.box.GetY() >= box.GetY())
-        {
-            vState = STANDING;
-            box.Set(box.GetX(),other.box.GetY()-box.GetH(),box.GetW(),box.GetH());
-        }
-    }
 }
 
 bool Thor::Is(std::string type)

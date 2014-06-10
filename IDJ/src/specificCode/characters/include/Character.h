@@ -26,7 +26,7 @@ class Character : public GameObject
     virtual bool Is(std::string type) = 0;
     virtual void NotifyCollision(GameObject& other) = 0;
 
-    bool canUseStairs;
+    bool canHoldStairs;
     bool IsDead();
     Point GetSpeed();
 
@@ -34,15 +34,16 @@ class Character : public GameObject
     virtual void Move(float dt) = 0;
     virtual void UpdateSprite() = 0;
     virtual void UpdateVerticalState() = 0;
-    virtual void DecideAction() = 0;
+    virtual void Act() = 0;
     virtual void UpdatesStateOnTheFall() = 0;
 
+    void Climb(float dt);
     void UpdateSpeed(float dt);
     void UpdateHorizontalState();
     void UpdateState();
     void CheckMovementLimits();
 
-    enum VerticalState {STANDING, JUST_JUMPED, JUMPING, FALLING, CLIMBING};
+    enum VerticalState {STANDING, JUST_JUMPED, JUMPING, FALLING};
     enum HorizontalState {STANDING_RIGHT, STANDING_LEFT, MOVING_RIGHT, MOVING_LEFT};
 
     VerticalState vState;
