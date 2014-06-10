@@ -11,15 +11,16 @@
 #include "Level1State.h"
 #include "../../../engine/include/Text.h"
 #include "../../../engine/include/Sprite.h"
+#include "../../objects/include/MenuBox.h"
 
 class TitleState : public State
 {
-public:
+  public:
     TitleState();
     ~TitleState();
     void Update(float dt);
     void Render();
-private:
+  private:
     void Input();
     Sprite bg;
 

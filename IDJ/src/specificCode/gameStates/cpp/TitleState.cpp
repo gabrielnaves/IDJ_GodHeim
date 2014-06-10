@@ -9,7 +9,8 @@
 
 TitleState::TitleState() : State()
 {
-    bg.Open("img/menu/tela menu 9 fases1.png");
+    bg.Open("img/menu/MenuBackground.png");
+
     startOption.Set(140,270,300,90);
     newGameOption.Set(140,375,300,90);
     optionsOption.Set(140,460,300,90);
@@ -46,7 +47,6 @@ void TitleState::Input()
         }
         if (input.IsMouseInside(optionsOption)) //opens an option menu
         {
-
         }
     }
     if (input.ShouldQuit())
