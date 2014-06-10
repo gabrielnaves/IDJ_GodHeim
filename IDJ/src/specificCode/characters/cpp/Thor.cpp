@@ -45,9 +45,15 @@ void Thor::Input()
         actionButton = true;
 }
 
+/**
+ * Calls the right action Thor must do, depending on the situation
+ */
 void Thor::Act()
 {
-    if (canHoldStairs)
+    //releases the stairs
+    if (actionState == CLIMBING)
+        actionState = NONE;
+    else if (canHoldStairs)
         actionState = CLIMBING;
     actionButton = false;
 }
@@ -58,15 +64,9 @@ void Thor::UpdateVerticalState()
         vState = JUST_JUMPED;
 }
 
-/**
- * Calls the right action Thor must do, depending on the situation
- */
 void Thor::Move(float dt)
 {
-    //releases the stairs
     if (actionState == CLIMBING)
-        actionState = NONE;
-    else if (actionState == CLIMBING)
         Climb(dt);
     else
         UpdateSpeed(dt);
