@@ -19,7 +19,7 @@ Level1State::Level1State() : State(), tileSet(55,55,"img/primeira fase/firstLeve
     objectArray.emplace_back(new Spikes("img/Objects/espetos.png",385,2200));
     objectArray.emplace_back(new Loki(70,100, movementMap));
     objectArray.emplace_back(new Thor(20,100, movementMap));
-    objectArray.emplace_back(new Bridge(220, 330));
+//    objectArray.emplace_back(new Bridge(220, 330));
     Barrier *barrier = new Barrier();
     Camera::Follow(barrier, true, 0, 0, tileMap.GetWidth()*tileSet.GetTileWidth() - Game::GetInstance().GetWindowWidth(),
                    tileMap.GetHeight()*tileSet.GetTileHeight() - Game::GetInstance().GetWindowHeight());
@@ -45,10 +45,9 @@ void Level1State::Render()
     rochas.Render(-Camera::pos.GetX(),-Camera::pos.GetY());
     tileMap.RenderLayer(0,+Camera::pos.GetX(), +Camera::pos.GetY());
     RenderArray();
-    tileMap.RenderLayer(1,+Camera::pos.GetX(), +Camera::pos.GetY());
-    if (!tileMap.HasTile(Loki::characterLoki->box.Center().GetX(), Loki::characterLoki->box.Center().GetY(), 2) &&
-        !tileMap.HasTile(Thor::characterThor->box.Center().GetX(), Thor::characterThor->box.Center().GetY(), 2))
-        tileMap.RenderLayer(2,+Camera::pos.GetX(), +Camera::pos.GetY());
+    if (!tileMap.HasTile(Loki::characterLoki->box.Center().GetX(), Loki::characterLoki->box.Center().GetY(), 1) &&
+        !tileMap.HasTile(Thor::characterThor->box.Center().GetX(), Thor::characterThor->box.Center().GetY(), 1))
+        tileMap.RenderLayer(1,+Camera::pos.GetX(), +Camera::pos.GetY());
     //brokenHouse.RenderFront();
 }
 

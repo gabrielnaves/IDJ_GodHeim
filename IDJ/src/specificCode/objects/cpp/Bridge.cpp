@@ -12,16 +12,15 @@ Bridge::Bridge(float x, float y)
     bridgeSp.Open("img/primeira fase/ponte.png");
     box.Set(x, y, bridgeSp.GetWidth(), bridgeSp.GetHeight());
     rotation = 0;
-    segment1.Set(x+10, y+110, x+65, y+70);
-    segment2.Set(x+65, y+70, x+210, y+70);
-    segment3.Set(x+210, y+70, x+260, y+110);
+
+    bridgeSegment.emplace_back(x+10, y+110, x+65, y+70);
+    bridgeSegment.emplace_back(x+65, y+70, x+210, y+70);
+    bridgeSegment.emplace_back(x+210, y+70, x+260, y+110);
     lokiColliding = thorColliding = false;
+    lokiAbove = thorAbove = true;
 }
 
-Bridge::~Bridge()
-{
-    // TODO Auto-generated destructor stub
-}
+Bridge::~Bridge() {}
 
 void Bridge::Update(float dt)
 {
@@ -36,37 +35,23 @@ void Bridge::Update(float dt)
     }
     else lokiColliding = thorColliding = false;
 
-    if (lokiColliding)
+    if (lokiColliding && lokiAbove)
     {
-        Point p(loki->box.GetPoint());
-        p = p + Point(loki->box.GetW()/2, loki->box.GetH());
-        loki->box.MoveRect(0, CheckPointPosition(p));
+        loki->box.MoveRect(0, CheckPointPosition(loki->box.GetPoint()+
+                                                 Point(loki->box.GetW()/2, loki->box.GetH())));
     }
-    if (thorColliding)
+    if (thorColliding && thorAbove)
     {
-        Point p(thor->box.GetPoint());
-        p = p + Point(thor->box.GetW()/2, thor->box.GetH());
-        thor->box.MoveRect(0, CheckPointPosition(p));
+        thor->box.MoveRect(0, CheckPointPosition(thor->box.GetPoint()+
+                                                 Point(thor->box.GetW()/2, thor->box.GetH())));
     }
 }
 
-float Bridge::CheckPointPosition(Point& p)
+float Bridge::CheckPointPosition(Point p)
 {
-    if (p.GetX() >= segment1.GetLowestX() && p.GetX() < segment1.GetHighestX())
-    {
-        if (segment1.IsAbove(p)) return 0;
-        else return segment1.GetVerticalDistance(p);
-    }
-    else if (p.GetX() >= segment2.GetLowestX() && p.GetX() < segment2.GetHighestX())
-    {
-        if (segment2.IsAbove(p)) return 0;
-        else return segment2.GetVerticalDistance(p);
-    }
-    else if (p.GetX() >= segment3.GetLowestX() && p.GetX() < segment3.GetHighestX())
-    {
-        if (segment3.IsAbove(p)) return 0;
-        else return segment3.GetVerticalDistance(p);
-    }
+    for (int i = 0; i < 3; i++)
+        if (p.GetX() > bridgeSegment[i].GetLowestX() && p.GetX() <= bridgeSegment[i].GetHighestX())
+            return bridgeSegment[i].GetVerticalDistance(p);
     return 0;
 }
 
@@ -77,8 +62,10 @@ void Bridge::Render()
 
 void Bridge::NotifyCollision(GameObject& other)
 {
-    if (other.Is("Loki")) lokiColliding = true;
-    else if (other.Is("Thor")) thorColliding = true;
+    if (other.Is("Loki") && lokiColliding == false)
+        CharacterInside(Loki::characterLoki);
+    else if (other.Is("Thor") && thorColliding == false)
+        CharacterInside(Thor::characterThor);
 }
 
 bool Bridge::IsDead()
@@ -89,4 +76,25 @@ bool Bridge::IsDead()
 bool Bridge::Is(std::string type)
 {
     return type == "Bridge" ? true : false;
+}
+
+/**
+ * Determines whether the character that is colliding with
+ * the bridge is coming from above or below the bridge.
+ */
+void Bridge::CharacterInside(Character* character)
+{
+    Point center(character->box.Center());
+    bool charAbove = false;
+
+    if (center.GetX() < bridgeSegment[0].GetHighestX())
+        charAbove = (bridgeSegment[0].IsAbove(center) ? true : false);
+    else if (center.GetX() < bridgeSegment[1].GetHighestX())
+        charAbove = (bridgeSegment[1].IsAbove(center) ? true : false);
+    else charAbove = (bridgeSegment[2].IsAbove(center) ? true : false);
+
+    if (character->Is("Loki"))
+        lokiColliding = true, lokiAbove = charAbove;
+    if (character->Is("Thor"))
+        thorColliding = true, thorAbove = charAbove;
 }

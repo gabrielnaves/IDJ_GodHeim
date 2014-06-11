@@ -29,12 +29,14 @@ class Bridge : public GameObject
     bool Is(std::string type);
 
   private:
-    float CheckPointPosition(Point& p);
+    float CheckPointPosition(Point p);
+    void CharacterInside(Character* character);
 
     Sprite bridgeSp;
-    LineSegment segment1, segment2, segment3;
+    std::vector<LineSegment> bridgeSegment;
 
     bool lokiColliding, thorColliding;
+    bool lokiAbove, thorAbove;
 };
 
 #endif /* BRIDGE_H_ */

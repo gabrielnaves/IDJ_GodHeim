@@ -25,6 +25,7 @@ class LineSegment
     float GetVerticalDistance(const Point& point);
 
     bool IsAbove(const Point& point);
+    bool IsBelow(const Point& point);
 
   private:
     void FindAandB();

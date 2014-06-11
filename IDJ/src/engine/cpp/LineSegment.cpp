@@ -47,7 +47,13 @@ void LineSegment::FindAandB()
 
 bool LineSegment::IsAbove(const Point& point)
 {
-    if (a*point.GetX() + b >= point.GetY()) return true;
+    if (a*point.GetX() + b > point.GetY()) return true;
+    return false;
+}
+
+bool LineSegment::IsBelow(const Point& point)
+{
+    if (a*point.GetX() + b < point.GetY()) return true;
     return false;
 }
 
