@@ -108,6 +108,18 @@ void Loki::Move(float dt)
         speed.Set(speed.GetX(),0); //sets the Y speed to 0 when it hits the upper limmit of the barrier
 }
 
+void Loki::ReleasesStairs()
+{
+    actionState = NONE;
+    vState = FALLING;
+}
+
+void Loki::HoldStairs()
+{
+    actionState = CLIMBING;
+    box.SetPoint(box.GetPoint().GetX(),box.GetPoint().GetY()+1);
+}
+
 /**
  * Calls the right action Loki must do, depending on the situation
  */
@@ -115,19 +127,10 @@ void Loki::Act()
 {
     if (appearance == LOKI)
     {
-        //releases the stairs
         if (actionState == CLIMBING)
-        {
-            actionState = NONE;
-            vState = FALLING;
-        }
-        //holds the stairs
+            ReleasesStairs();
         else if (canHoldStairs)
-        {
-            actionState = CLIMBING;
-            box.SetPoint(box.GetPoint().GetX(),box.GetPoint().GetY()+1);
-        }
-        //Shoot
+            HoldStairs();
         else if(shootCooldown.Get() >= COOLDOWN and vState == STANDING)
             Shoot();
     }

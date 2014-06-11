@@ -44,23 +44,27 @@ void Thor::Input()
         actionButton = true;
 }
 
+void Thor::ReleasesStairs()
+{
+    actionState = NONE;
+    vState = FALLING;
+}
+
+void Thor::HoldStairs()
+{
+    actionState = CLIMBING;
+    box.SetPoint(box.GetPoint().GetX(),box.GetPoint().GetY()+1);
+}
+
 /**
  * Calls the right action Thor must do, depending on the situation
  */
 void Thor::Act()
 {
-    //releases the stairs
     if (actionState == CLIMBING)
-    {
-        actionState = NONE;
-        vState = FALLING;
-    }
-    //holds the stairs
+        ReleasesStairs();
     else if (canHoldStairs)
-    {
-        actionState = CLIMBING;
-        box.SetPoint(box.GetPoint().GetX(),box.GetPoint().GetY()+1);
-    }
+        HoldStairs();
     actionButton = false;
 }
 

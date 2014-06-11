@@ -24,6 +24,8 @@ class Thor : public Character
     bool Is(std::string type);
     bool IsClimbing();
     void CancelAction();
+    void ReleasesStairs();
+    void HoldStairs();
     static Thor *characterThor;
 
   private:

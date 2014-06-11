@@ -29,6 +29,8 @@ class Character : public GameObject
     virtual void NotifyCollision(GameObject& other) = 0;
     virtual bool IsClimbing() = 0;
     virtual void CancelAction() = 0;
+    virtual void ReleasesStairs() = 0;
+    virtual void HoldStairs() = 0;
 
     bool canHoldStairs;
     bool IsDead();

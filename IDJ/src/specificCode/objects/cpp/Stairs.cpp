@@ -13,10 +13,7 @@ Stairs::Stairs(std::string stairs, int x, int y)
     box.Set(x,y,stairsSp.GetWidth(),stairsSp.GetHeight());
 }
 
-Stairs::~Stairs()
-{
-    // TODO Auto-generated destructor stub
-}
+Stairs::~Stairs() {}
 
 void Stairs::Update(float dt)
 {

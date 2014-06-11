@@ -27,6 +27,8 @@ class Loki : public Character
 	void NotifyCollision(GameObject& other);
 	bool IsClimbing();
 	void CancelAction();
+    void ReleasesStairs();
+    void HoldStairs();
 	static Loki *characterLoki;
 
   private:

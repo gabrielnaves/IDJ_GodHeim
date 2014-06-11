@@ -16,7 +16,7 @@ Level1State::Level1State() : State(), tileSet(55,55,"img/primeira fase/firstLeve
     rochas.Open("img/primeira fase/rochas.png");
 
     objectArray.emplace_back(new Stairs("img/Objects/stairs.png",605,440));
-    objectArray.emplace_back(new Stairs("img/Objects/stairs.png",390,550));
+//    objectArray.emplace_back(new Stairs("img/Objects/stairs.png",390,550));
     objectArray.emplace_back(new Spikes("img/Objects/espetos.png",385,2200));
     objectArray.emplace_back(new Loki(70,100, movementMap));
     objectArray.emplace_back(new Thor(20,100, movementMap));
