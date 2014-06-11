@@ -17,10 +17,19 @@ Stairs::~Stairs() {}
 
 void Stairs::Update(float dt)
 {
-    LookForCharacterAbove(Loki::characterLoki);
-    LookForCharacterAbove(Thor::characterThor);
-    ReleasesStairs(Loki::characterLoki);
-    ReleasesStairs(Thor::characterThor);
+    Rect loki = Loki::characterLoki->box;
+    if ((loki.GetX() >= box.GetX() and (loki.GetX() + loki.GetW()) <= (box.GetX() + box.GetH())))
+    {
+        LookForCharacterAbove(Loki::characterLoki);
+        ReleasesStairs(Loki::characterLoki);
+    }
+
+    Rect thor = Thor::characterThor->box;
+    if ((thor.GetX() >= box.GetX() and (thor.GetX() + thor.GetW()) <= (box.GetX() + box.GetH())))
+    {
+        LookForCharacterAbove(Thor::characterThor);
+        ReleasesStairs(Thor::characterThor);
+    }
 }
 
 /**
