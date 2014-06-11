@@ -10,7 +10,8 @@
 
 Level1State::Level1State() : State(), tileSet(55,55,"img/primeira fase/firstLevelTiles.png"),
                              tileMap("map/firstLevel.txt", &tileSet),
-                             movementMap("map/firstLevelMovementMap.txt", tileSet)
+                             movementMap("map/firstLevelMovementMap.txt", tileSet),
+                             brokenHouse(500, 320)
 {
     bg.Open("img/primeira fase/background primeira fase tamanho total - Cópia.png");
     rochas.Open("img/primeira fase/rochas.png");
@@ -45,6 +46,7 @@ void Level1State::Render()
     bg.Render(-Camera::pos.GetX(),-Camera::pos.GetY());
     rochas.Render(-Camera::pos.GetX(),-Camera::pos.GetY());
     tileMap.RenderLayer(0,+Camera::pos.GetX(), +Camera::pos.GetY());
+    brokenHouse.RenderBack();
     RenderArray();
     if (!tileMap.HasTile(Loki::characterLoki->box.Center().GetX(), Loki::characterLoki->box.Center().GetY(), 1) &&
         !tileMap.HasTile(Thor::characterThor->box.Center().GetX(), Thor::characterThor->box.Center().GetY(), 1))

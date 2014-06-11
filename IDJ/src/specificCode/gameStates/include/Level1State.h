@@ -37,10 +37,10 @@ class Level1State: public State
     void ErasesDeadObjects();
 
     Sprite bg, rochas;
-    BrokenHouse brokenHouse;
     BlockTileSet tileSet;
     TileMap tileMap;
     MovementMap movementMap;
+    BrokenHouse brokenHouse;
 };
 
 #endif /* LEVEL1STATE_H_ */

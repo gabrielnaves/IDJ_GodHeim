@@ -17,7 +17,7 @@
 class BrokenHouse : public GameObject
 {
   public:
-    BrokenHouse();
+    BrokenHouse(float x, float y);
     virtual ~BrokenHouse();
     void Update(float dt);
     void RenderFront();
@@ -29,6 +29,8 @@ class BrokenHouse : public GameObject
   private:
     Sprite frontHouseSp;
     Sprite backHouseSp;
+
+    Point housePos;
 };
 
 #endif /* BROKENHOUSE_H_ */

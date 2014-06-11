@@ -7,19 +7,20 @@
 
 #include "../include/BrokenHouse.h"
 
-BrokenHouse::BrokenHouse() {
-   frontHouseSp.Open("img/primeira fase/casa-2.png");
-   box.Set(510,297,backHouseSp.GetWidth(),backHouseSp.GetHeight());
+BrokenHouse::BrokenHouse(float x, float y) {
+   frontHouseSp.Open("img/Objects/houseFront.png");
+   backHouseSp.Open("img/Objects/houseBack.png");
+   housePos.Set(x, y);
 }
 
 void BrokenHouse::RenderFront()
 {
-    frontHouseSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY());
+    frontHouseSp.Render(housePos.GetX()-Camera::pos.GetX(), housePos.GetY()-Camera::pos.GetY());
 }
 
 void BrokenHouse::RenderBack()
 {
-    backHouseSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY());
+    backHouseSp.Render(housePos.GetX()-Camera::pos.GetX(), housePos.GetY()-Camera::pos.GetY());
 }
 
 BrokenHouse::~BrokenHouse() {}
