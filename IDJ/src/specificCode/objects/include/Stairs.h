@@ -18,7 +18,7 @@
 class Stairs: public GameObject
 {
   public:
-    Stairs();
+    Stairs(std::string stairs, int x, int y);
     virtual ~Stairs();
     void Update(float dt);
     void Render();

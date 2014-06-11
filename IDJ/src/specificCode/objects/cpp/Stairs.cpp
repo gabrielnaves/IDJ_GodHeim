@@ -7,10 +7,10 @@
 
 #include "../include/Stairs.h"
 
-Stairs::Stairs()
+Stairs::Stairs(std::string stairs, int x, int y)
 {
-    stairsSp.Open("img/Objects/stairs.png");
-    box.Set(605,440,stairsSp.GetWidth(),stairsSp.GetHeight());
+    stairsSp.Open(stairs);
+    box.Set(x,y,stairsSp.GetWidth(),stairsSp.GetHeight());
 }
 
 Stairs::~Stairs()

@@ -15,7 +15,7 @@ Level1State::Level1State() : State(), tileSet(55,55,"img/primeira fase/firstLeve
     bg.Open("img/primeira fase/background primeira fase tamanho total - Cópia.png");
     rochas.Open("img/primeira fase/rochas.png");
 
-    objectArray.emplace_back(new Stairs());
+    objectArray.emplace_back(new Stairs("img/Objects/stairs.png",605,440));
     objectArray.emplace_back(new Spikes("img/Objects/espetos.png",385,2200));
     objectArray.emplace_back(new Loki(70,100, movementMap));
     objectArray.emplace_back(new Thor(20,100, movementMap));
@@ -48,7 +48,7 @@ void Level1State::Render()
     if (!tileMap.HasTile(Loki::characterLoki->box.Center().GetX(), Loki::characterLoki->box.Center().GetY(), 1) &&
         !tileMap.HasTile(Thor::characterThor->box.Center().GetX(), Thor::characterThor->box.Center().GetY(), 1))
         tileMap.RenderLayer(1,+Camera::pos.GetX(), +Camera::pos.GetY());
-    //brokenHouse.RenderFront();
+    brokenHouse.RenderFront();
 }
 
 void Level1State::Input()
