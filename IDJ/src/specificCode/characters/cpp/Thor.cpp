@@ -12,11 +12,9 @@ Thor* Thor::characterThor;
 
 Thor::Thor(float x, float y, MovementMap& movMap) : Character(movMap)
 {
-    rotation = 0;
     tempCharacterSp.Open("img/Characters/tempThor.png");
     box.Set(x-tempCharacterSp.GetWidth()/2, y-tempCharacterSp.GetHeight()/2, tempCharacterSp.GetWidth(), tempCharacterSp.GetHeight());
     characterThor = this;
-    actionState = NONE;
 }
 
 Thor::~Thor()
@@ -143,14 +141,4 @@ void Thor::UpdateSprite()
         tempCharacterSp.Open("img/Characters/tempThor.png");
     if (hState == STANDING_LEFT)
         tempCharacterSp.Open("img/Characters/tempThor.png");
-}
-
-bool Thor::IsClimbing()
-{
-    return (actionState == CLIMBING ? true : false);
-}
-
-void Thor::CancelAction()
-{
-    actionState = NONE;
 }

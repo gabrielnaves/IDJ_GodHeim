@@ -12,14 +12,13 @@ Loki* Loki::characterLoki;
 
 Loki::Loki(float x, float y, MovementMap& movMap) : Character(movMap)
 {
-	rotation = 0;
 	tempCharacterSp.Open("img/Characters/tempLoki.jpg");
 	box.Set(x-tempCharacterSp.GetWidth()/2, y-tempCharacterSp.GetHeight()/2, tempCharacterSp.GetWidth(), tempCharacterSp.GetHeight());
 	characterLoki = this;
 	appearance = LOKI;
 	flappedWings = 0;
 	TIMES_FLAPS_WINGS = 1;
-	actionState = NONE;
+    actionState = NONE;
 }
 
 Loki::~Loki()
@@ -210,14 +209,4 @@ void Loki::UpdateSprite()
     {
         tempCharacterSp.Open("img/Characters/aguia.png");
     }
-}
-
-bool Loki::IsClimbing()
-{
-    return (actionState == CLIMBING ? true : false);
-}
-
-void Loki::CancelAction()
-{
-    actionState = NONE;
 }

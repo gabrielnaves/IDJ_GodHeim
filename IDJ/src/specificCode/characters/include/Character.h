@@ -15,6 +15,7 @@
 #include "../../../engine/include/Camera.h"
 #include "../../../engine/include/MovementMap.h"
 
+enum ActionState {NONE, CLIMBING};
 enum VerticalState {STANDING, JUST_JUMPED, JUMPING, FALLING};
 enum HorizontalState {STANDING_RIGHT, STANDING_LEFT, MOVING_RIGHT, MOVING_LEFT};
 
@@ -23,8 +24,8 @@ class Character : public GameObject
   public:
     Character(MovementMap& movMap);
     virtual ~Character() {}
-    virtual bool IsClimbing() = 0;
-    virtual void CancelAction() = 0;
+    bool IsClimbing();
+    void CancelAction();
     virtual void ReleasesStairs() = 0;
     virtual void HoldStairs() = 0;
 
@@ -57,6 +58,7 @@ class Character : public GameObject
     MovementMap& movementMap;
     Point speed;
 
+    ActionState actionState;
     VerticalState vState;
     HorizontalState hState;
 

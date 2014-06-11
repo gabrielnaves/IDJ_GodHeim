@@ -25,17 +25,13 @@ class Loki : public Character
 	void Render();
 	bool Is(std::string type);
 	void NotifyCollision(GameObject& other);
-	bool IsClimbing();
-	void CancelAction();
     void ReleasesStairs();
     void HoldStairs();
 	static Loki *characterLoki;
 
   private:
 	enum TransformState {LOKI, EAGLE};
-	enum ActionState {NONE, CLIMBING};
 	TransformState appearance;
-	ActionState actionState;
     int flappedWings;
 	Timer shootCooldown; //a timer so Loki doesnt fire too much in little time
 

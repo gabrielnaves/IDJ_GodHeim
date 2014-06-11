@@ -22,16 +22,11 @@ class Thor : public Character
     void Render();
     void NotifyCollision(GameObject& other);
     bool Is(std::string type);
-    bool IsClimbing();
-    void CancelAction();
     void ReleasesStairs();
     void HoldStairs();
     static Thor *characterThor;
 
   private:
-    enum ActionState {NONE, CLIMBING};
-    ActionState actionState;
-
     void Input();
     void Move(float dt);
     void UpdateSprite();

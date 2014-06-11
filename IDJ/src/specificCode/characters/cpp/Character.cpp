@@ -12,8 +12,10 @@
 Character::Character(MovementMap& movMap) : movementMap(movMap)
 {
     hp = HP;
+    rotation = 0;
     vState = STANDING;
     hState = STANDING_RIGHT;
+    actionState = NONE;
     actionButton = false;
     horizontal = vertical = 0;
     canHoldStairs=false;
@@ -131,6 +133,16 @@ void Character::CheckMovementLimits()
     {
         vState = FALLING;
     }
+}
+
+bool Character::IsClimbing()
+{
+    return (actionState == CLIMBING ? true : false);
+}
+
+void Character::CancelAction()
+{
+    actionState = NONE;
 }
 
 VerticalState Character::GetVState()
