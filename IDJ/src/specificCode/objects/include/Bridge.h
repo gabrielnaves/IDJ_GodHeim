@@ -29,7 +29,7 @@ class Bridge : public GameObject
     bool Is(std::string type);
 
   private:
-    float CheckPointPosition(Point p);
+    float CheckPointPosition(Character* character, bool charAbove);
     void CharacterInside(Character* character);
 
     Sprite bridgeSp;

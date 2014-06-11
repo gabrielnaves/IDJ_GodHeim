@@ -69,6 +69,5 @@ float LineSegment::GetLowestX()
 
 float LineSegment::GetVerticalDistance(const Point& point)
 {
-    if (IsAbove(point)) return (point.GetY() - a*point.GetX()+b);
-    else return (a*point.GetX()+b - point.GetY());
+    return (a*point.GetX()+b) - point.GetY();
 }

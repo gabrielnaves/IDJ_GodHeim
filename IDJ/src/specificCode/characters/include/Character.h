@@ -37,6 +37,8 @@ class Character : public GameObject
     void SetVState(VerticalState vS);
     void SetHState(HorizontalState hS);
 
+    bool insideBridge;
+
   protected:
     virtual void Move(float dt) = 0;
     virtual void UpdateSprite() = 0;

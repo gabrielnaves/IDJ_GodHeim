@@ -17,6 +17,7 @@ Character::Character(MovementMap& movMap) : movementMap(movMap)
     actionButton = false;
     horizontal = vertical = 0;
     canHoldStairs=false;
+    insideBridge = false;
 }
 
 Point Character::GetSpeed()
@@ -90,18 +91,6 @@ void Character::CheckMovementLimits()
         speed.Set(speed.GetX(),0);
         box.MoveRect(movementMap.FindClosestVector(box.Center().GetX(), box.Center().GetY() - box.GetH()/2));
     }
-    // Checks the upper-right limit
-    if (!movementMap.IsZero(box.GetX()+box.GetW(), box.GetY()))
-    {
-        movementVector.Set(movementMap.FindClosestVector(box.GetX()+box.GetW(), box.GetY()));
-        box.MoveRect(movementVector);
-    }
-    // Checks the upper-left limit
-    if (!movementMap.IsZero(box.GetX(), box.GetY()))
-    {
-        movementVector.Set(movementMap.FindClosestVector(box.GetX(), box.GetY()));
-        box.MoveRect(movementVector);
-    }
     // Checks the lower-right limit
     if (!movementMap.IsZero(box.GetX()+box.GetW(), box.GetY()+box.GetH()))
     {
@@ -112,6 +101,18 @@ void Character::CheckMovementLimits()
     if (!movementMap.IsZero(box.GetX(), box.GetY()+box.GetH()))
     {
         movementVector.Set(movementMap.FindClosestVector(box.GetX(), box.GetY()+box.GetH()));
+        box.MoveRect(movementVector);
+    }
+    // Checks the upper-right limit
+    if (!movementMap.IsZero(box.GetX()+box.GetW(), box.GetY()))
+    {
+        movementVector.Set(movementMap.FindClosestVector(box.GetX()+box.GetW(), box.GetY()));
+        box.MoveRect(movementVector);
+    }
+    // Checks the upper-left limit
+    if (!movementMap.IsZero(box.GetX(), box.GetY()))
+    {
+        movementVector.Set(movementMap.FindClosestVector(box.GetX(), box.GetY()));
         box.MoveRect(movementVector);
     }
     // Checks the right limit
@@ -126,7 +127,10 @@ void Character::CheckMovementLimits()
         box.MoveRect(movementMap.FindClosestVector(box.Center().GetX(), box.Center().GetY() + box.GetH()/2));
         vState = STANDING;
     }
-    else vState = FALLING;
+    else if (!insideBridge)
+    {
+        vState = FALLING;
+    }
 }
 
 VerticalState Character::GetVState()
