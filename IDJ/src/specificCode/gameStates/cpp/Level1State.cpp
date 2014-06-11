@@ -36,6 +36,7 @@ void Level1State::Update(float dt)
 {
     Input();
     UpdateArray(dt);
+    brokenHouse.Update(dt);
     ChecksForCollisions();
     ErasesDeadObjects();
     Camera::Update(dt);

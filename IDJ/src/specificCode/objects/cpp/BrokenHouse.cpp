@@ -11,6 +11,7 @@ BrokenHouse::BrokenHouse(float x, float y) {
    frontHouseSp.Open("img/Objects/houseFront.png");
    backHouseSp.Open("img/Objects/houseBack.png");
    housePos.Set(x, y);
+   box.Set(x+52, y+11, 117, 56);
 }
 
 void BrokenHouse::RenderFront()
@@ -24,7 +25,17 @@ void BrokenHouse::RenderBack()
 }
 
 BrokenHouse::~BrokenHouse() {}
-void BrokenHouse::Update(float dt) {}
+
+void BrokenHouse::Update(float dt)
+{
+    Loki* loki = Loki::characterLoki;
+    Thor* thor = Thor::characterThor;
+    if (loki->box.Center().Distance(box.Center()) < 200 || thor->box.Center().Distance(box.Center()) < 200)
+    {
+
+    }
+}
+
 void BrokenHouse::Render() {}
 void BrokenHouse::NotifyCollision(GameObject& other) {}
 

@@ -13,6 +13,7 @@
 #include "../../../engine/include/GameObject.h"
 #include "../../../engine/include/Camera.h"
 #include "../../../engine/include/Sprite.h"
+#include "../../characters/include/Barrier.h"
 
 class BrokenHouse : public GameObject
 {
