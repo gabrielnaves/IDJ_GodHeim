@@ -36,8 +36,8 @@ void Stairs::ReleasesStairs(Character *character)
     if (character->box.GetY() <= box.GetY() - character->box.GetH() and character->IsClimbing())
         character->canHoldStairs = false;
     //if the character hits the ground
-//    if (character->GetVState() == 0)
-//        character->canHoldStairs = false;
+    if (character->GetVState() == 0 and character->box.GetY()+5 > box.GetY())
+        character->CancelAction();
 }
 
 /**
@@ -60,12 +60,11 @@ void Stairs::Render()
 
 void Stairs::NotifyCollision(GameObject& other)
 {
-
     if (other.Is("Loki"))
         (abs(other.box.Center().GetX() - box.Center().GetX()) >= box.GetW()/8) ? //if it is far from the middle of the stairs
                 Loki::characterLoki->canHoldStairs = false : Loki::characterLoki->canHoldStairs = true;
     if (other.Is("Thor"))
-        (abs(other.box.Center().GetX() - box.Center().GetX()) >= box.GetW()/4) ?
+        (abs(other.box.Center().GetX() - box.Center().GetX()) >= box.GetW()/8) ?
                 Thor::characterThor->canHoldStairs = false : Thor::characterThor->canHoldStairs = true;
 }
 

@@ -145,3 +145,8 @@ bool Thor::IsClimbing()
 {
     return (actionState == CLIMBING ? true : false);
 }
+
+void Thor::CancelAction()
+{
+    actionState = NONE;
+}

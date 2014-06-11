@@ -213,3 +213,8 @@ bool Loki::IsClimbing()
 {
     return (actionState == CLIMBING ? true : false);
 }
+
+void Loki::CancelAction()
+{
+    actionState = NONE;
+}

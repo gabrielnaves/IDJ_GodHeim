@@ -26,6 +26,7 @@ class Loki : public Character
 	bool Is(std::string type);
 	void NotifyCollision(GameObject& other);
 	bool IsClimbing();
+	void CancelAction();
 	static Loki *characterLoki;
 
   private:
