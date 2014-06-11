@@ -51,10 +51,16 @@ void Thor::Act()
 {
     //releases the stairs
     if (actionState == CLIMBING)
+    {
         actionState = NONE;
+        vState = FALLING;
+    }
     //holds the stairs
     else if (canHoldStairs)
+    {
         actionState = CLIMBING;
+        box.SetPoint(box.GetPoint().GetX(),box.GetPoint().GetY()+1);
+    }
     actionButton = false;
 }
 
@@ -99,6 +105,18 @@ void Thor::Render()
 
 void Thor::NotifyCollision(GameObject& other)
 {
+    if (other.Is("Stairs"))
+    {
+        if ((box.GetX() >= box.GetX()) and ((box.GetX()+box.GetW()) <= (other.box.GetX()+other.box.GetW())))
+        {
+                //if the character is close enough in the y axis to go down the stairs
+                if (box.GetY()<=(other.box.GetY()-box.GetH()+50) and box.GetY()>=(other.box.GetY()-box.GetH()-2) and actionState != CLIMBING)
+                {
+                    box.SetPoint(box.GetX(),other.box.GetPoint().GetY()-box.GetH()); //corrects bugs
+                    vState = STANDING;
+                }
+        }
+    }
     if (other.Is("Spikes"))
         hp -= HP/20;
 }

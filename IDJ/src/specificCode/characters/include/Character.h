@@ -27,15 +27,15 @@ class Character : public GameObject
     virtual void Render() = 0;
     virtual bool Is(std::string type) = 0;
     virtual void NotifyCollision(GameObject& other) = 0;
+    virtual bool IsClimbing() = 0;
 
     bool canHoldStairs;
     bool IsDead();
     Point GetSpeed();
 
-
     VerticalState GetVState();
-    void SetVState(VerticalState vS);
     HorizontalState GetHState();
+    void SetVState(VerticalState vS);
     void SetHState(HorizontalState hS);
 
   protected:

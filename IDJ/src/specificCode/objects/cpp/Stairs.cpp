@@ -33,11 +33,11 @@ void Stairs::ReleasesStairs(Character *character)
 {
     if (character->canHoldStairs == false) return;
     //if the character is above the stairs
-    if (character->box.GetY() <= box.GetY() - character->box.GetH())
+    if (character->box.GetY() <= box.GetY() - character->box.GetH() and character->IsClimbing())
         character->canHoldStairs = false;
     //if the character hits the ground
-    if (character->GetVState() == 0)
-        character->canHoldStairs = false;
+//    if (character->GetVState() == 0)
+//        character->canHoldStairs = false;
 }
 
 /**
@@ -48,8 +48,8 @@ void Stairs::LookForCharacterAbove(Character *character)
     //if the character is inside an rectangle limited by the sides of the stairs
     if ((character->box.GetX() >= box.GetX()) and ((character->box.GetX()+character->box.GetW()) <= (box.GetX()+box.GetW())))
         //if the character is close enough in the y axis to go down the stairs
-        if (character->box.GetY()<=(box.GetY()-character->box.GetH()+10) and
-            character->box.GetY()>=(box.GetY()-character->box.GetH()-10))
+        if (character->box.GetY()<=(box.GetY()-character->box.GetH()+5) and
+            character->box.GetY()>=(box.GetY()-character->box.GetH()-5))
             character->canHoldStairs = true;
 }
 
