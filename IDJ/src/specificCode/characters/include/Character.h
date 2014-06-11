@@ -23,10 +23,6 @@ class Character : public GameObject
   public:
     Character(MovementMap& movMap);
     virtual ~Character() {}
-    virtual void Update(float dt) = 0;
-    virtual void Render() = 0;
-    virtual bool Is(std::string type) = 0;
-    virtual void NotifyCollision(GameObject& other) = 0;
     virtual bool IsClimbing() = 0;
     virtual void CancelAction() = 0;
     virtual void ReleasesStairs() = 0;
