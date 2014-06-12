@@ -12,7 +12,7 @@ Loki* Loki::characterLoki;
 
 Loki::Loki(float x, float y, MovementMap& movMap) : Character(movMap)
 {
-	tempCharacterSp.Open("img/Characters/tempLoki.jpg");
+	tempCharacterSp.Open("img/characters/tempLoki.jpg");
 	box.Set(x-tempCharacterSp.GetWidth()/2, y-tempCharacterSp.GetHeight()/2, tempCharacterSp.GetWidth(), tempCharacterSp.GetHeight());
 	characterLoki = this;
 	appearance = LOKI;
@@ -49,7 +49,7 @@ void Loki::Input()
 
 void Loki::Shoot()
 {
-    Sprite spBullet("img/Characters/loki_fireball.png",3,0.1);
+    Sprite spBullet("img/characters/lokiFireball.jpg",3,0.1);
     float shootingAngle = (hState == MOVING_RIGHT or hState == STANDING_RIGHT) ? 0 : M_PI;
     Bullet* fireBall=new Bullet(box.Center().GetX(),box.Center().GetY(),shootingAngle,FIREBALL_SPEED,FIREBALL_DISTANCE,spBullet,"Loki");
     Game::GetInstance().GetCurrentState().AddObject(fireBall); //add the bullet to the objectArray
@@ -197,16 +197,16 @@ void Loki::UpdateSprite()
     if (appearance == LOKI)
     {
         if (hState == MOVING_RIGHT)
-            tempCharacterSp.Open("img/Characters/tempLokiInvertido.png");
+            tempCharacterSp.Open("img/characters/tempLokiInvertido.png");
         if (hState == STANDING_RIGHT)
-            tempCharacterSp.Open("img/Characters/tempLokiInvertido.png");
+            tempCharacterSp.Open("img/characters/tempLokiInvertido.png");
         if (hState == MOVING_LEFT)
-            tempCharacterSp.Open("img/Characters/tempLoki.jpg");
+            tempCharacterSp.Open("img/characters/tempLoki.jpg");
         if (hState == STANDING_LEFT)
-            tempCharacterSp.Open("img/Characters/tempLoki.jpg");
+            tempCharacterSp.Open("img/characters/tempLoki.jpg");
     }
     else if (appearance == EAGLE)
     {
-        tempCharacterSp.Open("img/Characters/aguia.png");
+        tempCharacterSp.Open("img/characters/aguia.png");
     }
 }

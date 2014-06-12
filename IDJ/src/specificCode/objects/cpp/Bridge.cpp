@@ -9,7 +9,7 @@
 
 Bridge::Bridge(float x, float y)
 {
-    bridgeSp.Open("img/primeira fase/ponte.png");
+    bridgeSp.Open("img/level1/bridge.png");
     box.Set(x, y, bridgeSp.GetWidth(), bridgeSp.GetHeight());
     rotation = 0;
 

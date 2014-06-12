@@ -9,11 +9,11 @@
 
 TitleState::TitleState() : State()
 {
-    bg.Open("img/menu/MenuBackground.png");
+    bg.Open("img/menu/menuBackground.png");
 
-    AddObject(new MenuBox(210, 300, "img/menu/4.png", "img/menu/3.png", "Continue"));
-    AddObject(new MenuBox(210, 384, "img/menu/2.png", "img/menu/1.png", "New Game"));
-    AddObject(new MenuBox(210, 470, "img/menu/6.png", "img/menu/5.png", "Options"));
+    AddObject(new MenuBox(210, 300, "img/menu/resume.png", "img/menu/resumeBold.png", "Continue"));
+    AddObject(new MenuBox(210, 384, "img/menu/newGame.png", "img/menu/newGameBold.png", "New Game"));
+    AddObject(new MenuBox(210, 470, "img/menu/options.png", "img/menu/optionsBold.png", "Options"));
 }
 
 TitleState::~TitleState()

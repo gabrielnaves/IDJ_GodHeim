@@ -8,8 +8,8 @@
 #include "../include/BrokenHouse.h"
 
 BrokenHouse::BrokenHouse(float x, float y) {
-   frontHouseSp.Open("img/Objects/houseFront.png");
-   backHouseSp.Open("img/Objects/houseBack.png");
+   frontHouseSp.Open("img/objects/houseFront.png");
+   backHouseSp.Open("img/objects/houseBack.png");
    housePos.Set(x, y);
    box.Set(x+52, y+11, 117, 56);
 }

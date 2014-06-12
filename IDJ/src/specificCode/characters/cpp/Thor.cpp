@@ -12,7 +12,7 @@ Thor* Thor::characterThor;
 
 Thor::Thor(float x, float y, MovementMap& movMap) : Character(movMap)
 {
-    tempCharacterSp.Open("img/Characters/tempThor.png");
+    tempCharacterSp.Open("img/characters/tempThor.png");
     box.Set(x-tempCharacterSp.GetWidth()/2, y-tempCharacterSp.GetHeight()/2, tempCharacterSp.GetWidth(), tempCharacterSp.GetHeight());
     characterThor = this;
 }
@@ -134,11 +134,11 @@ bool Thor::Is(std::string type)
 void Thor::UpdateSprite()
 {
     if (hState == MOVING_RIGHT)
-        tempCharacterSp.Open("img/Characters/tempThorInvertido.png");
+        tempCharacterSp.Open("img/characters/tempThorInvertido.png");
     if (hState == STANDING_RIGHT)
-        tempCharacterSp.Open("img/Characters/tempThorInvertido.png");
+        tempCharacterSp.Open("img/characters/tempThorInvertido.png");
     if (hState == MOVING_LEFT)
-        tempCharacterSp.Open("img/Characters/tempThor.png");
+        tempCharacterSp.Open("img/characters/tempThor.png");
     if (hState == STANDING_LEFT)
-        tempCharacterSp.Open("img/Characters/tempThor.png");
+        tempCharacterSp.Open("img/characters/tempThor.png");
 }
