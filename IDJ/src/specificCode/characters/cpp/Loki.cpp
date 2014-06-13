@@ -10,9 +10,9 @@
 
 Loki* Loki::characterLoki;
 
-Loki::Loki(float x, float y, MovementMap& movMap) : Character(movMap,"img/characters/caminhadaloki.png",8,0.1)
+Loki::Loki(float x, float y, MovementMap& movMap) : Character(movMap,"img/characters/loki_walk.png",8,0.1)
 {
-	tempCharacterSp.Open("img/characters/tempLoki.jpg");
+	tempCharacterSp.Open("img/characters/loki.png");
 	box.Set(x-tempCharacterSp.GetWidth()/2, y-tempCharacterSp.GetHeight()/2, tempCharacterSp.GetWidth(), tempCharacterSp.GetHeight());
 	characterLoki = this;
 	appearance = LOKI;
@@ -193,13 +193,13 @@ void Loki::UpdateSprite(float dt)
     if (appearance == LOKI)
     {
         if (hState == MOVING_RIGHT)
-            prevHState != MOVING_RIGHT ? walkSp.Open("img/characters/caminhadaloki.png") : walkSp.Update(dt);
+            prevHState != MOVING_RIGHT ? walkSp.Open("img/characters/loki_walk.png") : walkSp.Update(dt);
         if (hState == STANDING_RIGHT)
-            tempCharacterSp.Open("img/characters/tempLokiInvertido.png");
+            tempCharacterSp.Open("img/characters/loki.png");
         if (hState == MOVING_LEFT)
-            prevHState != MOVING_LEFT ? walkSp.Open("img/characters/caminhadaloki.png") : walkSp.Update(dt);
+            prevHState != MOVING_LEFT ? walkSp.Open("img/characters/loki_walk.png") : walkSp.Update(dt);
         if (hState == STANDING_LEFT)
-            tempCharacterSp.Open("img/characters/tempLoki.jpg");
+            tempCharacterSp.Open("img/characters/loki.png");
     }
     else if (appearance == EAGLE)
     {

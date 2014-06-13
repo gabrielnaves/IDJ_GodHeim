@@ -10,9 +10,9 @@
 
 Thor* Thor::characterThor;
 
-Thor::Thor(float x, float y, MovementMap& movMap) : Character(movMap,"img/characters/caminhadathor.png",7,0.1)
+Thor::Thor(float x, float y, MovementMap& movMap) : Character(movMap,"img/characters/thor_walk.png",7,0.1)
 {
-    tempCharacterSp.Open("img/characters/tempThor.png");
+    tempCharacterSp.Open("img/characters/thor.png");
     box.Set(x-tempCharacterSp.GetWidth()/2, y-tempCharacterSp.GetHeight()/2, tempCharacterSp.GetWidth(), tempCharacterSp.GetHeight());
     characterThor = this;
 }
@@ -129,11 +129,11 @@ bool Thor::Is(std::string type)
 void Thor::UpdateSprite(float dt)
 {
     if (hState == MOVING_RIGHT)
-        prevHState != MOVING_RIGHT ? walkSp.Open("img/characters/caminhadathor.png") : walkSp.Update(dt);
+        prevHState != MOVING_RIGHT ? walkSp.Open("img/characters/thor_walk.png") : walkSp.Update(dt);
     if (hState == STANDING_RIGHT)
-        tempCharacterSp.Open("img/characters/tempThorInvertido.png");
+        tempCharacterSp.Open("img/characters/thor.png");
     if (hState == MOVING_LEFT)
-        prevHState != MOVING_LEFT ? walkSp.Open("img/characters/caminhadathor.png") : walkSp.Update(dt);
+        prevHState != MOVING_LEFT ? walkSp.Open("img/characters/thor_walk.png") : walkSp.Update(dt);
     if (hState == STANDING_LEFT)
-        tempCharacterSp.Open("img/characters/tempThor.png");
+        tempCharacterSp.Open("img/characters/thor.png");
 }

@@ -36,7 +36,7 @@ void Character::Render()
     if (vState == STANDING and (hState == MOVING_RIGHT or hState == MOVING_LEFT))
         walkSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(),rotation, flip);
     else
-        tempCharacterSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(),rotation);
+        tempCharacterSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(),rotation, flip);
 }
 
 /**
