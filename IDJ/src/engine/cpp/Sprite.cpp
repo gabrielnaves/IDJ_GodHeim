@@ -102,7 +102,7 @@ void Sprite::Update(float dt)
     }
 }
 
-void Sprite::Render(int x, int y, float angle)
+void Sprite::Render(int x, int y, float angle, SDL_RendererFlip flip)
 {
 	/*Angle is given in degrees*/
     SDL_Rect dstrect = dimensions;
@@ -112,7 +112,7 @@ void Sprite::Render(int x, int y, float angle)
     dstrect.h = clipRect.h * scaleY;
 
     SDL_RenderCopyEx(Game::GetInstance().GetRenderer(), texture, &clipRect,
-                     &dstrect, angle, NULL, SDL_FLIP_NONE);
+                     &dstrect, angle, NULL, flip);
 }
 
 bool Sprite::IsOpen() { return (texture != NULL ? true : false); }
