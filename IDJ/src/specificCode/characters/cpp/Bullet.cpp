@@ -18,6 +18,7 @@ Bullet::Bullet(float x, float y, float angle, float speed, float maxDistance, Sp
 	rotation = angle*360/(2*M_PI);
 	this->shooter = shooter;
 }
+
 void Bullet::Update(float dt)
 {
 	box.MoveRect(speed.GetX()*dt,speed.GetY()*dt);

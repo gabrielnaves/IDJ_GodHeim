@@ -19,7 +19,6 @@ class Thor : public Character
     ~Thor();
 
     void Update(float dt);
-    void Render();
     void NotifyCollision(GameObject& other);
     bool Is(std::string type);
     void ReleasesStairs();
@@ -29,7 +28,7 @@ class Thor : public Character
   private:
     void Input();
     void Move(float dt);
-    void UpdateSprite();
+    void UpdateSprite(float dt);
     void UpdateVerticalState();
     void UpdatesStateOnTheFall();
     void Act();

@@ -10,7 +10,7 @@
 
 Thor* Thor::characterThor;
 
-Thor::Thor(float x, float y, MovementMap& movMap) : Character(movMap)
+Thor::Thor(float x, float y, MovementMap& movMap) : Character(movMap,"img/characters/caminhadathor.png",7,0.1)
 {
     tempCharacterSp.Open("img/characters/tempThor.png");
     box.Set(x-tempCharacterSp.GetWidth()/2, y-tempCharacterSp.GetHeight()/2, tempCharacterSp.GetWidth(), tempCharacterSp.GetHeight());
@@ -94,15 +94,10 @@ void Thor::Update(float dt)
     if (actionButton) Act();
     UpdateState();
     if (actionState == CLIMBING and !canHoldStairs) actionState = NONE;
-    UpdateSprite();
+    UpdateSprite(dt);
     Move(dt);
     UpdatesStateOnTheFall();
     CheckMovementLimits();
-}
-
-void Thor::Render()
-{
-    tempCharacterSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY());
 }
 
 void Thor::NotifyCollision(GameObject& other)
@@ -131,14 +126,14 @@ bool Thor::Is(std::string type)
 /**
  * Updates the sprite based on the state of the character
  */
-void Thor::UpdateSprite()
+void Thor::UpdateSprite(float dt)
 {
     if (hState == MOVING_RIGHT)
-        tempCharacterSp.Open("img/characters/tempThorInvertido.png");
+        prevHState != MOVING_RIGHT ? walkSp.Open("img/characters/caminhadathor.png") : walkSp.Update(dt);
     if (hState == STANDING_RIGHT)
         tempCharacterSp.Open("img/characters/tempThorInvertido.png");
     if (hState == MOVING_LEFT)
-        tempCharacterSp.Open("img/characters/tempThor.png");
+        prevHState != MOVING_LEFT ? walkSp.Open("img/characters/caminhadathor.png") : walkSp.Update(dt);
     if (hState == STANDING_LEFT)
         tempCharacterSp.Open("img/characters/tempThor.png");
 }
