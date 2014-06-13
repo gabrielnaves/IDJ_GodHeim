@@ -61,6 +61,8 @@ class Character : public GameObject
     ActionState actionState;
     VerticalState vState;
     HorizontalState hState;
+    VerticalState prevVState;
+    HorizontalState prevHState;
 
     int horizontal;
     int vertical;

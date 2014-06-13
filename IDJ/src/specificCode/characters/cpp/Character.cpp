@@ -15,6 +15,8 @@ Character::Character(MovementMap& movMap) : movementMap(movMap)
     rotation = 0;
     vState = STANDING;
     hState = STANDING_RIGHT;
+    prevVState = vState;
+    prevHState = hState;
     actionState = NONE;
     actionButton = false;
     horizontal = vertical = 0;
@@ -67,9 +69,9 @@ bool Character::IsDead()
  */
 void Character::UpdateHorizontalState()
 {
-    if (horizontal > 0) hState = MOVING_RIGHT;
-    else if (horizontal < 0) hState = MOVING_LEFT;
-    else (hState == MOVING_RIGHT or hState == STANDING_RIGHT) ? hState = STANDING_RIGHT : hState = STANDING_LEFT;
+    if (horizontal > 0) SetHState(MOVING_RIGHT);
+    else if (horizontal < 0) SetHState(MOVING_LEFT);
+    else (hState == MOVING_RIGHT or hState == STANDING_RIGHT) ? SetHState(STANDING_RIGHT) : SetHState(STANDING_LEFT);
 }
 
 /**
@@ -98,6 +100,7 @@ VerticalState Character::GetVState()
 
 void Character::SetVState(VerticalState vS)
 {
+    prevVState = vState;
     vState = vS;
 }
 
@@ -108,6 +111,7 @@ HorizontalState Character::GetHState()
 
 void Character::SetHState(HorizontalState hS)
 {
+    prevHState = hState;
     hState = hS;
 }
 
@@ -157,10 +161,10 @@ void Character::CheckMovementLimits()
     if (!movementMap.IsZero(box.Center().GetX(), box.Center().GetY() + box.GetH()/2))
     {
         box.MoveRect(movementMap.FindClosestVector(box.Center().GetX(), box.Center().GetY() + box.GetH()/2));
-        vState = STANDING;
+        SetVState(STANDING);
     }
     else if (!insideBridge)
     {
-        vState = FALLING;
+        SetVState(FALLING);
     }
 }
