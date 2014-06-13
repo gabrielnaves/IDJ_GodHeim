@@ -45,7 +45,7 @@ void Thor::Input()
 void Thor::ReleasesStairs()
 {
     actionState = NONE;
-    vState = FALLING;
+    SetVState(FALLING);
 }
 
 void Thor::HoldStairs()
@@ -69,7 +69,7 @@ void Thor::Act()
 void Thor::UpdateVerticalState()
 {
     if (vertical == 1 and vState == STANDING)
-        vState = JUST_JUMPED;
+        SetVState(JUST_JUMPED);
 }
 
 void Thor::Move(float dt)
@@ -84,8 +84,8 @@ void Thor::Move(float dt)
 
 void Thor::UpdatesStateOnTheFall()
 {
-    if (vState == JUST_JUMPED) vState = JUMPING;
-    if (speed.GetY() > 0) vState = FALLING;
+    if (vState == JUST_JUMPED) SetVState(JUMPING);
+    if (speed.GetY() > 0) SetVState(FALLING);
 }
 
 void Thor::Update(float dt)
@@ -115,7 +115,7 @@ void Thor::NotifyCollision(GameObject& other)
                 if (box.GetY()<=(other.box.GetY()-box.GetH()+50) and box.GetY()>=(other.box.GetY()-box.GetH()-2) and actionState != CLIMBING)
                 {
                     box.SetPoint(box.GetX(),other.box.GetPoint().GetY()-box.GetH()); //corrects bugs
-                    vState = STANDING;
+                    SetVState(STANDING);
                 }
         }
     }

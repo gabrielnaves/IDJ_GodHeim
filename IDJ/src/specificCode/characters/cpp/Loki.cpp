@@ -49,7 +49,7 @@ void Loki::Input()
 
 void Loki::Shoot()
 {
-    Sprite spBullet("img/characters/lokiFireball.jpg",3,0.1);
+    Sprite spBullet("img/characters/lokiFireball.png",3,0.1);
     float shootingAngle = (hState == MOVING_RIGHT or hState == STANDING_RIGHT) ? 0 : M_PI;
     Bullet* fireBall=new Bullet(box.Center().GetX(),box.Center().GetY(),shootingAngle,FIREBALL_SPEED,FIREBALL_DISTANCE,spBullet,"Loki");
     Game::GetInstance().GetCurrentState().AddObject(fireBall); //add the bullet to the objectArray
@@ -77,14 +77,14 @@ void Loki::UpdateVerticalState()
     if (appearance == LOKI)
     {
         if (vertical == 1 and vState == STANDING)
-            vState = JUST_JUMPED;
+            SetVState(JUST_JUMPED);
         else if (vertical == 1 and vState == FALLING and actionState == NONE)
             appearance = EAGLE;
     }
     else if (appearance == EAGLE)
     {
         if (vertical == 1 and flappedWings < TIMES_FLAPS_WINGS){
-            vState = JUST_JUMPED;
+            SetVState(JUST_JUMPED);
             flappedWings++;
         }
         else if (vertical == -1)
@@ -110,7 +110,7 @@ void Loki::Move(float dt)
 void Loki::ReleasesStairs()
 {
     actionState = NONE;
-    vState = FALLING;
+    SetVState(FALLING);
 }
 
 void Loki::HoldStairs()
@@ -139,13 +139,13 @@ void Loki::Act()
 void Loki::UpdatesStateOnTheFall()
 {
     if (vState == JUST_JUMPED)
-        vState = JUMPING;
+        SetVState(JUMPING);
     if (vState == STANDING)
     {
         appearance = LOKI;
         flappedWings = 0;
     }
-    else if (speed.GetY()>0) vState = FALLING;
+    else if (speed.GetY()>0) SetVState(FALLING);
 }
 
 void Loki::Update(float dt)
@@ -176,7 +176,7 @@ void Loki::NotifyCollision(GameObject& other)
                 if (box.GetY()<=(other.box.GetY()-box.GetH()+50) and box.GetY()>=(other.box.GetY()-box.GetH()-2) and actionState != CLIMBING)
                 {
                     box.SetPoint(box.GetX(),other.box.GetPoint().GetY()-box.GetH()); //corrects bugs
-                    vState = STANDING;
+                    SetVState(STANDING);
                 }
         }
     }
