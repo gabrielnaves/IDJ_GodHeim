@@ -11,6 +11,7 @@
 #include "../../../engine/include/GameObject.h"
 #include "../../../engine/include/Camera.h"
 #include "../../../engine/include/Sprite.h"
+#include "../../../engine/include/Sound.h"
 #include "../../../engine/include/State.h"
 
 class MenuBox : public GameObject
@@ -29,6 +30,7 @@ class MenuBox : public GameObject
     Sprite sp1, sp2;
     bool isMouseInside, click;
     std::string type;
+    Sound thunder, clickSound;
 };
 
 #endif /* MENUBOX_H_ */

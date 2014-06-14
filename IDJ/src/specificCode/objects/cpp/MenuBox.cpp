@@ -15,13 +15,18 @@ MenuBox::MenuBox(float x, float y, std::string spFile1, std::string spFile2, std
     click = false;
     isMouseInside = false;
     this->type = type;
+    clickSound.Open("audio/SOUNDTRACK MODE/Menu/Click.ogg");
 }
 
 void MenuBox::Update(float dt)
 {
-    if (InputManager::GetInstance().IsMouseInside(box))
+    if (InputManager::GetInstance().IsMouseInside(box) && isMouseInside == false)
+    {
         isMouseInside = true;
-    else isMouseInside = false;
+        clickSound.Play(0);
+    }
+    else if (!InputManager::GetInstance().IsMouseInside(box))
+        isMouseInside = false;
 
     if (isMouseInside && InputManager::GetInstance().MousePress(LEFT_MOUSE_BUTTON))
         click = true;

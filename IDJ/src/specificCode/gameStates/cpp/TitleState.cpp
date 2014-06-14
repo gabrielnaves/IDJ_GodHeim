@@ -7,7 +7,7 @@
 
 #include "../include/TitleState.h"
 
-TitleState::TitleState() : State(), titleMusic("audio/audio/SOUNDTRACK MODE/Main Title (Flute theme) GodHeim - Eber Filipe.mp3")
+TitleState::TitleState() : State(), titleMusic("audio/SOUNDTRACK MODE/Menu/Main Title (Flute theme) GodHeim - Eber Filipe.mp3")
 {
     bg.Open("img/menu/menuBackground.png");
 
@@ -19,7 +19,7 @@ TitleState::TitleState() : State(), titleMusic("audio/audio/SOUNDTRACK MODE/Main
 
 TitleState::~TitleState()
 {
-    titleMusic.Stop();
+//    titleMusic.Stop();
 }
 
 void TitleState::Update(float dt)
