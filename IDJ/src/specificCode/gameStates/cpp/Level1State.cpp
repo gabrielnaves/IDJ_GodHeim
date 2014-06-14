@@ -22,6 +22,7 @@ Level1State::Level1State() : State(), tileSet(55,55,"img/level1/level1Tiles.png"
     objectArray.emplace_back(new Loki(70,100, movementMap));
     objectArray.emplace_back(new Thor(20,100, movementMap));
     objectArray.emplace_back(new Bridge(220, 330));
+    objectArray.emplace_back(new Goat(800, 305));
     Barrier *barrier = new Barrier();
     Camera::Follow(barrier, true, 0, 0, tileMap.GetWidth()*tileSet.GetTileWidth() - Game::GetInstance().GetWindowWidth(),
                    tileMap.GetHeight()*tileSet.GetTileHeight() - Game::GetInstance().GetWindowHeight());

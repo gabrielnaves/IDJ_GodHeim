@@ -21,6 +21,7 @@
 #include "../../objects/include/Stairs.h"
 #include "../../objects/include/Bridge.h"
 #include "../../objects/include/Spikes.h"
+#include "../../characters/include/Goat.h"
 
 class Level1State: public State
 {
