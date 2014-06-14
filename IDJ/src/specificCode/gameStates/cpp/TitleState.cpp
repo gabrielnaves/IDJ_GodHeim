@@ -15,11 +15,12 @@ TitleState::TitleState() : State(), titleMusic("audio/SOUNDTRACK MODE/Menu/Main 
     AddObject(new MenuBox(210, 384, "img/menu/newGame.png", "img/menu/newGameBold.png", "New Game"));
     AddObject(new MenuBox(210, 470, "img/menu/options.png", "img/menu/optionsBold.png", "Options"));
     titleMusic.Play(-1);
+    startEndTimer = false;
 }
 
 TitleState::~TitleState()
 {
-//    titleMusic.Stop();
+    titleMusic.Stop();
 }
 
 void TitleState::Update(float dt)
@@ -27,6 +28,13 @@ void TitleState::Update(float dt)
     UpdateArray(dt);
     if (InputManager::GetInstance().ShouldQuit())
         requestQuit = true;
+    if (startEndTimer) endTimer.Update(dt);
+    if (endTimer.Get() >= 2)
+    {
+        requestDelete = true;
+        Game::GetInstance().ResetWindowSize(1200,650);
+        Game::GetInstance().Push(new Level1State());
+    }
 }
 
 void TitleState::Render()
@@ -45,9 +53,7 @@ void TitleState::UpdateArray(float dt)
         }
         else if (objectArray[i]->IsDead() && objectArray[i]->Is("New Game"))
         {
-            requestDelete = true;
-            Game::GetInstance().ResetWindowSize(1200,650);
-            Game::GetInstance().Push(new Level1State());
+            startEndTimer = true;
         }
         else if (objectArray[i]->IsDead() && objectArray[i]->Is("Options"))
         {

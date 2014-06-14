@@ -27,6 +27,9 @@ class TitleState : public State
   private:
     Sprite bg;
     Music titleMusic;
+    Timer endTimer;
+
+    bool startEndTimer;
 };
 
 #endif /* TITLESTATE_H_ */

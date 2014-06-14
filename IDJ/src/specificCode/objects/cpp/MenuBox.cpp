@@ -16,6 +16,7 @@ MenuBox::MenuBox(float x, float y, std::string spFile1, std::string spFile2, std
     isMouseInside = false;
     this->type = type;
     clickSound.Open("audio/SOUNDTRACK MODE/Menu/Click.ogg");
+    thunderSound.Open("audio/SOUNDTRACK MODE/Menu/Trovao.ogg");
 }
 
 void MenuBox::Update(float dt)
@@ -29,7 +30,10 @@ void MenuBox::Update(float dt)
         isMouseInside = false;
 
     if (isMouseInside && InputManager::GetInstance().MousePress(LEFT_MOUSE_BUTTON))
+    {
         click = true;
+        thunderSound.Play(0);
+    }
 }
 
 void MenuBox::Render()

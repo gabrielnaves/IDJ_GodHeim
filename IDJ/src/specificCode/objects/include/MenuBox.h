@@ -30,7 +30,7 @@ class MenuBox : public GameObject
     Sprite sp1, sp2;
     bool isMouseInside, click;
     std::string type;
-    Sound thunder, clickSound;
+    Sound thunderSound, clickSound;
 };
 
 #endif /* MENUBOX_H_ */
