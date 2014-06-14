@@ -10,6 +10,7 @@
 #ifndef BULLET_H_
 #define BULLET_H_
 
+#include "Goat.h"
 #include "../../../engine/include/GameObject.h"
 #include "../../../engine/include/Camera.h"
 #include "../../../engine/include/Sprite.h"
