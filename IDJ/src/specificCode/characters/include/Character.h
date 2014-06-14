@@ -22,7 +22,7 @@ enum HorizontalState {STANDING_RIGHT, STANDING_LEFT, MOVING_RIGHT, MOVING_LEFT};
 class Character : public GameObject
 {
   public:
-    Character(MovementMap& movMap,std::string,int frameCount,float frameTime);
+    Character(MovementMap& movMap,std::string,int frameCount,float frameTime,std::string jump,int jumpFrameCount,float jumpFrameTime);
     virtual ~Character() {}
     bool IsClimbing();
     void CancelAction();
@@ -56,8 +56,9 @@ class Character : public GameObject
     void UpdatePrevState();
 
     int hp;
-    Sprite tempCharacterSp;
+    Sprite characterSp;
     Sprite walkSp;
+    Sprite jumpSp;
     MovementMap& movementMap;
     Point speed;
 

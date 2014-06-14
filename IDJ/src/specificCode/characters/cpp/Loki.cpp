@@ -10,10 +10,10 @@
 
 Loki* Loki::characterLoki;
 
-Loki::Loki(float x, float y, MovementMap& movMap) : Character(movMap,"img/characters/loki_walk.png",8,0.1)
+Loki::Loki(float x, float y, MovementMap& movMap) : Character(movMap,"img/characters/loki_walk.png",8,0.1,"img/characters/thor_jump.png",4,0.1)
 {
-	tempCharacterSp.Open("img/characters/loki.png");
-	box.Set(x-tempCharacterSp.GetWidth()/2, y-tempCharacterSp.GetHeight()/2, tempCharacterSp.GetWidth(), tempCharacterSp.GetHeight());
+	characterSp.Open("img/characters/loki.png");
+	box.Set(x-characterSp.GetWidth()/2, y-characterSp.GetHeight()/2, characterSp.GetWidth(), characterSp.GetHeight());
 	characterLoki = this;
 	appearance = LOKI;
 	flappedWings = 0;
@@ -192,17 +192,35 @@ void Loki::UpdateSprite(float dt)
 {
     if (appearance == LOKI)
     {
-        if (hState == MOVING_RIGHT)
-            prevHState != MOVING_RIGHT ? walkSp.Open("img/characters/loki_walk.png") : walkSp.Update(dt);
-        if (hState == STANDING_RIGHT)
-            tempCharacterSp.Open("img/characters/loki.png");
-        if (hState == MOVING_LEFT)
-            prevHState != MOVING_LEFT ? walkSp.Open("img/characters/loki_walk.png") : walkSp.Update(dt);
-        if (hState == STANDING_LEFT)
-            tempCharacterSp.Open("img/characters/loki.png");
+        if (vState == STANDING)
+        {
+            if (hState == MOVING_RIGHT)
+                prevHState != MOVING_RIGHT ? walkSp.Open("img/characters/loki_walk.png") : walkSp.Update(dt);
+            else if (hState == MOVING_LEFT)
+                prevHState != MOVING_LEFT ? walkSp.Open("img/characters/loki_walk.png") : walkSp.Update(dt);
+            else if (hState == STANDING_RIGHT)
+                characterSp.Open("img/characters/loki.png");
+            else if (hState == STANDING_LEFT)
+                characterSp.Open("img/characters/loki.png");
+        }
+        else if (actionState == CLIMBING)
+            characterSp.Open("img/characters/loki.png");
+        else if (vState == FALLING)
+        {
+            jumpSp.SetFrameCount(4);
+            jumpSp.SetFrame(4);
+            jumpSp.Open("img/characters/thor_jump.png");
+        }
+        else if (vState == JUMPING)
+        {
+            jumpSp.SetFrameCount(4);
+            prevVState == JUST_JUMPED ? jumpSp.Open("img/characters/thor_jump.png") : jumpSp.Update(dt);
+        }
     }
     else if (appearance == EAGLE)
     {
-        tempCharacterSp.Open("img/characters/aguia.png");
+        jumpSp.SetFrameCount(1);
+        jumpSp.SetFrame(1);
+        jumpSp.Open("img/characters/aguia.png");
     }
 }

@@ -9,8 +9,8 @@
 #include "../include/Character.h"
 #include "../include/Barrier.h"
 
-Character::Character(MovementMap& movMap,std::string walk,int frameCount,float frameTime)
-         : walkSp(walk,frameCount,frameTime), movementMap(movMap)
+Character::Character(MovementMap& movMap,std::string walk,int wFrameCount,float wFrameTime,std::string jump,int jFrameCount,float jFrameTime)
+         : walkSp(walk,wFrameCount,wFrameTime),jumpSp(jump,jFrameCount,jFrameTime),movementMap(movMap)
 {
     hp = HP;
     rotation = 0;
@@ -35,8 +35,12 @@ void Character::Render()
     SDL_RendererFlip flip = (hState == MOVING_RIGHT) or (hState == STANDING_RIGHT) ?  SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
     if (vState == STANDING and (hState == MOVING_RIGHT or hState == MOVING_LEFT))
         walkSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(),rotation, flip);
+    else if (actionState == CLIMBING)
+        characterSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(),rotation);
+    else if (vState == JUST_JUMPED or vState == JUMPING or vState == FALLING)
+            jumpSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(),rotation, flip);
     else
-        tempCharacterSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(),rotation, flip);
+        characterSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(),rotation, flip);
 }
 
 /**
