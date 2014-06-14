@@ -22,7 +22,6 @@ class Loki : public Character
 	~Loki();
 
 	void Update(float dt);
-	void Render();
 	bool Is(std::string type);
 	void NotifyCollision(GameObject& other);
     void ReleasesStairs();
@@ -37,7 +36,7 @@ class Loki : public Character
 
 	void Input();
 	void Move(float dt);
-	void UpdateSprite();
+	void UpdateSprite(float dt);
 	void UpdateVerticalState();
 	void UpdatesStateOnTheFall();
 	void Act();
@@ -47,7 +46,7 @@ class Loki : public Character
 
 	float TIMES_FLAPS_WINGS;
 	//constants
-	const float FIREBALL_SPEED = 500;
+	const float FIREBALL_SPEED = 400;
 	const float FIREBALL_DISTANCE = 1000;
     const float MAX_FALLING_SPEED_EAGLE = 100;
     const float EAGLE_JUMP_SPEED = -300;

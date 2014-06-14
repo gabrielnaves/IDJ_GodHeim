@@ -10,9 +10,9 @@
 
 Loki* Loki::characterLoki;
 
-Loki::Loki(float x, float y, MovementMap& movMap) : Character(movMap)
+Loki::Loki(float x, float y, MovementMap& movMap) : Character(movMap,"img/characters/loki_walk.png",8,0.1)
 {
-	tempCharacterSp.Open("img/characters/tempLoki.jpg");
+	tempCharacterSp.Open("img/characters/loki.png");
 	box.Set(x-tempCharacterSp.GetWidth()/2, y-tempCharacterSp.GetHeight()/2, tempCharacterSp.GetWidth(), tempCharacterSp.GetHeight());
 	characterLoki = this;
 	appearance = LOKI;
@@ -157,13 +157,9 @@ void Loki::Update(float dt)
     if (actionState == CLIMBING and !canHoldStairs) actionState = NONE;
     Move(dt);
     UpdatesStateOnTheFall();
-    UpdateSprite();
+    UpdateSprite(dt);
     CheckMovementLimits();
-}
-
-void Loki::Render()
-{
-	tempCharacterSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY());
+    UpdatePrevState();
 }
 
 void Loki::NotifyCollision(GameObject& other)
@@ -192,18 +188,18 @@ bool Loki::Is(std::string type)
 /**
  * Updates the sprite based on the state of the character
  */
-void Loki::UpdateSprite()
+void Loki::UpdateSprite(float dt)
 {
     if (appearance == LOKI)
     {
         if (hState == MOVING_RIGHT)
-            tempCharacterSp.Open("img/characters/tempLokiInvertido.png");
+            prevHState != MOVING_RIGHT ? walkSp.Open("img/characters/loki_walk.png") : walkSp.Update(dt);
         if (hState == STANDING_RIGHT)
-            tempCharacterSp.Open("img/characters/tempLokiInvertido.png");
+            tempCharacterSp.Open("img/characters/loki.png");
         if (hState == MOVING_LEFT)
-            tempCharacterSp.Open("img/characters/tempLoki.jpg");
+            prevHState != MOVING_LEFT ? walkSp.Open("img/characters/loki_walk.png") : walkSp.Update(dt);
         if (hState == STANDING_LEFT)
-            tempCharacterSp.Open("img/characters/tempLoki.jpg");
+            tempCharacterSp.Open("img/characters/loki.png");
     }
     else if (appearance == EAGLE)
     {

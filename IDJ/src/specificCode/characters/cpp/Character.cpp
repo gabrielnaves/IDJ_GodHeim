@@ -9,7 +9,8 @@
 #include "../include/Character.h"
 #include "../include/Barrier.h"
 
-Character::Character(MovementMap& movMap) : movementMap(movMap)
+Character::Character(MovementMap& movMap,std::string walk,int frameCount,float frameTime)
+         : walkSp(walk,frameCount,frameTime), movementMap(movMap)
 {
     hp = HP;
     rotation = 0;
@@ -27,6 +28,15 @@ Character::Character(MovementMap& movMap) : movementMap(movMap)
 Point Character::GetSpeed()
 {
     return(speed);
+}
+
+void Character::Render()
+{
+    SDL_RendererFlip flip = (hState == MOVING_RIGHT) or (hState == STANDING_RIGHT) ?  SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
+    if (vState == STANDING and (hState == MOVING_RIGHT or hState == MOVING_LEFT))
+        walkSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(),rotation, flip);
+    else
+        tempCharacterSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(),rotation, flip);
 }
 
 /**
@@ -113,6 +123,12 @@ void Character::SetHState(HorizontalState hS)
 {
     prevHState = hState;
     hState = hS;
+}
+
+void Character::UpdatePrevState()
+{
+    prevHState = hState;
+    prevVState = vState;
 }
 
 /**
