@@ -56,20 +56,15 @@ class Character : public GameObject
     void UpdatePrevState();
 
     int hp;
-    Sprite characterSp;
-    Sprite walkSp;
-    Sprite jumpSp;
+    Sprite characterSp, walkSp, jumpSp;
     MovementMap& movementMap;
     Point speed;
 
     ActionState actionState;
-    VerticalState vState;
-    HorizontalState hState;
-    VerticalState prevVState;
-    HorizontalState prevHState;
+    VerticalState vState, prevVState;
+    HorizontalState hState, prevHState;
 
-    int horizontal;
-    int vertical;
+    int horizontal, vertical;
     bool actionButton;
 
     const float HP = 100;

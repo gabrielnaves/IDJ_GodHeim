@@ -208,11 +208,12 @@ void Loki::UpdateSprite(float dt)
         else if (vState == FALLING)
         {
             jumpSp.SetFrameCount(4);
-            jumpSp.SetFrame(4);
+//            jumpSp.SetFrame(4);
             jumpSp.Open("img/characters/thor_jump.png");
         }
         else if (vState == JUMPING)
         {
+            jumpSp.SetFrame(1);
             jumpSp.SetFrameCount(4);
             prevVState == JUST_JUMPED ? jumpSp.Open("img/characters/thor_jump.png") : jumpSp.Update(dt);
         }

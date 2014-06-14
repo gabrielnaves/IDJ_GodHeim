@@ -29,6 +29,9 @@ class Sprite
     void SetFrame(int frame);
     void SetFrameCount(int frameCount);
     void SetFrameTime(float fameTime);
+    int GetCurrentFrame();
+    int GetFrameCount();
+    float GetFrameTime();
     void SetClip(int x, int y, int w, int h);
     void SetScaleX(float scale);
     void SetScaleY(float scale);

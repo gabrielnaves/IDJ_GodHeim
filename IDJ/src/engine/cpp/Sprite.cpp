@@ -137,3 +137,17 @@ void Sprite::SetFrame(int frame)
     currentFrame = frame;
     SetClip((dimensions.w/frameCount)*(currentFrame-1), 0, dimensions.w/frameCount, dimensions.h);
 }
+
+int Sprite::GetCurrentFrame()
+{
+    return (currentFrame);
+}
+
+int Sprite::GetFrameCount()
+{
+    return (frameCount);
+}
+float Sprite::GetFrameTime()
+{
+    return (frameTime);
+}
