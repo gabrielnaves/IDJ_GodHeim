@@ -26,6 +26,7 @@ TitleState::~TitleState()
 void TitleState::Update(float dt)
 {
     UpdateArray(dt);
+    cursor.Update(dt);
     if (InputManager::GetInstance().ShouldQuit())
         requestQuit = true;
     if (startEndTimer) endTimer.Update(dt);
@@ -41,6 +42,7 @@ void TitleState::Render()
 {
     bg.Render(0,0);
     RenderArray();
+    cursor.Render();
 }
 
 void TitleState::UpdateArray(float dt)

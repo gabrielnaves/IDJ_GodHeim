@@ -12,6 +12,7 @@
 #include "../../../engine/include/Sprite.h"
 #include "../../../engine/include/Sound.h"
 #include "../../objects/include/MenuBox.h"
+#include "../../objects/include/Cursor.h"
 #include "Level1State.h"
 
 class TitleState : public State
@@ -28,6 +29,7 @@ class TitleState : public State
     Sprite bg;
     Music titleMusic;
     Timer endTimer;
+    Cursor cursor;
 
     bool startEndTimer;
 };

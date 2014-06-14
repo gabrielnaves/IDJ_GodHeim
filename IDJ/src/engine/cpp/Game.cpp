@@ -51,6 +51,8 @@ Game::Game(std::string title, int width, int height)
     storedState  = NULL;
 
     windowWidth = width, windowHeight = height;
+
+    SDL_ShowCursor(0); //Toggle Cursor
 }
 
 /**
