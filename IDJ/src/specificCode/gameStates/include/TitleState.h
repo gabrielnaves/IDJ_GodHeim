@@ -8,10 +8,11 @@
 #ifndef TITLESTATE_H_
 #define TITLESTATE_H_
 
-#include "Level1State.h"
 #include "../../../engine/include/Text.h"
 #include "../../../engine/include/Sprite.h"
+#include "../../../engine/include/Sound.h"
 #include "../../objects/include/MenuBox.h"
+#include "Level1State.h"
 
 class TitleState : public State
 {
@@ -25,6 +26,7 @@ class TitleState : public State
 
   private:
     Sprite bg;
+    Music titleMusic;
 };
 
 #endif /* TITLESTATE_H_ */
