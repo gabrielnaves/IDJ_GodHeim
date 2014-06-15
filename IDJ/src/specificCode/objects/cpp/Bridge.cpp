@@ -59,7 +59,10 @@ float Bridge::CheckPointPosition(Character* character, bool charAbove)
                 }
             }
             if (!charAbove && bridgeSegment[i].IsAbove(p + Point(0, -height)))
+            {
+                character->speed.Set(character->speed.GetX(), 0);
                 return bridgeSegment[i].GetVerticalDistance(p + Point(0, -height));
+            }
         }
     return 0;
 }

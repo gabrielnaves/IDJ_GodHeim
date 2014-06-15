@@ -29,7 +29,6 @@ class Character : public GameObject
     virtual void ReleasesStairs() = 0;
     virtual void HoldStairs() = 0;
 
-    bool canHoldStairs;
     bool IsDead();
     void Render();
     Point GetSpeed();
@@ -39,7 +38,9 @@ class Character : public GameObject
     void SetVState(VerticalState vS);
     void SetHState(HorizontalState hS);
 
+    bool canHoldStairs;
     bool insideBridge;
+    Point speed;
 
   protected:
     virtual void Move(float dt) = 0;
@@ -58,7 +59,6 @@ class Character : public GameObject
     int hp;
     Sprite characterSp, walkSp, jumpSp;
     MovementMap& movementMap;
-    Point speed;
 
     ActionState actionState;
     VerticalState vState, prevVState;
