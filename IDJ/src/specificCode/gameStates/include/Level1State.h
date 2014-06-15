@@ -41,6 +41,7 @@ class Level1State : public State
     void EmplaceInitialObjects();
     void Follow(std::string object);
     void UpdateMusic(float dt);
+    void CheckMusic(float lowerX, float upperX, float lowerY, float upperY);
 
     Sprite bg, rochas;
     BlockTileSet tileSet;

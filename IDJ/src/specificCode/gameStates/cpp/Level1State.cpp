@@ -54,6 +54,7 @@ void Level1State::Update(float dt)
     brokenHouse.Update(dt);
     ChecksForCollisions();
     ErasesDeadObjects();
+    if (Barrier::barrier == NULL) Camera::Unfollow();
     Camera::Update(dt);
     UpdateMusic(dt);
 }
@@ -103,16 +104,17 @@ void Level1State::ErasesDeadObjects()
 
 void Level1State::UpdateMusic(float dt)
 {
-    Point barrierPos;
+    if (Barrier::barrier == NULL) return;
+    CheckMusic(605, 660, 440, 550);
+    CheckMusic(385, 440, 550, 660);
+}
 
-    // Finds the position of the center of the barrier
-    for (int i = 0; i < (int)objectArray.size(); i++)
-        if (objectArray[i]->Is("Barrier"))
-            barrierPos = objectArray[i]->box.Center();
-
-    if (barrierPos.GetX() >= 605 && barrierPos.GetX() <= 660)
+void Level1State::CheckMusic(float lowerX, float upperX, float lowerY, float upperY)
+{
+    Point barrierPos(Barrier::barrier->box.Center());
+    if (barrierPos.GetX() >= lowerX && barrierPos.GetX() <= upperX)
     {
-        if (barrierPos.GetY() < 440 && !musicPlaying)
+        if (barrierPos.GetY() < lowerY && !musicPlaying)
         {
             delete outsideMusic;
             Resource::Clear();
@@ -120,7 +122,7 @@ void Level1State::UpdateMusic(float dt)
             outsideMusic->Play(-1);
             musicPlaying = true;
         }
-        if (barrierPos.GetY() >= 440 && barrierPos.GetY() <= 550)
+        if (barrierPos.GetY() >= lowerY && barrierPos.GetY() <= upperY)
         {
             if (musicPlaying)
             {
@@ -128,7 +130,7 @@ void Level1State::UpdateMusic(float dt)
                 musicPlaying = false;
             }
         }
-        if (barrierPos.GetY() > 550 && !musicPlaying)
+        if (barrierPos.GetY() > upperY && !musicPlaying)
         {
             delete caveMusic;
             Resource::Clear();
