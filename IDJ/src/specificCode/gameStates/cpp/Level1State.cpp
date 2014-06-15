@@ -17,10 +17,10 @@ Level1State::Level1State() : State(), tileSet(55,55,"img/level1/level1Tiles.png"
     rochas.Open("img/level1/rocks.png");
     EmplaceInitialObjects();
     Follow("Barrier");
-    outsideMusic.Open("audio/SOUNDTRACK MODE/Fase 1/Fase 1 (Parte superior) - Eber Filipe.mp3");
-    caveMusic.Open("audio/SOUNDTRACK MODE/Fase 1/Subsolo Fase 1.mp3");
-    outsideMusic.Play(-1);
-    outsideMusicPlaying = true;
+    outsideMusic = new Music("audio/SOUNDTRACK MODE/Fase 1/Fase 1 (Parte superior) - Eber Filipe.mp3");
+    caveMusic = new Music("audio/SOUNDTRACK MODE/Fase 1/Subsolo Fase 1.mp3");
+    outsideMusic->Play(-1);
+    musicPlaying = true;
 }
 
 Level1State::~Level1State()
@@ -98,7 +98,7 @@ void Level1State::ErasesDeadObjects()
 {
     for (unsigned int i = 0; i < objectArray.size(); i++)
         if (objectArray[i]->IsDead())
-            objectArray.erase(objectArray.begin()+i), i++;
+            objectArray.erase(objectArray.begin()+i), i--;
 }
 
 void Level1State::UpdateMusic(float dt)
@@ -110,12 +110,31 @@ void Level1State::UpdateMusic(float dt)
         if (objectArray[i]->Is("Barrier"))
             barrierPos = objectArray[i]->box.Center();
 
-    if (barrierPos.GetX() >= 550 && outsideMusicPlaying)
+    if (barrierPos.GetX() >= 605 && barrierPos.GetX() <= 660)
     {
-        fadeTimer.Update(dt);
-        if (fadeTimer.Get() >= 2)
+        if (barrierPos.GetY() < 440 && !musicPlaying)
         {
-
+            delete outsideMusic;
+            Resource::Clear();
+            outsideMusic = new Music("audio/SOUNDTRACK MODE/Fase 1/Fase 1 (Parte superior) - Eber Filipe.mp3");
+            outsideMusic->Play(-1);
+            musicPlaying = true;
+        }
+        if (barrierPos.GetY() >= 440 && barrierPos.GetY() <= 550)
+        {
+            if (musicPlaying)
+            {
+                outsideMusic->Stop(0.3);
+                musicPlaying = false;
+            }
+        }
+        if (barrierPos.GetY() > 550 && !musicPlaying)
+        {
+            delete caveMusic;
+            Resource::Clear();
+            caveMusic = new Music("audio/SOUNDTRACK MODE/Fase 1/Subsolo Fase 1.mp3");
+            caveMusic->Play(-1);
+            musicPlaying = true;
         }
     }
 }

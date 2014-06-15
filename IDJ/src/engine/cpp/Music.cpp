@@ -33,10 +33,10 @@ void Music::Play(int times)
  * Stops the music being played with a fade out effect.
  * The fading time is given in seconds.
  */
-void Music::Stop(int fadeTime)
+void Music::Stop(float fadeTime)
 {
     fadeTime = fadeTime * 1000;
-    Mix_FadeOutMusic(fadeTime);
+    Mix_FadeOutMusic((int)fadeTime);
 }
 
 void Music::Open(std::string file)

@@ -47,10 +47,9 @@ class Level1State : public State
     TileMap tileMap;
     MovementMap movementMap;
     BrokenHouse brokenHouse;
-    Music outsideMusic, caveMusic;
+    Music *outsideMusic, *caveMusic;
 
-    bool outsideMusicPlaying;
-    Timer fadeTimer;
+    bool musicPlaying;
 };
 
 #endif /* LEVEL1STATE_H_ */
