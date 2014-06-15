@@ -104,7 +104,7 @@ void Thor::NotifyCollision(GameObject& other)
 {
     if (other.Is("Stairs"))
     {
-        if ((box.GetX() >= box.GetX()) and ((box.GetX()+box.GetW()) <= (other.box.GetX()+other.box.GetW())))
+        if ((box.GetX() >= other.box.GetX()) and ((box.GetX()+box.GetW()) <= (other.box.GetX()+other.box.GetW())))
         {
                 //if the character is close enough in the y axis to go down the stairs
                 if (box.GetY()<=(other.box.GetY()-box.GetH()+50) and box.GetY()>=(other.box.GetY()-box.GetH()-2) and actionState != CLIMBING)

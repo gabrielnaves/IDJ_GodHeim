@@ -15,9 +15,13 @@ Stairs::Stairs(std::string stairs, int x, int y)
 
 Stairs::~Stairs() {}
 
+/**
+ * Verifies necessary interactions with the characters
+ */
 void Stairs::Update(float dt)
 {
     Rect loki = Loki::characterLoki->box;
+    //if the character is close to the stairs
     if ((loki.GetX() >= box.GetX() and (loki.GetX() + loki.GetW()) <= (box.GetX() + box.GetH())))
     {
         LookForCharacterAbove(Loki::characterLoki);
@@ -54,9 +58,9 @@ void Stairs::LookForCharacterAbove(Character *character)
     //if the character is inside an rectangle limited by the sides of the stairs
     if ((character->box.GetX() >= box.GetX()) and ((character->box.GetX()+character->box.GetW()) <= (box.GetX()+box.GetW())))
         //if the character is close enough in the y axis to go down the stairs
-        if (character->box.GetY()<=(box.GetY()-character->box.GetH()+5) and
-            character->box.GetY()>=(box.GetY()-character->box.GetH()-5))
-            character->canHoldStairs = true;
+            if (character->box.GetY()<=(box.GetY()-character->box.GetH()+5))
+                character->box.GetY()>=(box.GetY()-character->box.GetH()-5) ?
+                character->canHoldStairs = true : character->canHoldStairs = false;
 }
 
 void Stairs::Render()
