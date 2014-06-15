@@ -41,7 +41,6 @@ void Cursor::Render()
 
 void Cursor::NotifyCollision(GameObject& other)
 {
-
 }
 
 bool Cursor::IsDead()
@@ -53,4 +52,3 @@ bool Cursor::Is(std::string type)
 {
 	return type == "Cursor" ? true : false;
 }
-

@@ -51,8 +51,19 @@ void Goat::NotifyCollision(GameObject & other)
 {
 	if (other.Is("LokiBullet"))
 	{
-		hp -= DAMAGE;
+	    hp -= DAMAGE;
+	    if (IsDead()) Die();
 	}
+}
+
+void Goat::Die()
+{
+    Sprite goatDeath("img/characters/penguindeath.png", 5, 0.1);
+    StillAnimation *sa = new StillAnimation(box.Center().GetX(),box.Center().GetY(),rotation,goatDeath,0.5,true);
+    Game::GetInstance().GetCurrentState().AddObject(sa);
+
+    Sound goatCry ("audio/SOUNDTRACK MODE/Bode.ogg");
+    goatCry.Play(0);
 }
 
 bool Goat::IsDead()

@@ -8,10 +8,13 @@
 #ifndef GOAT_H_
 #define GOAT_H_
 
+#include "../../../engine/include/Game.h"
 #include "../../../engine/include/GameObject.h"
 #include "../../../engine/include/Sprite.h"
 #include "../../../engine/include/Camera.h"
 #include "../../../engine/include/Timer.h"
+#include "../../../engine/include/StillAnimation.h"
+#include "../../../engine/include/Sound.h"
 
 enum GoatState {MOV_RIGHT, MOV_LEFT, STAND_RIGHT, STAND_LEFT};
 
@@ -27,6 +30,8 @@ class Goat: public GameObject
 	bool Is(std::string type);
 	void Move(float dt);
   private:
+	void Die();
+
 	Sprite sp;
 	Timer timer;
 	GoatState goatState;
