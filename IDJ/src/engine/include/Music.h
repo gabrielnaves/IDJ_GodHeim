@@ -22,7 +22,7 @@ class Music
     ~Music();
 
     void Play(int times);
-    void Stop();
+    void Stop(int fadeTime = 0);
     void Open(std::string file);
     bool IsOpen();
 

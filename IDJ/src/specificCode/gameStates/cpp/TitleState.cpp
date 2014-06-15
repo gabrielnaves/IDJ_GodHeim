@@ -20,7 +20,7 @@ TitleState::TitleState() : State(), titleMusic("audio/SOUNDTRACK MODE/Menu/Main 
 
 TitleState::~TitleState()
 {
-    titleMusic.Stop();
+//    titleMusic.Stop();
 }
 
 void TitleState::Update(float dt)
@@ -30,7 +30,7 @@ void TitleState::Update(float dt)
     if (InputManager::GetInstance().ShouldQuit())
         requestQuit = true;
     if (startEndTimer) endTimer.Update(dt);
-    if (endTimer.Get() >= 2)
+    if (endTimer.Get() >= 2.5)
     {
         requestDelete = true;
         Game::GetInstance().ResetWindowSize(1200,650);
@@ -56,6 +56,7 @@ void TitleState::UpdateArray(float dt)
         else if (objectArray[i]->IsDead() && objectArray[i]->Is("New Game"))
         {
             startEndTimer = true;
+            titleMusic.Stop(2.4);
         }
         else if (objectArray[i]->IsDead() && objectArray[i]->Is("Options"))
         {

@@ -15,7 +15,19 @@ Level1State::Level1State() : State(), tileSet(55,55,"img/level1/level1Tiles.png"
 {
     bg.Open("img/level1/level1Background2.png");
     rochas.Open("img/level1/rocks.png");
+    EmplaceInitialObjects();
+    Follow("Barrier");
+    outsideMusic.Open("audio/SOUNDTRACK MODE/Fase 1/Fase 1 (Parte superior) - Eber Filipe.mp3");
+    caveMusic.Open("audio/SOUNDTRACK MODE/Fase 1/Subsolo Fase 1.mp3");
+    outsideMusic.Play(-1);
+}
 
+Level1State::~Level1State()
+{
+}
+
+void Level1State::EmplaceInitialObjects()
+{
     objectArray.emplace_back(new Stairs("img/objects/stairs.png",605,440));
     objectArray.emplace_back(new Stairs("img/objects/stairs.png",390,550));
     objectArray.emplace_back(new Spikes("img/objects/spikes.png",385,2200));
@@ -23,14 +35,15 @@ Level1State::Level1State() : State(), tileSet(55,55,"img/level1/level1Tiles.png"
     objectArray.emplace_back(new Thor(20,100, movementMap));
     objectArray.emplace_back(new Bridge(220, 330));
     objectArray.emplace_back(new Goat(800, 305));
-    Barrier *barrier = new Barrier();
-    Camera::Follow(barrier, true, 0, 0, tileMap.GetWidth()*tileSet.GetTileWidth() - Game::GetInstance().GetWindowWidth(),
-                   tileMap.GetHeight()*tileSet.GetTileHeight() - Game::GetInstance().GetWindowHeight());
-    objectArray.emplace_back(barrier);
+    objectArray.emplace_back(new Barrier());
 }
 
-Level1State::~Level1State()
+void Level1State::Follow(std::string object)
 {
+    for (int i = 0; i < (int)objectArray.size(); i++)
+        if (objectArray[i]->Is(object))
+            Camera::Follow(&(*objectArray[i]), true, 0, 0, tileMap.GetWidth()*tileSet.GetTileWidth() - Game::GetInstance().GetWindowWidth(),
+                           tileMap.GetHeight()*tileSet.GetTileHeight() - Game::GetInstance().GetWindowHeight());
 }
 
 void Level1State::Update(float dt)
