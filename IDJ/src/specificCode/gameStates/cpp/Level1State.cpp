@@ -20,6 +20,7 @@ Level1State::Level1State() : State(), tileSet(55,55,"img/level1/level1Tiles.png"
     outsideMusic.Open("audio/SOUNDTRACK MODE/Fase 1/Fase 1 (Parte superior) - Eber Filipe.mp3");
     caveMusic.Open("audio/SOUNDTRACK MODE/Fase 1/Subsolo Fase 1.mp3");
     outsideMusic.Play(-1);
+    outsideMusicPlaying = true;
 }
 
 Level1State::~Level1State()
@@ -54,6 +55,7 @@ void Level1State::Update(float dt)
     ChecksForCollisions();
     ErasesDeadObjects();
     Camera::Update(dt);
+    UpdateMusic(dt);
 }
 
 void Level1State::Render()
@@ -76,7 +78,8 @@ void Level1State::Input()
 }
 
 /*Sees if any objects collided*/
-void Level1State::ChecksForCollisions(){
+void Level1State::ChecksForCollisions()
+{
     for(unsigned int i = 0; i<objectArray.size()-1; i++)
     {
         for (unsigned int j=i+1;j<objectArray.size();j++)
@@ -91,11 +94,28 @@ void Level1State::ChecksForCollisions(){
     }
 }
 
-void Level1State::ErasesDeadObjects(){
-    for (unsigned int i=0;i<objectArray.size();i++){
-        if (objectArray[i]->IsDead()) {
-            objectArray.erase(objectArray.begin()+i);
-            i--;
+void Level1State::ErasesDeadObjects()
+{
+    for (unsigned int i = 0; i < objectArray.size(); i++)
+        if (objectArray[i]->IsDead())
+            objectArray.erase(objectArray.begin()+i), i++;
+}
+
+void Level1State::UpdateMusic(float dt)
+{
+    Point barrierPos;
+
+    // Finds the position of the center of the barrier
+    for (int i = 0; i < (int)objectArray.size(); i++)
+        if (objectArray[i]->Is("Barrier"))
+            barrierPos = objectArray[i]->box.Center();
+
+    if (barrierPos.GetX() >= 550 && outsideMusicPlaying)
+    {
+        fadeTimer.Update(dt);
+        if (fadeTimer.Get() >= 2)
+        {
+
         }
     }
 }

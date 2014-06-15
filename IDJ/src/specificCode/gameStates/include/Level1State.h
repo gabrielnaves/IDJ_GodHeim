@@ -40,6 +40,7 @@ class Level1State : public State
     void ErasesDeadObjects();
     void EmplaceInitialObjects();
     void Follow(std::string object);
+    void UpdateMusic(float dt);
 
     Sprite bg, rochas;
     BlockTileSet tileSet;
@@ -47,6 +48,9 @@ class Level1State : public State
     MovementMap movementMap;
     BrokenHouse brokenHouse;
     Music outsideMusic, caveMusic;
+
+    bool outsideMusicPlaying;
+    Timer fadeTimer;
 };
 
 #endif /* LEVEL1STATE_H_ */

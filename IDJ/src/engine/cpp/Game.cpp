@@ -112,7 +112,7 @@ void Game::Run()
         stateStack.top()->Update(dt);
         stateStack.top()->Render();
         SDL_RenderPresent(renderer);
-        SDL_Delay(33);
+        SDL_Delay(16);
     }
     while (stateStack.size()>0)
         stateStack.pop();
