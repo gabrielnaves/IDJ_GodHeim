@@ -46,6 +46,23 @@ void Level1State::EmplaceInitialObjects()
     objectArray.emplace_back(new Plants("img/level1/plants/6.png",365,515));
     objectArray.emplace_back(new Plants("img/level1/plants/2.png",325,525));
     objectArray.emplace_back(new Plants("img/level1/plants/7.png",285,525));
+    objectArray.emplace_back(new Plants("img/level1/plants/10.png",450,425));
+    objectArray.emplace_back(new Plants("img/level1/plants/5.png",425,405));
+    objectArray.emplace_back(new Plants("img/level1/plants/2.png",420,430));
+    objectArray.emplace_back(new Plants("img/level1/plants/3.png",425,425));
+    objectArray.emplace_back(new Plants("img/level1/plants/9.png",480,425));
+    objectArray.emplace_back(new Plants("img/level1/plants/10.png",500,425));
+    objectArray.emplace_back(new Plants("img/level1/plants/10.png",530,425));
+    objectArray.emplace_back(new Plants("img/level1/plants/4.png",530,405));
+    objectArray.emplace_back(new Plants("img/level1/plants/10.png",600,420));
+    objectArray.emplace_back(new Plants("img/level1/plants/6.png",570,410));
+    objectArray.emplace_back(new Plants("img/level1/plants/7.png",500,415));
+    objectArray.emplace_back(new Plants("img/level1/plants/1.png",460,415));
+    objectArray.emplace_back(new Plants("img/level1/plants/9.png",525,320));
+    objectArray.emplace_back(new Plants("img/level1/plants/10.png",530,320));
+    objectArray.emplace_back(new Plants("img/level1/plants/10.png",580,375));
+    objectArray.emplace_back(new Plants("img/level1/plants/9.png",640,375));
+    objectArray.emplace_back(new Plants("img/level1/plants/10.png",610,375));
     objectArray.emplace_back(new Goat(800, 305));
     objectArray.emplace_back(new Barrier());
 }
