@@ -11,7 +11,8 @@
 
 #include "../../../Engine.h"
 #include "../../characters/include/Barrier.h"
-#include "../../objects/include/BrokenHouse.h"
+#include "../../objects/include/BrokenHouseFront.h"
+#include "../../objects/include/BrokenHouseBack.h"
 #include "../../objects/include/Stairs.h"
 #include "../../objects/include/Bridge.h"
 #include "../../objects/include/Spikes.h"
@@ -40,7 +41,6 @@ class Level1State : public State
     BlockTileSet tileSet;
     TileMap tileMap;
     MovementMap movementMap;
-    BrokenHouse brokenHouse;
     Music *outsideMusic, *caveMusic;
 
     bool musicPlaying;

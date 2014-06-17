@@ -10,8 +10,7 @@
 
 Level1State::Level1State() : State(), tileSet(55,55,"img/level1/level1Tiles.png"),
                              tileMap("map/level1.txt", &tileSet),
-                             movementMap("map/level1MovementMap.txt", tileSet),
-                             brokenHouse(500, 320)
+                             movementMap("map/level1MovementMap.txt", tileSet)
 {
     bg.Open("img/level1/level1Background2.png");
     rochas.Open("img/level1/rocks.png");
@@ -31,9 +30,11 @@ void Level1State::EmplaceInitialObjects()
 {
     objectArray.emplace_back(new Stairs("img/objects/stairs.png",605,440));
     objectArray.emplace_back(new Stairs("img/objects/stairs.png",390,550));
+    objectArray.emplace_back(new BrokenHouseBack(500, 320));
     objectArray.emplace_back(new Loki(70,100, movementMap));
     objectArray.emplace_back(new Thor(20,100, movementMap));
     objectArray.emplace_back(new Bridge(220, 330));
+    objectArray.emplace_back(new BrokenHouseFront(500, 320));
     objectArray.emplace_back(new Spikes("img/objects/spikes.png",385,2200));
     objectArray.emplace_back(new Plants("img/level1/plants/5.png",255,510));
     objectArray.emplace_back(new Plants("img/level1/plants/3.png",260,525));
@@ -61,7 +62,6 @@ void Level1State::Update(float dt)
 {
     Input();
     UpdateArray(dt);
-    brokenHouse.Update(dt);
     ChecksForCollisions();
     ErasesDeadObjects();
     if (Barrier::barrier == NULL) Camera::Unfollow();
@@ -74,12 +74,10 @@ void Level1State::Render()
     bg.Render(-Camera::pos.GetX(),-Camera::pos.GetY());
     rochas.Render(-Camera::pos.GetX(),-Camera::pos.GetY());
     tileMap.RenderLayer(0,+Camera::pos.GetX(), +Camera::pos.GetY());
-    brokenHouse.RenderBack();
     RenderArray();
     if (!tileMap.HasTile(Loki::characterLoki->box.Center().GetX(), Loki::characterLoki->box.Center().GetY(), 1) &&
         !tileMap.HasTile(Thor::characterThor->box.Center().GetX(), Thor::characterThor->box.Center().GetY(), 1))
         tileMap.RenderLayer(1,+Camera::pos.GetX(), +Camera::pos.GetY());
-    brokenHouse.RenderFront();
 }
 
 void Level1State::Input()

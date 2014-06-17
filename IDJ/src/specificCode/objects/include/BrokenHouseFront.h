@@ -7,27 +7,24 @@
  *  Description: A part of the cenario
  */
 
-#ifndef BROKENHOUSE_H_
-#define BROKENHOUSE_H_
+#ifndef BROKENHOUSEFRONT_H_
+#define BROKENHOUSEFRONT_H_
 
 #include "../../../Engine.h"
 #include "../../characters/include/Barrier.h"
 
-class BrokenHouse : public GameObject
+class BrokenHouseFront : public GameObject
 {
   public:
-    BrokenHouse(float x, float y);
-    virtual ~BrokenHouse();
+    BrokenHouseFront(float x, float y);
+    virtual ~BrokenHouseFront();
     void Update(float dt);
-    void RenderFront();
-    void RenderBack();
     void Render();
     bool Is(std::string type);
   private:
     Sprite frontHouseSp;
-    Sprite backHouseSp;
 
     Point housePos;
 };
 
-#endif /* BROKENHOUSE_H_ */
+#endif /* BROKENHOUSEFRONT_H_ */
