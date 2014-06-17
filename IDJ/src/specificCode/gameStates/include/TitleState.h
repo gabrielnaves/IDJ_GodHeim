@@ -8,9 +8,7 @@
 #ifndef TITLESTATE_H_
 #define TITLESTATE_H_
 
-#include "../../../engine/include/Text.h"
-#include "../../../engine/include/Sprite.h"
-#include "../../../engine/include/Sound.h"
+#include "../../../Engine.h"
 #include "../../objects/include/MenuBox.h"
 #include "../../objects/include/Cursor.h"
 #include "Level1State.h"

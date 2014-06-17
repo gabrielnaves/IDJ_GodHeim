@@ -9,11 +9,7 @@
 #ifndef CHARACTER_H_
 #define CHARACTER_H_
 
-#include "../../../engine/include/InputManager.h"
-#include "../../../engine/include/GameObject.h"
-#include "../../../engine/include/Sprite.h"
-#include "../../../engine/include/Camera.h"
-#include "../../../engine/include/MovementMap.h"
+#include "../../../Engine.h"
 
 enum ActionState {NONE, CLIMBING};
 enum VerticalState {STANDING, JUST_JUMPED, JUMPING, FALLING};

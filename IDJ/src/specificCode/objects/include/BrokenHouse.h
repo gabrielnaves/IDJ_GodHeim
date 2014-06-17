@@ -10,9 +10,7 @@
 #ifndef BROKENHOUSE_H_
 #define BROKENHOUSE_H_
 
-#include "../../../engine/include/GameObject.h"
-#include "../../../engine/include/Camera.h"
-#include "../../../engine/include/Sprite.h"
+#include "../../../Engine.h"
 #include "../../characters/include/Barrier.h"
 
 class BrokenHouse : public GameObject

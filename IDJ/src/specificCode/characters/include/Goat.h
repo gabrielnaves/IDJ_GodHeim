@@ -8,13 +8,7 @@
 #ifndef GOAT_H_
 #define GOAT_H_
 
-#include "../../../engine/include/Game.h"
-#include "../../../engine/include/GameObject.h"
-#include "../../../engine/include/Sprite.h"
-#include "../../../engine/include/Camera.h"
-#include "../../../engine/include/Timer.h"
-#include "../../../engine/include/StillAnimation.h"
-#include "../../../engine/include/Sound.h"
+#include "../../../Engine.h"
 
 enum GoatState {MOV_RIGHT, MOV_LEFT, STAND_RIGHT, STAND_LEFT};
 

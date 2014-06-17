@@ -8,11 +8,7 @@
 #ifndef MENUBOX_H_
 #define MENUBOX_H_
 
-#include "../../../engine/include/GameObject.h"
-#include "../../../engine/include/Camera.h"
-#include "../../../engine/include/Sprite.h"
-#include "../../../engine/include/Sound.h"
-#include "../../../engine/include/State.h"
+#include "../../../Engine.h"
 
 class MenuBox : public GameObject
 {

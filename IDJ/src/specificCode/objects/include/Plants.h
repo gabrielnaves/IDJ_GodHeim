@@ -8,9 +8,7 @@
 #ifndef PLANTS_H_
 #define PLANTS_H_
 
-#include "../../../engine/include/GameObject.h"
-#include "../../../engine/include/Camera.h"
-#include "../../../engine/include/Sprite.h"
+#include "../../../Engine.h"
 
 class Plants : public GameObject
 {

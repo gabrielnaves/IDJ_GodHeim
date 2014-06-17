@@ -9,11 +9,10 @@
 #ifndef LOKI_H_
 #define LOKI_H_
 
+#include "../../objects/include/Stairs.h"
 #include "Character.h"
 #include "Barrier.h"
 #include "Bullet.h"
-#include "../../objects/include/Stairs.h"
-#include "../../../engine/include/Timer.h"
 
 class Loki : public Character
 {

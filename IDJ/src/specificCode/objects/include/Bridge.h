@@ -8,11 +8,7 @@
 #ifndef BRIDGE_H_
 #define BRIDGE_H_
 
-#include "../../../engine/include/GameObject.h"
-#include "../../../engine/include/Sprite.h"
-#include "../../../engine/include/Camera.h"
-#include "../../../engine/include/LineSegment.h"
-#include "../../../engine/include/Collision.h"
+#include "../../../Engine.h"
 #include "../../characters/include/Barrier.h"
 
 class Bridge : public GameObject

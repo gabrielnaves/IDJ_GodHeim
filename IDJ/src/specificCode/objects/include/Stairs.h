@@ -8,9 +8,7 @@
 #ifndef STAIRS_H_
 #define STAIRS_H_
 
-#include "../../../engine/include/GameObject.h"
-#include "../../../engine/include/Camera.h"
-#include "../../../engine/include/Sprite.h"
+#include "../../../Engine.h"
 #include "../../characters/include/Loki.h"
 #include "../../characters/include/Thor.h"
 #include <cmath>

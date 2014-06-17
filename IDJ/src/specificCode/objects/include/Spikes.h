@@ -8,9 +8,7 @@
 #ifndef SPIKES_H_
 #define SPIKES_H_
 
-#include "../../../engine/include/GameObject.h"
-#include "../../../engine/include/Camera.h"
-#include "../../../engine/include/Sprite.h"
+#include "../../../Engine.h"
 
 class Spikes : public GameObject
 {
