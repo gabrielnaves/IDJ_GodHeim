@@ -23,11 +23,11 @@ Rect::Rect(float x, float y, float w, float h)
 	Set(x, y, w, h);
 }
 
-void Rect::Set(float x, float y, float w, float h)
+void Rect::Set(const Rect& rect)
 {
-	p.Set(x, y);
-	this->w = w;
-	this->h = h;
+    p = rect.p;
+    this->w = rect.w;
+    this->h = rect.h;
 }
 
 void Rect::Set(Point point, float w, float h)
@@ -35,6 +35,13 @@ void Rect::Set(Point point, float w, float h)
     p.Set(point);
     this->w = w;
     this->h = h;
+}
+
+void Rect::Set(float x, float y, float w, float h)
+{
+	p.Set(x, y);
+	this->w = w;
+	this->h = h;
 }
 
 void Rect::SetPoint(Point point)

@@ -21,10 +21,16 @@ class BrokenHouseFront : public GameObject
     void Update(float dt);
     void Render();
     bool Is(std::string type);
-  private:
-    Sprite frontHouseSp;
+    void NotifyCollision(GameObject& other);
 
-    Point housePos;
+  private:
+    void CorrectPosition(Character* character, Rect previousBox);
+
+    Sprite sp;
+    Rect roof;
+    Rect lokiBox, thorBox;
+
+    bool thorColliding, lokiColliding;
 };
 
 #endif /* BROKENHOUSEFRONT_H_ */
