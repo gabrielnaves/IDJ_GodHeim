@@ -13,9 +13,9 @@ Bridge::Bridge(float x, float y)
     box.Set(x, y, bridgeSp.GetWidth(), bridgeSp.GetHeight());
     rotation = 0;
 
-    bridgeSegment.emplace_back(x+14, y+110, x+65, y+70);
+    bridgeSegment.emplace_back(x+15, y+114, x+65, y+70);
     bridgeSegment.emplace_back(x+65, y+70, x+210, y+70);
-    bridgeSegment.emplace_back(x+205, y+70, x+260, y+110);
+    bridgeSegment.emplace_back(x+205, y+70, x+260, y+114);
     lokiColliding = thorColliding = false;
     lokiAbove = thorAbove = true;
 }
