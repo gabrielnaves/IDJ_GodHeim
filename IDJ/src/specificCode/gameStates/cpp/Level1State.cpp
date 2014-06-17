@@ -9,8 +9,8 @@
 #include "../include/Level1State.h"
 
 Level1State::Level1State() : State(), tileSet(55,55,"img/level1/level1Tiles.png"),
-                             tileMap("map/firstLevel.txt", &tileSet),
-                             movementMap("map/firstLevelMovementMap.txt", tileSet),
+                             tileMap("map/level1.txt", &tileSet),
+                             movementMap("map/level1MovementMap.txt", tileSet),
                              brokenHouse(500, 320)
 {
     bg.Open("img/level1/level1Background2.png");
