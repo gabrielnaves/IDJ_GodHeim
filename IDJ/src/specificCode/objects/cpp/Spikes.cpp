@@ -13,18 +13,15 @@ Spikes::Spikes(std::string spikes, int x, int y) {
 }
 
 Spikes::~Spikes() {}
-void Spikes::Update(float dt){}
+
+void Spikes::Update(float dt)
+{
+
+}
 
 void Spikes::Render()
 {
     spikesSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY());
-}
-
-void Spikes::NotifyCollision(GameObject& other) {}
-
-bool Spikes::IsDead()
-{
-    return (false);
 }
 
 bool Spikes::Is(std::string type)

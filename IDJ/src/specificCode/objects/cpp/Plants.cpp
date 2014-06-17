@@ -13,17 +13,14 @@ Plants::Plants(std::string plant, int x, int y) {
 }
 
 Plants::~Plants() {
-    // TODO Auto-generated destructor stub
 }
 
 void Plants::Update(float dt) {}
+
 void Plants::Render()
 {
     plantSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY());
 }
-void Plants::NotifyCollision(GameObject& other) {}
-
-bool Plants::IsDead() { return(false); }
 
 bool Plants::Is(std::string type)
 {

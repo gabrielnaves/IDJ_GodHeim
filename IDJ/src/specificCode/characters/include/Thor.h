@@ -32,6 +32,7 @@ class Thor : public Character
     void UpdateVerticalState();
     void UpdatesStateOnTheFall();
     void Act();
+    void Hit();
 };
 
 #endif /* THOR_H_ */

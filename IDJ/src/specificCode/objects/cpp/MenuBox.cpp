@@ -42,8 +42,6 @@ void MenuBox::Render()
     else sp1.Render(box.GetX(), box.GetY());
 }
 
-void MenuBox::NotifyCollision(GameObject& other) {}
-
 bool MenuBox::IsDead()
 {
     return click;

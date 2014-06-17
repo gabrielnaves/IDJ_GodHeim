@@ -17,10 +17,8 @@ class Spikes : public GameObject
   public:
     Spikes(std::string spikes, int x, int y);
     virtual ~Spikes();
-    void Update(float dt);
     void Render();
-    void NotifyCollision(GameObject& other);
-    bool IsDead();
+    void Update(float dt);
     bool Is(std::string type);
   private:
     Sprite spikesSp;

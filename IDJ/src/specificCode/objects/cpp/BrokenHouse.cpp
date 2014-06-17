@@ -37,9 +37,6 @@ void BrokenHouse::Update(float dt)
 }
 
 void BrokenHouse::Render() {}
-void BrokenHouse::NotifyCollision(GameObject& other) {}
-
-bool BrokenHouse::IsDead() { return(false); }
 
 bool BrokenHouse::Is(std::string type)
 {

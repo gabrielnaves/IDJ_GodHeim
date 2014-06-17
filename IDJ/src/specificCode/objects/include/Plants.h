@@ -17,10 +17,8 @@ class Plants : public GameObject
   public:
     Plants(std::string plant, int x, int y);
     virtual ~Plants();
-    void Update(float dt);
     void Render();
-    void NotifyCollision(GameObject& other);
-    bool IsDead();
+    void Update(float dt);
     bool Is(std::string type);
   private:
     Sprite plantSp;

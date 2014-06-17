@@ -39,15 +39,6 @@ void Cursor::Render()
 	sp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(), rotation);
 }
 
-void Cursor::NotifyCollision(GameObject& other)
-{
-}
-
-bool Cursor::IsDead()
-{
-	return false;
-}
-
 bool Cursor::Is(std::string type)
 {
 	return type == "Cursor" ? true : false;

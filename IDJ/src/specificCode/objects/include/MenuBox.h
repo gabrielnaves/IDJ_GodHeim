@@ -21,7 +21,6 @@ class MenuBox : public GameObject
 
     void Update(float dt);
     void Render();
-    void NotifyCollision(GameObject& other);
 
     bool IsDead();
     bool Is(std::string type);

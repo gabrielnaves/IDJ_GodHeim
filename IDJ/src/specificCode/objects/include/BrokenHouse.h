@@ -24,8 +24,6 @@ class BrokenHouse : public GameObject
     void RenderFront();
     void RenderBack();
     void Render();
-    void NotifyCollision(GameObject& other);
-    bool IsDead();
     bool Is(std::string type);
   private:
     Sprite frontHouseSp;

@@ -80,11 +80,6 @@ void Bridge::NotifyCollision(GameObject& other)
         CharacterInside(Thor::characterThor);
 }
 
-bool Bridge::IsDead()
-{
-    return false;
-}
-
 bool Bridge::Is(std::string type)
 {
     return type == "Bridge" ? true : false;

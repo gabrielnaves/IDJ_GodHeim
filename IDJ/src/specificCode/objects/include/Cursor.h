@@ -21,8 +21,6 @@ class Cursor: public GameObject
 	Cursor();
 	void Update(float dt);
 	void Render();
-	void NotifyCollision(GameObject& other);
-	bool IsDead();
 	bool Is(std::string type);
   private:
 	Sprite sp;

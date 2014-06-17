@@ -78,11 +78,6 @@ void Stairs::NotifyCollision(GameObject& other)
                 Thor::characterThor->canHoldStairs = false : Thor::characterThor->canHoldStairs = true;
 }
 
-bool Stairs::IsDead()
-{
-    return(false);
-}
-
 bool Stairs::Is(std::string type)
 {
     return(type == "Stairs" ? true : false);

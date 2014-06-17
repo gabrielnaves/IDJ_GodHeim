@@ -66,6 +66,11 @@ void Thor::Act()
     actionButton = false;
 }
 
+void Thor::Hit()
+{
+
+}
+
 void Thor::UpdateVerticalState()
 {
     if (vertical == 1 and vState == STANDING)

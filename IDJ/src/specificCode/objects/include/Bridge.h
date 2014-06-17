@@ -25,7 +25,6 @@ class Bridge : public GameObject
     void Render();
     void NotifyCollision(GameObject& other);
 
-    bool IsDead();
     bool Is(std::string type);
 
   private:

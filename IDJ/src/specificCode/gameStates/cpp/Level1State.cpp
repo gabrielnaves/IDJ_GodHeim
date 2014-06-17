@@ -31,10 +31,20 @@ void Level1State::EmplaceInitialObjects()
 {
     objectArray.emplace_back(new Stairs("img/objects/stairs.png",605,440));
     objectArray.emplace_back(new Stairs("img/objects/stairs.png",390,550));
-    objectArray.emplace_back(new Spikes("img/objects/spikes.png",385,2200));
     objectArray.emplace_back(new Loki(70,100, movementMap));
     objectArray.emplace_back(new Thor(20,100, movementMap));
     objectArray.emplace_back(new Bridge(220, 330));
+    objectArray.emplace_back(new Spikes("img/objects/spikes.png",385,2200));
+    objectArray.emplace_back(new Plants("img/level1/plants/5.png",255,510));
+    objectArray.emplace_back(new Plants("img/level1/plants/3.png",260,525));
+    objectArray.emplace_back(new Plants("img/level1/plants/10.png",410,530));
+    objectArray.emplace_back(new Plants("img/level1/plants/9.png",390,530));
+    objectArray.emplace_back(new Plants("img/level1/plants/4.png",395,515));
+    objectArray.emplace_back(new Plants("img/level1/plants/1.png",395,485));
+    objectArray.emplace_back(new Plants("img/level1/plants/10.png",365,530));
+    objectArray.emplace_back(new Plants("img/level1/plants/6.png",365,515));
+    objectArray.emplace_back(new Plants("img/level1/plants/2.png",325,525));
+    objectArray.emplace_back(new Plants("img/level1/plants/7.png",285,525));
     objectArray.emplace_back(new Goat(800, 305));
     objectArray.emplace_back(new Barrier());
 }
