@@ -9,6 +9,7 @@
 #define LEVEL2STATE_H_
 
 #include "../../../Engine.h"
+#include "../../objects/include/LavaCircle.h"
 
 class Level2State : public State
 {
@@ -23,7 +24,8 @@ class Level2State : public State
     void Input();
     void EmplaceInitialObjects();
 
-    Sprite bg;
+    GameObject* lavaCircle;
+    Sprite bg1, bg2, tmpBlackBg;
     BlockTileSet tileSet;
     TileMap tileMap;
     MovementMap movementMap;
