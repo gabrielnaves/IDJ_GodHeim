@@ -110,10 +110,6 @@ void Loki::Move(float dt)
 
     box.MoveRect(speed.GetX()*dt,speed.GetY()*dt);
     Barrier::barrier->CheckCollision(this);
-
-    //If the character collided with the upper limit of the barrier, makes sure it will not keep on jumping
-//    if ((vState == JUMPING or vState == JUST_JUMPED) and (Thor::characterThor->box.GetY() - box.GetY() >= Barrier::barrier->DIAMETER))
-//            speed.Set(speed.GetX(),0); //sets the Y speed to 0 when it hits the upper limit of the barrier
 }
 
 void Loki::ReleasesStairs()
@@ -200,6 +196,7 @@ void Loki::UpdateSprite(float dt)
 {
     if (appearance == LOKI)
     {
+        shouldRender = true;
         if (vState == STANDING)
         {
             if (hState == MOVING_RIGHT or hState == MOVING_LEFT)

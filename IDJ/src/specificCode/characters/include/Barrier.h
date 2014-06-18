@@ -33,7 +33,7 @@ class Barrier : public GameObject
 
 	Point GetCorner();
 	const float DIAMETER = 250;
-	const float DRAG_TOLERANCE = 5;
+	const float DRAG_TOLERANCE = 0;
   private:
 	Point FindCenter();
 };

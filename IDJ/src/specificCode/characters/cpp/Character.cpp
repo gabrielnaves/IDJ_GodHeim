@@ -145,22 +145,22 @@ void Character::ChangeSp(std::string spType, std::string sp)
     if (spType == "characterSp")
     {
         characterSp.Open(sp);
-        box.Set(box.GetX(), box.GetY(), characterSp.GetWidth(), characterSp.GetHeight());
+//        box.Set(box.GetX(), box.GetY(), characterSp.GetWidth(), characterSp.GetHeight());
     }
     else if (spType == "walkSp")
     {
         walkSp.Open(sp);
-        box.Set(box.GetX(), box.GetY(), walkSp.GetWidth(), walkSp.GetHeight());
+//        box.Set(box.GetX(), box.GetY(), walkSp.GetWidth(), walkSp.GetHeight());
     }
     else if (spType == "jumpSp")
     {
         jumpSp.Open(sp);
-        box.Set(box.GetX(), box.GetY(), jumpSp.GetWidth(), jumpSp.GetHeight());
+//        box.Set(box.GetX(), box.GetY(), jumpSp.GetWidth(), jumpSp.GetHeight());
     }
     else if (spType == "climbSp")
     {
         climbSp.Open(sp);
-        box.Set(box.GetX(), box.GetY(), climbSp.GetWidth(), climbSp.GetHeight());
+//        box.Set(box.GetX(), box.GetY(), climbSp.GetWidth(), climbSp.GetHeight());
     }
 }
 
