@@ -54,7 +54,7 @@ class Character : public GameObject
     void UpdateState();
     void CheckMovementLimits();
     void UpdatePrevState();
-    void ChangeSp(std::string spType, std::string sp, int frameCount = 1, int currentFrame = 1);
+    void ChangeSp(std::string spType, std::string sp, int frameCount = 1, int currentFrame = 1, bool repeat = true);
 
     int hp;
     Sprite characterSp, walkSp, jumpSp, climbSp;

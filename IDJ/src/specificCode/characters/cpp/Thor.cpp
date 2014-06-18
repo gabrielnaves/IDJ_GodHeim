@@ -155,11 +155,11 @@ void Thor::UpdateSprite(float dt)
             climbSp.Update(dt);
     }
     else if (vState == FALLING)
-                ChangeSp("jumpSp","img/characters/thor_jump.png",4,4);
+                ChangeSp("jumpSp","img/characters/thor_jump.png",4,4,false);
             else if (vState == JUMPING)
             {
                 if (prevVState == JUST_JUMPED)
-                    ChangeSp("jumpSp","img/characters/thor_jump.png",4);
+                    ChangeSp("jumpSp","img/characters/thor_jump.png",4,1,false);
                 else
                     jumpSp.Update(dt);
             }

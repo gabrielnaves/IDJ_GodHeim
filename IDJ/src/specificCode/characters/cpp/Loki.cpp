@@ -209,11 +209,11 @@ void Loki::UpdateSprite(float dt)
             else if (vertical != 0) climbSp.Update(dt);
         }
         else if (vState == FALLING)
-            ChangeSp("jumpSp","img/characters/lokiJump.png",4,4);
+            ChangeSp("jumpSp","img/characters/lokiJump.png",4,4,false);
         else if (vState == JUMPING)
         {
             if (prevVState == JUST_JUMPED)
-                ChangeSp("jumpSp","img/characters/lokiJump.png",4);
+                ChangeSp("jumpSp","img/characters/lokiJump.png",4,1,false);
             else
                 jumpSp.Update(dt);
         }
@@ -224,7 +224,7 @@ void Loki::UpdateSprite(float dt)
     {
         if (prevAppearance == LOKI)
         {
-            ChangeSp("jumpSp","img/characters/eagleFlight.png",10,1);
+            ChangeSp("jumpSp","img/characters/eagleFlight.png",10);
             //adds a smoke to the screen
             Sprite smoke("img/characters/smoke.png", 11, 0.1);
             StillAnimation *sa = new StillAnimation(box.Center().GetX(),box.Center().GetY(),rotation,smoke,1,true);

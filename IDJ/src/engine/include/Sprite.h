@@ -30,15 +30,15 @@ class Sprite
     void SetFrameCount(int frameCount);
     void SetFrameTime(float fameTime);
     void SetRepeat(bool repeat);
-    int GetCurrentFrame();
-    int GetFrameCount();
-    float GetFrameTime();
     void SetClip(int x, int y, int w, int h);
     void SetScaleX(float scale);
     void SetScaleY(float scale);
 
     int GetWidth();
     int GetHeight();
+    int GetCurrentFrame();
+    int GetFrameCount();
+    float GetFrameTime();
     bool IsOpen();
 
   private:
