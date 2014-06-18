@@ -10,7 +10,8 @@
 
 Loki* Loki::characterLoki;
 
-Loki::Loki(float x, float y, MovementMap& movMap) : Character(movMap,"img/characters/loki_walk.png",8,0.1,"img/characters/thor_jump.png",4,0.1)
+Loki::Loki(float x, float y, MovementMap& movMap) :
+        Character(movMap,"img/characters/loki_walk.png",8,0.1,"img/characters/thor_jump.png",4,0.1,"img/characters/lokiStairs.png",2,0.1)
 {
 	characterSp.Open("img/characters/loki.png");
 	box.Set(x-characterSp.GetWidth()/2, y-characterSp.GetHeight()/2, characterSp.GetWidth(), characterSp.GetHeight());
@@ -218,7 +219,7 @@ void Loki::UpdateSprite(float dt)
         {
             jumpSp.SetFrame(1);
             jumpSp.SetFrameCount(4);
-            prevVState == JUST_JUMPED ? ChangeSp("jumpSp","img/characters/thor_jump.png") : jumpSp.Update(dt);
+            prevVState == JUST_JUMPED ? ChangeSp("jumpSp","img/characters/lokiJump.png") : jumpSp.Update(dt);
         }
     }
     else if (appearance == EAGLE)
