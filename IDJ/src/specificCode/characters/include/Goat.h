@@ -10,7 +10,7 @@
 
 #include "../../../Engine.h"
 
-enum GoatState {MOV_RIGHT, MOV_LEFT, STAND_RIGHT, STAND_LEFT};
+enum GoatState { MOV_RIGHT, MOV_LEFT, STAND_RIGHT, STAND_LEFT };
 
 class Goat: public GameObject
 {
@@ -26,7 +26,7 @@ class Goat: public GameObject
   private:
 	void Die();
 
-	Sprite sp;
+	Sprite spWalk, spStand;
 	Timer timer;
 	GoatState goatState;
 	int hp;

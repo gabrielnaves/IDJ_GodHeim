@@ -7,9 +7,10 @@
 
 #include "../include/Goat.h"
 
-Goat::Goat(float x, float y): sp("img/characters/goatWalk.png", 4, 0.1, true)
+Goat::Goat(float x, float y): spWalk("img/characters/goatWalk.png", 4, 0.15, true),
+                              spStand("img/characters/bode comendo.png", 10, 0.2, true)
 {
-	box.Set(x-sp.GetWidth()/2, y-sp.GetHeight()/2, sp.GetWidth(), sp.GetHeight());
+	box.Set(x-spWalk.GetWidth()/2, y-spWalk.GetHeight()/2, spWalk.GetWidth(), spWalk.GetHeight());
 	rotation = 0;
 	goatState = MOV_RIGHT;
 	hp = 10;
@@ -18,7 +19,8 @@ Goat::Goat(float x, float y): sp("img/characters/goatWalk.png", 4, 0.1, true)
 void Goat::Update(float dt)
 {
 	timer.Update(dt);
-	sp.Update(dt);
+	spWalk.Update(dt);
+	spStand.Update(dt);
 	UpdateState();
 	Move(dt);
 }
@@ -27,24 +29,40 @@ void Goat::UpdateState()
 {
 	if (timer.Get() > MAX_TIME)
 	{
-		if (goatState == MOV_RIGHT) goatState = STAND_RIGHT;
-		else if (goatState == STAND_RIGHT) goatState = MOV_LEFT;
-		else if (goatState == MOV_LEFT) goatState = STAND_LEFT;
-		else goatState = MOV_RIGHT;
+		if (goatState == MOV_RIGHT)
+		{
+		    spStand.SetFrame(4);
+		    goatState = STAND_RIGHT;
+		}
+		else if (goatState == STAND_RIGHT)
+		{
+		    spWalk.SetFrame(1);
+		    goatState = MOV_LEFT;
+		}
+		else if (goatState == MOV_LEFT)
+		{
+		    spStand.SetFrame(4);
+		    goatState = STAND_LEFT;
+		}
+		else
+        {
+		    spWalk.SetFrame(1);
+		    goatState = MOV_RIGHT;
+        }
 		timer.Restart();
 	}
 }
 
 void Goat::Render()
 {
-	if ((goatState == MOV_RIGHT) || (goatState == STAND_RIGHT))
-	{
-		sp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY());
-	}
-	else
-	{
-		sp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(), 0, SDL_FLIP_HORIZONTAL);
-	}
+	if (goatState == MOV_RIGHT)
+		spWalk.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY());
+	if (goatState == STAND_RIGHT)
+	    spStand.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(), 0, SDL_FLIP_HORIZONTAL);
+	if (goatState == MOV_LEFT)
+		spWalk.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(), 0, SDL_FLIP_HORIZONTAL);
+	if (goatState == STAND_LEFT)
+	    spStand.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY());
 }
 
 void Goat::NotifyCollision(GameObject & other)
@@ -58,8 +76,8 @@ void Goat::NotifyCollision(GameObject & other)
 
 void Goat::Die()
 {
-    Sprite goatDeath("img/characters/penguindeath.png", 5, 0.1);
-    StillAnimation *sa = new StillAnimation(box.Center().GetX(),box.Center().GetY(),rotation,goatDeath,0.5,true);
+    Sprite goatDeath("img/characters/goatDeath.png", 33, 0.1);
+    StillAnimation *sa = new StillAnimation(box.Center().GetX(),box.Center().GetY(),rotation,goatDeath,3.8,true);
     Game::GetInstance().GetCurrentState().AddObject(sa);
 
     Sound goatCry ("audio/SOUNDTRACK MODE/Bode.ogg");
