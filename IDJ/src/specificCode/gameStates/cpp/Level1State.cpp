@@ -92,9 +92,10 @@ void Level1State::Render()
     rochas.Render(-Camera::pos.GetX(),-Camera::pos.GetY());
     tileMap.RenderLayer(0,+Camera::pos.GetX(), +Camera::pos.GetY());
     RenderArray();
-    if (!tileMap.HasTile(Loki::characterLoki->box.Center().GetX(), Loki::characterLoki->box.Center().GetY(), 1) &&
-        !tileMap.HasTile(Thor::characterThor->box.Center().GetX(), Thor::characterThor->box.Center().GetY(), 1))
-        tileMap.RenderLayer(1,+Camera::pos.GetX(), +Camera::pos.GetY());
+    if (Loki::characterLoki != NULL && Thor::characterThor != NULL)
+        if (!tileMap.HasTile(Loki::characterLoki->box.Center().GetX(), Loki::characterLoki->box.Center().GetY(), 1) &&
+            !tileMap.HasTile(Thor::characterThor->box.Center().GetX(), Thor::characterThor->box.Center().GetY(), 1))
+            tileMap.RenderLayer(1,+Camera::pos.GetX(), +Camera::pos.GetY());
 }
 
 void Level1State::Input()

@@ -77,7 +77,7 @@ void Goat::NotifyCollision(GameObject & other)
 void Goat::Die()
 {
     Sprite goatDeath("img/characters/goatDeath.png", 33, 0.1);
-    StillAnimation *sa = new StillAnimation(box.Center().GetX(),box.Center().GetY(),rotation,goatDeath,3.8,true);
+    StillAnimation *sa = new StillAnimation(box.Center().GetX(),box.Center().GetY(),rotation,goatDeath,3.6,true);
     Game::GetInstance().GetCurrentState().AddObject(sa);
 
     Sound goatCry ("audio/SOUNDTRACK MODE/Bode.ogg");
