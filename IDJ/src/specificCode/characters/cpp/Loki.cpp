@@ -86,7 +86,7 @@ void Loki::UpdateVerticalState()
     {
         if (vertical == 1 and vState == STANDING)
             SetVState(JUST_JUMPED);
-        else if (vertical == 1 and vState == FALLING and actionState == NONE)
+        else if (vertical == 1 and (vState == FALLING or vState == JUMPING) and actionState == NONE)
             SetAppearance(EAGLE);
     }
     else if (appearance == EAGLE)
