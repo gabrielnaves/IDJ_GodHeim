@@ -18,7 +18,8 @@ enum HorizontalState {STANDING_RIGHT, STANDING_LEFT, MOVING_RIGHT, MOVING_LEFT};
 class Character : public GameObject
 {
   public:
-    Character(MovementMap& movMap,std::string,int frameCount,float frameTime,std::string jump,int jumpFrameCount,float jumpFrameTime);
+    Character(MovementMap& movMap,std::string,int frameCount,float frameTime,
+            std::string jump,int jumpFrameCount,float jumpFrameTime,std::string climb, int cFrameCount, float cFrameTime);
     virtual ~Character() {}
     bool IsClimbing();
     void CancelAction();
@@ -33,6 +34,7 @@ class Character : public GameObject
     HorizontalState GetHState();
     void SetVState(VerticalState vS);
     void SetHState(HorizontalState hS);
+    void SetActionState(ActionState actionState);
 
     bool canHoldStairs;
     bool insideBridge;
@@ -55,10 +57,10 @@ class Character : public GameObject
     void ChangeSp(std::string spType, std::string sp);
 
     int hp;
-    Sprite characterSp, walkSp, jumpSp;
+    Sprite characterSp, walkSp, jumpSp, climbSp;
     MovementMap& movementMap;
 
-    ActionState actionState;
+    ActionState actionState, prevActionState;
     VerticalState vState, prevVState;
     HorizontalState hState, prevHState;
 

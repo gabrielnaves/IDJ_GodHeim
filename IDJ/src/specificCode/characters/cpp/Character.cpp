@@ -9,18 +9,22 @@
 #include "../include/Character.h"
 #include "../include/Barrier.h"
 
-Character::Character(MovementMap& movMap,std::string walk,int wFrameCount,float wFrameTime,std::string jump,int jFrameCount,float jFrameTime)
-         : walkSp(walk,wFrameCount,wFrameTime),jumpSp(jump,jFrameCount,jFrameTime),movementMap(movMap)
+Character::Character(MovementMap& movMap,
+           std::string walk,int wFrameCount,float wFrameTime,
+           std::string jump,int jFrameCount,float jFrameTime,
+           std::string climb, int cFrameCount, float cFrameTime)
+         : walkSp(walk,wFrameCount,wFrameTime),
+           jumpSp(jump,jFrameCount,jFrameTime),
+           climbSp(climb,cFrameCount,cFrameTime),
+           movementMap(movMap)
 {
     hp = HP;
     rotation = 0;
-    vState = STANDING;
-    hState = STANDING_RIGHT;
-    prevVState = vState;
-    prevHState = hState;
+    vState = prevVState = STANDING;
+    hState = prevHState = STANDING_RIGHT;
+    horizontal = vertical = 0;
     actionState = NONE;
     actionButton = false;
-    horizontal = vertical = 0;
     canHoldStairs=false;
     insideBridge = false;
     barrierSuspended = false;
@@ -99,45 +103,42 @@ void Character::UpdateState()
     UpdateHorizontalState();
     UpdateVerticalState();
 }
-
 bool Character::IsClimbing()
 {
     return (actionState == CLIMBING ? true : false);
 }
-
 void Character::CancelAction()
 {
     actionState = NONE;
 }
-
 VerticalState Character::GetVState()
 {
     return vState;
 }
-
 void Character::SetVState(VerticalState vS)
 {
     prevVState = vState;
     vState = vS;
 }
-
 HorizontalState Character::GetHState()
 {
     return hState;
 }
-
 void Character::SetHState(HorizontalState hS)
 {
     prevHState = hState;
     hState = hS;
 }
-
 void Character::UpdatePrevState()
 {
     prevHState = hState;
     prevVState = vState;
 }
-
+void Character::SetActionState(ActionState actionState)
+{
+    prevActionState = actionState;
+    this->actionState = actionState;
+}
 
 void Character::ChangeSp(std::string spType, std::string sp)
 {
@@ -155,6 +156,11 @@ void Character::ChangeSp(std::string spType, std::string sp)
     {
         jumpSp.Open(sp);
         box.Set(box.GetX(), box.GetY(), jumpSp.GetWidth(), jumpSp.GetHeight());
+    }
+    else if (spType == "climbSp")
+    {
+        climbSp.Open(sp);
+        box.Set(box.GetX(), box.GetY(), climbSp.GetWidth(), climbSp.GetHeight());
     }
 }
 
