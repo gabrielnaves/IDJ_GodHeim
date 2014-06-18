@@ -80,6 +80,9 @@ void Goat::Die()
     StillAnimation *sa = new StillAnimation(box.Center().GetX(),box.Center().GetY(),rotation,goatDeath,3.6,true);
     Game::GetInstance().GetCurrentState().AddObject(sa);
 
+    Item *meat = new Item(box.Center().GetX(), box.Center().GetY(),"img/characters/pernil.png", "Meat", true, 3.6);
+    Game::GetInstance().GetCurrentState().AddObject(meat);
+
     Sound goatCry ("audio/SOUNDTRACK MODE/Bode.ogg");
     goatCry.Play(0);
 }

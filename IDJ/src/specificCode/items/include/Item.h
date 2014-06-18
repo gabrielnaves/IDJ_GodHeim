@@ -8,25 +8,28 @@
 #ifndef ITEM_H_
 #define ITEM_H_
 
-#include "../../../engine/include/GameObject.h"
-#include "../../../engine/include/Sprite.h"
-#include "../../../engine/include/Camera.h"
+#include "../../../Engine.h"
 
 class Item : public GameObject
 {
   public:
-    Item(int x, int y, std::string imageAdress, std::string name);
+    Item(int x, int y, std::string imageAdress, std::string name, bool delayed = false, float delay = 0);
     virtual ~Item();
     void Update(float dt);
     void Render();
-    bool HasItem();
+    void NotifyCollision(GameObject& other);
     bool Is(std::string type);
-    bool IsCalled(std::string name);
+    bool IsDead();
+    bool HasItem();
 
   private:
+    void Hover(float dt);
+
     Sprite itemSp;
     std::string name;
-    bool hasItem;
+    Timer delay;
+    bool hasItem, disappear, delayed;
+    float delayTime, angle, initialY;
 };
 
 #endif /* ITEM_H_ */

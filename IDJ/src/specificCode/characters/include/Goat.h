@@ -9,6 +9,7 @@
 #define GOAT_H_
 
 #include "../../../Engine.h"
+#include "../../items/include/Item.h"
 
 enum GoatState { MOV_RIGHT, MOV_LEFT, STAND_RIGHT, STAND_LEFT };
 
