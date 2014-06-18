@@ -10,6 +10,7 @@
 
 #include "../../../Engine.h"
 #include "../../objects/include/LavaCircle.h"
+#include "../../objects/include/Lava.h"
 
 class Level2State : public State
 {

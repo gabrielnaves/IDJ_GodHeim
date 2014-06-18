@@ -43,6 +43,7 @@ void Level2State::Render()
 
 void Level2State::EmplaceInitialObjects()
 {
+    objectArray.emplace_back(new Lava(0, 1430));
 }
 
 void Level2State::Input()
