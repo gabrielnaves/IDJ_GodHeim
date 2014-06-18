@@ -30,6 +30,7 @@ void Level1State::EmplaceInitialObjects()
 {
     objectArray.emplace_back(new Stairs("img/objects/stairs.png",605,440));
     objectArray.emplace_back(new Stairs("img/objects/stairs.png",390,550));
+//    objectArray.emplace_back(new Stairs("img/level1/grade.png",0,1265, 6, 0.1));
     objectArray.emplace_back(new BrokenHouseBack(500, 320));
     objectArray.emplace_back(new Loki(70,100, movementMap));
     objectArray.emplace_back(new Thor(20,100, movementMap));
@@ -63,7 +64,7 @@ void Level1State::EmplaceInitialObjects()
     objectArray.emplace_back(new Plants("img/level1/plants/10.png",580,375));
     objectArray.emplace_back(new Plants("img/level1/plants/9.png",640,375));
     objectArray.emplace_back(new Plants("img/level1/plants/10.png",610,375));
-    objectArray.emplace_back(new Goat(800, 305));
+    objectArray.emplace_back(new Goat(800, 310));
     objectArray.emplace_back(new Barrier());
 }
 

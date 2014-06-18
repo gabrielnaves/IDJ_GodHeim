@@ -23,12 +23,13 @@ class Sprite
     ~Sprite();
 
     void Open(std::string file);
-    void Update(float dt);
+    void Update(float dt, bool forward = true);
     void Render(int x, int y, float angle = 0, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
     void SetFrame(int frame);
     void SetFrameCount(int frameCount);
     void SetFrameTime(float fameTime);
+    void SetRepeat(bool repeat);
     int GetCurrentFrame();
     int GetFrameCount();
     float GetFrameTime();

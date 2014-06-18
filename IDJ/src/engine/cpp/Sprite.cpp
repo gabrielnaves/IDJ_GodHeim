@@ -87,18 +87,31 @@ void Sprite::SetClip(int x, int y, int w, int h)
     clipRect.x = x; clipRect.y = y; clipRect.w = w; clipRect.h = h;
 }
 
-void Sprite::Update(float dt)
+void Sprite::Update(float dt, bool forward)
 {
     timeElapsed += dt;
     if (timeElapsed >= frameTime)
     {
-        currentFrame++;
-        if (currentFrame > frameCount && repeat)
-            currentFrame = 1;
-        else if (currentFrame > frameCount)
-            currentFrame = frameCount;
-        SetClip(dimensions.w/frameCount*(currentFrame-1), 0, dimensions.w/frameCount, dimensions.h);
-        timeElapsed = 0;
+        if (forward)
+        {
+            currentFrame++;
+            if (currentFrame > frameCount && repeat)
+                currentFrame = 1;
+            else if (currentFrame > frameCount)
+                currentFrame = frameCount;
+            SetClip(dimensions.w/frameCount*(currentFrame-1), 0, dimensions.w/frameCount, dimensions.h);
+            timeElapsed = 0;
+        }
+        else
+        {
+            currentFrame--;
+            if (currentFrame < 1 && repeat)
+                currentFrame = frameCount;
+            else if (currentFrame < 1)
+                currentFrame = 1;
+            SetClip(dimensions.w/frameCount*(currentFrame-1), 0, dimensions.w/frameCount, dimensions.h);
+            timeElapsed = 0;
+        }
     }
 }
 
@@ -126,6 +139,7 @@ void Sprite::SetScaleX(float scale) { scaleX = scale; }
 void Sprite::SetScaleY(float scale) { scaleY = scale; }
 void Sprite::SetFrameCount(int frameCount) { this->frameCount = frameCount; }
 void Sprite::SetFrameTime(float frameTime) { this->frameTime = frameTime; }
+void Sprite::SetRepeat(bool repeat) { this->repeat = repeat; }
 
 void Sprite::SetFrame(int frame)
 {

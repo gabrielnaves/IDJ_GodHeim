@@ -7,10 +7,14 @@
 
 #include "../include/Stairs.h"
 
-Stairs::Stairs(std::string stairs, int x, int y)
+Stairs::Stairs(std::string stairs, int x, int y, int frameCount, float frameTime)
 {
     stairsSp.Open(stairs);
+    stairsSp.SetFrameCount(frameCount);
+    stairsSp.SetFrameTime(frameTime);
+    stairsSp.SetRepeat(false);
     box.Set(x,y,stairsSp.GetWidth(),stairsSp.GetHeight());
+    showAnimation = false;
 }
 
 Stairs::~Stairs() {}
@@ -26,14 +30,21 @@ void Stairs::Update(float dt)
     {
         LookForCharacterAbove(Loki::characterLoki);
         ReleasesStairs(Loki::characterLoki);
+        showAnimation = true;
     }
+    else showAnimation = false;
 
     Rect thor = Thor::characterThor->box;
     if ((thor.GetX() >= box.GetX() and (thor.GetX() + thor.GetW()) <= (box.GetX() + box.GetH())))
     {
         LookForCharacterAbove(Thor::characterThor);
         ReleasesStairs(Thor::characterThor);
+        showAnimation = true;
     }
+    else showAnimation = false;
+
+    if (showAnimation) stairsSp.Update(dt);
+    else stairsSp.Update(dt, false);
 }
 
 /**
