@@ -140,26 +140,34 @@ void Character::SetActionState(ActionState actionState)
     this->actionState = actionState;
 }
 
-void Character::ChangeSp(std::string spType, std::string sp)
+void Character::ChangeSp(std::string spType, std::string sp, int frameCount, int currentFrame)
 {
     if (spType == "characterSp")
     {
         characterSp.Open(sp);
+        characterSp.SetFrameCount(frameCount);
+        characterSp.SetFrame(currentFrame);
 //        box.Set(box.GetX(), box.GetY(), characterSp.GetWidth(), characterSp.GetHeight());
     }
     else if (spType == "walkSp")
     {
         walkSp.Open(sp);
+        walkSp.SetFrameCount(frameCount);
+        walkSp.SetFrame(currentFrame);
 //        box.Set(box.GetX(), box.GetY(), walkSp.GetWidth(), walkSp.GetHeight());
     }
     else if (spType == "jumpSp")
     {
         jumpSp.Open(sp);
+        jumpSp.SetFrameCount(frameCount);
+        jumpSp.SetFrame(currentFrame);
 //        box.Set(box.GetX(), box.GetY(), jumpSp.GetWidth(), jumpSp.GetHeight());
     }
     else if (spType == "climbSp")
     {
         climbSp.Open(sp);
+        climbSp.SetFrameCount(frameCount);
+        climbSp.SetFrame(currentFrame);
 //        box.Set(box.GetX(), box.GetY(), climbSp.GetWidth(), climbSp.GetHeight());
     }
 }

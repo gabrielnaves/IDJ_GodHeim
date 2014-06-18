@@ -143,30 +143,23 @@ void Thor::UpdateSprite(float dt)
     if (vState == STANDING)
     {
         if (hState == MOVING_RIGHT or hState == MOVING_LEFT)
-            prevHState != hState ? ChangeSp("walkSp","img/characters/thor_walk.png") : walkSp.Update(dt);
+            prevHState != hState ? ChangeSp("walkSp","img/characters/thor_walk.png",7) : walkSp.Update(dt);
         else if (hState == STANDING_RIGHT or hState == STANDING_LEFT)
-            ChangeSp("characterSp","img/characters/thor.png");
+            ChangeSp("characterSp","img/characters/thor.png",1);
     }
     else if (actionState == CLIMBING)
     {
         if (prevActionState != CLIMBING)
-            ChangeSp("climbSp","img/characters/lokiStairs.png");
-        else if (vertical != 0) climbSp.Update(dt);
+            ChangeSp("climbSp","img/characters/lokiStairs.png",2);
+        else if (vertical != 0)
+            climbSp.Update(dt);
     }
     else if (vState == FALLING)
-            {
-                ChangeSp("jumpSp","img/characters/thor_jump.png");
-                jumpSp.SetFrameCount(4);
-                jumpSp.SetFrame(4);
-            }
+                ChangeSp("jumpSp","img/characters/thor_jump.png",4,4);
             else if (vState == JUMPING)
             {
                 if (prevVState == JUST_JUMPED)
-                {
-                    ChangeSp("jumpSp","img/characters/thor_jump.png");
-                    jumpSp.SetFrameCount(4);
-                    jumpSp.SetFrame(1);
-                }
+                    ChangeSp("jumpSp","img/characters/thor_jump.png",4);
                 else
                     jumpSp.Update(dt);
             }

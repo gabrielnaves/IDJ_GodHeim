@@ -54,7 +54,7 @@ class Character : public GameObject
     void UpdateState();
     void CheckMovementLimits();
     void UpdatePrevState();
-    void ChangeSp(std::string spType, std::string sp);
+    void ChangeSp(std::string spType, std::string sp, int frameCount = 1, int currentFrame = 1);
 
     int hp;
     Sprite characterSp, walkSp, jumpSp, climbSp;
@@ -66,7 +66,7 @@ class Character : public GameObject
 
     int horizontal, vertical;
     bool actionButton;
-    bool shouldRender;
+    bool shouldRender; //flag in case the characters should not be rendered for being covered by something
 
     const float HP = 100;
     const float VEL = 200;

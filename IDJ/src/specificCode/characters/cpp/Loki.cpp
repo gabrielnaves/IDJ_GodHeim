@@ -195,49 +195,44 @@ void Loki::UpdateSprite(float dt)
 {
     if (appearance == LOKI)
     {
-        shouldRender = true;
         if (vState == STANDING)
         {
             if (hState == MOVING_RIGHT or hState == MOVING_LEFT)
-                prevHState != hState ? ChangeSp("walkSp","img/characters/loki_walk.png") : walkSp.Update(dt);
+                prevHState != hState ? ChangeSp("walkSp","img/characters/loki_walk.png",8) : walkSp.Update(dt);
             else if (hState == STANDING_RIGHT or hState == STANDING_LEFT)
-                ChangeSp("characterSp","img/characters/loki.png");
+                ChangeSp("characterSp","img/characters/loki.png",1);
         }
         else if (actionState == CLIMBING)
         {
             if (prevActionState != CLIMBING)
-                ChangeSp("climbSp","img/characters/lokiStairs.png");
+                ChangeSp("climbSp","img/characters/lokiStairs.png",2);
             else if (vertical != 0) climbSp.Update(dt);
         }
         else if (vState == FALLING)
-        {
-            ChangeSp("jumpSp","img/characters/lokiJump.png");
-            jumpSp.SetFrameCount(4);
-            jumpSp.SetFrame(4);
-        }
+            ChangeSp("jumpSp","img/characters/lokiJump.png",4,4);
         else if (vState == JUMPING)
         {
             if (prevVState == JUST_JUMPED)
-            {
-                ChangeSp("jumpSp","img/characters/lokiJump.png");
-                jumpSp.SetFrameCount(4);
-                jumpSp.SetFrame(1);
-            }
+                ChangeSp("jumpSp","img/characters/lokiJump.png",4);
             else
                 jumpSp.Update(dt);
         }
+
+        shouldRender = true;
     }
     else if (appearance == EAGLE)
     {
-        jumpSp.SetFrameCount(1);
-        jumpSp.SetFrame(1);
-        ChangeSp("jumpSp","img/characters/aguia.png");
         if (prevAppearance == LOKI)
         {
+            ChangeSp("jumpSp","img/characters/eagleFlight.png",10,1);
+            //adds a smoke to the screen
             Sprite smoke("img/characters/smoke.png", 11, 0.1);
             StillAnimation *sa = new StillAnimation(box.Center().GetX(),box.Center().GetY(),rotation,smoke,1,true);
             Game::GetInstance().GetCurrentState().AddObject(sa);
         }
+        else if (transformTime.Get() > TRANSFORM_COOLDOWN)
+            jumpSp.Update(dt);
+
         transformTime.Get() < TRANSFORM_COOLDOWN ? shouldRender = false : shouldRender = true;
     }
 }
