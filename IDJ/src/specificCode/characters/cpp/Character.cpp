@@ -23,6 +23,7 @@ Character::Character(MovementMap& movMap,std::string walk,int wFrameCount,float 
     horizontal = vertical = 0;
     canHoldStairs=false;
     insideBridge = false;
+    barrierSuspended = false;
 }
 
 Point Character::GetSpeed()
@@ -136,7 +137,7 @@ void Character::UpdatePrevState()
 }
 
 /**
- * Checks the limits of the cenario and stops the character from going into undesired places
+ * Checks the limits of the scenario and stops the character from going into undesired places
  */
 void Character::CheckMovementLimits()
 {
@@ -183,7 +184,17 @@ void Character::CheckMovementLimits()
         box.MoveRect(movementMap.FindClosestVector(box.Center().GetX(), box.Center().GetY() + box.GetH()/2));
         SetVState(STANDING);
     }
-    else if (!insideBridge)
+    // Checks if the barrier is suspending the character
+    else if (barrierSuspended)
+    {
+    	if (GetSpeed().GetY() >= 0)
+    		SetVState(STANDING);
+    	else
+    		SetVState(JUMPING);
+    }
+
+    // If character speed > 0, then the character is falling
+    else if ((!insideBridge) && (GetSpeed().GetY() >= 0))
     {
         SetVState(FALLING);
     }

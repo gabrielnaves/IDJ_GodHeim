@@ -74,6 +74,14 @@ void Loki::UpdateEagleSpeed(float dt)
 
 void Loki::UpdateVerticalState()
 {
+	// If character center is below 8/9 of the barrier, then the character is suspended.
+	if ( ((Barrier::barrier->GetCorner().GetY()+(Barrier::barrier->DIAMETER*9/10)) < box.Center().GetY())
+			&& (box.Center().Distance(Thor::characterThor->box.Center()) >= Barrier::barrier->DIAMETER - Barrier::barrier->DRAG_TOLERANCE) )
+	    barrierSuspended = true;
+	else
+	    barrierSuspended = false;
+
+
     if (appearance == LOKI)
     {
         if (vertical == 1 and vState == STANDING)
@@ -102,9 +110,9 @@ void Loki::Move(float dt)
     box.MoveRect(speed.GetX()*dt,speed.GetY()*dt);
     Barrier::barrier->CheckCollision(this);
 
-    //If the character colided with the upper limit of the barrier, makes sure it will not keep on jumping
-    if ((vState == JUMPING or vState == JUST_JUMPED) and (Thor::characterThor->box.GetY() - box.GetY() >= Barrier::barrier->DIAMETER))
-        speed.Set(speed.GetX(),0); //sets the Y speed to 0 when it hits the upper limmit of the barrier
+    //If the character collided with the upper limit of the barrier, makes sure it will not keep on jumping
+//    if ((vState == JUMPING or vState == JUST_JUMPED) and (Thor::characterThor->box.GetY() - box.GetY() >= Barrier::barrier->DIAMETER))
+//            speed.Set(speed.GetX(),0); //sets the Y speed to 0 when it hits the upper limit of the barrier
 }
 
 void Loki::ReleasesStairs()

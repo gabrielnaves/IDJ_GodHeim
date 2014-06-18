@@ -36,6 +36,7 @@ class Character : public GameObject
 
     bool canHoldStairs;
     bool insideBridge;
+    bool barrierSuspended;
     Point speed;
 
   protected:
