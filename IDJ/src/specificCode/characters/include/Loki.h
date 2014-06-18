@@ -29,9 +29,10 @@ class Loki : public Character
 
   private:
 	enum TransformState {LOKI, EAGLE};
-	TransformState appearance;
+	TransformState appearance, prevAppearance;
     int flappedWings;
 	Timer shootCooldown; //a timer so Loki doesnt fire too much in little time
+	Timer transformTime;
 
 	void Input();
 	void Move(float dt);
@@ -40,6 +41,7 @@ class Loki : public Character
 	void UpdatesStateOnTheFall();
 	void Act();
 
+	void SetAppearance(TransformState appearance);
 	void UpdateEagleSpeed(float dt);
 	void Shoot();
 
@@ -51,6 +53,7 @@ class Loki : public Character
     const float EAGLE_JUMP_SPEED = -300;
     const float EAGLE_AIR_RESISTANCE = 200;
     const float COOLDOWN = 1;
+    const float TRANSFORM_COOLDOWN = 0.5;
 };
 
 #endif /* LOKI_H_ */

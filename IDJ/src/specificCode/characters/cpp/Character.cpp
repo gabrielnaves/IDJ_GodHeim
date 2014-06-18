@@ -24,6 +24,7 @@ Character::Character(MovementMap& movMap,std::string walk,int wFrameCount,float 
     canHoldStairs=false;
     insideBridge = false;
     barrierSuspended = false;
+    shouldRender = true;
 }
 
 Point Character::GetSpeed()
@@ -33,6 +34,7 @@ Point Character::GetSpeed()
 
 void Character::Render()
 {
+    if (not shouldRender) return;
     SDL_RendererFlip flip = (hState == MOVING_RIGHT) or (hState == STANDING_RIGHT) ?  SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
     if (vState == STANDING and (hState == MOVING_RIGHT or hState == MOVING_LEFT))
         walkSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(),rotation, flip);
@@ -134,6 +136,26 @@ void Character::UpdatePrevState()
 {
     prevHState = hState;
     prevVState = vState;
+}
+
+
+void Character::ChangeSp(std::string spType, std::string sp)
+{
+    if (spType == "characterSp")
+    {
+        characterSp.Open(sp);
+        box.Set(box.GetX(), box.GetY(), characterSp.GetWidth(), characterSp.GetHeight());
+    }
+    else if (spType == "walkSp")
+    {
+        walkSp.Open(sp);
+        box.Set(box.GetX(), box.GetY(), walkSp.GetWidth(), walkSp.GetHeight());
+    }
+    else if (spType == "jumpSp")
+    {
+        jumpSp.Open(sp);
+        box.Set(box.GetX(), box.GetY(), jumpSp.GetWidth(), jumpSp.GetHeight());
+    }
 }
 
 /**

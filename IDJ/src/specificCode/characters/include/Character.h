@@ -52,6 +52,7 @@ class Character : public GameObject
     void UpdateState();
     void CheckMovementLimits();
     void UpdatePrevState();
+    void ChangeSp(std::string spType, std::string sp);
 
     int hp;
     Sprite characterSp, walkSp, jumpSp;
@@ -63,6 +64,7 @@ class Character : public GameObject
 
     int horizontal, vertical;
     bool actionButton;
+    bool shouldRender;
 
     const float HP = 100;
     const float VEL = 200;

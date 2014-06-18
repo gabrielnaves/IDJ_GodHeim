@@ -37,5 +37,3 @@ bool StillAnimation::Is(std::string type)
 {
     return type == "StillAnimation" ? true : false;
 }
-
-void StillAnimation::NotifyCollision(GameObject& other) {}

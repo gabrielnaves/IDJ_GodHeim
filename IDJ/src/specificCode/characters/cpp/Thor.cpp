@@ -140,15 +140,11 @@ void Thor::UpdateSprite(float dt)
 {
     if (vState == STANDING)
     {
-        if (hState == MOVING_RIGHT)
-            prevHState != MOVING_RIGHT ? walkSp.Open("img/characters/thor_walk.png") : walkSp.Update(dt);
-        else if (hState == MOVING_LEFT)
-            prevHState != MOVING_LEFT ? walkSp.Open("img/characters/thor_walk.png") : walkSp.Update(dt);
-        else if (hState == STANDING_RIGHT)
-            characterSp.Open("img/characters/thor.png");
-        else if (hState == STANDING_LEFT)
-            characterSp.Open("img/characters/thor.png");
+        if (hState == MOVING_RIGHT or hState == MOVING_LEFT)
+            prevHState != hState ? ChangeSp("walkSp","img/characters/thor_walk.png") : walkSp.Update(dt);
+        else if (hState == STANDING_RIGHT or hState == STANDING_LEFT)
+            ChangeSp("characterSp","img/characters/thor.png");
     }
     else if (actionState == CLIMBING)
-        characterSp.Open("img/characters/thor.png");
+        ChangeSp("characterSp","img/characters/thor.png");
 }
