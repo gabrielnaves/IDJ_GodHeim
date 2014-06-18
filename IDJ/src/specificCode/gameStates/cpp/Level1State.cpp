@@ -30,7 +30,7 @@ void Level1State::EmplaceInitialObjects()
 {
     objectArray.emplace_back(new Stairs("img/objects/stairs.png",605,440));
     objectArray.emplace_back(new Stairs("img/objects/stairs.png",390,550));
-//    objectArray.emplace_back(new Stairs("img/level1/grade.png",0,1265, 6, 0.1));
+    objectArray.emplace_back(new Stairs("img/level1/grade.png",380,1350, 6, 0.1));
     objectArray.emplace_back(new BrokenHouseBack(500, 320));
     objectArray.emplace_back(new Loki(70,100, movementMap));
     objectArray.emplace_back(new Thor(20,100, movementMap));
@@ -79,9 +79,12 @@ void Level1State::Follow(std::string object)
 void Level1State::Update(float dt)
 {
     Input();
-    UpdateArray(dt);
-    ChecksForCollisions();
-    ErasesDeadObjects();
+    if (Thor::characterThor != NULL && Loki::characterLoki != NULL && Barrier::barrier != NULL)
+    {
+        UpdateArray(dt);
+        ChecksForCollisions();
+        ErasesDeadObjects();
+    }
     if (Barrier::barrier == NULL) Camera::Unfollow();
     Camera::Update(dt);
     UpdateMusic(dt);

@@ -7,12 +7,9 @@
 
 #include "../include/Stairs.h"
 
-Stairs::Stairs(std::string stairs, int x, int y, int frameCount, float frameTime)
+Stairs::Stairs(std::string stairs, int x, int y, int frameCount, float frameTime) :
+               stairsSp(stairs, frameCount, frameTime, false)
 {
-    stairsSp.Open(stairs);
-    stairsSp.SetFrameCount(frameCount);
-    stairsSp.SetFrameTime(frameTime);
-    stairsSp.SetRepeat(false);
     box.Set(x,y,stairsSp.GetWidth(),stairsSp.GetHeight());
     showAnimation = false;
 }
@@ -25,26 +22,30 @@ Stairs::~Stairs() {}
 void Stairs::Update(float dt)
 {
     Rect loki = Loki::characterLoki->box;
-    //if the character is close to the stairs
-    if ((loki.GetX() >= box.GetX() and (loki.GetX() + loki.GetW()) <= (box.GetX() + box.GetH())))
-    {
-        LookForCharacterAbove(Loki::characterLoki);
-        ReleasesStairs(Loki::characterLoki);
-        showAnimation = true;
-    }
-    else showAnimation = false;
-
     Rect thor = Thor::characterThor->box;
-    if ((thor.GetX() >= box.GetX() and (thor.GetX() + thor.GetW()) <= (box.GetX() + box.GetH())))
-    {
-        LookForCharacterAbove(Thor::characterThor);
-        ReleasesStairs(Thor::characterThor);
-        showAnimation = true;
-    }
-    else showAnimation = false;
 
-    if (showAnimation) stairsSp.Update(dt);
-    else stairsSp.Update(dt, false);
+    if (loki.Center().Distance(box.Center()) < 250 || thor.Center().Distance(box.Center()) < 250)
+    {
+        //if the character is close to the stairs
+        if ((loki.GetX() >= box.GetX() and (loki.GetX() + loki.GetW()) <= (box.GetX() + box.GetH())))
+        {
+            LookForCharacterAbove(Loki::characterLoki);
+            ReleasesStairs(Loki::characterLoki);
+            showAnimation = true;
+        }
+        else showAnimation = false;
+
+        if ((thor.GetX() >= box.GetX() and (thor.GetX() + thor.GetW()) <= (box.GetX() + box.GetH())))
+        {
+            LookForCharacterAbove(Thor::characterThor);
+            ReleasesStairs(Thor::characterThor);
+            showAnimation = true;
+        }
+        else showAnimation = false;
+
+        if (showAnimation) stairsSp.Update(dt);
+        else stairsSp.Update(dt, false);
+    }
 }
 
 /**
