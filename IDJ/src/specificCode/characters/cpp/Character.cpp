@@ -14,7 +14,7 @@ Character::Character(MovementMap& movMap,
            std::string jump,int jFrameCount,float jFrameTime,
            std::string climb, int cFrameCount, float cFrameTime)
          : walkSp(walk,wFrameCount,wFrameTime),
-           jumpSp(jump,jFrameCount,jFrameTime),
+           jumpSp(jump,jFrameCount,jFrameTime,false),
            climbSp(climb,cFrameCount,cFrameTime),
            movementMap(movMap)
 {
@@ -23,7 +23,7 @@ Character::Character(MovementMap& movMap,
     vState = prevVState = STANDING;
     hState = prevHState = STANDING_RIGHT;
     horizontal = vertical = 0;
-    actionState = NONE;
+    actionState = prevActionState = NONE;
     actionButton = false;
     canHoldStairs=false;
     insideBridge = false;

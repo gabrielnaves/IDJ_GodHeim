@@ -112,6 +112,7 @@ void Thor::Update(float dt)
     Move(dt);
     UpdatesStateOnTheFall();
     CheckMovementLimits();
+    UpdatePrevState();
 }
 
 void Thor::NotifyCollision(GameObject& other)
@@ -148,4 +149,21 @@ void Thor::UpdateSprite(float dt)
     }
     else if (actionState == CLIMBING)
         ChangeSp("characterSp","img/characters/thor.png");
+//    else if (vState == FALLING)
+//            {
+//                ChangeSp("jumpSp","img/characters/thor_jump.png");
+//                jumpSp.SetFrameCount(4);
+//                jumpSp.SetFrame(4);
+//            }
+//            else if (vState == JUMPING)
+//            {
+//                if (prevVState == JUST_JUMPED)
+//                {
+//                    ChangeSp("jumpSp","img/characters/thor_jump.png");
+//                    jumpSp.SetFrameCount(4);
+//                    jumpSp.SetFrame(1);
+//                }
+//                else
+//                    jumpSp.Update(dt);
+//            }
 }
