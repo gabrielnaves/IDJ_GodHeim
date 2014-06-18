@@ -11,7 +11,7 @@
 Loki* Loki::characterLoki;
 
 Loki::Loki(float x, float y, MovementMap& movMap) :
-        Character(movMap,"img/characters/loki_walk.png",8,0.1,"img/characters/lokiJump.png",4,0.1,"img/characters/lokiStairs.png",2,0.1)
+        Character(movMap,"img/characters/loki_walk.png",8,0.1,"img/characters/lokiJump.png",4,0.1,"img/characters/lokiStairs.png",2,0.15)
 {
 	characterSp.Open("img/characters/loki.png");
 	box.Set(x-characterSp.GetWidth()/2, y-characterSp.GetHeight()/2, characterSp.GetWidth(), characterSp.GetHeight());
@@ -19,7 +19,6 @@ Loki::Loki(float x, float y, MovementMap& movMap) :
 	appearance = prevAppearance = LOKI;
 	flappedWings = 0;
 	TIMES_FLAPS_WINGS = 1;
-    actionState = NONE;
 }
 
 Loki::~Loki()
@@ -56,7 +55,7 @@ void Loki::Shoot()
     Game::GetInstance().GetCurrentState().AddObject(fireBall); //add the bullet to the objectArray
 
     shootCooldown.Restart(); //restart the timer
-    actionState = NONE;
+    SetActionState(NONE);
 }
 
 void Loki::UpdateEagleSpeed(float dt)
@@ -114,13 +113,13 @@ void Loki::Move(float dt)
 
 void Loki::ReleasesStairs()
 {
-    actionState = NONE;
+    SetActionState(NONE);
     SetVState(FALLING);
 }
 
 void Loki::HoldStairs()
 {
-    actionState = CLIMBING;
+    SetActionState(CLIMBING);
     box.SetPoint(box.GetPoint().GetX(),box.GetPoint().GetY()+1);
 }
 
@@ -160,7 +159,7 @@ void Loki::Update(float dt)
     shootCooldown.Update(dt);
     UpdateState();
     transformTime.Update(dt);
-    if (actionState == CLIMBING and !canHoldStairs) actionState = NONE;
+    if (actionState == CLIMBING and !canHoldStairs) SetActionState(NONE);
     Move(dt);
     UpdatesStateOnTheFall();
     UpdateSprite(dt);
@@ -205,7 +204,11 @@ void Loki::UpdateSprite(float dt)
                 ChangeSp("characterSp","img/characters/loki.png");
         }
         else if (actionState == CLIMBING)
-            ChangeSp("characterSp","img/characters/loki.png");
+        {
+            if (prevActionState != CLIMBING)
+                ChangeSp("climbSp","img/characters/lokiStairs.png");
+            else if (vertical != 0) climbSp.Update(dt);
+        }
         else if (vState == FALLING)
         {
             ChangeSp("jumpSp","img/characters/lokiJump.png");
@@ -239,6 +242,10 @@ void Loki::UpdateSprite(float dt)
     }
 }
 
+/**
+ * Changes the appearance from loki<-->eagle.
+ * The eagle will not be shown when it transforms, as to seem it is behind a smoke cloud
+ */
 void Loki::SetAppearance(TransformState appearance)
 {
     prevAppearance = this->appearance;

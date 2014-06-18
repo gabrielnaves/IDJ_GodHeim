@@ -11,7 +11,7 @@
 Thor* Thor::characterThor;
 
 Thor::Thor(float x, float y, MovementMap& movMap) :
-        Character(movMap,"img/characters/thor_walk.png",7,0.1,"img/characters/thor_jump.png",4,0.1,"img/characters/thorStairs.png",2,0.1)
+        Character(movMap,"img/characters/thor_walk.png",7,0.1,"img/characters/thor_jump.png",4,0.1,"img/characters/thorStairs.png",2,0.15)
 {
     characterSp.Open("img/characters/thor.png");
     box.Set(x-characterSp.GetWidth()/2, y-characterSp.GetHeight()/2, characterSp.GetWidth(), characterSp.GetHeight());
@@ -45,13 +45,13 @@ void Thor::Input()
 
 void Thor::ReleasesStairs()
 {
-    actionState = NONE;
+    SetActionState(NONE);
     SetVState(FALLING);
 }
 
 void Thor::HoldStairs()
 {
-    actionState = CLIMBING;
+    SetActionState(CLIMBING);
     box.SetPoint(box.GetPoint().GetX(),box.GetPoint().GetY()+1);
 }
 
@@ -107,7 +107,7 @@ void Thor::Update(float dt)
     Input();
     if (actionButton) Act();
     UpdateState();
-    if (actionState == CLIMBING and !canHoldStairs) actionState = NONE;
+    if (actionState == CLIMBING and !canHoldStairs) SetActionState(NONE);
     Move(dt);
     UpdatesStateOnTheFall();
     UpdateSprite(dt);
@@ -148,7 +148,11 @@ void Thor::UpdateSprite(float dt)
             ChangeSp("characterSp","img/characters/thor.png");
     }
     else if (actionState == CLIMBING)
-        ChangeSp("characterSp","img/characters/thor.png");
+    {
+        if (prevActionState != CLIMBING)
+            ChangeSp("climbSp","img/characters/lokiStairs.png");
+        else if (vertical != 0) climbSp.Update(dt);
+    }
     else if (vState == FALLING)
             {
                 ChangeSp("jumpSp","img/characters/thor_jump.png");

@@ -20,10 +20,10 @@ Character::Character(MovementMap& movMap,
 {
     hp = HP;
     rotation = 0;
-    vState = prevVState = STANDING;
-    hState = prevHState = STANDING_RIGHT;
+    SetVState(STANDING);
+    SetHState(STANDING_RIGHT);
+    SetActionState(NONE);
     horizontal = vertical = 0;
-    actionState = prevActionState = NONE;
     actionButton = false;
     canHoldStairs=false;
     insideBridge = false;
@@ -43,7 +43,7 @@ void Character::Render()
     if (vState == STANDING and (hState == MOVING_RIGHT or hState == MOVING_LEFT))
         walkSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(),rotation, flip);
     else if (actionState == CLIMBING)
-        characterSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(),rotation);
+        climbSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(),rotation);
     else if (vState == JUST_JUMPED or vState == JUMPING or vState == FALLING)
         jumpSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(),rotation, flip);
     else
@@ -109,7 +109,7 @@ bool Character::IsClimbing()
 }
 void Character::CancelAction()
 {
-    actionState = NONE;
+    SetActionState(NONE);
 }
 VerticalState Character::GetVState()
 {
