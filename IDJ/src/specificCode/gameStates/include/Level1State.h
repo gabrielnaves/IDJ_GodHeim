@@ -10,6 +10,7 @@
 #define LEVEL1STATE_H_
 
 #include "../../../Engine.h"
+#include "Level2State.h"
 #include "../../characters/include/Barrier.h"
 #include "../../objects/include/BrokenHouseFront.h"
 #include "../../objects/include/BrokenHouseBack.h"

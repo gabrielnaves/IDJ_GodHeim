@@ -16,6 +16,9 @@ Level2State::Level2State() : State(), tileSet(55,55,"img/level2/level2Tiles.png"
     lavaCircle = new LavaCircle(680, 900);
     tmpBlackBg.Open("img/level2/blackBackground.png");
     EmplaceInitialObjects();
+    Follow("Barrier");
+    music = new Music("audio/SOUNDTRACK MODE/Fase 2/Fire Stage 1parte -Eber Filipe.mp3");
+    music->Play(-1);
 }
 
 Level2State::~Level2State()
@@ -27,7 +30,13 @@ void Level2State::Update(float dt)
 {
     Input();
     lavaCircle->Update(dt);
-    UpdateArray(dt);
+    if (Thor::characterThor != NULL && Loki::characterLoki != NULL && Barrier::barrier != NULL)
+    {
+        UpdateArray(dt);
+        ChecksForCollisions();
+        ErasesDeadObjects();
+    }
+    if (Barrier::barrier == NULL) Camera::Unfollow();
     Camera::Update(dt);
 }
 
@@ -44,10 +53,45 @@ void Level2State::Render()
 void Level2State::EmplaceInitialObjects()
 {
     objectArray.emplace_back(new Lava(0, 1430));
+    objectArray.emplace_back(new Loki(1175,100, movementMap));
+    objectArray.emplace_back(new Thor(1225,100, movementMap));
+    objectArray.emplace_back(new Barrier());
 }
 
 void Level2State::Input()
 {
     InputManager &im = InputManager::GetInstance();
     if (im.ShouldQuit()) requestQuit = true;
+}
+
+void Level2State::Follow(std::string object)
+{
+    for (int i = 0; i < (int)objectArray.size(); i++)
+        if (objectArray[i]->Is(object))
+            Camera::Follow(&(*objectArray[i]), true, 0, 0, tileMap.GetWidth()*tileSet.GetTileWidth() - Game::GetInstance().GetWindowWidth(),
+                           tileMap.GetHeight()*tileSet.GetTileHeight() - Game::GetInstance().GetWindowHeight());
+}
+
+void Level2State::ChecksForCollisions()
+{
+    for(unsigned int i = 0; i<objectArray.size()-1; i++)
+    {
+        for (unsigned int j=i+1;j<objectArray.size();j++)
+        {
+            if (Collision::IsColliding(objectArray[j]->box, objectArray[i]->box,
+                                       objectArray[j]->rotation*2*M_PI/360, objectArray[i]->rotation*2*M_PI/360))
+            {
+               objectArray[j]->NotifyCollision(*objectArray[i]);
+               objectArray[i]->NotifyCollision(*objectArray[j]);
+            }
+        }
+    }
+}
+
+void Level2State::ErasesDeadObjects()
+{
+    for (unsigned int i = 0; i < objectArray.size(); i++)
+        if (objectArray[i]->IsDead())
+            objectArray.erase(objectArray.begin()+i), i--;
+
 }

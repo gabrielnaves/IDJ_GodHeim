@@ -9,6 +9,7 @@
 #define LEVEL2STATE_H_
 
 #include "../../../Engine.h"
+#include "../../characters/include/Barrier.h"
 #include "../../objects/include/LavaCircle.h"
 #include "../../objects/include/Lava.h"
 
@@ -23,13 +24,17 @@ class Level2State : public State
 
   private:
     void Input();
+    void ChecksForCollisions();
+    void ErasesDeadObjects();
     void EmplaceInitialObjects();
+    void Follow(std::string object);
 
     GameObject* lavaCircle;
     Sprite bg1, bg2, tmpBlackBg;
     BlockTileSet tileSet;
     TileMap tileMap;
     MovementMap movementMap;
+    Music *music;
 };
 
 #endif /* LEVEL2STATE_H_ */
