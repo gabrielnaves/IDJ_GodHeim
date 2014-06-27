@@ -43,23 +43,12 @@ void Thor::Input()
         actionButton = true;
 }
 
-void Thor::ReleasesStairs()
-{
-    SetActionState(NONE);
-    SetVState(FALLING);
-}
-
-void Thor::HoldStairs()
-{
-    SetActionState(CLIMBING);
-    box.SetPoint(box.GetPoint().GetX(),box.GetPoint().GetY()+1);
-}
-
 /**
  * Calls the right action Thor must do, depending on the situation
  */
 void Thor::Act()
 {
+    if (!actionButton) return;
     if (actionState == CLIMBING)
         ReleasesStairs();
     else if (canHoldStairs)
@@ -86,12 +75,12 @@ void Thor::UpdateVerticalState()
         SetVState(JUST_JUMPED);
 }
 
-void Thor::Move(float dt)
+void Thor::Move()
 {
     if (actionState == CLIMBING)
-        Climb(dt);
+        Climb();
     else
-        UpdateSpeed(dt);
+        UpdateSpeed();
     box.MoveRect(speed.GetX()*dt,speed.GetY()*dt);
     Barrier::barrier->CheckCollision(this);
 }
@@ -100,19 +89,6 @@ void Thor::UpdatesStateOnTheFall()
 {
     if (vState == JUST_JUMPED) SetVState(JUMPING);
     if (speed.GetY() > 0) SetVState(FALLING);
-}
-
-void Thor::Update(float dt)
-{
-    Input();
-    if (actionButton) Act();
-    UpdateState();
-    if (actionState == CLIMBING and !canHoldStairs) SetActionState(NONE);
-    Move(dt);
-    UpdatesStateOnTheFall();
-    UpdateSprite(dt);
-    CheckMovementLimits();
-    UpdatePrevState();
 }
 
 void Thor::NotifyCollision(GameObject& other)
@@ -138,7 +114,7 @@ bool Thor::Is(std::string type)
 /**
  * Updates the sprite based on the state of the character
  */
-void Thor::UpdateSprite(float dt)
+void Thor::UpdateSprite()
 {
     if (vState == STANDING)
     {

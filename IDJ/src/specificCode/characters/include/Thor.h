@@ -18,17 +18,14 @@ class Thor : public Character
     Thor(float x, float y, MovementMap& movMap);
     ~Thor();
 
-    void Update(float dt);
     void NotifyCollision(GameObject& other);
     bool Is(std::string type);
-    void ReleasesStairs();
-    void HoldStairs();
     static Thor *characterThor;
 
   private:
     void Input();
-    void Move(float dt);
-    void UpdateSprite(float dt);
+    void Move();
+    void UpdateSprite();
     void UpdateVerticalState();
     void UpdatesStateOnTheFall();
     void Act();

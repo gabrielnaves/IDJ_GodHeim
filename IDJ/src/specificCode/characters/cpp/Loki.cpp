@@ -58,7 +58,7 @@ void Loki::Shoot()
     SetActionState(NONE);
 }
 
-void Loki::UpdateEagleSpeed(float dt)
+void Loki::UpdateEagleSpeed()
 {
     if (vState == JUST_JUMPED)
         speed.Set(speed.GetX(),EAGLE_JUMP_SPEED);
@@ -98,29 +98,18 @@ void Loki::UpdateVerticalState()
         else if (vertical == -1)
             SetAppearance(LOKI);
     }
+    transformTime.Update(dt);
 }
 
-void Loki::Move(float dt)
+void Loki::Move()
 {
     if (actionState == CLIMBING)
-        Climb(dt);
-    else if (appearance == LOKI) UpdateSpeed(dt);
-    else if (appearance == EAGLE) UpdateEagleSpeed(dt);
+        Climb();
+    else if (appearance == LOKI) UpdateSpeed();
+    else if (appearance == EAGLE) UpdateEagleSpeed();
 
     box.MoveRect(speed.GetX()*dt,speed.GetY()*dt);
     Barrier::barrier->CheckCollision(this);
-}
-
-void Loki::ReleasesStairs()
-{
-    SetActionState(NONE);
-    SetVState(FALLING);
-}
-
-void Loki::HoldStairs()
-{
-    SetActionState(CLIMBING);
-    box.SetPoint(box.GetPoint().GetX(),box.GetPoint().GetY()+1);
 }
 
 /**
@@ -128,6 +117,8 @@ void Loki::HoldStairs()
  */
 void Loki::Act()
 {
+    shootCooldown.Update(dt);
+    if (!actionButton) return;
     if (appearance == LOKI)
     {
         if (actionState == CLIMBING)
@@ -150,22 +141,6 @@ void Loki::UpdatesStateOnTheFall()
         flappedWings = 0;
     }
     else if (speed.GetY()>0) SetVState(FALLING);
-}
-
-void Loki::Update(float dt)
-{
-    Input();
-    if (actionButton) Act();
-    shootCooldown.Update(dt);
-    UpdateState();
-    transformTime.Update(dt);
-    if (actionState == CLIMBING and !canHoldStairs) SetActionState(NONE);
-    Move(dt);
-    UpdatesStateOnTheFall();
-    UpdateSprite(dt);
-    CheckMovementLimits();
-    UpdatePrevState();
-    prevAppearance = appearance;
 }
 
 void Loki::NotifyCollision(GameObject& other)
@@ -191,7 +166,7 @@ bool Loki::Is(std::string type)
 /**
  * Updates the sprite based on the state of the character
  */
-void Loki::UpdateSprite(float dt)
+void Loki::UpdateSprite()
 {
     if (appearance == LOKI)
     {
@@ -235,6 +210,7 @@ void Loki::UpdateSprite(float dt)
 
         transformTime.Get() < TRANSFORM_COOLDOWN ? shouldRender = false : shouldRender = true;
     }
+    prevAppearance = appearance;
 }
 
 /**

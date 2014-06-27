@@ -20,11 +20,8 @@ class Loki : public Character
 	Loki(float x, float y, MovementMap& movMap);
 	~Loki();
 
-	void Update(float dt);
 	bool Is(std::string type);
 	void NotifyCollision(GameObject& other);
-    void ReleasesStairs();
-    void HoldStairs();
 	static Loki *characterLoki;
 
   private:
@@ -35,14 +32,14 @@ class Loki : public Character
 	Timer transformTime;
 
 	void Input();
-	void Move(float dt);
-	void UpdateSprite(float dt);
+	void Move();
+	void UpdateSprite();
 	void UpdateVerticalState();
 	void UpdatesStateOnTheFall();
 	void Act();
 
 	void SetAppearance(TransformState appearance);
-	void UpdateEagleSpeed(float dt);
+	void UpdateEagleSpeed();
 	void Shoot();
 
 	float TIMES_FLAPS_WINGS;

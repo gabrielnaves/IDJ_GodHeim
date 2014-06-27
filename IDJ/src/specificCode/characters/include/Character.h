@@ -23,8 +23,8 @@ class Character : public GameObject
     virtual ~Character() {}
     bool IsClimbing();
     void CancelAction();
-    virtual void ReleasesStairs() = 0;
-    virtual void HoldStairs() = 0;
+    void ReleasesStairs();
+    void HoldStairs();
 
     bool IsDead();
     void Render();
@@ -42,14 +42,16 @@ class Character : public GameObject
     Point speed;
 
   protected:
-    virtual void Move(float dt) = 0;
-    virtual void UpdateSprite(float dt) = 0;
+    virtual void Input() = 0;
+    virtual void Move() = 0;
+    virtual void UpdateSprite() = 0;
     virtual void UpdateVerticalState() = 0;
     virtual void Act() = 0;
     virtual void UpdatesStateOnTheFall() = 0;
 
-    void Climb(float dt);
-    void UpdateSpeed(float dt);
+    void Update(float dt);
+    void Climb();
+    void UpdateSpeed();
     void UpdateHorizontalState();
     void UpdateState();
     void CheckMovementLimits();
@@ -64,6 +66,7 @@ class Character : public GameObject
     VerticalState vState, prevVState;
     HorizontalState hState, prevHState;
 
+    float dt;
     int horizontal, vertical;
     bool actionButton;
     bool shouldRender; //flag in case the characters should not be rendered for being covered by something

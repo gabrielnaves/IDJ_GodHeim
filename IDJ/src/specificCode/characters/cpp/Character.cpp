@@ -20,6 +20,7 @@ Character::Character(MovementMap& movMap,
 {
     hp = HP;
     rotation = 0;
+    dt = 0;
     SetVState(STANDING);
     SetHState(STANDING_RIGHT);
     SetActionState(NONE);
@@ -31,11 +32,28 @@ Character::Character(MovementMap& movMap,
     shouldRender = true;
 }
 
+void Character::Update(float dt)
+{
+    this->dt = dt;
+    Input();
+    Act();
+    UpdateState();
+    if (actionState == CLIMBING and !canHoldStairs) SetActionState(NONE);
+    Move();
+    UpdatesStateOnTheFall();
+    UpdateSprite();
+    CheckMovementLimits();
+    UpdatePrevState();
+}
+
 Point Character::GetSpeed()
 {
     return(speed);
 }
 
+/**
+ * Renders a different image of the character on the screen depending on the state
+ */
 void Character::Render()
 {
     if (not shouldRender) return;
@@ -53,7 +71,7 @@ void Character::Render()
 /**
  * Updates the vector speed when climbing stairs
  */
-void Character::Climb(float dt)
+void Character::Climb()
 {
     if (vertical == 0) speed.Set(speed.GetX(),0);
     if (vertical > 0) speed.Set(speed.GetX(),-VEL);
@@ -63,7 +81,7 @@ void Character::Climb(float dt)
 /**
  * Updates the vector speed accordingly to the state of the character.
  */
-void Character::UpdateSpeed(float dt)
+void Character::UpdateSpeed()
 {
     //Updates the vertical state
     if (vState == STANDING) speed.Set(speed.GetX(),0);
@@ -93,6 +111,18 @@ void Character::UpdateHorizontalState()
     if (horizontal > 0) SetHState(MOVING_RIGHT);
     else if (horizontal < 0) SetHState(MOVING_LEFT);
     else (hState == MOVING_RIGHT or hState == STANDING_RIGHT) ? SetHState(STANDING_RIGHT) : SetHState(STANDING_LEFT);
+}
+
+void Character::ReleasesStairs()
+{
+    SetActionState(NONE);
+    SetVState(FALLING);
+}
+
+void Character::HoldStairs()
+{
+    SetActionState(CLIMBING);
+    box.SetPoint(box.GetPoint().GetX(),box.GetPoint().GetY()+1);
 }
 
 /**
