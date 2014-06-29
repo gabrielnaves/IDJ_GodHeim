@@ -8,6 +8,8 @@
 
 #include "../include/Character.h"
 #include "../include/Barrier.h"
+#include "../include/RegularMov.h"
+#include "../include/ClimbMov.h"
 
 Character::Character(MovementMap& movMap,
            std::string walk,int wFrameCount,float wFrameTime,
@@ -46,11 +48,6 @@ void Character::Update(float dt)
     UpdatePrevState();
 }
 
-Point Character::GetSpeed()
-{
-    return(speed);
-}
-
 /**
  * Renders a different image of the character on the screen depending on the state
  */
@@ -73,33 +70,17 @@ void Character::Render()
  */
 void Character::Climb()
 {
-    if (vertical == 0) speed.Set(speed.GetX(),0);
-    if (vertical > 0) speed.Set(speed.GetX(),-VEL);
-    if (vertical < 0) speed.Set(speed.GetX(), VEL);
+    movement = new ClimbMov();
+    movement->UpdateSpeed(this,dt);
 }
 
 /**
- * Updates the vector speed accordingly to the state of the character.
+ * Updates the vector speed accordingly to the vertical and horizontal state of the character.
  */
 void Character::UpdateSpeed()
 {
-    //Updates the vertical state
-    if (vState == STANDING) speed.Set(speed.GetX(),0);
-    else if (vState == JUST_JUMPED) speed.Set(speed.GetX(),JUMP_SPEED);
-    else if (vState == FALLING or vState == JUMPING) speed = speed + Point(speed.GetX(),GRAVITY*dt);
-
-    //Sets a limit to the falling speed
-    if (speed.GetY() >= MAX_FALLING_SPEED) speed.Set(speed.GetX(), MAX_FALLING_SPEED);
-
-    //Updates the horizontal state
-    if (hState == STANDING_LEFT or hState == STANDING_RIGHT) speed.Set(0,speed.GetY());
-    else if (hState == MOVING_RIGHT) speed.Set(VEL,speed.GetY());
-    else if (hState == MOVING_LEFT) speed.Set(-VEL,speed.GetY());
-}
-
-bool Character::IsDead()
-{
-    return (hp <= 0 ? true : false);
+    movement = new RegularMov();
+    movement->UpdateSpeed(this,dt);
 }
 
 /**
@@ -111,63 +92,6 @@ void Character::UpdateHorizontalState()
     if (horizontal > 0) SetHState(MOVING_RIGHT);
     else if (horizontal < 0) SetHState(MOVING_LEFT);
     else (hState == MOVING_RIGHT or hState == STANDING_RIGHT) ? SetHState(STANDING_RIGHT) : SetHState(STANDING_LEFT);
-}
-
-void Character::ReleasesStairs()
-{
-    SetActionState(NONE);
-    SetVState(FALLING);
-}
-
-void Character::HoldStairs()
-{
-    SetActionState(CLIMBING);
-    box.SetPoint(box.GetPoint().GetX(),box.GetPoint().GetY()+1);
-}
-
-/**
- * Updates the horizontal and vertical states of the character after receving input
- */
-void Character::UpdateState()
-{
-    UpdateHorizontalState();
-    UpdateVerticalState();
-}
-bool Character::IsClimbing()
-{
-    return (actionState == CLIMBING ? true : false);
-}
-void Character::CancelAction()
-{
-    SetActionState(NONE);
-}
-VerticalState Character::GetVState()
-{
-    return vState;
-}
-void Character::SetVState(VerticalState vS)
-{
-    prevVState = vState;
-    vState = vS;
-}
-HorizontalState Character::GetHState()
-{
-    return hState;
-}
-void Character::SetHState(HorizontalState hS)
-{
-    prevHState = hState;
-    hState = hS;
-}
-void Character::UpdatePrevState()
-{
-    prevHState = hState;
-    prevVState = vState;
-}
-void Character::SetActionState(ActionState actionState)
-{
-    prevActionState = actionState;
-    this->actionState = actionState;
 }
 
 void Character::ChangeSp(std::string spType, std::string sp, int frameCount, int currentFrame, bool repeat)
@@ -251,15 +175,76 @@ void Character::CheckMovementLimits()
     // Checks if the barrier is suspending the character
     else if (barrierSuspended)
     {
-    	if (GetSpeed().GetY() >= 0)
+    	if (speed.GetY() >= 0)
     		SetVState(STANDING);
     	else
     		SetVState(JUMPING);
     }
 
     // If character speed > 0, then the character is falling
-    else if ((!insideBridge) && (GetSpeed().GetY() >= 0))
+    else if ((!insideBridge) && (speed.GetY() >= 0))
     {
         SetVState(FALLING);
     }
+}
+
+bool Character::IsDead()
+{
+    return (hp <= 0 ? true : false);
+}
+bool Character::IsClimbing()
+{
+    return (actionState == CLIMBING ? true : false);
+}
+VerticalState Character::GetVState()
+{
+    return vState;
+}
+HorizontalState Character::GetHState()
+{
+    return hState;
+}
+
+void Character::CancelAction()
+{
+    SetActionState(NONE);
+}
+void Character::ReleasesStairs()
+{
+    SetActionState(NONE);
+    SetVState(FALLING);
+}
+void Character::HoldStairs()
+{
+    SetActionState(CLIMBING);
+    box.SetPoint(box.GetPoint().GetX(),box.GetPoint().GetY()+1);
+}
+
+/**
+ * Updates the horizontal and vertical states of the character after receving input
+ */
+void Character::UpdateState()
+{
+    UpdateHorizontalState();
+    UpdateVerticalState();
+}
+void Character::SetVState(VerticalState vS)
+{
+    prevVState = vState;
+    vState = vS;
+}
+void Character::SetHState(HorizontalState hS)
+{
+    prevHState = hState;
+    hState = hS;
+}
+void Character::UpdatePrevState()
+{
+    prevHState = hState;
+    prevVState = vState;
+}
+void Character::SetActionState(ActionState actionState)
+{
+    prevActionState = actionState;
+    this->actionState = actionState;
 }

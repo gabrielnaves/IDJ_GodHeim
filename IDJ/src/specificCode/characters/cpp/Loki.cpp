@@ -75,7 +75,7 @@ void Loki::UpdateEagleSpeed()
 
 void Loki::UpdateVerticalState()
 {
-	// If character center is below 8/9 of the barrier, then the character is suspended.
+	// If character center is below 9/10 of the barrier, then the character is suspended.
 	if ( ((Barrier::barrier->GetCorner().GetY()+(Barrier::barrier->DIAMETER*9/10)) < box.Center().GetY())
 			&& (box.Center().Distance(Thor::characterThor->box.Center()) >= Barrier::barrier->DIAMETER - Barrier::barrier->DRAG_TOLERANCE) )
 	    barrierSuspended = true;

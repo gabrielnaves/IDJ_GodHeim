@@ -15,6 +15,8 @@ enum ActionState {NONE, CLIMBING};
 enum VerticalState {STANDING, JUST_JUMPED, JUMPING, FALLING};
 enum HorizontalState {STANDING_RIGHT, STANDING_LEFT, MOVING_RIGHT, MOVING_LEFT};
 
+class MovementState;
+
 class Character : public GameObject
 {
   public:
@@ -28,7 +30,6 @@ class Character : public GameObject
 
     bool IsDead();
     void Render();
-    Point GetSpeed();
 
     VerticalState GetVState();
     HorizontalState GetHState();
@@ -40,7 +41,10 @@ class Character : public GameObject
     bool insideBridge;
     bool barrierSuspended;
     Point speed;
+    float dt;
 
+    int horizontal, vertical;
+    bool actionButton;
   protected:
     virtual void Input() = 0;
     virtual void Move() = 0;
@@ -61,14 +65,12 @@ class Character : public GameObject
     int hp;
     Sprite characterSp, walkSp, jumpSp, climbSp;
     MovementMap& movementMap;
+    MovementState *movement;
 
     ActionState actionState, prevActionState;
     VerticalState vState, prevVState;
     HorizontalState hState, prevHState;
 
-    float dt;
-    int horizontal, vertical;
-    bool actionButton;
     bool shouldRender; //flag in case the characters should not be rendered for being covered by something
 
     const float HP = 100;
