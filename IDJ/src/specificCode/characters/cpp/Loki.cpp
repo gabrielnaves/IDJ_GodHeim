@@ -7,6 +7,7 @@
  */
 
 #include "../include/Loki.h"
+#include "../include/EagleMov.h"
 
 Loki* Loki::characterLoki;
 
@@ -60,16 +61,8 @@ void Loki::Shoot()
 
 void Loki::UpdateEagleSpeed()
 {
-    if (vState == JUST_JUMPED)
-        speed.Set(speed.GetX(),EAGLE_JUMP_SPEED);
-    else if (vState == FALLING or vState == JUMPING) //unnecessary if. it is here only in case more vStates are implemented
-        speed = speed + Point(speed.GetX(),(GRAVITY - EAGLE_AIR_RESISTANCE)*dt);
-
-    if (hState == STANDING_LEFT or hState == STANDING_RIGHT) speed.Set(0,speed.GetY());
-    else if (hState == MOVING_RIGHT) speed.Set(VEL,speed.GetY());
-    else if (hState == MOVING_LEFT) speed.Set(-VEL,speed.GetY());
-
-    if (speed.GetY() >= MAX_FALLING_SPEED_EAGLE) speed.Set(speed.GetX(), MAX_FALLING_SPEED_EAGLE);
+    movement = new EagleMov();
+    movement->UpdateSpeed(this,dt);
     if (transformTime.Get() < TRANSFORM_COOLDOWN) speed.Set(0,0);
 }
 

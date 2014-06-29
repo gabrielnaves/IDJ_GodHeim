@@ -20,6 +20,7 @@ class MovementState
     virtual std::string GetType() = 0;
   protected:
     const float GRAVITY = 1000;
+    const float VEL = 200;
 };
 
 #endif /* MOVEMENTSTATE_H_ */

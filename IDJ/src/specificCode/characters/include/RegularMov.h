@@ -18,7 +18,6 @@ class RegularMov : public MovementState
     void UpdateSpeed(Character *character, float dt);
     std::string GetType();
   private:
-    const float VEL = 200;
     const float JUMP_SPEED = -500;
     const float MAX_FALLING_SPEED = 600;
 };
