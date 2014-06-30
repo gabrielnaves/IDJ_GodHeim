@@ -10,7 +10,6 @@
 #define LOKI_H_
 
 #include "../../objects/include/Stairs.h"
-#include "../../items/include/ItemFlags.h"
 #include "Character.h"
 #include "Barrier.h"
 #include "Bullet.h"
