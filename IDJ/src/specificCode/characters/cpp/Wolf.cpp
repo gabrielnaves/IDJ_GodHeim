@@ -13,26 +13,26 @@
  * its field of view, it gets up and attacks him.
  */
 Wolf::Wolf(float x, float y, float visionDistance, bool facingRight) :
-             restSp("img/characters/wolfwalk.png", 5, 0.1, true),
-             runSp("img/characters/wolfwalk.png", 5, 0.1, true),
-             attackSp("img/characters/wolfrun.png", 11, 0.1, true)
+             restSp("img/characters/wolfwalk(1).png", 5, 0.1, true),
+             runSp("img/characters/wolfwalk.png", 4, 0.1, true),
+             attackSp("img/characters/wolfattack.png", 5, 0.1, true)
 {
     box.Set(x-restSp.GetWidth()/2, y-restSp.GetHeight()/2, restSp.GetWidth(), restSp.GetHeight());
     rotation = 0;
     hp = 1;
     this->facingRight = facingRight;
     attacking = false;
-    state = WolfState::RESTING;
-    this->distance = visionDistance;
+    state = WolfNamespace::RESTING;
+    visionField.Set(box.GetX(), (box.GetY()+box.GetH())-110, visionDistance, 110);
 }
 
 Wolf::~Wolf() {}
 
 void Wolf::Update(float dt)
 {
-    if (state == WolfState::RESTING) Rest(dt);
-    if (state == WolfState::RUNNING) Run(dt);
-    else if (state == WolfState::ATTACKING) Attack(dt);
+    if (state == WolfNamespace::RESTING) Rest(dt);
+    else if (state == WolfNamespace::RUNNING) Run(dt);
+    else if (state == WolfNamespace::ATTACKING) Attack(dt);
 }
 
 void Wolf::Rest(float dt)
@@ -40,17 +40,35 @@ void Wolf::Rest(float dt)
     Rect target(FindClosestCharacter());
     restSp.Update(dt);
     // If the closest character is within the wolf's field of view, run towards it
-    if (abs(target.GetY()-box.GetY()) <= 100 && box.GetY()+box.GetH() > target.GetY())
-        if (facingRight && (target.Center().GetX()-box.Center().GetX() <= distance))
-            state = WolfState::RUNNING;
+    if (Collision::IsColliding(target, visionField, 0, 0))
+        state = WolfNamespace::RUNNING;
 }
 
 void Wolf::Run(float dt)
 {
+    Rect target(FindClosestCharacter());
+    runSp.Update(dt);
+    float distance = target.Center().GetX() - box.Center().GetX();
+    float signal = (distance >= 0 ? 1 : -1);
+    facingRight = (signal == 1 ? true : false);
+    if (abs(distance) >= 50)
+        box.MoveRect(dt*WolfNamespace::RUN_SPEED*signal, 0);
+    else state = WolfNamespace::ATTACKING;
 }
 
 void Wolf::Attack(float dt)
 {
+    Rect target(FindClosestCharacter());
+    attackSp.Update(dt);
+    attackTimer.Update(dt);
+    if (attackTimer.Get() >= 0.2)
+        box.MoveRect((facingRight ? 1 : -1)*dt*WolfNamespace::ATTACK_SPEED, 0);
+    if (attackTimer.Get() >= 0.5)
+    {
+        state = WolfNamespace::RUNNING;
+        attackSp.SetFrame(1);
+        attackTimer.Restart();
+    }
 }
 
 Rect Wolf::FindClosestCharacter()
@@ -65,19 +83,19 @@ void Wolf::Render()
 {
     switch (state)
     {
-        case WolfState::RESTING:
+        case WolfNamespace::RESTING:
             restSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(), rotation*2*M_PI/360,
                             (facingRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL));
             break;
-        case WolfState::RUNNING:
+        case WolfNamespace::RUNNING:
             runSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(), rotation*2*M_PI/360,
                            (facingRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL));
             break;
-        case WolfState::ATTACKING:
+        case WolfNamespace::ATTACKING:
             attackSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(), rotation*2*M_PI/360,
                              (facingRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL));
             break;
-        case WolfState::RETURNING:
+        case WolfNamespace::RETURNING:
             walkSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(), rotation*2*M_PI/360,
                     (facingRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL));
             break;

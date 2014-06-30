@@ -12,8 +12,11 @@
 #include "Character.h"
 #include "Barrier.h"
 
-namespace WolfState
+namespace WolfNamespace
 {
+    const float RUN_SPEED = 200;
+    const float WALK_SPEED = 100;
+    const float ATTACK_SPEED = 300;
     enum WolfState { RESTING, RUNNING, ATTACKING, RETURNING };
 }
 
@@ -35,11 +38,12 @@ class Wolf : public GameObject
     void Return(float dt);
     Rect FindClosestCharacter();
 
-    float distance;
     int hp;
     bool facingRight, attacking;
     Sprite restSp, runSp, attackSp, walkSp;
-    WolfState::WolfState state;
+    Rect visionField;
+    Timer attackTimer;
+    WolfNamespace::WolfState state;
 };
 
 #endif /* WOLF_H_ */
