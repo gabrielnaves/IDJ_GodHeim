@@ -27,27 +27,6 @@ Loki::~Loki()
 	characterLoki = NULL;
 }
 
-void Loki::Input()
-{
-    horizontal = vertical = 0;
-    InputManager &input = InputManager::GetInstance();
-    //Gets the inputs for moving horizontally
-    if (input.KeyPress(SDLK_d) || input.IsKeyDown(SDLK_d))
-        horizontal += 1;
-    if (input.KeyPress(SDLK_a) || input.IsKeyDown(SDLK_a))
-        horizontal -= 1;
-    //Gets the inputs for moving vertically
-    if (input.KeyPress(SDLK_w))
-        vertical += 1;
-    else if (input.IsKeyDown(SDLK_w))
-        vertical = 2;
-    if (input.KeyPress(SDLK_s) || input.IsKeyDown(SDLK_s))
-        vertical -= 1;
-    //Action button
-    if (input.KeyPress(SDLK_e))
-        actionButton = true;
-}
-
 void Loki::Shoot()
 {
     Sprite spBullet("img/characters/lokiFireball.png",3,0.1);

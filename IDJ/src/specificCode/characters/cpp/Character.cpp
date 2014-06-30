@@ -36,6 +36,34 @@ Character::Character(MovementMap& movMap,
     shouldRender = true;
 }
 
+void Character::Input()
+{
+
+    int UP_KEY = Is("Thor") ? SDLK_i:SDLK_w;
+    int DOWN_KEY = Is("Thor") ? SDLK_k:SDLK_s;
+    int LEFT_KEY = Is("Thor") ? SDLK_j:SDLK_a;
+    int RIGHT_KEY = Is("Thor") ? SDLK_l:SDLK_d;
+    int ACTION_BUTTON = Is("Thor") ? SDLK_u:SDLK_e;
+
+    horizontal = vertical = 0;
+    InputManager &input = InputManager::GetInstance();
+    //Gets the inputs for moving horizontally
+    if (input.KeyPress(RIGHT_KEY) || input.IsKeyDown(RIGHT_KEY))
+        horizontal += 1;
+    if (input.KeyPress(LEFT_KEY) || input.IsKeyDown(LEFT_KEY))
+        horizontal -= 1;
+    //Gets the inputs for moving vertically
+    if (input.KeyPress(UP_KEY))
+        vertical += 1;
+    else if (input.IsKeyDown(UP_KEY))
+        vertical = 2;
+    if (input.KeyPress(DOWN_KEY) || input.IsKeyDown(DOWN_KEY))
+        vertical -= 1;
+    //Action button
+    if (input.KeyPress(ACTION_BUTTON))
+        actionButton = true;
+}
+
 void Character::Update(float dt)
 {
     this->dt = dt;
@@ -43,7 +71,8 @@ void Character::Update(float dt)
     Act();
     UpdateState();
     if (actionState == CLIMBING and !canHoldStairs) SetActionState(NONE);
-    Move();
+    SelectMovState();
+    movement->Move(this,dt);
     UpdatesStateOnTheFall();
     UpdateSprite();
     CheckMovementLimits();
@@ -65,14 +94,6 @@ void Character::Render()
         jumpSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(),rotation, flip);
     else
         characterSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(),rotation, flip);
-}
-
-void Character::Move()
-{
-    SelectMovState();
-    movement->UpdateSpeed(this,dt);
-    box.MoveRect(speed.GetX()*dt,speed.GetY()*dt);
-    Barrier::barrier->CheckCollision(this);
 }
 
 void Character::ChangeMovementState(std::string type)

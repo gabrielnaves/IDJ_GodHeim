@@ -11,10 +11,12 @@
 #define MOVEMENTSTATE_H_
 
 #include "Character.h"
+#include "Barrier.h"
 
 class MovementState
 {
   public:
+    void Move(Character *character, float dt);
     virtual ~MovementState() {}
     virtual void UpdateSpeed(Character *character, float dt) = 0;
     virtual std::string GetType() = 0;

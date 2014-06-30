@@ -23,26 +23,6 @@ Thor::~Thor()
     characterThor = NULL;
 }
 
-void Thor::Input()
-{
-    horizontal = vertical = 0;
-    InputManager &input = InputManager::GetInstance();
-    //sets the directions in which the camera must move
-
-    if (input.KeyPress(SDLK_l) || input.IsKeyDown(SDLK_l))
-        horizontal += 1;
-    if (input.KeyPress(SDLK_j) || input.IsKeyDown(SDLK_j))
-        horizontal -= 1;
-    if (input.KeyPress(SDLK_i))
-        vertical += 1;
-    if (input.IsKeyDown(SDLK_i))
-        vertical = 2;
-    if (input.KeyPress(SDLK_k) or input.IsKeyDown(SDLK_k))
-        vertical -= 1;
-    if (input.KeyPress(SDLK_u))
-        actionButton = true;
-}
-
 /**
  * Calls the right action Thor must do, depending on the situation
  */

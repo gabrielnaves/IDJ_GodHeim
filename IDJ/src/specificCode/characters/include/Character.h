@@ -37,16 +37,12 @@ class Character : public GameObject
     void SetHState(HorizontalState hS);
     void SetActionState(ActionState actionState);
 
-    bool canHoldStairs;
-    bool insideBridge;
-    bool barrierSuspended;
+    bool canHoldStairs, insideBridge, barrierSuspended, actionButton;
     Point speed;
     float dt;
-
     int horizontal, vertical;
-    bool actionButton;
+
   protected:
-    virtual void Input() = 0;
     virtual void UpdateSprite() = 0;
     virtual void UpdateVerticalState() = 0;
     virtual void Act() = 0;
@@ -54,7 +50,6 @@ class Character : public GameObject
     virtual bool IndividualMovStateSelection();
 
     void Update(float dt);
-    void UpdatePrevState();
     void ChangeSp(std::string spType, std::string sp, int frameCount = 1, int currentFrame = 1, bool repeat = true);
     void ChangeMovementState(std::string type);
 
@@ -71,11 +66,12 @@ class Character : public GameObject
 
     const float HP = 100;
   private:
-    void Move();
+    void Input();
     void SelectMovState();
     void UpdateHorizontalState();
     void UpdateState();
     void CheckMovementLimits();
+    void UpdatePrevState();
 };
 
 #endif /* CHARACTER_H_ */

@@ -22,7 +22,6 @@ class Item : public GameObject
     void NotifyCollision(GameObject& other);
     bool Is(std::string type);
     bool IsDead();
-    bool HasItem();
 
   private:
     void Hover(float dt);

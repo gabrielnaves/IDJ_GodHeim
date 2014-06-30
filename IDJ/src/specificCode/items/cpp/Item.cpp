@@ -86,8 +86,6 @@ bool Item::IsDead()
     return disappear ? true : false;
 }
 
-bool Item::HasItem() { return(hasItem); }
-
 void Item::Hover(float dt)
 {
     angle = angle + dt * 3;

@@ -23,7 +23,6 @@ class Thor : public Character
     static Thor *characterThor;
 
   private:
-    void Input();
     void UpdateSprite();
     void UpdateVerticalState();
     void UpdatesStateOnTheFall();

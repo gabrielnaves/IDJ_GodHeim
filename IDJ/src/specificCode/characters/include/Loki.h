@@ -31,7 +31,6 @@ class Loki : public Character
 	Timer shootCooldown; //a timer so Loki doesnt fire too much in little time
 	Timer transformTime;
 
-	void Input();
 	void UpdateSprite();
 	void UpdateVerticalState();
 	void UpdatesStateOnTheFall();
