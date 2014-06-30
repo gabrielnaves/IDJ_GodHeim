@@ -10,6 +10,7 @@
 #define CHARACTER_H_
 
 #include "../../../Engine.h"
+#include "../../items/include/ItemFlags.h"
 
 enum ActionState {NONE, CLIMBING};
 enum VerticalState {STANDING, JUST_JUMPED, JUMPING, FALLING};

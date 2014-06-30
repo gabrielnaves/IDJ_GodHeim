@@ -71,10 +71,9 @@ void Loki::UpdateVerticalState()
  */
 bool Loki::IndividualMovStateSelection()
 {
-    if (appearance == LOKI) return(false);
-    else if (appearance == EAGLE)
+    if (appearance == EAGLE)
         ChangeMovementState("Eagle");
-
+    else return(false);
     return(true);
 }
 
@@ -185,6 +184,7 @@ void Loki::UpdateSprite()
  */
 void Loki::SetAppearance(TransformState appearance)
 {
+    if (appearance == EAGLE and !ItemFlags::eagle) return;
     prevAppearance = this->appearance;
     this->appearance = appearance;
     if (appearance == EAGLE)
