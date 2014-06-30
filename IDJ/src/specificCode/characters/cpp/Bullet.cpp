@@ -43,6 +43,9 @@ bool Bullet::Is(std::string type)
 
 void Bullet::NotifyCollision(GameObject &other)
 {
-    if (other.Is("Goat"))
-        distanceLeft = 0;
+    if (shooter == "Loki")
+    {
+        if (other.Is("Goat") or other.Is("Wolf"))
+            distanceLeft = 0;
+    }
 }
