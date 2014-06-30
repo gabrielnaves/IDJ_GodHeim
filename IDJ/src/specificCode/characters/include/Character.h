@@ -51,7 +51,7 @@ class Character : public GameObject
     virtual void UpdateVerticalState() = 0;
     virtual void Act() = 0;
     virtual void UpdatesStateOnTheFall() = 0;
-    virtual bool IndividualUpdateSpeed();
+    virtual bool IndividualMovStateSelection();
 
     void Update(float dt);
     void UpdatePrevState();
@@ -72,7 +72,7 @@ class Character : public GameObject
     const float HP = 100;
   private:
     void Move();
-    void UpdateSpeed();
+    void SelectMovState();
     void UpdateHorizontalState();
     void UpdateState();
     void CheckMovementLimits();

@@ -90,7 +90,7 @@ void Loki::UpdateVerticalState()
 /**
  * Should change the MovementState in case loki transformed into an animal
  */
-bool Loki::IndividualUpdateSpeed()
+bool Loki::IndividualMovStateSelection()
 {
     if (appearance == LOKI) return(false);
     else if (appearance == EAGLE)

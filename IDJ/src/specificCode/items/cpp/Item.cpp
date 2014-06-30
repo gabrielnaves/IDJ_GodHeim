@@ -7,17 +7,34 @@
 
 #include "../include/Item.h"
 
-Item::Item(int x, int y, std::string imageAdress, std::string name, bool delayed, float delay)
+Item::Item(int x, int y, std::string imageAdress, std::string name)
+{
+    SetConstructor(x,y,imageAdress,name,true,true,false,0);
+}
+
+Item::Item(int x, int y, std::string imageAdress, std::string name, bool thorCatches, bool lokiCatches)
+{
+    SetConstructor(x,y,imageAdress,name,thorCatches,lokiCatches,false,0);
+}
+
+Item::Item(int x, int y, std::string imageAdress, std::string name, bool thorCatches, bool lokiCatches, bool delayed, float delay)
+{
+    SetConstructor(x,y,imageAdress,name,thorCatches,lokiCatches,delayed,delay);
+}
+
+void Item::SetConstructor(int x, int y, std::string imageAdress, std::string name, bool thorCatches, bool lokiCatches, bool delayed, float delay)
 {
     itemSp.Open(imageAdress);
     box.Set(x-itemSp.GetWidth()/2,y-itemSp.GetHeight()/2,itemSp.GetWidth(),itemSp.GetHeight());
     this->name = name;
     hasItem = false;
+    angle = 0;
+    initialY = box.GetY();
     disappear = false;
     this->delayed = delayed;
     delayTime = delay;
-    angle = 0;
-    initialY = box.GetY();
+    this->thorCatches = thorCatches;
+    this->lokiCatches = lokiCatches;
 }
 
 Item::~Item() {}
@@ -47,13 +64,9 @@ void Item::NotifyCollision(GameObject& other)
     if (!delayed)
     {
         if (other.Is("Thor"))
-        {
-            if (name == "Meat") disappear = true;
-        }
+            if (thorCatches) disappear = true;
         if (other.Is("Loki"))
-        {
-            if (name == "Meat") disappear = true;
-        }
+            if (lokiCatches) disappear = true;
     }
 }
 

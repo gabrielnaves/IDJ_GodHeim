@@ -13,7 +13,9 @@
 class Item : public GameObject
 {
   public:
-    Item(int x, int y, std::string imageAdress, std::string name, bool delayed = false, float delay = 0);
+    Item(int x, int y, std::string imageAdress, std::string name);
+    Item(int x, int y, std::string imageAdress, std::string name, bool thorCatches, bool lokiCatches);
+    Item(int x, int y, std::string imageAdress, std::string name, bool thorCatches, bool lokiCatches, bool delayed, float delay);
     virtual ~Item();
     void Update(float dt);
     void Render();
@@ -24,11 +26,13 @@ class Item : public GameObject
 
   private:
     void Hover(float dt);
+    void SetConstructor(int x, int y, std::string imageAdress, std::string name, bool thorCatches, bool lokiCatches, bool delayed, float delay);
 
     Sprite itemSp;
     std::string name;
     Timer delay;
     bool hasItem, disappear, delayed;
+    bool thorCatches, lokiCatches;
     float delayTime, angle, initialY;
 };
 

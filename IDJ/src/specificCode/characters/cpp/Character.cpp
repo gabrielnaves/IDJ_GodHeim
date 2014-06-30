@@ -69,7 +69,8 @@ void Character::Render()
 
 void Character::Move()
 {
-    UpdateSpeed();
+    SelectMovState();
+    movement->UpdateSpeed(this,dt);
     box.MoveRect(speed.GetX()*dt,speed.GetY()*dt);
     Barrier::barrier->CheckCollision(this);
 }
@@ -86,24 +87,22 @@ void Character::ChangeMovementState(std::string type)
 /**
  * Updates the vector speed accordingly to the vertical and horizontal state of the character.
  */
-void Character::UpdateSpeed()
+void Character::SelectMovState()
 {
-    if (not IndividualUpdateSpeed())
+    if (not IndividualMovStateSelection())
     {
         if (actionState == CLIMBING)
             ChangeMovementState("Climb");
         else
             ChangeMovementState("Regular");
     }
-
-    movement->UpdateSpeed(this,dt);
 }
 
 /**
  * Characters have a few individual characteristics that might alter the way they update speed.
  * When they dont, returns false
  */
-bool Character::IndividualUpdateSpeed()
+bool Character::IndividualMovStateSelection()
 {
     return(false);
 }

@@ -36,6 +36,7 @@ void Level1State::EmplaceInitialObjects()
     objectArray.emplace_back(new Thor(20,100, movementMap));
     objectArray.emplace_back(new Bridge(220, 330));
     objectArray.emplace_back(new BrokenHouseFront(500, 320));
+    objectArray.emplace_back(new Item(355,520,"img/items/lokifire.png", "LokiFire", false, true));
     objectArray.emplace_back(new Spikes("img/objects/spikes.png",385,2200));
     objectArray.emplace_back(new Plants("img/level1/plants/5.png",255,510));
     objectArray.emplace_back(new Plants("img/level1/plants/3.png",260,525));

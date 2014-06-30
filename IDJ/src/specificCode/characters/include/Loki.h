@@ -36,7 +36,7 @@ class Loki : public Character
 	void UpdateVerticalState();
 	void UpdatesStateOnTheFall();
 	void Act();
-	bool IndividualUpdateSpeed();
+	bool IndividualMovStateSelection();
 
 	void SetAppearance(TransformState appearance);
 	void Shoot();
