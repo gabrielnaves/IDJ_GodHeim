@@ -17,8 +17,6 @@ class ClimbMov : public MovementState
     virtual ~ClimbMov();
     void UpdateSpeed(Character *character, float dt);
     std::string GetType();
-  private:
-    const float VEL = 200;
 };
 
 #endif /* CLIMBMOV_H_ */

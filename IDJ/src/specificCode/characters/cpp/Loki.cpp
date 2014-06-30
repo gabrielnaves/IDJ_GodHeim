@@ -59,13 +59,6 @@ void Loki::Shoot()
     SetActionState(NONE);
 }
 
-void Loki::UpdateEagleSpeed()
-{
-    movement = new EagleMov();
-    movement->UpdateSpeed(this,dt);
-    if (transformTime.Get() < TRANSFORM_COOLDOWN) speed.Set(0,0);
-}
-
 void Loki::UpdateVerticalState()
 {
 	// If character center is below 9/10 of the barrier, then the character is suspended.
@@ -94,15 +87,16 @@ void Loki::UpdateVerticalState()
     transformTime.Update(dt);
 }
 
-void Loki::Move()
+/**
+ * Should change the MovementState in case loki transformed into an animal
+ */
+bool Loki::IndividualUpdateSpeed()
 {
-    if (actionState == CLIMBING)
-        Climb();
-    else if (appearance == LOKI) UpdateSpeed();
-    else if (appearance == EAGLE) UpdateEagleSpeed();
+    if (appearance == LOKI) return(false);
+    else if (appearance == EAGLE)
+        ChangeMovementState("Eagle");
 
-    box.MoveRect(speed.GetX()*dt,speed.GetY()*dt);
-    Barrier::barrier->CheckCollision(this);
+    return(true);
 }
 
 /**

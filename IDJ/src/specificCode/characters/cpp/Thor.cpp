@@ -75,16 +75,6 @@ void Thor::UpdateVerticalState()
         SetVState(JUST_JUMPED);
 }
 
-void Thor::Move()
-{
-    if (actionState == CLIMBING)
-        Climb();
-    else
-        UpdateSpeed();
-    box.MoveRect(speed.GetX()*dt,speed.GetY()*dt);
-    Barrier::barrier->CheckCollision(this);
-}
-
 void Thor::UpdatesStateOnTheFall()
 {
     if (vState == JUST_JUMPED) SetVState(JUMPING);

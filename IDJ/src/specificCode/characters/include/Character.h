@@ -47,20 +47,16 @@ class Character : public GameObject
     bool actionButton;
   protected:
     virtual void Input() = 0;
-    virtual void Move() = 0;
     virtual void UpdateSprite() = 0;
     virtual void UpdateVerticalState() = 0;
     virtual void Act() = 0;
     virtual void UpdatesStateOnTheFall() = 0;
+    virtual bool IndividualUpdateSpeed();
 
     void Update(float dt);
-    void Climb();
-    void UpdateSpeed();
-    void UpdateHorizontalState();
-    void UpdateState();
-    void CheckMovementLimits();
     void UpdatePrevState();
     void ChangeSp(std::string spType, std::string sp, int frameCount = 1, int currentFrame = 1, bool repeat = true);
+    void ChangeMovementState(std::string type);
 
     int hp;
     Sprite characterSp, walkSp, jumpSp, climbSp;
@@ -74,11 +70,12 @@ class Character : public GameObject
     bool shouldRender; //flag in case the characters should not be rendered for being covered by something
 
     const float HP = 100;
-    const float VEL = 200;
-    const float JUMP_SPEED = -500;
-    const float GRAVITY = 1000;
-    const float MAX_FALLING_SPEED = 600;
-    const float CLIMBING_SPEED = -200;
+  private:
+    void Move();
+    void UpdateSpeed();
+    void UpdateHorizontalState();
+    void UpdateState();
+    void CheckMovementLimits();
 };
 
 #endif /* CHARACTER_H_ */

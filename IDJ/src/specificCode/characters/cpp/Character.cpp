@@ -10,6 +10,7 @@
 #include "../include/Barrier.h"
 #include "../include/RegularMov.h"
 #include "../include/ClimbMov.h"
+#include "../include/EagleMov.h"
 
 Character::Character(MovementMap& movMap,
            std::string walk,int wFrameCount,float wFrameTime,
@@ -26,6 +27,7 @@ Character::Character(MovementMap& movMap,
     SetVState(STANDING);
     SetHState(STANDING_RIGHT);
     SetActionState(NONE);
+    movement = new RegularMov();
     horizontal = vertical = 0;
     actionButton = false;
     canHoldStairs=false;
@@ -65,13 +67,20 @@ void Character::Render()
         characterSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(),rotation, flip);
 }
 
-/**
- * Updates the vector speed when climbing stairs
- */
-void Character::Climb()
+void Character::Move()
 {
-    movement = new ClimbMov();
-    movement->UpdateSpeed(this,dt);
+    UpdateSpeed();
+    box.MoveRect(speed.GetX()*dt,speed.GetY()*dt);
+    Barrier::barrier->CheckCollision(this);
+}
+
+void Character::ChangeMovementState(std::string type)
+{
+    if (type == movement->GetType()) return;
+    else delete movement;
+    if (type == "Regular") movement = new RegularMov();
+    else if (type == "Climb") movement = new ClimbMov();
+    else if (type == "Eagle") movement = new EagleMov();
 }
 
 /**
@@ -79,8 +88,24 @@ void Character::Climb()
  */
 void Character::UpdateSpeed()
 {
-    movement = new RegularMov();
+    if (not IndividualUpdateSpeed())
+    {
+        if (actionState == CLIMBING)
+            ChangeMovementState("Climb");
+        else
+            ChangeMovementState("Regular");
+    }
+
     movement->UpdateSpeed(this,dt);
+}
+
+/**
+ * Characters have a few individual characteristics that might alter the way they update speed.
+ * When they dont, returns false
+ */
+bool Character::IndividualUpdateSpeed()
+{
+    return(false);
 }
 
 /**

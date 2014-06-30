@@ -24,7 +24,6 @@ class Thor : public Character
 
   private:
     void Input();
-    void Move();
     void UpdateSprite();
     void UpdateVerticalState();
     void UpdatesStateOnTheFall();

@@ -32,23 +32,19 @@ class Loki : public Character
 	Timer transformTime;
 
 	void Input();
-	void Move();
 	void UpdateSprite();
 	void UpdateVerticalState();
 	void UpdatesStateOnTheFall();
 	void Act();
+	bool IndividualUpdateSpeed();
 
 	void SetAppearance(TransformState appearance);
-	void UpdateEagleSpeed();
 	void Shoot();
 
 	float TIMES_FLAPS_WINGS;
 	//constants
 	const float FIREBALL_SPEED = 400;
 	const float FIREBALL_DISTANCE = 1000;
-    const float MAX_FALLING_SPEED_EAGLE = 100;
-    const float EAGLE_JUMP_SPEED = -350;
-    const float EAGLE_AIR_RESISTANCE = 200;
     const float COOLDOWN = 1;
     const float TRANSFORM_COOLDOWN = 0.5;
 };
