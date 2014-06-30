@@ -68,6 +68,8 @@ void Item::NotifyCollision(GameObject& other)
         if (other.Is("Loki"))
             if (lokiCatches) disappear = true;
     }
+    if (disappear)
+        ItemFlags::ChangeFlag(name, true);
 }
 
 /**

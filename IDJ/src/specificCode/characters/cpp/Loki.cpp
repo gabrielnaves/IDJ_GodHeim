@@ -91,7 +91,7 @@ void Loki::Act()
             ReleasesStairs();
         else if (canHoldStairs)
             HoldStairs();
-        else if(shootCooldown.Get() >= COOLDOWN and vState == STANDING)
+        else if(ItemFlags::fireBall and shootCooldown.Get() >= COOLDOWN and vState == STANDING)
             Shoot();
     }
     actionButton = false;

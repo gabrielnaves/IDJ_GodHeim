@@ -9,6 +9,7 @@
 #define ITEM_H_
 
 #include "../../../Engine.h"
+#include "ItemFlags.h"
 
 class Item : public GameObject
 {
