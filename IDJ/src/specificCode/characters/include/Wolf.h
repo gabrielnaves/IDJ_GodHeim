@@ -39,9 +39,10 @@ class Wolf : public GameObject
     Rect FindClosestCharacter();
 
     int hp;
-    bool facingRight, attacking;
+    bool facingRight, initialSideRight;
     Sprite restSp, runSp, attackSp, walkSp;
     Rect visionField;
+    Point initialPos;
     Timer attackTimer;
     WolfNamespace::WolfState state;
 };
