@@ -19,6 +19,7 @@
 #include "../../objects/include/Spikes.h"
 #include "../../objects/include/Plants.h"
 #include "../../characters/include/Goat.h"
+#include "../../characters/include/Wolf.h"
 
 class Level1State : public State
 {
