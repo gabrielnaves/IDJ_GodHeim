@@ -24,7 +24,6 @@
 #include "engine/include/Sound.h"
 #include "engine/include/Sprite.h"
 #include "engine/include/State.h"
-#include "engine/include/StateData.h"
 #include "engine/include/StillAnimation.h"
 #include "engine/include/Text.h"
 #include "engine/include/TileMap.h"

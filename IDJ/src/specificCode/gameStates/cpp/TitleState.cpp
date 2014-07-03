@@ -34,8 +34,17 @@ void TitleState::Update(float dt)
     {
         requestDelete = true;
         Game::GetInstance().ResetWindowSize(1200,650);
-        Game::GetInstance().Push(new Level1State());
+        Game::GetInstance().Push(SelectLevel());
     }
+}
+
+/**
+ * Selects the level that the player will start the game
+ */
+State* TitleState::SelectLevel()
+{
+    if (StateData::startingLevel == 1) return(new Level1State());
+    if (StateData::startingLevel == 2) return(new Level2State());
 }
 
 void TitleState::Render()

@@ -12,6 +12,8 @@
 #include "../../objects/include/MenuBox.h"
 #include "../../objects/include/Cursor.h"
 #include "Level1State.h"
+#include "Level2State.h"
+#include "StateData.h"
 
 class TitleState : public State
 {
@@ -22,7 +24,6 @@ class TitleState : public State
     void Render();
 
     void UpdateArray(float dt);
-
   private:
     Sprite bg;
     Music titleMusic;
@@ -30,6 +31,7 @@ class TitleState : public State
     Cursor cursor;
 
     bool startEndTimer;
+    State* SelectLevel();
 };
 
 #endif /* TITLESTATE_H_ */
