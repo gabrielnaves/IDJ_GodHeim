@@ -39,7 +39,7 @@ class Character : public GameObject
     void SetHState(HorizontalState hS);
     void SetActionState(ActionState actionState);
 
-    bool insideBridge, barrierSuspended, actionButton;
+    bool aboveStairs, insideBridge, barrierSuspended, actionButton;
     Point speed;
     float dt;
     int horizontal, vertical;

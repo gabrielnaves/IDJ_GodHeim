@@ -29,7 +29,10 @@ void Stairs::NotifyCollision(GameObject& other)
         if (IsCloseToStairs(character->box))
         {
             if (character->vertical != 0)
-                character->SetActionState(CLIMBING);
+                {
+                    character->SetActionState(CLIMBING);
+                    character->box.SetPoint(box.GetX()+box.GetW()/2-character->box.GetW()/2,character->box.GetY());
+                }
         }
     }
 }
@@ -52,7 +55,7 @@ bool Stairs::IsStairsAbove(Rect character)
 bool Stairs::IsCloseToStairs(Rect character)
 {
     if (character.Center().Distance(box.Center()) < 2*box.GetH()/3)
-        if (character.GetX() < box.GetX()+box.GetW()/2 and character.GetPoint().GetX() > box.GetX()-box.GetW()/2)
+        if (character.GetX() < box.GetX()+box.GetW()/3 and character.GetPoint().GetX() > box.GetX()-box.GetW()/3)
             return(true);
     return(false);
 }
@@ -71,6 +74,7 @@ void Stairs::Update(float dt)
  */
 void Stairs::InteractsWith(Character *character)
 {
+    character->aboveStairs = false;
     if (IsStairsBelow(character->box) and character->vertical<0 and character->actionState != CLIMBING) //if loki is above the stairs and wants to climb down
     {
         character->SetActionState(CLIMBING);
@@ -83,6 +87,7 @@ void Stairs::InteractsWith(Character *character)
     }
     else if (IsStairsBelow(character->box) and character->vertical >= 0 and character->actionState != CLIMBING)
     {
+        character->aboveStairs = true;
         character->box.SetPoint(character->box.GetX(),box.GetPoint().GetY()-character->box.GetH()); //corrects bugs
         character->SetVState(STANDING);
     }
@@ -91,6 +96,15 @@ void Stairs::InteractsWith(Character *character)
         character->SetActionState(CLIMBING);
         character->box.SetPoint(box.GetX()+box.GetW()/2-character->box.GetW()/2,box.GetY()+box.GetH()+2); //goes up a pixel and centralizes on the stairs
     }
-    if (character->horizontal != 0)
+    else if (IsStairsAbove(Rect(character->box.GetX(),character->box.GetY()+20,character->box.GetW(),character->box.GetH()))
+            and character->vertical<0 and character->actionState == CLIMBING)
+    {
+        character->SetActionState(NONE);
+    }
+    else if (character->vState == STANDING and character->vertical<0)
+    {
+        character->SetActionState(NONE);
+    }
+    else if (character->horizontal != 0 and character->actionState == CLIMBING)
         character->SetActionState(NONE);
 }
