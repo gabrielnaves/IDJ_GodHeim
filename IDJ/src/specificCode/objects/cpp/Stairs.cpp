@@ -65,6 +65,8 @@ void Stairs::Update(float dt)
     Character *loki = Loki::characterLoki;
     Character *thor = Thor::characterThor;
 
+    thor->aboveStairs = false;
+    loki->aboveStairs = false;
     if (IsCloseToStairs(thor->box)) InteractsWith(thor);
     if (IsCloseToStairs(loki->box)) InteractsWith(loki);
 }
@@ -74,7 +76,6 @@ void Stairs::Update(float dt)
  */
 void Stairs::InteractsWith(Character *character)
 {
-    character->aboveStairs = false;
     if (IsStairsBelow(character->box) and character->vertical<0 and character->actionState != CLIMBING) //if loki is above the stairs and wants to climb down
     {
         character->SetActionState(CLIMBING);

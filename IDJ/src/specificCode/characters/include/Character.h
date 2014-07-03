@@ -29,6 +29,7 @@ class Character : public GameObject
     void ReleasesStairs();
     void HoldStairs();
 
+    void Update(float dt);
     bool IsDead();
     void Render();
     void NotifyCollision(GameObject& other);
@@ -54,7 +55,6 @@ class Character : public GameObject
     virtual void UpdatesStateOnTheFall() = 0;
     virtual bool IndividualMovStateSelection();
 
-    void Update(float dt);
     void ChangeSp(std::string spType, std::string sp, int frameCount = 1, int currentFrame = 1, bool repeat = true);
     void ChangeMovementState(std::string type);
 
