@@ -31,6 +31,7 @@ class Character : public GameObject
 
     bool IsDead();
     void Render();
+    void NotifyCollision(GameObject& other);
 
     VerticalState GetVState();
     HorizontalState GetHState();
@@ -38,11 +39,14 @@ class Character : public GameObject
     void SetHState(HorizontalState hS);
     void SetActionState(ActionState actionState);
 
-    bool canHoldStairs, insideBridge, barrierSuspended, actionButton;
+    bool insideBridge, barrierSuspended, actionButton;
     Point speed;
     float dt;
     int horizontal, vertical;
 
+    ActionState actionState, prevActionState;
+    VerticalState vState, prevVState;
+    HorizontalState hState, prevHState;
   protected:
     virtual void UpdateSprite() = 0;
     virtual void UpdateVerticalState() = 0;
@@ -58,10 +62,6 @@ class Character : public GameObject
     Sprite characterSp, walkSp, jumpSp, climbSp;
     MovementMap& movementMap;
     MovementState *movement;
-
-    ActionState actionState, prevActionState;
-    VerticalState vState, prevVState;
-    HorizontalState hState, prevHState;
 
     bool shouldRender; //flag in case the characters should not be rendered for being covered by something
 

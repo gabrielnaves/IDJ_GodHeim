@@ -29,10 +29,7 @@ Thor::~Thor()
 void Thor::Act()
 {
     if (!actionButton) return;
-    if (actionState == CLIMBING)
-        ReleasesStairs();
-    else if (canHoldStairs)
-        HoldStairs();
+
     actionButton = false;
 }
 
@@ -59,21 +56,6 @@ void Thor::UpdatesStateOnTheFall()
 {
     if (vState == JUST_JUMPED) SetVState(JUMPING);
     if (speed.GetY() > 0) SetVState(FALLING);
-}
-
-void Thor::NotifyCollision(GameObject& other)
-{
-    if (other.Is("Stairs"))
-    {
-        //if the character is close enough in the y axis to go down the stairs
-        if (box.GetY()<=(other.box.GetY()-box.GetH()+50) and box.GetY()>=(other.box.GetY()-box.GetH()-2) and actionState != CLIMBING)
-        {
-            box.SetPoint(box.GetX(),other.box.GetPoint().GetY()-box.GetH()); //corrects bugs
-            SetVState(STANDING);
-        }
-    }
-    if (other.Is("Spikes"))
-        hp -= HP/20;
 }
 
 bool Thor::Is(std::string type)

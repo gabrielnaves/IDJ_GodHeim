@@ -18,7 +18,6 @@ class Thor : public Character
     Thor(float x, float y, MovementMap& movMap);
     ~Thor();
 
-    void NotifyCollision(GameObject& other);
     bool Is(std::string type);
     static Thor *characterThor;
 

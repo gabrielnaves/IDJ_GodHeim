@@ -16,7 +16,7 @@
 class Stairs: public GameObject
 {
   public:
-    Stairs(std::string stairs, int x, int y, int frameCount=1, float frameTime=0);
+    Stairs(std::string stairs, int x, int y);
     virtual ~Stairs();
     void Update(float dt);
     void Render();
@@ -24,10 +24,11 @@ class Stairs: public GameObject
     bool Is(std::string type);
 
   private:
-    void LookForCharacterAbove(Character *character);
-    void ReleasesStairs(Character *character);
+    bool IsCloseToStairs(Rect character);
+    bool IsStairsBelow(Rect character);
+    bool IsStairsAbove(Rect character);
+    void InteractsWith(Character *character);
     Sprite stairsSp;
-    bool showAnimation;
 };
 
 #endif /* STAIRS_H_ */

@@ -21,7 +21,6 @@ class Loki : public Character
 	~Loki();
 
 	bool Is(std::string type);
-	void NotifyCollision(GameObject& other);
 	static Loki *characterLoki;
 
   private:

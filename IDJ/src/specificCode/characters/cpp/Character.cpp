@@ -30,7 +30,6 @@ Character::Character(MovementMap& movMap,
     movement = new RegularMov();
     horizontal = vertical = 0;
     actionButton = false;
-    canHoldStairs=false;
     insideBridge = false;
     barrierSuspended = false;
     shouldRender = true;
@@ -70,7 +69,6 @@ void Character::Update(float dt)
     Input();
     Act();
     UpdateState();
-    if (actionState == CLIMBING and !canHoldStairs) SetActionState(NONE);
     SelectMovState();
     movement->Move(this,dt);
     UpdatesStateOnTheFall();
@@ -94,6 +92,12 @@ void Character::Render()
         jumpSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(),rotation, flip);
     else
         characterSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(),rotation, flip);
+}
+
+void Character::NotifyCollision(GameObject& other)
+{
+    if (other.Is("Spikes"))
+        hp -= HP/20;
 }
 
 void Character::ChangeMovementState(std::string type)
@@ -262,7 +266,6 @@ void Character::ReleasesStairs()
 void Character::HoldStairs()
 {
     SetActionState(CLIMBING);
-    box.SetPoint(box.GetPoint().GetX(),box.GetPoint().GetY()+1);
 }
 
 /**
