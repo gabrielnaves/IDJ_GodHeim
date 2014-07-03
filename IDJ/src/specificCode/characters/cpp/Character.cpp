@@ -12,7 +12,7 @@
 #include "../include/ClimbMov.h"
 #include "../include/EagleMov.h"
 
-Character::Character(MovementMap& movMap,
+Character::Character(MovementMap movMap,
            std::string walk,int wFrameCount,float wFrameTime,
            std::string jump,int jFrameCount,float jFrameTime,
            std::string climb, int cFrameCount, float cFrameTime)

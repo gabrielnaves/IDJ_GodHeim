@@ -21,7 +21,7 @@ class MovementState;
 class Character : public GameObject
 {
   public:
-    Character(MovementMap& movMap,std::string,int frameCount,float frameTime,
+    Character(MovementMap movMap,std::string,int frameCount,float frameTime,
             std::string jump,int jumpFrameCount,float jumpFrameTime,std::string climb, int cFrameCount, float cFrameTime);
     virtual ~Character() {}
     bool IsClimbing();
@@ -60,7 +60,7 @@ class Character : public GameObject
 
     int hp;
     Sprite characterSp, walkSp, jumpSp, climbSp;
-    MovementMap& movementMap;
+    MovementMap movementMap;
     MovementState *movement;
 
     bool shouldRender; //flag in case the characters should not be rendered for being covered by something

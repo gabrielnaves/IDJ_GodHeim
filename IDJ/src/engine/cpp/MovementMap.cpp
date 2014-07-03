@@ -75,6 +75,11 @@ int& MovementMap::At(int x, int y, int z)
     return movementMatrix[x + mapWidth * y + mapWidth * mapHeight * z];
 }
 
+void MovementMap::UpdatePreviousPos(Rect rect)
+{
+    previousPos.Set(rect);
+}
+
 /**
  * Returns true if the value of the tile corresponding to
  * a given pixel position is 0, false if the value of the tile is 1.
@@ -254,4 +259,10 @@ Point MovementMap::FindClosestVector(float xPos, float yPos)
             result = temp;
     }
     return result;
+}
+
+Point MovementMap::FindClosestVector(Rect newPos)
+{
+    Point vector;
+    return Point();
 }

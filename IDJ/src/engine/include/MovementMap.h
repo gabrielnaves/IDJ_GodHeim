@@ -17,7 +17,9 @@ class MovementMap
     int& At(int x, int y, int z = -1);
     bool IsZero(int x, int y, int layer = -1);
     Point FindClosestVector(float xPos, float yPos);
+    Point FindClosestVector(Rect newPos);
     void SetCurrentLayer(int layer);
+    void UpdatePreviousPos(Rect rect);
 
   private:
     void BuildMovementMap(std::string file);
@@ -30,6 +32,7 @@ class MovementMap
 
     int mapWidth, mapHeight, mapDepth, currentLayer;
     int tileWidth, tileHeight;
+    Rect previousPos;
 };
 
 #endif /* MOVEMENTMAP_H_ */

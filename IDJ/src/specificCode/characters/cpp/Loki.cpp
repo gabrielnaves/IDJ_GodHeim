@@ -11,7 +11,7 @@
 
 Loki* Loki::characterLoki;
 
-Loki::Loki(float x, float y, MovementMap& movMap) :
+Loki::Loki(float x, float y, MovementMap movMap) :
         Character(movMap,"img/characters/loki_walk.png",8,0.1,"img/characters/lokiJump.png",4,0.1,"img/characters/lokiStairs.png",2,0.15)
 {
 	characterSp.Open("img/characters/loki.png");
@@ -20,6 +20,7 @@ Loki::Loki(float x, float y, MovementMap& movMap) :
 	appearance = prevAppearance = LOKI;
 	flappedWings = 0;
 	TIMES_FLAPS_WINGS = 1;
+	this->movementMap.UpdatePreviousPos(box);
 }
 
 Loki::~Loki()

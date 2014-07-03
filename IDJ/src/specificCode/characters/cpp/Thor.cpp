@@ -10,12 +10,13 @@
 
 Thor* Thor::characterThor;
 
-Thor::Thor(float x, float y, MovementMap& movMap) :
-        Character(movMap,"img/characters/thor_walk.png",7,0.1,"img/characters/thor_jump.png",4,0.1,"img/characters/thorStairs.png",2,0.15)
+Thor::Thor(float x, float y, MovementMap movMap) :
+        Character(movMap,"img/characters/thor_walk.png",8,0.1,"img/characters/thor_jump.png",4,0.1,"img/characters/thorStairs.png",2,0.15)
 {
     characterSp.Open("img/characters/thor.png");
     box.Set(x-characterSp.GetWidth()/2, y-characterSp.GetHeight()/2, characterSp.GetWidth(), characterSp.GetHeight());
     characterThor = this;
+    this->movementMap.UpdatePreviousPos(box);
 }
 
 Thor::~Thor()
@@ -71,7 +72,7 @@ void Thor::UpdateSprite()
     if (vState == STANDING)
     {
         if (hState == MOVING_RIGHT or hState == MOVING_LEFT)
-            prevHState != hState ? ChangeSp("walkSp","img/characters/thor_walk.png",7) : walkSp.Update(dt);
+            prevHState != hState ? ChangeSp("walkSp","img/characters/thor_walk.png",8) : walkSp.Update(dt);
         else if (hState == STANDING_RIGHT or hState == STANDING_LEFT)
             ChangeSp("characterSp","img/characters/thor.png",1);
     }
