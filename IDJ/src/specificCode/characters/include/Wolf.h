@@ -14,11 +14,12 @@
 
 namespace WolfNamespace
 {
-    const float RUN_SPEED = 200;
+    const float RUN_SPEED = 300;
     const float WALK_SPEED = 100;
     const float ATTACK_SPEED = 300;
     const float HOLD_SPEED = 0;
-    const float HOLD_DISTANCE = 200;
+    const float MIN_HOLD_DISTANCE = -20;
+    const float MAX_HOLD_DISTANCE = 100;
     enum WolfState { RESTING, RUNNING,
                      ATTACKING, RETURNING,
                      GET_UP, LIE_DOWN,

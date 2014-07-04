@@ -14,7 +14,7 @@
  */
 Wolf::Wolf(float x, float y, float visionDistance, bool facingRight) :
              restSp("img/characters/wolfwalk(1).png", 5, 0.1, true),
-             runSp("img/characters/wolfwalk.png", 4, 0.1, true),
+             runSp("img/characters/wolfrun.png", 4, 0.08, true),
              attackSp("img/characters/wolfattack.png", 5, 0.1, true),
              walkSp("img/characters/wolfwalk.png", 4, 0.1, true),
              getUpSp("img/characters/wolfattack.png", 5, 0.1, false),
@@ -51,16 +51,27 @@ void Wolf::CheckIfWolfCanBeHeld()
     Thor* thor = Thor::characterThor;
     if (thor == NULL)
         return;
-    else if (thor->GetMovementType() != "Regular" or thor->GetVState() != STANDING or
-            !visionField.IsInside(thor->box.Center()))
-        return;
-    else if ((state == WolfNamespace::ATTACKING or state == WolfNamespace::RUNNING) and
-                abs(thor->box.Center().GetX() - box.Center().GetX() <= WolfNamespace::HOLD_DISTANCE))
+    else
     {
-        if (facingRight and thor->GetHState() == (STANDING_LEFT | MOVING_LEFT))
-            thor->canHoldWolf = true;
-        else if (!facingRight and thor->GetHState() == (STANDING_RIGHT | MOVING_RIGHT))
-            thor->canHoldWolf = true;
+        if (thor->GetVState() != STANDING)
+        {
+            thor->canHoldWolf = false;
+            return;
+        }
+        if (facingRight and (thor->GetHState() == STANDING_LEFT or thor->GetHState() == MOVING_LEFT))
+        {
+            float distance = thor->box.GetX()-(box.GetX()+box.GetW());
+            if (distance > WolfNamespace::MIN_HOLD_DISTANCE and distance < WolfNamespace::MAX_HOLD_DISTANCE)
+                thor->canHoldWolf = true;
+            else thor->canHoldWolf = false;
+        }
+        else if (!facingRight and (thor->GetHState() == STANDING_RIGHT or thor->GetHState() == MOVING_RIGHT))
+        {
+            float distance = box.GetX() - (thor->box.GetX()+thor->box.GetW());
+            if (distance > WolfNamespace::MIN_HOLD_DISTANCE and distance < WolfNamespace::MAX_HOLD_DISTANCE)
+                thor->canHoldWolf = true;
+            else thor->canHoldWolf = false;
+        }
     }
 }
 
@@ -141,7 +152,7 @@ void Wolf::Attack(float dt)
             target = Loki::characterLoki;
         else target = Thor::characterThor;
         if (Collision::IsColliding(target->box, box, target->rotation*2*M_PI/360, 0))
-            target->DealDamage(10);
+            target->DealDamage(30);
         dealtDamage = true;
     }
     if (attackTimer.Get() >= 0.5)
@@ -188,10 +199,24 @@ void Wolf::LieDown(float dt)
 
 void Wolf::BeHeld(float dt)
 {
+    Rect thorBox = Thor::characterThor->box;
     heldSp.Update(dt);
     heldTimer.Update(dt);
-    if (heldTimer.Get() <= 0.5 and heldTimer.Get() > 0.2)
-        box.MoveRect(WolfNamespace::HOLD_SPEED*dt, 0);
+    if (heldTimer.Get() <= 0.2)
+    {
+        if (facingRight)
+        {
+            if (thorBox.GetX() >= box.GetX()+box.GetW())
+                box.MoveRect(abs(thorBox.GetX()-(box.GetX()+box.GetW())), 0);
+            else box.MoveRect(-abs(thorBox.GetX()-(box.GetX()+box.GetW())), 0);
+        }
+        else
+        {
+            if (box.GetX() >= thorBox.GetX()+thorBox.GetW())
+                box.MoveRect(-abs((thorBox.GetX()+thorBox.GetW())-box.GetX()), 0);
+            else box.MoveRect(abs((thorBox.GetX()+thorBox.GetW())-box.GetX()), 0);
+        }
+    }
 }
 
 Rect Wolf::FindClosestCharacter()
@@ -247,7 +272,12 @@ void Wolf::Render()
 
 void Wolf::NotifyCollision(GameObject& other)
 {
-    if (other.Is("LokiBullet")) hp -= 1;
+    if (other.Is("LokiBullet"))
+    {
+        hp -= 1;
+        if (hp <= 0 and Thor::characterThor != NULL)
+            Thor::characterThor->canHoldWolf = false;
+    }
 }
 
 bool Wolf::IsDead()
