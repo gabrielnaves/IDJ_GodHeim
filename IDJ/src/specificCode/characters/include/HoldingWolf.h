@@ -17,6 +17,8 @@ class HoldingWolf : public MovementState
     virtual ~HoldingWolf();
     void UpdateSpeed(Character *character, float dt);
     std::string GetType();
+  private:
+    HorizontalState thorHState;
 };
 
 #endif /* HOLDINGWOLF_H_ */

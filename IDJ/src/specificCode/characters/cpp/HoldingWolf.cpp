@@ -7,12 +7,16 @@
 
 #include "../include/HoldingWolf.h"
 
-HoldingWolf::HoldingWolf() {}
+HoldingWolf::HoldingWolf()
+{
+    thorHState = Thor::characterThor->GetHState();
+}
 
 HoldingWolf::~HoldingWolf() {}
 
 void HoldingWolf::UpdateSpeed(Character *character, float dt)
 {
+    character->SetHState(thorHState);
     character->speed.Set(0,0);
 }
 

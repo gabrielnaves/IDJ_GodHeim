@@ -32,7 +32,10 @@ void Thor::Act()
 {
     if (!actionButton) return;
 
-    if (canHoldWolf) ChangeMovementState("HoldingWolf");
+    if (GetMovementType() == "HoldingWolf")
+        ChangeMovementState("Regular"); //if he is holding the wolf, releases it
+    else if (canHoldWolf)
+        ChangeMovementState("HoldingWolf"); //if he can hold the wolf, holds it
 
     actionButton = false;
 }
