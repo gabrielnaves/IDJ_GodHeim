@@ -23,6 +23,7 @@ class GameObject
 	virtual void NotifyCollision(GameObject& other) {};
 	virtual bool IsDead() {return(false);}
 	virtual bool Is(std::string type) = 0;
+	virtual void Activate() {}
 	Rect box;
 	float rotation;
 };
