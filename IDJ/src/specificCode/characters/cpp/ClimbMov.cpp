@@ -13,9 +13,9 @@ ClimbMov::~ClimbMov() {}
 
 void ClimbMov::UpdateSpeed(Character *character, float dt)
 {
-    if (character->vertical == 0) character->speed.Set(character->speed.GetX(),0);
-    if (character->vertical > 0) character->speed.Set(character->speed.GetX(),-VEL);
-    if (character->vertical < 0) character->speed.Set(character->speed.GetX(), VEL);
+    if (character->vertical == 0) character->speed.Set(0,0);
+    if (character->vertical > 0) character->speed.Set(0,-VEL);
+    if (character->vertical < 0) character->speed.Set(0, VEL);
 }
 
 std::string ClimbMov::GetType()

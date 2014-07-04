@@ -9,6 +9,7 @@
 #define CLIMBMOV_H_
 
 #include "MovementState.h"
+#include "../../../Engine.h"
 
 class ClimbMov : public MovementState
 {

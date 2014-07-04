@@ -12,8 +12,6 @@ Stairs::Stairs(std::string stairs, int x, int y) : stairsSp(stairs)
     box.Set(x,y,stairsSp.GetWidth(),stairsSp.GetHeight());
 }
 
-Stairs::~Stairs() {}
-
 void Stairs::Render()
 {
     stairsSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY());
@@ -97,15 +95,16 @@ void Stairs::InteractsWith(Character *character)
         character->SetActionState(CLIMBING);
         character->box.SetPoint(box.GetX()+box.GetW()/2-character->box.GetW()/2,box.GetY()+box.GetH()+2); //goes up a pixel and centralizes on the stairs
     }
+    //drops the stairs when finishes climbing it up
     else if (IsStairsAbove(Rect(character->box.GetX(),character->box.GetY()+20,character->box.GetW(),character->box.GetH()))
             and character->vertical<0 and character->actionState == CLIMBING)
     {
         character->SetActionState(NONE);
     }
-    else if (character->vState == STANDING and character->vertical<0)
+    else if (character->vState == STANDING and character->vertical<0 and !IsStairsBelow(character->box))
     {
         character->SetActionState(NONE);
     }
-    else if (character->horizontal != 0 and character->actionState == CLIMBING)
+    else if ((character->horizontal == 1 or character->horizontal == -1) and character->actionState == CLIMBING)
         character->SetActionState(NONE);
 }

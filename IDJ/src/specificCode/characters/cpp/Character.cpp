@@ -48,10 +48,14 @@ void Character::Input()
     horizontal = vertical = 0;
     InputManager &input = InputManager::GetInstance();
     //Gets the inputs for moving horizontally
-    if (input.KeyPress(RIGHT_KEY) || input.IsKeyDown(RIGHT_KEY))
+    if (input.KeyPress(RIGHT_KEY))
         horizontal += 1;
-    if (input.KeyPress(LEFT_KEY) || input.IsKeyDown(LEFT_KEY))
+    if (input.IsKeyDown(RIGHT_KEY))
+        horizontal += 2;
+    if (input.KeyPress(LEFT_KEY))
         horizontal -= 1;
+    if (input.IsKeyDown(LEFT_KEY))
+        horizontal -= 2;
     //Gets the inputs for moving vertically
     if (input.KeyPress(UP_KEY))
         vertical += 1;
