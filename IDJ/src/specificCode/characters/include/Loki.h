@@ -9,7 +9,7 @@
 #ifndef LOKI_H_
 #define LOKI_H_
 
-#include "../../objects/include/Stairs.h"
+#include "../../objects/include/Rope.h"
 #include "Character.h"
 #include "Barrier.h"
 #include "Bullet.h"
@@ -23,6 +23,7 @@ class Loki : public Character
 	bool Is(std::string type);
 	static Loki *characterLoki;
 
+	bool collidesWithRope;
   private:
 	enum TransformState {LOKI, EAGLE};
 	TransformState appearance, prevAppearance;

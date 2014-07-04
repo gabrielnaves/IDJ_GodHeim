@@ -23,7 +23,11 @@ void Rope::NotifyCollision(GameObject& other)
     if (other.Is("Loki") or other.Is("Thor"))
     {
         Character *character;
-        if (other.Is("Loki")) character = Loki::characterLoki;
+        if (other.Is("Loki"))
+        {
+            character = Loki::characterLoki;
+            Loki::characterLoki->collidesWithRope = true;
+        }
         if (other.Is("Thor")) character = Thor::characterThor;
         if (character->vertical > 0 and character->actionState != CLIMBING)
         {
