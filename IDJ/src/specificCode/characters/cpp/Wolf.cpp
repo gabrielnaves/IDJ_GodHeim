@@ -25,7 +25,7 @@ Wolf::Wolf(float x, float y, float visionDistance, bool facingRight) :
     rotation = 0;
     hp = 1;
     this->facingRight = initialSideRight = facingRight;
-    dealtDamage = beingHeld = false;
+    dealtDamage = false;
     state = WolfNamespace::RESTING;
     visionField.Set(box.GetX(), (box.GetY()+box.GetH())-110, visionDistance, 110);
     initialPos.Set(x, y);
@@ -50,33 +50,38 @@ void Wolf::CheckIfWolfCanBeHeld()
 {
     Thor* thor = Thor::characterThor;
     if (thor == NULL)
-    {
-        // TODO: Set the canHoldWolf flag to false
-    }
+        return;
     else if (thor->GetMovementType() != "Regular" or thor->GetVState() != STANDING or
             !visionField.IsInside(thor->box.Center()))
-    {
-        // TODO: Set the canHoldWolf flag to false
-    }
+        return;
     else if ((state == WolfNamespace::ATTACKING or state == WolfNamespace::RUNNING) and
                 abs(thor->box.Center().GetX() - box.Center().GetX() <= WolfNamespace::HOLD_DISTANCE))
     {
-        // TODO: Set the canHoldWolf flag to true
+        if (facingRight and thor->GetHState() == (STANDING_LEFT | MOVING_LEFT))
+            thor->canHoldWolf = true;
+        else if (!facingRight and thor->GetHState() == (STANDING_RIGHT | MOVING_RIGHT))
+            thor->canHoldWolf = true;
     }
 }
 
 /**
- * TODO: Check if Thor is holding the wolf
- * If the wolf is being held by Thor, change its state
- * to BEING_HELD
+ * Checks if Thor is holding the wolf. If the wolf is being
+ * held by Thor, changes its state to BEING_HELD
  */
 void Wolf::CheckIfBeingHeld()
 {
-    beingHeld = false;
-    heldSp.SetFrame(1);
-//    if (Thor::characterThor == NULL) beingHeld = false;
-//    if (WOLF BEING HELD BY THOR)
-//        state = WolfNamespace::BEING_HELD;
+    if (Thor::characterThor == NULL)
+    {
+        if (state == WolfNamespace::BEING_HELD) state = WolfNamespace::RUNNING;
+    }
+    else if (Thor::characterThor->GetMovementType() == "HoldingWolf")
+        state = WolfNamespace::BEING_HELD;
+    else
+    {
+        if (state == WolfNamespace::BEING_HELD) state = WolfNamespace::RUNNING;
+        heldSp.SetFrame(1);
+        heldTimer.Restart();
+    }
 }
 
 void Wolf::Rest(float dt)
@@ -127,7 +132,8 @@ void Wolf::Attack(float dt)
     attackTimer.Update(dt);
     if (attackTimer.Get() >= 0.2)
         box.MoveRect((facingRight ? 1 : -1)*dt*WolfNamespace::ATTACK_SPEED, 0);
-    if (attackSp.GetCurrentFrame() == 4 && !dealtDamage)
+    if (attackSp.GetCurrentFrame() == 4 and !dealtDamage and
+            Thor::characterThor != NULL and Loki::characterLoki != NULL)
     {
         Character* target = NULL;
         if (Loki::characterLoki->box.Center().Distance(box.Center()) <
@@ -180,16 +186,17 @@ void Wolf::LieDown(float dt)
     }
 }
 
-/**
- * TODO: Finish implementing this part
- */
 void Wolf::BeHeld(float dt)
 {
-
+    heldSp.Update(dt);
+    heldTimer.Update(dt);
+    if (heldTimer.Get() <= 0.5 and heldTimer.Get() > 0.2)
+        box.MoveRect(WolfNamespace::HOLD_SPEED*dt, 0);
 }
 
 Rect Wolf::FindClosestCharacter()
 {
+    if (Loki::characterLoki == NULL or Thor::characterThor == NULL) return Rect();
     Rect loki = Loki::characterLoki->box;
     Rect thor = Thor::characterThor->box;
     float lokiDistance, thorDistance;
