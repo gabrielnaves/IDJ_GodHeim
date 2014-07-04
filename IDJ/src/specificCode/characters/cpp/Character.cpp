@@ -230,12 +230,12 @@ void Character::CheckMovementLimits()
     	else
     		SetVState(JUMPING);
     }
-
     // If character speed > 0, then the character is falling
     else if ((!insideBridge) && (speed.GetY() >= 0) && (!aboveStairs))
     {
         SetVState(FALLING);
     }
+    movementMap.UpdatePreviousPos(box);
 }
 
 bool Character::IsDead()

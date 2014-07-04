@@ -75,7 +75,7 @@ int& MovementMap::At(int x, int y, int z)
     return movementMatrix[x + mapWidth * y + mapWidth * mapHeight * z];
 }
 
-void MovementMap::UpdatePreviousPos(Rect rect)
+void MovementMap::UpdatePreviousPos(const Rect& rect)
 {
     previousPos.Set(rect);
 }
@@ -197,7 +197,7 @@ void MovementMap::SetCurrentLayer(int layer)
     currentLayer = layer;
 }
 
-Point MovementMap::FindClosestVector(float xPos, float yPos)
+Point MovementMap::FindClosestVector(float xPos, float yPos, float angle)
 {
     Point result(99999, 99999);
     // Check if the position given is a valid tile
@@ -261,8 +261,155 @@ Point MovementMap::FindClosestVector(float xPos, float yPos)
     return result;
 }
 
-Point MovementMap::FindClosestVector(Rect newPos)
+/**
+ * This method uses the new position of the given object,
+ * its previous position and the map to determine whether
+ * the object is colliding with the walls
+ */
+bool MovementMap::IsColliding(const Rect box)
 {
-    Point vector;
-    return Point();
+//    // Checks the center
+//    if (!IsZero(box.Center().GetX(), box.Center().GetY())) return true;
+    // Checks the above limit
+    if (!IsZero(box.GetX()+box.GetW()/2, box.GetY())) return true;
+    // Checks the right limit
+    if (!IsZero(box.GetX() + box.GetW(), box.GetY() + box.GetH()/2)) return true;
+    // Checks the left limit
+    if (!IsZero(box.GetX(), box.GetY()+box.GetH()/2)) return true;
+    // Checks the upper-right limit
+    if (!IsZero(box.GetX()+box.GetW(), box.GetY())) return true;
+    // Checks the upper-left limit
+    if (!IsZero(box.GetX(), box.GetY())) return true;
+    // Checks the lower limit
+    if (!IsZero(box.Center().GetX(), box.Center().GetY() + box.GetH()/2)) return true;
+    // Checks the lower-right limit
+    if (!IsZero(box.GetX()+box.GetW(), box.GetY()+box.GetH())) return true;
+    // Checks the lower-left limit
+    if (!IsZero(box.GetX(), box.GetY()+box.GetH())) return true;
+    return false;
+//    return IsCollidingWithGround(box);
+}
+
+/**
+ * Returns true if the given box is directly above the ground
+ */
+bool MovementMap::IsOnGround(const Rect box)
+{
+    // Checks the lower limit
+    if (!IsZero(box.Center().GetX(), box.GetY()+box.GetH()+1)) return true;
+    // Checks the lower-right limit
+    if (!IsZero(box.GetX()+box.GetW(), box.GetY()+box.GetH()+1)) return true;
+    // Checks the lower-left limit
+    if (!IsZero(box.GetX(), box.GetY()+box.GetH()+1)) return true;
+    return false;
+}
+
+/**
+ * Corrects the box position so as not to collide with
+ * the walls.
+ */
+Rect MovementMap::CorrectPosition(Rect box)
+{
+    std::cout << "Pos:(" << previousPos.GetX() << "," << previousPos.GetY() << ")" << std::endl;
+    std::cout << "Width: " << previousPos.GetW() << std::endl;
+    std::cout << "Height: " << previousPos.GetH() << std::endl;
+
+    std::vector<Rect> collidingTiles;
+    while (IsColliding(box))
+    {
+        collidingTiles = GetCollidingTiles(box);
+        SortVector(collidingTiles);
+        for (int i = 0; i < (int)collidingTiles.size(); i++)
+            CorrectCollision(box, collidingTiles[i]);
+        collidingTiles.clear();
+        std::cout << "LOOP LULZ" << std::endl;
+    }
+    std::cout << "EXIT LOOP" << std::endl;
+    return box;
+}
+
+/**
+ * Returns a vector of Rects corresponding to the tiles
+ * that are colliding with the given box
+ */
+std::vector<Rect> MovementMap::GetCollidingTiles(const Rect& box)
+{
+    std::vector<Rect> collidingTiles;
+    // Check the upper point
+    if (!IsZero(box.GetX()+box.GetW()/2, box.GetY()))
+        collidingTiles.push_back(TileToRect(box.GetX(), box.GetY()));
+    // Check the right point
+    if (!IsZero(box.GetX()+box.GetW(), box.GetY()+box.GetH()/2))
+        collidingTiles.push_back(TileToRect(box.GetX()+box.GetW(), box.GetY()));
+    // Check the left point
+    if (!IsZero(box.GetX(), box.GetY()+box.GetH()/2))
+        collidingTiles.push_back(TileToRect(box.GetX(), box.GetY()+box.GetH()));
+    // Check the lower point
+    if (!IsZero(box.GetX()+box.GetW()/2, box.GetY()+box.GetH()))
+        collidingTiles.push_back(TileToRect(box.GetX()+box.GetW(), box.GetY()+box.GetH()));
+//    for (int i = 0; i < collidingTiles.size(); i++)
+//    {
+//        std::cout << std::endl;
+//        std::cout << "(" << collidingTiles[i].GetX() << "," << collidingTiles[i].GetY() << ")" << std::endl;
+//        std::cout << "Width: " << collidingTiles[i].GetW() << " Height: " << collidingTiles[i].GetH() << std::endl;
+//    }
+    return collidingTiles;
+}
+
+/**
+ * Returns a Rect with the tile that is contained on the given
+ * coordinates
+ */
+Rect MovementMap::TileToRect(float x, float y)
+{
+    float xPos = 0, yPos = 0;
+    if (x > 0) while (abs(x-xPos) > tileWidth) xPos += tileWidth;
+    else if (x < 0) while (abs(x-xPos) > tileWidth) xPos -=tileWidth;
+    if (y > 0) while (abs(y-yPos) > tileHeight) yPos += tileHeight;
+    else if (y < 0) while (abs(y-yPos) > tileHeight) yPos -=tileHeight;
+//    std::cout << std::endl;
+//    std::cout << "(" << xPos << "," << yPos << ")" << std::endl;
+//    std::cout << "Width: " << tileWidth << " Height: " << tileHeight << std::endl;
+    return Rect(xPos, yPos, tileWidth, tileHeight);
+}
+
+/**
+ * Corrects the box position relative to a given tileBox
+ * and the previous position of the box.
+ */
+void MovementMap::CorrectCollision(Rect& box, Rect tileBox)
+{
+    if (!Collision::IsColliding(box, tileBox, 0, 0)) return;
+    // If the previous position was to the left of the tile
+    if (previousPos.GetX()+previousPos.GetW() <= tileBox.GetX())
+        box.MoveRect(tileBox.GetX() - (box.GetX()+box.GetW()), 0);
+    // If the previous position was to the right of the tile
+    else if (previousPos.GetX() >= tileBox.GetX()+tileBox.GetW())
+        box.MoveRect((tileBox.GetX()+tileBox.GetW()) - box.GetX(), 0);
+    // If the previous position was below the tile
+    else if (previousPos.GetY() > tileBox.GetY())
+        box.MoveRect(0, tileBox.GetY()+tileBox.GetH() - box.GetY());
+    // If the previous position was above the tile
+    else
+        box.MoveRect(0, tileBox.GetY()-(box.GetY()+box.GetH()));
+}
+
+void MovementMap::SortVector(std::vector<Rect> collidingTiles)
+{
+    Rect aux;
+    for (int j = collidingTiles.size(); j > 0; j--)
+        for (int i = 0; i < j-1; i++)
+            if (!SortCompare(collidingTiles[i], collidingTiles[i+1]))
+            {
+                aux = collidingTiles[i];
+                collidingTiles[i] = collidingTiles[i+1];
+                collidingTiles[i+1] = aux;
+            }
+}
+
+bool MovementMap::SortCompare(Rect i, Rect j)
+{
+    if (i.Center().Distance(previousPos.Center()) < j.Center().Distance(previousPos.Center()))
+        return true;
+    return false;
 }

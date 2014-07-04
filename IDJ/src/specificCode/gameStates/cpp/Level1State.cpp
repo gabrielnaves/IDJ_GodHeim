@@ -53,7 +53,7 @@ void Level1State::EmplaceInitialObjects()
     objectArray.emplace_back(new Stairs("img/objects/stairs.png",390,550));
     objectArray.emplace_back(new BrokenHouseBack(500, 320));
     objectArray.emplace_back(new Loki(70,100, movementMap));
-    objectArray.emplace_back(new Thor(20,100, movementMap));
+    objectArray.emplace_back(new Thor(30,100, movementMap));
     objectArray.emplace_back(new Bridge(220, 330));
     objectArray.emplace_back(new BrokenHouseFront(500, 320));
     objectArray.emplace_back(new Item(355,520,"img/items/lokifire.png", "LokiFire", false, true));
@@ -180,7 +180,7 @@ void Level1State::CheckMusic(float lowerX, float upperX, float lowerY, float upp
         {
             if (musicPlaying)
             {
-                outsideMusic->Stop(0.3);
+                outsideMusic->Stop(0.2);
                 musicPlaying = false;
             }
         }
