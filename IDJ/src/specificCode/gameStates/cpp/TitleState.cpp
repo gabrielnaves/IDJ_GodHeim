@@ -80,6 +80,7 @@ void TitleState::UpdateArray(float dt)
         }
         else if (objectArray[i]->IsDead() && objectArray[i]->Is("New Game"))
         {
+            cursor.ChangeSp("img/menu/mouseThunder.png");
             startEndTimer = true;
             titleMusic.Stop(2.4);
         }

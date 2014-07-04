@@ -43,3 +43,8 @@ bool Cursor::Is(std::string type)
 {
 	return type == "Cursor" ? true : false;
 }
+
+void Cursor::ChangeSp(std::string sprite)
+{
+    sp.Open(sprite);
+}
