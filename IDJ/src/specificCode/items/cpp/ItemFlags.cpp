@@ -16,4 +16,6 @@ void ItemFlags::ChangeFlag(std::string name, bool newValue)
         fireBall = newValue;
     if (name == "LokiEagle")
         eagle = newValue;
+    if (name == "ThorBelt")
+        belt = newValue;
 }

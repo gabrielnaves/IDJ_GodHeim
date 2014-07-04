@@ -69,7 +69,7 @@ void Item::NotifyCollision(GameObject& other)
             if (lokiCatches) disappear = true;
     }
     if (disappear)
-        ItemFlags::ChangeFlag(name, true);
+        ItemFlags::ChangeFlag(name, true); //sets the corresponding itemflag to true, so the characters know it was caught
 }
 
 /**
