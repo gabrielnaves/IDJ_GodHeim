@@ -41,6 +41,7 @@ class Character : public GameObject
     void SetActionState(ActionState actionState);
 
     void DealDamage(int damage);
+    std::string GetMovementType();
 
     bool aboveStairs, insideBridge, barrierSuspended, actionButton;
     Point speed;

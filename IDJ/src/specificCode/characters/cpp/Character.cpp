@@ -202,18 +202,18 @@ void Character::CheckMovementLimits()
         movementVector.Set(movementMap.FindClosestVector(box.GetX(), box.GetY()+box.GetH()));
         box.MoveRect(movementVector);
     }
-    // Checks the upper-right limit
-    if (!movementMap.IsZero(box.GetX()+box.GetW(), box.GetY()))
-    {
-        movementVector.Set(movementMap.FindClosestVector(box.GetX()+box.GetW(), box.GetY()));
-        box.MoveRect(movementVector);
-    }
-    // Checks the upper-left limit
-    if (!movementMap.IsZero(box.GetX(), box.GetY()))
-    {
-        movementVector.Set(movementMap.FindClosestVector(box.GetX(), box.GetY()));
-        box.MoveRect(movementVector);
-    }
+//    // Checks the upper-right limit
+//    if (!movementMap.IsZero(box.GetX()+box.GetW(), box.GetY()))
+//    {
+//        movementVector.Set(movementMap.FindClosestVector(box.GetX()+box.GetW(), box.GetY()));
+//        box.MoveRect(movementVector);
+//    }
+//    // Checks the upper-left limit
+//    if (!movementMap.IsZero(box.GetX(), box.GetY()))
+//    {
+//        movementVector.Set(movementMap.FindClosestVector(box.GetX(), box.GetY()));
+//        box.MoveRect(movementVector);
+//    }
     // Checks the right limit
     if (!movementMap.IsZero(box.Center().GetX() + box.GetW()/2, box.Center().GetY()))
         box.MoveRect(movementMap.FindClosestVector(box.Center().GetX() + box.GetW()/2, box.Center().GetY()));
@@ -304,4 +304,8 @@ void Character::SetActionState(ActionState actionState)
 void Character::DealDamage(int damage)
 {
     hp-=damage;
+}
+std::string Character::GetMovementType()
+{
+    return movement->GetType();
 }

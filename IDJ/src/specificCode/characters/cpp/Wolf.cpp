@@ -25,7 +25,7 @@ Wolf::Wolf(float x, float y, float visionDistance, bool facingRight) :
     rotation = 0;
     hp = 1;
     this->facingRight = initialSideRight = facingRight;
-    dealtDamage = false;
+    dealtDamage = beingHeld = false;
     state = WolfNamespace::RESTING;
     visionField.Set(box.GetX(), (box.GetY()+box.GetH())-110, visionDistance, 110);
     initialPos.Set(x, y);
@@ -35,12 +35,48 @@ Wolf::~Wolf() {}
 
 void Wolf::Update(float dt)
 {
+    CheckIfWolfCanBeHeld();
+    CheckIfBeingHeld();
     if (state == WolfNamespace::RESTING) Rest(dt);
     else if (state == WolfNamespace::RUNNING) Run(dt);
     else if (state == WolfNamespace::ATTACKING) Attack(dt);
     else if (state == WolfNamespace::RETURNING) Return(dt);
     else if (state == WolfNamespace::GET_UP) GetUp(dt);
     else if (state == WolfNamespace::LIE_DOWN) LieDown(dt);
+    else if (state == WolfNamespace::BEING_HELD) BeHeld(dt);
+}
+
+void Wolf::CheckIfWolfCanBeHeld()
+{
+    Thor* thor = Thor::characterThor;
+    if (thor == NULL)
+    {
+        // TODO: Set the canHoldWolf flag to false
+    }
+    else if (thor->GetMovementType() != "Regular" or thor->GetVState() != STANDING or
+            !visionField.IsInside(thor->box.Center()))
+    {
+        // TODO: Set the canHoldWolf flag to false
+    }
+    else if ((state == WolfNamespace::ATTACKING or state == WolfNamespace::RUNNING) and
+                abs(thor->box.Center().GetX() - box.Center().GetX() <= WolfNamespace::HOLD_DISTANCE))
+    {
+        // TODO: Set the canHoldWolf flag to true
+    }
+}
+
+/**
+ * TODO: Check if Thor is holding the wolf
+ * If the wolf is being held by Thor, change its state
+ * to BEING_HELD
+ */
+void Wolf::CheckIfBeingHeld()
+{
+    beingHeld = false;
+    heldSp.SetFrame(1);
+//    if (Thor::characterThor == NULL) beingHeld = false;
+//    if (WOLF BEING HELD BY THOR)
+//        state = WolfNamespace::BEING_HELD;
 }
 
 void Wolf::Rest(float dt)
@@ -144,6 +180,14 @@ void Wolf::LieDown(float dt)
     }
 }
 
+/**
+ * TODO: Finish implementing this part
+ */
+void Wolf::BeHeld(float dt)
+{
+
+}
+
 Rect Wolf::FindClosestCharacter()
 {
     Rect loki = Loki::characterLoki->box;
@@ -185,6 +229,10 @@ void Wolf::Render()
             break;
         case WolfNamespace::LIE_DOWN:
             lieDownSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(), rotation*2*M_PI/360,
+                    (facingRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL));
+            break;
+        case WolfNamespace::BEING_HELD:
+            heldSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(), rotation*2*M_PI/360,
                     (facingRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL));
             break;
     }
