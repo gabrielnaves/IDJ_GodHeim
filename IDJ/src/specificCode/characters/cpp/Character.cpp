@@ -297,3 +297,7 @@ void Character::SetActionState(ActionState actionState)
     prevActionState = actionState;
     this->actionState = actionState;
 }
+void Character::DealDamage(int damage)
+{
+    hp-=damage;
+}

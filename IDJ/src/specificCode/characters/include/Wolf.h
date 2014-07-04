@@ -17,7 +17,9 @@ namespace WolfNamespace
     const float RUN_SPEED = 200;
     const float WALK_SPEED = 100;
     const float ATTACK_SPEED = 300;
-    enum WolfState { RESTING, RUNNING, ATTACKING, RETURNING };
+    enum WolfState { RESTING, RUNNING,
+                     ATTACKING, RETURNING,
+                     GET_UP, LIE_DOWN };
 }
 
 class Wolf : public GameObject
@@ -33,17 +35,19 @@ class Wolf : public GameObject
 
   private:
     void Rest(float dt);
+    void GetUp(float dt);
     void Run(float dt);
     void Attack(float dt);
     void Return(float dt);
+    void LieDown(float dt);
     Rect FindClosestCharacter();
 
     int hp;
-    bool facingRight, initialSideRight;
-    Sprite restSp, runSp, attackSp, walkSp;
+    bool facingRight, initialSideRight, dealtDamage;
+    Sprite restSp, runSp, attackSp, walkSp, getUpSp, lieDownSp, heldSp;
     Rect visionField;
     Point initialPos;
-    Timer attackTimer;
+    Timer attackTimer, getUpTimer, lieDownTimer;
     WolfNamespace::WolfState state;
 };
 
