@@ -21,7 +21,9 @@ class Thor : public Character
     bool Is(std::string type);
     static Thor *characterThor;
 
+    bool canHoldWolf;
   private:
+    bool IndividualMovStateSelection();
     void UpdateSprite();
     void UpdateVerticalState();
     void UpdatesStateOnTheFall();

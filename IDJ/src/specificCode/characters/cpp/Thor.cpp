@@ -17,6 +17,7 @@ Thor::Thor(float x, float y, MovementMap movMap) :
     box.Set(x-characterSp.GetWidth()/2, y-characterSp.GetHeight()/2, characterSp.GetWidth(), characterSp.GetHeight());
     characterThor = this;
     this->movementMap.UpdatePreviousPos(box);
+    canHoldWolf = false;
 }
 
 Thor::~Thor()
@@ -31,7 +32,15 @@ void Thor::Act()
 {
     if (!actionButton) return;
 
+    if (canHoldWolf) ChangeMovementState("HoldingWolf");
+
     actionButton = false;
+}
+
+bool Thor::IndividualMovStateSelection()
+{
+    if (canHoldWolf and GetMovementType() == "HoldingWolf") return true;
+    return false;
 }
 
 void Thor::Hit()

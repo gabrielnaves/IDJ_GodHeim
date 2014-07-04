@@ -11,6 +11,7 @@
 #include "../include/RegularMov.h"
 #include "../include/ClimbMov.h"
 #include "../include/EagleMov.h"
+#include "../include/HoldingWolf.h"
 
 Character::Character(MovementMap movMap,
            std::string walk,int wFrameCount,float wFrameTime,
@@ -112,6 +113,7 @@ void Character::ChangeMovementState(std::string type)
     if (type == "Regular") movement = new RegularMov();
     else if (type == "Climb") movement = new ClimbMov();
     else if (type == "Eagle") movement = new EagleMov();
+    else if (type == "HoldingWolf") movement = new HoldingWolf();
 }
 
 /**
@@ -126,15 +128,6 @@ void Character::SelectMovState()
         else
             ChangeMovementState("Regular");
     }
-}
-
-/**
- * Characters have a few individual characteristics that might alter the way they update speed.
- * When they dont, returns false
- */
-bool Character::IndividualMovStateSelection()
-{
-    return(false);
 }
 
 /**

@@ -56,7 +56,7 @@ class Character : public GameObject
     virtual void UpdateVerticalState() = 0;
     virtual void Act() = 0;
     virtual void UpdatesStateOnTheFall() = 0;
-    virtual bool IndividualMovStateSelection();
+    virtual bool IndividualMovStateSelection() = 0;
 
     void ChangeSp(std::string spType, std::string sp, int frameCount = 1, int currentFrame = 1, bool repeat = true);
     void ChangeMovementState(std::string type);
