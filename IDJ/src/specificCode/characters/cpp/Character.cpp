@@ -145,6 +145,7 @@ void Character::ChangeSp(std::string spType, std::string sp, int frameCount, int
 {
     if (spType == "characterSp")
     {
+        characterSp.Open(sp);
         characterSp.SetFrameCount(frameCount);
         characterSp.SetFrame(currentFrame);
 //        box.Set(box.GetX(), box.GetY(), characterSp.GetWidth(), characterSp.GetHeight());

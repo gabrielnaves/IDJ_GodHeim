@@ -81,7 +81,9 @@ bool Thor::Is(std::string type)
  */
 void Thor::UpdateSprite()
 {
-    if (vState == STANDING)
+    if (GetMovementType() == "HoldingWolf")
+        ChangeSp("characterSp","img/characters/thorHoldingWolf.png",1);
+    else if (vState == STANDING)
     {
         if (hState == MOVING_RIGHT or hState == MOVING_LEFT)
             prevHState != hState ? ChangeSp("walkSp","img/characters/thor_walk.png",8) : walkSp.Update(dt);
@@ -96,12 +98,12 @@ void Thor::UpdateSprite()
             climbSp.Update(dt);
     }
     else if (vState == FALLING)
-                ChangeSp("jumpSp","img/characters/thor_jump.png",4,4,false);
-            else if (vState == JUMPING)
-            {
-                if (prevVState == JUST_JUMPED)
-                    ChangeSp("jumpSp","img/characters/thor_jump.png",4,1,false);
-                else
-                    jumpSp.Update(dt);
-            }
+        ChangeSp("jumpSp","img/characters/thor_jump.png",4,4,false);
+    else if (vState == JUMPING)
+    {
+        if (prevVState == JUST_JUMPED)
+            ChangeSp("jumpSp","img/characters/thor_jump.png",4,1,false);
+        else
+            jumpSp.Update(dt);
+    }
 }
