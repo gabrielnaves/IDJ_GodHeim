@@ -12,6 +12,7 @@
 #include "../../characters/include/Barrier.h"
 #include "../../objects/include/LavaCircle.h"
 #include "../../objects/include/Lava.h"
+#include "StateData.h"
 
 class Level2State : public State
 {
@@ -28,6 +29,7 @@ class Level2State : public State
     void ErasesDeadObjects();
     void EmplaceInitialObjects();
     void Follow(std::string object);
+    void SelectMusic();
 
     GameObject* lavaCircle;
     Sprite bg1, bg2, tmpBlackBg;

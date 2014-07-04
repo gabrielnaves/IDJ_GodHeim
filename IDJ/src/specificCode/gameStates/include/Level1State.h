@@ -20,6 +20,7 @@
 #include "../../objects/include/Plants.h"
 #include "../../characters/include/Goat.h"
 #include "../../characters/include/Wolf.h"
+#include "StateData.h"
 
 class Level1State : public State
 {
@@ -38,6 +39,7 @@ class Level1State : public State
     void Follow(std::string object);
     void UpdateMusic(float dt);
     void CheckMusic(float lowerX, float upperX, float lowerY, float upperY);
+    void SelectMusic();
 
     Sprite bg, rochas;
     BlockTileSet tileSet;

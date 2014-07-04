@@ -17,13 +17,26 @@ Level2State::Level2State() : State(), tileSet(55,55,"img/level2/level2Tiles.png"
     tmpBlackBg.Open("img/level2/blackBackground.png");
     EmplaceInitialObjects();
     Follow("Barrier");
-    music = new Music("audio/SOUNDTRACK MODE/Fase 2/Fire Stage 1parte -Eber Filipe.mp3");
+    SelectMusic();
     music->Play(-1);
 }
 
 Level2State::~Level2State()
 {
     delete lavaCircle;
+}
+
+/**
+ * Selects the musics of the level according to the soundtrack mode
+ */
+void Level2State::SelectMusic()
+{
+    if (StateData::soundMode == "Normal")
+        music = new Music("audio/SOUNDTRACK MODE/Fase 2/Fire Stage 1parte -Eber Filipe.mp3");
+    if (StateData::soundMode == "8bits")
+        music = new Music("audio/8 bit MODE/LAVA STAGE parte 2 (HOTHOTPIMENTA) .mp3");
+    if (StateData::soundMode == "SNES")
+        music = new Music("audio/Forever SNES MODE/Stage two (DONKEY KONG style) Parte 1.mp3");
 }
 
 void Level2State::Update(float dt)

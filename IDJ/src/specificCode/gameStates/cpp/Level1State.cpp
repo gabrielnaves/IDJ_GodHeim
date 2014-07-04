@@ -16,10 +16,31 @@ Level1State::Level1State() : State(), tileSet(55,55,"img/level1/level1Tiles.png"
     rochas.Open("img/level1/rocks.png");
     EmplaceInitialObjects();
     Follow("Barrier");
-    outsideMusic = new Music("audio/SOUNDTRACK MODE/Fase 1/Fase 1 (Parte superior) - Eber Filipe.mp3");
-    caveMusic = new Music("audio/SOUNDTRACK MODE/Fase 1/Subsolo Fase 1.mp3");
+    SelectMusic();
     outsideMusic->Play(-1);
     musicPlaying = true;
+}
+
+/**
+ * Selects the musics of the level according to the soundtrack mode
+ */
+void Level1State::SelectMusic()
+{
+    if (StateData::soundMode == "Normal")
+    {
+        outsideMusic = new Music("audio/SOUNDTRACK MODE/Fase 1/outside_music.mp3");
+        caveMusic = new Music("audio/SOUNDTRACK MODE/Fase 1/cave_music.mp3");
+    }
+    if (StateData::soundMode == "8bits")
+    {
+        outsideMusic = new Music("audio/8 bit MODE/outside_music.mp3");
+        caveMusic = new Music("audio/8 bit MODE/cave_music(eff).mp3");
+    }
+    if (StateData::soundMode == "SNES")
+    {
+        outsideMusic = new Music("audio/Forever SNES MODE/outside_music.mp3");
+        caveMusic = new Music("audio/Forever SNES MODE/cave_music.mp3");
+    }
 }
 
 Level1State::~Level1State()
@@ -151,7 +172,7 @@ void Level1State::CheckMusic(float lowerX, float upperX, float lowerY, float upp
         {
             delete outsideMusic;
             Resource::Clear();
-            outsideMusic = new Music("audio/SOUNDTRACK MODE/Fase 1/Fase 1 (Parte superior) - Eber Filipe.mp3");
+            SelectMusic();
             outsideMusic->Play(-1);
             musicPlaying = true;
         }
@@ -167,7 +188,7 @@ void Level1State::CheckMusic(float lowerX, float upperX, float lowerY, float upp
         {
             delete caveMusic;
             Resource::Clear();
-            caveMusic = new Music("audio/SOUNDTRACK MODE/Fase 1/Subsolo Fase 1.mp3");
+            SelectMusic();
             caveMusic->Play(-1);
             musicPlaying = true;
         }

@@ -32,6 +32,7 @@ class TitleState : public State
 
     bool startEndTimer;
     State* SelectLevel();
+    void SelectMusic();
 };
 
 #endif /* TITLESTATE_H_ */

@@ -7,13 +7,15 @@
 
 #include "../include/TitleState.h"
 
-TitleState::TitleState() : State(), titleMusic("audio/SOUNDTRACK MODE/Menu/Main Title (Flute theme) GodHeim - Eber Filipe.mp3")
+TitleState::TitleState() : State()
 {
     bg.Open("img/menu/menuBackground.png");
 
     AddObject(new MenuBox(210, 300, "img/menu/resume.png", "img/menu/resumeBold.png", "Continue"));
     AddObject(new MenuBox(210, 384, "img/menu/newGame.png", "img/menu/newGameBold.png", "New Game"));
     AddObject(new MenuBox(210, 470, "img/menu/options.png", "img/menu/optionsBold.png", "Options"));
+
+    SelectMusic();
     titleMusic.Play(-1);
     startEndTimer = false;
 }
@@ -32,7 +34,7 @@ void TitleState::Update(float dt)
     if (startEndTimer) endTimer.Update(dt);
     if (endTimer.Get() >= 2.5)
     {
-        requestDelete = true;
+//        requestDelete = true;
         Game::GetInstance().ResetWindowSize(1200,650);
         Game::GetInstance().Push(SelectLevel());
     }
@@ -45,6 +47,20 @@ State* TitleState::SelectLevel()
 {
     if (StateData::startingLevel == 1) return(new Level1State());
     if (StateData::startingLevel == 2) return(new Level2State());
+}
+
+/**
+ * Select the music according to the soundtrack mode
+ */
+void TitleState::SelectMusic()
+{
+    titleMusic.Stop();
+    if (StateData::soundMode == "Normal")
+        titleMusic.Open("audio/SOUNDTRACK MODE/Menu/Title.mp3");
+    if (StateData::soundMode == "8bits")
+        titleMusic.Open("audio/8 bit MODE/Title.mp3");
+    if (StateData::soundMode == "SNES")
+        titleMusic.Open("audio/Forever SNES MODE/Title.mp3");
 }
 
 void TitleState::Render()
