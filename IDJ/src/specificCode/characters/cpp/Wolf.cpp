@@ -276,8 +276,20 @@ void Wolf::NotifyCollision(GameObject& other)
     {
         hp -= 1;
         if (hp <= 0 and Thor::characterThor != NULL)
-            Thor::characterThor->canHoldWolf = false;
+            Die();
     }
+}
+
+void Wolf::Die()
+{
+    Thor::characterThor->canHoldWolf = false;
+
+    Sprite wolfDeath("img/characters/goatDeath.png", 33, 0.1);
+    StillAnimation *sa = new StillAnimation(box.Center().GetX(),box.Center().GetY(),rotation,wolfDeath,3.6,true);
+    Game::GetInstance().GetCurrentState().AddObject(sa);
+
+    Sound wolfCry ("audio/SOUNDTRACK MODE/Uivo lobo.ogg");
+    wolfCry.Play(0);
 }
 
 bool Wolf::IsDead()

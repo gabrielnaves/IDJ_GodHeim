@@ -47,6 +47,7 @@ class Wolf : public GameObject
     void Return(float dt);
     void LieDown(float dt);
     void BeHeld(float dt);
+    void Die();
     Rect FindClosestCharacter();
 
     int hp;
