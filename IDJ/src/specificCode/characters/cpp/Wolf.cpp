@@ -19,7 +19,7 @@ Wolf::Wolf(float x, float y, float visionDistance, bool facingRight) :
              walkSp("img/characters/wolfwalk.png", 4, 0.1, true),
              getUpSp("img/characters/wolfattack.png", 5, 0.1, false),
              lieDownSp("img/characters/wolfattack.png", 5, 0.1, false),
-             heldSp("img/characters/wolfwalk(1).png", 5, 0.1, true)
+             heldSp("img/characters/wolfHeld.png", 5, 0.1, false)
 {
     box.Set(x-restSp.GetWidth()/2, y-restSp.GetHeight()/2, restSp.GetWidth(), restSp.GetHeight());
     rotation = 0;
