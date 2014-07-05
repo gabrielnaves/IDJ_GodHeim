@@ -12,14 +12,15 @@
  * rest indefinitely. If a character comes within
  * its field of view, it gets up and attacks him.
  */
-Wolf::Wolf(float x, float y, float visionDistance, bool facingRight) :
+Wolf::Wolf(float x, float y, float visionDistance, MovementMap map, bool facingRight) :
              restSp("img/characters/lobodormindo.png", 5, 0.1, false),
              runSp("img/characters/wolfrun.png", 4, 0.08, true),
              attackSp("img/characters/wolfattack.png", 5, 0.1, true),
              walkSp("img/characters/wolfwalk.png", 4, 0.1, true),
              getUpSp("img/characters/lobodormindo.png", 5, 0.1, false),
              lieDownSp("img/characters/lobodormindo.png", 5, 0.1, false),
-             heldSp("img/characters/wolfHeld.png", 5, 0.1, false)
+             heldSp("img/characters/wolfHeld.png", 5, 0.1, false),
+             movMap(map)
 {
     box.Set(x-restSp.GetWidth()/2, y-restSp.GetHeight()/2, restSp.GetWidth(), restSp.GetHeight());
     rotation = 0;
@@ -45,6 +46,7 @@ void Wolf::Update(float dt)
     else if (state == WolfNamespace::GET_UP) GetUp(dt);
     else if (state == WolfNamespace::LIE_DOWN) LieDown(dt);
     else if (state == WolfNamespace::BEING_HELD) BeHeld(dt);
+    CheckWallCollision();
 }
 
 void Wolf::CheckIfWolfCanBeHeld()
@@ -291,6 +293,16 @@ void Wolf::Die()
 
     Sound wolfCry ("audio/SOUNDTRACK MODE/Uivo lobo.ogg");
     wolfCry.Play(0);
+}
+
+void Wolf::CheckWallCollision()
+{
+    // Check the left side
+    if (!movMap.IsZero(box.GetX(), box.GetY()+box.GetH()/2))
+        box.MoveRect(movMap.FindClosestVector(box.GetX(), box.GetY()+box.GetH()/2));
+    // Check the right side
+    if (!movMap.IsZero(box.GetX()+box.GetW(), box.GetY()+box.GetH()/2))
+        box.MoveRect(movMap.FindClosestVector(box.GetX()+box.GetW(), box.GetY()+box.GetH()/2));
 }
 
 bool Wolf::IsDead()

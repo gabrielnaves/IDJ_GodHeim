@@ -29,7 +29,7 @@ namespace WolfNamespace
 class Wolf : public GameObject
 {
   public:
-    Wolf(float x, float y, float visionDistance, bool facingRight = true);
+    Wolf(float x, float y, float visionDistance, MovementMap map, bool facingRight = true);
     ~Wolf();
     void Update(float dt);
     void Render();
@@ -48,6 +48,7 @@ class Wolf : public GameObject
     void LieDown(float dt);
     void BeHeld(float dt);
     void Die();
+    void CheckWallCollision();
     Rect FindClosestCharacter();
 
     int hp;
@@ -55,6 +56,7 @@ class Wolf : public GameObject
     Sprite restSp, runSp, attackSp, walkSp, getUpSp, lieDownSp, heldSp;
     Rect visionField;
     Point initialPos;
+    MovementMap movMap;
     Timer attackTimer, getUpTimer, lieDownTimer, heldTimer;
     WolfNamespace::WolfState state;
 };
