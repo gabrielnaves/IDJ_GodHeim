@@ -50,8 +50,10 @@ Level1State::~Level1State()
 void Level1State::EmplaceInitialObjects()
 {
     objectArray.emplace_back(new Stairs("img/objects/stairs.png",605,440));
-    objectArray.emplace_back(new Stairs("img/objects/stairs.png",280,550));
-    objectArray.emplace_back(new Rope("img/objects/rope.jpg",1100,500));
+    objectArray.emplace_back(new Stairs("img/objects/stairs.png",390,550));
+    Rope *rope = new Rope("img/objects/rope.jpg",1100,500,false);
+    objectArray.emplace_back(rope);
+    objectArray.emplace_back(new Switch(1250,550,"img/objects/button.png","img/objects/buttonPressed.png",rope));
     objectArray.emplace_back(new BrokenHouseBack(500, 320));
     objectArray.emplace_back(new Loki(70,100, movementMap));
     objectArray.emplace_back(new Thor(30,100, movementMap));

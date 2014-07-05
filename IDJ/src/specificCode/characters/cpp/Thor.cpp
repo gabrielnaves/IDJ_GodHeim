@@ -31,7 +31,8 @@ Thor::~Thor()
 void Thor::Act()
 {
     if (!actionButton) return;
-
+    if (canPressSwitch)
+        pressSwitch = true;
     if (ItemFlags::belt)
     {
         if (GetMovementType() == "HoldingWolf")
@@ -42,6 +43,7 @@ void Thor::Act()
 
     actionButton = false;
 }
+
 
 bool Thor::IndividualMovStateSelection()
 {

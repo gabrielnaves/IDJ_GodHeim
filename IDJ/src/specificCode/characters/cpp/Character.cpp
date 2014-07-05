@@ -35,6 +35,7 @@ Character::Character(MovementMap movMap,
     aboveStairs = false;
     barrierSuspended = false;
     shouldRender = true;
+    pressSwitch = canPressSwitch = false;
 }
 
 void Character::Input()

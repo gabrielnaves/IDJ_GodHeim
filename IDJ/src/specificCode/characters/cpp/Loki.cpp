@@ -89,6 +89,8 @@ void Loki::Act()
     if (!actionButton) return;
     if (appearance == LOKI)
     {
+        if (canPressSwitch)
+            pressSwitch = true;
         if(ItemFlags::fireBall and shootCooldown.Get() >= COOLDOWN and vState == STANDING)
             Shoot();
     }

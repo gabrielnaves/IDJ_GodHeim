@@ -16,13 +16,15 @@
 class Rope : public GameObject
 {
   public:
-    Rope(std::string rope, int x, int y);
+    Rope(std::string rope, int x, int y, bool active = true);
     void Update(float dt);
     void Render();
     void NotifyCollision(GameObject& other);
     bool Is(std::string type);
+    void Activate();
 
   private:
+    bool active;
     void Drop(Character *character);
     Sprite ropeSp;
     bool thorClimbing,lokiClimbing;

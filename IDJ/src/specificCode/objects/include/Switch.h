@@ -19,11 +19,13 @@ class Switch: public GameObject
     void Render();
     void NotifyCollision(GameObject& other);
     bool Is(std::string type);
+    void Activate(Character *character);
 
   private:
     Sprite initialSprite, finalSprite;
     bool activated, thorColliding, lokiColliding;
     GameObject* connectedObject;
+    void SetColliding(std::string character,bool state);
 };
 
 #endif /* SWITCH_H_ */

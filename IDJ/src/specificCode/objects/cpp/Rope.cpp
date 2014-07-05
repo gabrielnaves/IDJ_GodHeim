@@ -7,19 +7,21 @@
 
 #include "../include/Rope.h"
 
-Rope::Rope(std::string rope, int x, int y) : ropeSp(rope)
+Rope::Rope(std::string rope, int x, int y, bool active) : ropeSp(rope)
 {
     box.Set(x,y,ropeSp.GetWidth(),ropeSp.GetHeight());
     thorClimbing = lokiClimbing = false;
+    this->active = active;
 }
 
 void Rope::Render()
 {
-    ropeSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY());
+    if (active) ropeSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY());
 }
 
 void Rope::NotifyCollision(GameObject& other)
 {
+    if (!active) return;
     if (other.Is("Loki") or other.Is("Thor"))
     {
         Character *character;
@@ -65,4 +67,9 @@ void Rope::Drop(Character *character)
 {
     character->Is("Thor") ? thorClimbing = false : lokiClimbing = false;
     character->SetActionState(NONE);
+}
+
+void Rope::Activate()
+{
+    active = true;
 }

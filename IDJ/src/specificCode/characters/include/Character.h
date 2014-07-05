@@ -43,7 +43,7 @@ class Character : public GameObject
     void DealDamage(int damage);
     std::string GetMovementType();
 
-    bool aboveStairs, insideBridge, barrierSuspended, actionButton;
+    bool canPressSwitch,pressSwitch, aboveStairs, insideBridge, barrierSuspended, actionButton;
     Point speed;
     float dt;
     int horizontal, vertical;
