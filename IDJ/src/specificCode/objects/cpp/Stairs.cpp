@@ -22,7 +22,11 @@ void Stairs::NotifyCollision(GameObject& other)
     if (other.Is("Loki") or other.Is("Thor"))
     {
         Character *character;
-        if (other.Is("Loki")) character = Loki::characterLoki;
+        if (other.Is("Loki"))
+        {
+            character = Loki::characterLoki;
+            Loki::characterLoki->cannotTransform = true;
+        }
         if (other.Is("Thor")) character = Thor::characterThor;
         if (IsCloseToStairs(character->box))
         {

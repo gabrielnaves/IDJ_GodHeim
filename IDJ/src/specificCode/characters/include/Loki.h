@@ -23,7 +23,7 @@ class Loki : public Character
 	bool Is(std::string type);
 	static Loki *characterLoki;
 
-	bool collidesWithRope;
+	bool cannotTransform;
   private:
 	enum TransformState {LOKI, EAGLE};
 	TransformState appearance, prevAppearance;

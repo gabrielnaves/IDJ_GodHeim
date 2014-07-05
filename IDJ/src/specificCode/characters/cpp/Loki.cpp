@@ -21,7 +21,7 @@ Loki::Loki(float x, float y, MovementMap movMap) :
 	flappedWings = 0;
 	TIMES_FLAPS_WINGS = 1;
 	this->movementMap.UpdatePreviousPos(box);
-	collidesWithRope = false;
+	cannotTransform = false;
 }
 
 Loki::~Loki()
@@ -53,7 +53,7 @@ void Loki::UpdateVerticalState()
     {
         if (vertical == 1 and vState == STANDING)
             SetVState(JUST_JUMPED);
-        else if (vertical == 1 and (vState == FALLING or vState == JUMPING) and actionState == NONE and !collidesWithRope)
+        else if (vertical == 1 and (vState == FALLING or vState == JUMPING) and actionState == NONE and !cannotTransform)
             SetAppearance(EAGLE);
     }
     else if (appearance == EAGLE)
@@ -66,7 +66,7 @@ void Loki::UpdateVerticalState()
             SetAppearance(LOKI);
     }
     transformTime.Update(dt);
-    collidesWithRope = false;
+    cannotTransform = false;
 }
 
 /**
