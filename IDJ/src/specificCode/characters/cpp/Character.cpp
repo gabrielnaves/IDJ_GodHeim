@@ -22,7 +22,6 @@ Character::Character(MovementMap movMap,
            climbSp(climb,cFrameCount,cFrameTime),
            movementMap(movMap)
 {
-    hp = HP;
     rotation = 0;
     dt = 0;
     SetVState(STANDING);
@@ -82,8 +81,8 @@ void Character::Update(float dt)
     UpdateSprite();
     CheckMovementLimits();
     UpdatePrevState();
-    for (int i=Hp.size()-1;i>=0;i--)
-    	Hp[i]->Update(dt);
+    for (int i=hp.size()-1;i>=0;i--)
+    	hp[i]->Update(dt);
 }
 
 /**
@@ -91,8 +90,8 @@ void Character::Update(float dt)
  */
 void Character::Render()
 {
-	for (int i = 0; i < (int)Hp.size(); i++)
-		Hp[i]->Render();
+	for (int i = 0; i < (int)hp.size(); i++)
+		hp[i]->Render();
     if (not shouldRender) return;
     SDL_RendererFlip flip = (hState == MOVING_RIGHT) or (hState == STANDING_RIGHT) ?  SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
     if (vState == STANDING and (hState == MOVING_RIGHT or hState == MOVING_LEFT))
@@ -242,7 +241,7 @@ void Character::CheckMovementLimits()
 
 bool Character::IsDead()
 {
-    return (Hp[0]->IsDead() ? true : false);
+    return (hp[0]->IsDead() ? true : false);
 }
 bool Character::IsClimbing()
 {
@@ -301,11 +300,11 @@ void Character::SetActionState(ActionState actionState)
 }
 void Character::DealDamage()
 {
-	for (int i=Hp.size()-1;i>=0;i--)
+	for (int i=hp.size()-1;i>=0;i--)
 	{
-		if (!Hp[i]->IsDead())
+		if (!hp[i]->IsDead())
 		{
-			Hp[i]->Empty();
+			hp[i]->Empty();
 			return;
 		}
 	}

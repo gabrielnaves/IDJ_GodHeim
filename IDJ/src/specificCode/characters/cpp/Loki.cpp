@@ -22,10 +22,10 @@ Loki::Loki(float x, float y, MovementMap movMap) :
 	TIMES_FLAPS_WINGS = 1;
 	this->movementMap.UpdatePreviousPos(box);
 	cannotTransform = false;
-	Hp.emplace_back(new HpBar("img/characters/lokiHp.png","Loki",10,10));
+	hp.emplace_back(new HpBar("img/characters/lokiHp.png","Loki",10,10));
     for (int i=1;i<3;i++)
-    	Hp.emplace_back(new HpBar(Hp[i-1]->GetSp(),Hp[i-1]->GetCharacter(),
-    					Hp[i-1]->box.GetX()+Hp[i-1]->box.GetW(),Hp[i-1]->box.GetY()));
+    	hp.emplace_back(new HpBar(hp[i-1]->GetSp(),hp[i-1]->GetCharacter(),
+    					hp[i-1]->box.GetX()+hp[i-1]->box.GetW(),hp[i-1]->box.GetY()));
 }
 
 Loki::~Loki()

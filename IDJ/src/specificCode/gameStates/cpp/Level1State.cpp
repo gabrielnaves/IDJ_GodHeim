@@ -7,7 +7,6 @@
  */
 
 #include "../include/Level1State.h"
-#include "../include/TitleState.h"
 
 Level1State::Level1State() : State(), tileSet(55,55,"img/level1/level1Tiles.png"),
                              tileMap("map/level1.txt", &tileSet),
@@ -124,11 +123,12 @@ void Level1State::Update(float dt)
 void Level1State::EndGame(float dt)
 {
 	endGame.Update(dt);
-	if (endGame.Get()>=3)
+	if (endGame.Get()>=1.5)
 	{
 		requestDelete = true;
-        Game::GetInstance().ResetWindowSize(574,600);
-		Game::GetInstance().Push(new TitleState());
+		caveMusic->Stop();
+        Game::GetInstance().ResetWindowSize(360,275);
+		Game::GetInstance().Push(new EndState());
 	}
 }
 

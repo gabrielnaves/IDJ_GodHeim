@@ -63,16 +63,13 @@ class Character : public GameObject
     void ChangeSp(std::string spType, std::string sp, int frameCount = 1, int currentFrame = 1, bool repeat = true);
     void ChangeMovementState(std::string type);
 
-    int hp;
-    std::vector<std::unique_ptr<HpBar>> Hp;
-//    std::vector<HpBar> Hp;
+    std::vector<std::unique_ptr<HpBar>> hp;
     Sprite characterSp, walkSp, jumpSp, climbSp;
     MovementMap movementMap;
     MovementState *movement;
 
     bool shouldRender; //flag in case the characters should not be rendered for being covered by something
 
-    const float HP = 100;
   private:
     void Input();
     void SelectMovState();

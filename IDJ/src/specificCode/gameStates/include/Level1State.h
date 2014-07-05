@@ -24,6 +24,7 @@
 #include "../../characters/include/Wolf.h"
 #include "../../characters/include/HpBar.h"
 #include "StateData.h"
+#include "EndState.h"
 
 class Level1State : public State
 {
