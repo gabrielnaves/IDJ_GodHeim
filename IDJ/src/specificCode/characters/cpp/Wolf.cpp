@@ -13,12 +13,12 @@
  * its field of view, it gets up and attacks him.
  */
 Wolf::Wolf(float x, float y, float visionDistance, bool facingRight) :
-             restSp("img/characters/wolfwalk(1).png", 5, 0.1, true),
+             restSp("img/characters/lobodormindo.png", 5, 0.1, false),
              runSp("img/characters/wolfrun.png", 4, 0.08, true),
              attackSp("img/characters/wolfattack.png", 5, 0.1, true),
              walkSp("img/characters/wolfwalk.png", 4, 0.1, true),
-             getUpSp("img/characters/wolfattack.png", 5, 0.1, false),
-             lieDownSp("img/characters/wolfattack.png", 5, 0.1, false),
+             getUpSp("img/characters/lobodormindo.png", 5, 0.1, false),
+             lieDownSp("img/characters/lobodormindo.png", 5, 0.1, false),
              heldSp("img/characters/wolfHeld.png", 5, 0.1, false)
 {
     box.Set(x-restSp.GetWidth()/2, y-restSp.GetHeight()/2, restSp.GetWidth(), restSp.GetHeight());
@@ -29,6 +29,7 @@ Wolf::Wolf(float x, float y, float visionDistance, bool facingRight) :
     state = WolfNamespace::RESTING;
     visionField.Set(box.GetX(), (box.GetY()+box.GetH())-110, visionDistance, 110);
     initialPos.Set(x, y);
+    getUpSp.SetFrame(5);
 }
 
 Wolf::~Wolf() {}
@@ -110,11 +111,11 @@ void Wolf::Rest(float dt)
 void Wolf::GetUp(float dt)
 {
     getUpTimer.Update(dt);
-    getUpSp.Update(dt);
+    getUpSp.Update(dt,false);
     if (getUpTimer.Get() >= 0.5)
     {
         getUpTimer.Restart();
-        getUpSp.SetFrame(1);
+        getUpSp.SetFrame(5);
         state = WolfNamespace::RUNNING;
     }
 }
@@ -284,8 +285,8 @@ void Wolf::Die()
 {
     Thor::characterThor->canHoldWolf = false;
 
-    Sprite wolfDeath("img/characters/goatDeath.png", 33, 0.1);
-    StillAnimation *sa = new StillAnimation(box.Center().GetX(),box.Center().GetY(),rotation,wolfDeath,3.6,true);
+    Sprite wolfDeath("img/characters/lobo morrendo.png", 9, 0.12);
+    StillAnimation *sa = new StillAnimation(box.Center().GetX(),box.Center().GetY(),rotation,wolfDeath,1.08,true);
     Game::GetInstance().GetCurrentState().AddObject(sa);
 
     Sound wolfCry ("audio/SOUNDTRACK MODE/Uivo lobo.ogg");
