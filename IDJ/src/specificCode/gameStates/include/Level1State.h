@@ -43,12 +43,14 @@ class Level1State : public State
     void UpdateMusic(float dt);
     void CheckMusic(float lowerX, float upperX, float lowerY, float upperY);
     void SelectMusic();
+    void EndGame(float dt);
 
     Sprite bg, rochas;
     BlockTileSet tileSet;
     TileMap tileMap;
     MovementMap movementMap;
     Music *outsideMusic, *caveMusic;
+    Timer endGame;
 
     bool musicPlaying;
 };

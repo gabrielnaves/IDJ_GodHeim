@@ -7,6 +7,7 @@
  */
 
 #include "../include/Level1State.h"
+#include "../include/TitleState.h"
 
 Level1State::Level1State() : State(), tileSet(55,55,"img/level1/level1Tiles.png"),
                              tileMap("map/level1.txt", &tileSet),
@@ -51,10 +52,10 @@ void Level1State::EmplaceInitialObjects()
 {
     objectArray.emplace_back(new Stairs("img/objects/stairs.png",605,440));
     objectArray.emplace_back(new Stairs("img/objects/stairs.png",280,550));
-    objectArray.emplace_back(new Rope("img/objects/rope.jpg",1100,500,false));
+    objectArray.emplace_back(new Rope("img/objects/rope.png",1100,500,false));
     objectArray.emplace_back(new Switch(1250,550,"img/objects/button.png","img/objects/buttonPressed.png",
             &(*objectArray[objectArray.size()-1])));
-    objectArray.emplace_back(new Rope("img/objects/ropeBig.png", 940, 495));
+    objectArray.emplace_back(new Rope("img/objects/ropeBig.png", 950, 495));
     objectArray.emplace_back(new BrokenHouseBack(500, 320));
     objectArray.emplace_back(new Loki(70,100, movementMap));
     objectArray.emplace_back(new Thor(30,100, movementMap));
@@ -113,9 +114,22 @@ void Level1State::Update(float dt)
         ChecksForCollisions();
         ErasesDeadObjects();
     }
+    else
+    	EndGame(dt);
     if (Barrier::barrier == NULL) Camera::Unfollow();
     Camera::Update(dt);
     UpdateMusic(dt);
+}
+
+void Level1State::EndGame(float dt)
+{
+	endGame.Update(dt);
+	if (endGame.Get()>=3)
+	{
+		requestDelete = true;
+        Game::GetInstance().ResetWindowSize(574,600);
+		Game::GetInstance().Push(new TitleState());
+	}
 }
 
 void Level1State::Render()

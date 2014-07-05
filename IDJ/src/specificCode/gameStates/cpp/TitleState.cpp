@@ -34,7 +34,7 @@ void TitleState::Update(float dt)
     if (startEndTimer) endTimer.Update(dt);
     if (endTimer.Get() >= 2.5)
     {
-//        requestDelete = true;
+        requestDelete = true;
         Game::GetInstance().ResetWindowSize(1200,650);
         Game::GetInstance().Push(SelectLevel());
     }
