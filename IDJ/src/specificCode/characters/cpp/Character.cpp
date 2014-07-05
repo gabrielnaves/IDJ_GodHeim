@@ -82,6 +82,8 @@ void Character::Update(float dt)
     UpdateSprite();
     CheckMovementLimits();
     UpdatePrevState();
+    for (int i=Hp.size()-1;i>=0;i--)
+    	Hp[i]->Update(dt);
 }
 
 /**
@@ -89,6 +91,8 @@ void Character::Update(float dt)
  */
 void Character::Render()
 {
+	for (int i = 0; i < (int)Hp.size(); i++)
+		Hp[i]->Render();
     if (not shouldRender) return;
     SDL_RendererFlip flip = (hState == MOVING_RIGHT) or (hState == STANDING_RIGHT) ?  SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
     if (vState == STANDING and (hState == MOVING_RIGHT or hState == MOVING_LEFT))
@@ -103,8 +107,7 @@ void Character::Render()
 
 void Character::NotifyCollision(GameObject& other)
 {
-    if (other.Is("Spikes"))
-        hp -= HP/20;
+    if (other.Is("Spikes")) DealDamage();
 }
 
 void Character::ChangeMovementState(std::string type)
@@ -239,7 +242,7 @@ void Character::CheckMovementLimits()
 
 bool Character::IsDead()
 {
-    return (hp <= 0 ? true : false);
+    return (Hp[0]->IsDead() ? true : false);
 }
 bool Character::IsClimbing()
 {
@@ -296,9 +299,16 @@ void Character::SetActionState(ActionState actionState)
     prevActionState = actionState;
     this->actionState = actionState;
 }
-void Character::DealDamage(int damage)
+void Character::DealDamage()
 {
-    hp-=damage;
+	for (int i=Hp.size()-1;i>=0;i--)
+	{
+		if (!Hp[i]->IsDead())
+		{
+			Hp[i]->Empty();
+			return;
+		}
+	}
 }
 std::string Character::GetMovementType()
 {

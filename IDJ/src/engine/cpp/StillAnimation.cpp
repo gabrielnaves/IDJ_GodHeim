@@ -7,17 +7,20 @@
 
 #include "../include/StillAnimation.h"
 
-StillAnimation::StillAnimation(float x, float y, float rotation, Sprite sprite, float timeLimit, bool ends) : sp(sprite)
+StillAnimation::StillAnimation(float x, float y, float rotation, Sprite sprite, float timeLimit, bool ends, bool flips) : sp(sprite)
 {
     box.Set(x-sp.GetWidth()/2, y-sp.GetHeight()/2, sp.GetWidth(), sp.GetHeight());
     this->rotation = rotation;
     this->timeLimit = timeLimit;
     oneTimeOnly = ends;
+    this->flips = flips;
+    if (flips == true)
+    	sp.SetFrame(sp.GetFrameCount());
 }
 
 void StillAnimation::Update(float dt)
 {
-    sp.Update(dt);
+    sp.Update(dt,flips);
     //Updates the timer for finite animations
     if (oneTimeOnly)
         endTimer.Update(dt);

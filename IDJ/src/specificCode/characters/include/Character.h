@@ -9,8 +9,10 @@
 #ifndef CHARACTER_H_
 #define CHARACTER_H_
 
+#include <vector>
 #include "../../../Engine.h"
 #include "../../items/include/ItemFlags.h"
+#include "HpBar.h"
 
 enum ActionState {NONE, CLIMBING};
 enum VerticalState {STANDING, JUST_JUMPED, JUMPING, FALLING};
@@ -40,7 +42,7 @@ class Character : public GameObject
     void SetHState(HorizontalState hS);
     void SetActionState(ActionState actionState);
 
-    void DealDamage(int damage);
+    void DealDamage();
     std::string GetMovementType();
 
     bool canPressSwitch,pressSwitch, aboveStairs, insideBridge, barrierSuspended, actionButton;
@@ -62,6 +64,8 @@ class Character : public GameObject
     void ChangeMovementState(std::string type);
 
     int hp;
+    std::vector<std::unique_ptr<HpBar>> Hp;
+//    std::vector<HpBar> Hp;
     Sprite characterSp, walkSp, jumpSp, climbSp;
     MovementMap movementMap;
     MovementState *movement;

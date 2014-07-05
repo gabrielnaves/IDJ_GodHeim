@@ -19,7 +19,7 @@
 class StillAnimation : public GameObject
 {
   public:
-    StillAnimation(float x, float y, float rotation, Sprite sprite, float timeLimit, bool ends);
+    StillAnimation(float x, float y, float rotation, Sprite sprite, float timeLimit, bool ends, bool flips = false);
     void Update(float dt);
     void Render();
     bool IsDead();
@@ -30,6 +30,7 @@ class StillAnimation : public GameObject
     float timeLimit;
     bool oneTimeOnly;
     Sprite sp;
+    bool flips;
 };
 
 #endif /* STILLANIMATION_H_ */

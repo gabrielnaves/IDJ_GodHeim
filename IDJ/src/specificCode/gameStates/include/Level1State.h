@@ -22,6 +22,7 @@
 #include "../../objects/include/Plants.h"
 #include "../../characters/include/Goat.h"
 #include "../../characters/include/Wolf.h"
+#include "../../characters/include/HpBar.h"
 #include "StateData.h"
 
 class Level1State : public State

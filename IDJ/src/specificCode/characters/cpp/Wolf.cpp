@@ -155,7 +155,7 @@ void Wolf::Attack(float dt)
             target = Loki::characterLoki;
         else target = Thor::characterThor;
         if (Collision::IsColliding(target->box, box, target->rotation*2*M_PI/360, 0))
-            target->DealDamage(30);
+            target->DealDamage();
         dealtDamage = true;
     }
     if (attackTimer.Get() >= 0.5)
@@ -278,7 +278,7 @@ void Wolf::NotifyCollision(GameObject& other)
     if (other.Is("LokiBullet"))
     {
         hp -= 1;
-        if (hp <= 0 and Thor::characterThor != NULL)
+        if (IsDead() and Thor::characterThor != NULL)
             Die();
     }
 }

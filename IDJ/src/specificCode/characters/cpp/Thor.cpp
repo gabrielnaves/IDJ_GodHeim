@@ -18,6 +18,10 @@ Thor::Thor(float x, float y, MovementMap movMap) :
     characterThor = this;
     this->movementMap.UpdatePreviousPos(box);
     canHoldWolf = false;
+	Hp.emplace_back(new HpBar("img/characters/thorHp.png","Thor",1100,10));
+    for (int i=1;i<3;i++)
+    	Hp.emplace_back(new HpBar(Hp[i-1]->GetSp(),Hp[i-1]->GetCharacter(),
+    					Hp[i-1]->box.GetX()+Hp[i-1]->box.GetW(),Hp[i-1]->box.GetY()));
 }
 
 Thor::~Thor()
