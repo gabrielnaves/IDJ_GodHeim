@@ -21,23 +21,23 @@ Switch::Switch(float x, float y, std::string initial, std::string final, GameObj
 
 void Switch::Update(float dt)
 {
-//    if (Thor::characterThor == NULL or Loki::characterLoki == NULL)
-//        return;
-//    Thor *thor = Thor::characterThor;
-//    Loki *loki = Loki::characterLoki;
-//    if (thor->box.Center().Distance(box.Center()) >= 30 and
-//            loki->box.Center().Distance(box.Center()) >= 30)
-//    {
-//        thorColliding = lokiColliding = false;
-//        return;
-//    }
-//    if (!Collision::IsColliding(thor->box, box, thor->rotation*2*M_PI/360, rotation*2*M_PI/360))
-//        thorColliding = false;
-//    if (!Collision::IsColliding(loki->box, box, loki->rotation*2*M_PI/360, rotation*2*M_PI/360))
-//        lokiColliding = false;
-//    if (activated) return;
-//    if (!thorColliding and !lokiColliding) return;
-    // TODO: find out if loki or thor are pressing the button
+    if (Thor::characterThor == NULL or Loki::characterLoki == NULL)
+        return;
+    if (activated) return;
+    Thor *thor = Thor::characterThor;
+    Loki *loki = Loki::characterLoki;
+    if (thor->box.Center().Distance(box.Center()) >= 40 and
+            loki->box.Center().Distance(box.Center()) >= 40)
+    {
+        thorColliding = lokiColliding = false;
+        return;
+    }
+    if (!Collision::IsColliding(thor->box, box, thor->rotation*2*M_PI/360, rotation*2*M_PI/360))
+        thorColliding = false;
+    if (!Collision::IsColliding(loki->box, box, loki->rotation*2*M_PI/360, rotation*2*M_PI/360))
+        lokiColliding = false;
+    if (!thorColliding and !lokiColliding) return;
+
 }
 
 void Switch::Render()
