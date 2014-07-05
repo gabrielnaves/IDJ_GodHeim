@@ -47,6 +47,7 @@ State* TitleState::SelectLevel()
 {
     if (StateData::startingLevel == 1) return(new Level1State());
     if (StateData::startingLevel == 2) return(new Level2State());
+    return NULL;
 }
 
 /**
