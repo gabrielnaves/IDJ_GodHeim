@@ -48,6 +48,8 @@ class Level1State : public State
     void CheckMusic(float lowerX, float upperX, float lowerY, float upperY);
     void SelectMusic();
     void EndGame(float dt);
+    void NextLevel();
+    bool StageClear();
 
     Sprite bg, rochas;
     BlockTileSet tileSet;
