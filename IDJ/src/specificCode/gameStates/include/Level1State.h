@@ -55,7 +55,7 @@ class Level1State : public State
     Music *outsideMusic, *caveMusic;
     Timer endGame;
 
-    bool musicPlaying;
+    bool musicPlaying, showingCave;
 };
 
 #endif /* LEVEL1STATE_H_ */

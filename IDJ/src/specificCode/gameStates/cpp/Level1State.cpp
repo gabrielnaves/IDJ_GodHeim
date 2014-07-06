@@ -19,6 +19,7 @@ Level1State::Level1State() : State(), tileSet(55,55,"img/level1/level1Tiles.png"
     SelectMusic();
     outsideMusic->Play(-1);
     musicPlaying = true;
+    showingCave = false;
 }
 
 /**
@@ -142,9 +143,13 @@ void Level1State::Render()
     tileMap.RenderLayer(0,+Camera::pos.GetX(), +Camera::pos.GetY());
     RenderArray();
     if (Loki::characterLoki != NULL && Thor::characterThor != NULL)
+    {
         if (!tileMap.HasTile(Loki::characterLoki->box.Center().GetX(), Loki::characterLoki->box.Center().GetY(), 1) &&
             !tileMap.HasTile(Thor::characterThor->box.Center().GetX(), Thor::characterThor->box.Center().GetY(), 1))
-            tileMap.RenderLayer(1,+Camera::pos.GetX(), +Camera::pos.GetY());
+            tileMap.RenderLayer(1,+Camera::pos.GetX(), +Camera::pos.GetY()), showingCave = false;
+        else showingCave = true;
+    }
+    else if (!showingCave) tileMap.RenderLayer(1,+Camera::pos.GetX(), +Camera::pos.GetY());
 }
 
 void Level1State::Input()
