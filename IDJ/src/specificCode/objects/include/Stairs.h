@@ -23,7 +23,8 @@ class Stairs: public GameObject
     bool Is(std::string type);
 
   private:
-    bool IsCloseToStairs(Rect character);
+    bool IsAboveStairs(Character *character);
+    bool IsCloseToStairs(Character *character);
     bool IsStairsBelow(Rect character);
     bool IsStairsAbove(Rect character);
     void InteractsWith(Character *character);

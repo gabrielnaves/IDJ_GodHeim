@@ -33,8 +33,8 @@ void Spikes::NotifyCollision(GameObject &other)
 {
     if (other.Is("Loki") or other.Is("Thor"))
     {
-    	if (other.box.GetX() > box.GetX()+box.GetH() or other.box.GetX() < box.GetX()) return;
-    	if (other.box.GetY()+other.box.GetH() < box.GetY() or other.box.GetY() > box.GetY()+box.GetH()) return;
+    	if (other.box.GetX() > box.GetX()+box.GetW()+5 or other.box.GetX()+other.box.GetW() < box.GetX()-5) return;
+    	if (other.box.GetY()+other.box.GetH() < box.GetY()-10 or other.box.GetY() > box.GetY()+box.GetH()+10) return;
         Character *character;
         if (other.Is("Loki")) character = Loki::characterLoki;
         else character = Thor::characterThor;
