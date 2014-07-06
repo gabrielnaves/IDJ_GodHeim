@@ -43,6 +43,7 @@ class Character : public GameObject
     void SetActionState(ActionState actionState);
 
     void DealDamage();
+    void Heal();
     std::string GetMovementType();
 
     bool canPressSwitch,pressSwitch, aboveStairs, insideBridge, barrierSuspended, actionButton;

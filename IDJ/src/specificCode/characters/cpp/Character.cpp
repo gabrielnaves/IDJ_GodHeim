@@ -107,6 +107,30 @@ void Character::Render()
 void Character::NotifyCollision(GameObject& other)
 {
     if (other.Is("Spikes")) DealDamage();
+    if (other.Is("Meat")) Heal();
+}
+
+void Character::DealDamage()
+{
+	for (int i=hp.size()-1;i>=0;i--)
+	{
+		if (!hp[i]->IsDead())
+		{
+			hp[i]->Empty();
+			return;
+		}
+	}
+}
+void Character::Heal()
+{
+	for (int i=0;i<(int)hp.size();i++)
+	{
+		if (hp[i]->IsDead())
+		{
+			hp[i]->Fill();
+			return;
+		}
+	}
 }
 
 void Character::ChangeMovementState(std::string type)
@@ -297,17 +321,6 @@ void Character::SetActionState(ActionState actionState)
 {
     prevActionState = actionState;
     this->actionState = actionState;
-}
-void Character::DealDamage()
-{
-	for (int i=hp.size()-1;i>=0;i--)
-	{
-		if (!hp[i]->IsDead())
-		{
-			hp[i]->Empty();
-			return;
-		}
-	}
 }
 std::string Character::GetMovementType()
 {
