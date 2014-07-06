@@ -11,7 +11,6 @@ PlantBarrier::PlantBarrier(std::string sprite,float x, float y)
 {
 	sp.Open(sprite);
 	box.Set(x,y,sp.GetWidth(),sp.GetHeight());
-	this->blockHeight = blockHeight;
 	dead = false;
 }
 

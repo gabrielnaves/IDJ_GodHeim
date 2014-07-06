@@ -1,21 +1,21 @@
 /*
- * PlantBarrier.h
+ * Rock.h
  *
  *  Created on: Jul 5, 2014
  *      Author: icaro
  */
 
-#ifndef PLANTBARRIER_H_
-#define PLANTBARRIER_H_
+#ifndef ROCK_H_
+#define ROCK_H_
 
 #include "../../../Engine.h"
 #include "../../characters/include/Loki.h"
 #include "../../characters/include/Thor.h"
 
-class PlantBarrier : public GameObject
+class Rock : public GameObject
 {
   public:
-	PlantBarrier(std::string sprite,float x, float y);
+	Rock(std::string sprite,float x, float y);
     void Update(float dt);
     void Render();
     void NotifyCollision(GameObject& other);
@@ -23,10 +23,10 @@ class PlantBarrier : public GameObject
     bool Is(std::string type);
     bool IsDead();
   private:
-    void CollidesWith(Character *character);
+    void InteractsWith(Character *character);
     void Die();
     Sprite sp;
-    bool dead;
+    bool broke;
 };
 
-#endif /* PLANTBARRIER_H_ */
+#endif /* ROCK_H_ */

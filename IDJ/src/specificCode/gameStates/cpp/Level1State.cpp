@@ -92,6 +92,7 @@ void Level1State::EmplaceInitialObjects()
     objectArray.emplace_back(new Plants("img/level1/plants/9.png",640,375));
     objectArray.emplace_back(new Plants("img/level1/plants/10.png",610,375));
     objectArray.emplace_back(new PlantBarrier("img/objects/plant.png",870,880));
+    objectArray.emplace_back(new Rock("img/objects/pedra.png",1045,1045));
     objectArray.emplace_back(new Goat(800, 310));
     objectArray.emplace_back(new Wolf(75, 744, 565, movementMap));
     objectArray.emplace_back(new Barrier());
