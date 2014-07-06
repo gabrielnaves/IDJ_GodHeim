@@ -54,7 +54,8 @@ void Level1State::EmplaceInitialObjects()
     objectArray.emplace_back(new Rope("img/objects/rope.png",1100,500,false));
     objectArray.emplace_back(new Switch(1250,550,"img/objects/button.png","img/objects/buttonPressed.png",
             &(*objectArray[objectArray.size()-1])));
-    objectArray.emplace_back(new Rope("img/objects/ropeBig.png", 950, 495));
+    objectArray.emplace_back(new Rope("img/objects/rope.png", 950, 495));
+    objectArray.emplace_back(new Rope("img/objects/smallRope.png",550,1045));
     objectArray.emplace_back(new BrokenHouseBack(500, 320));
     objectArray.emplace_back(new Loki(70,100, movementMap));
     objectArray.emplace_back(new Thor(30,100, movementMap));
