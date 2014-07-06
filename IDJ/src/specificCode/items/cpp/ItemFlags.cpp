@@ -10,6 +10,7 @@
 bool ItemFlags::fireBall = true;
 bool ItemFlags::eagle = false;
 bool ItemFlags::belt = false;
+bool ItemFlags::hammer = false;
 
 void ItemFlags::ChangeFlag(std::string name, bool newValue)
 {
@@ -19,4 +20,6 @@ void ItemFlags::ChangeFlag(std::string name, bool newValue)
         eagle = newValue;
     if (name == "ThorBelt")
         belt = newValue;
+    if (name == "ThorHammer")
+    	hammer = newValue;
 }
