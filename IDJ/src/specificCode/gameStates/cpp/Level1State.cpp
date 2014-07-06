@@ -52,6 +52,7 @@ void Level1State::EmplaceInitialObjects()
 {
     objectArray.emplace_back(new Stairs("img/objects/stairs.png",605,440));
     objectArray.emplace_back(new Stairs("img/objects/stairs.png",280,550));
+    objectArray.emplace_back(new Stairs("img/objects/stairsBig.png",110,1650));
     objectArray.emplace_back(new Rope("img/objects/rope.png",1100,500,false));
     objectArray.emplace_back(new Switch(1250,550,"img/objects/button.png","img/objects/buttonPressed.png",
             &(*objectArray[objectArray.size()-1])));
