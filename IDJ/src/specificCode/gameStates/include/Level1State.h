@@ -15,6 +15,7 @@
 #include "../../objects/include/BrokenHouseFront.h"
 #include "../../objects/include/BrokenHouseBack.h"
 #include "../../objects/include/Stairs.h"
+#include "../../objects/include/Gate.h"
 #include "../../objects/include/Rope.h"
 #include "../../objects/include/Switch.h"
 #include "../../objects/include/Bridge.h"
