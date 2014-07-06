@@ -9,6 +9,8 @@
 #define SPIKES_H_
 
 #include "../../../Engine.h"
+#include "../../characters/include/Loki.h"
+#include "../../characters/include/Thor.h"
 
 class Spikes : public GameObject
 {
@@ -18,6 +20,7 @@ class Spikes : public GameObject
     void Render();
     void Update(float dt);
     bool Is(std::string type);
+    void NotifyCollision(GameObject &other);
   private:
     Sprite spikesSp;
 };

@@ -106,7 +106,6 @@ void Character::Render()
 
 void Character::NotifyCollision(GameObject& other)
 {
-    if (other.Is("Spikes")) DealDamage();
     if (other.Is("Meat")) Heal();
 }
 
