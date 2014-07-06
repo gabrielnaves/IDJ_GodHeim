@@ -11,6 +11,7 @@
 #include "../include/RegularMov.h"
 #include "../include/ClimbMov.h"
 #include "../include/EagleMov.h"
+#include "../include/GateMov.h"
 #include "../include/HoldingWolf.h"
 
 Character::Character(MovementMap movMap,
@@ -136,6 +137,7 @@ void Character::ChangeMovementState(std::string type)
     else delete movement;
     if (type == "Regular") movement = new RegularMov();
     else if (type == "Climb") movement = new ClimbMov();
+    else if (type == "Gate") movement = new GateMov();
     else if (type == "Eagle") movement = new EagleMov();
     else if (type == "HoldingWolf") movement = new HoldingWolf();
 }
@@ -147,7 +149,9 @@ void Character::SelectMovState()
 {
     if (not IndividualMovStateSelection())
     {
-        if (actionState == CLIMBING)
+        if (actionState == CLIMBING_GATE)
+        	ChangeMovementState("Gate");
+        else if (actionState == CLIMBING)
             ChangeMovementState("Climb");
         else
             ChangeMovementState("Regular");
