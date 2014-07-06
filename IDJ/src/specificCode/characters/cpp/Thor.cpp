@@ -26,7 +26,6 @@ Thor::Thor(float x, float y, MovementMap movMap) :
 
 Thor::~Thor()
 {
-    characterThor = NULL;
 }
 
 /**

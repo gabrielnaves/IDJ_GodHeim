@@ -61,6 +61,8 @@ void Level2State::Render()
     bg2.Render(-Camera::pos.GetX(), -Camera::pos.GetY());
     tileMap.RenderLayer(0, Camera::pos.GetX(), Camera::pos.GetY());
     RenderArray();
+    if (Thor::characterThor != NULL) Thor::characterThor->RenderHP();
+    if (Loki::characterLoki != NULL) Loki::characterLoki->RenderHP();
 }
 
 void Level2State::EmplaceInitialObjects()

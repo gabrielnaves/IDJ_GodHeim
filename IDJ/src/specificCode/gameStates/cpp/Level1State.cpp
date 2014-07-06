@@ -46,6 +46,7 @@ void Level1State::SelectMusic()
 
 Level1State::~Level1State()
 {
+	objectArray.clear();
 }
 
 void Level1State::EmplaceInitialObjects()
@@ -124,10 +125,10 @@ void Level1State::Update(float dt)
     	EndGame(dt);
     if (Barrier::barrier == NULL) Camera::Unfollow();
 
-    if (StageClear()) NextLevel();
-
     Camera::Update(dt);
     UpdateMusic(dt);
+
+    if (StageClear()) NextLevel();
 }
 
 void Level1State::EndGame(float dt)
@@ -145,8 +146,8 @@ void Level1State::EndGame(float dt)
 
 bool Level1State::StageClear()
 {
-	return (  	 ((Thor::characterThor->box.Center().GetX() > 1210) && (Thor::characterThor->box.Center().GetY() > 2255)
-			   && (Loki::characterLoki->box.Center().GetX() > 1210) && (Loki::characterLoki->box.Center().GetY() > 2255)) ? true : false);
+	return (  	 ((Thor::characterThor->box.Center().GetX() > 1210) && (Thor::characterThor->box.Center().GetY() > 2150)
+			   && (Loki::characterLoki->box.Center().GetX() > 1210) && (Loki::characterLoki->box.Center().GetY() > 2150)) ? true : false);
 }
 
 
