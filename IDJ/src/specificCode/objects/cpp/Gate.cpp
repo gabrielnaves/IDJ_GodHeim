@@ -54,7 +54,7 @@ void Gate::InteractsWith(Character *character)
 	{
 		character->SetActionState(CLIMBING_GATE);
 		character->aboveStairs = false;
-		character->box.MoveRect(0,1x);
+		character->box.MoveRect(0,1);
 	}
 }
 
