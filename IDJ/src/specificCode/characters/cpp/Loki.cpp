@@ -138,6 +138,13 @@ void Loki::UpdateSprite()
                 ChangeSp("climbSp","img/characters/lokiStairs.png",2);
             else if (vertical != 0) climbSp.Update(dt);
         }
+        else if (actionState == CLIMBING_GATE)
+        {
+            if (prevActionState != CLIMBING_GATE)
+                ChangeSp("climbSp","img/characters/lokiStairs.png",2);
+            else if (vertical != 0 or horizontal != 0)
+            	climbSp.Update(dt);
+        }
         else if (vState == FALLING)
             ChangeSp("jumpSp","img/characters/lokiJump.png",4,4,false);
         else if (vState == JUMPING)

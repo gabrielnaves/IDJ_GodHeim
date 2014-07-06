@@ -11,6 +11,7 @@ Gate::Gate(std::string gateSp, int x, int y) : gateSp(gateSp, 6, 0.1, false)
 {
     box.Set(x,y,this->gateSp.GetWidth(),this->gateSp.GetHeight());
     active = false;
+    prevThor = prevLoki = Rect();
 }
 
 bool Gate::IsActive()
@@ -32,8 +33,62 @@ bool Gate::IsCloseTo(Character *character)
 
 void Gate::Update(float dt)
 {
+	if (Thor::characterThor == NULL or Loki::characterLoki == NULL) return;
 	active = IsActive();
 	UpdateSprite(dt);
+
+	InteractsWith(Thor::characterThor);
+	InteractsWith(Loki::characterLoki);
+
+	prevThor = Thor::characterThor->box;
+	prevLoki = Loki::characterLoki->box;
+}
+
+void Gate::InteractsWith(Character *character)
+{
+	if (!IsCloseTo(character)) return;
+	if (ShouldDrop(character)) Drop(character);
+	character->aboveStairs = false;
+	if (ShouldStandOnStairs(character)) Stand(character);
+	if (character->aboveStairs == true and character->vertical<0)
+	{
+		character->SetActionState(CLIMBING_GATE);
+		character->aboveStairs = false;
+		character->box.MoveRect(0,1x);
+	}
+}
+
+bool Gate::ShouldStandOnStairs(Character *character)
+{
+	Rect prevChar = character->Is("Thor") ? prevThor : prevLoki;
+	if (!(character->box.GetY()+character->box.GetH() >= box.GetY() and prevChar.GetY()+prevChar.GetH() <= box.GetY()))
+		return (false);
+	if (character->box.GetX() > box.GetX()+box.GetW()-25 or character->box.GetX()+character->box.GetW() < box.GetX()+25)
+		return(false);
+	return(true);
+}
+void Gate::Stand(Character *character)
+{
+	character->aboveStairs = true;
+    character->box.MoveRect(0, box.GetY()-(character->box.GetY()+character->box.GetH()));
+//	character->box.SetPoint(character->box.GetX(),box.GetY()-character->box.GetW());
+	character->SetActionState(NONE);
+	character->SetVState(STANDING);
+}
+
+/**
+ * Drops the character from the gate when it is not colliding with it.
+ */
+bool Gate::ShouldDrop(Character *character)
+{
+	if (character->actionState == CLIMBING_GATE) //as to not return true even though it is not climbing the gate
+		return (!Collision::IsColliding(character->box,box,character->rotation,rotation));
+	return(false);
+}
+
+void Gate::Drop(Character *character)
+{
+	character->SetActionState(NONE);
 }
 
 /**
@@ -69,14 +124,9 @@ void Gate::NotifyCollision(GameObject& other)
             Loki::characterLoki->cannotTransform = true;
         }
         if (other.Is("Thor")) character = Thor::characterThor;
-        if (CanClimb(character))
-        {
+        if (CanClimb(character) and character->actionState != CLIMBING_GATE)
             if (character->vertical != 0)
-                {
                     character->SetActionState(CLIMBING_GATE);
-                    character->box.SetPoint(box.GetX()+box.GetW()/2-character->box.GetW()/2,character->box.GetY());
-                }
-        }
     }
 
 }
@@ -86,7 +136,7 @@ void Gate::NotifyCollision(GameObject& other)
  */
 bool Gate::CanClimb(Character *character)
 {
-	if (character->box.GetX() > box.GetX()+box.GetW()-5 or character->box.GetX()+character->box.GetW() < box.GetX()+5)
+	if (character->box.GetX() > box.GetX()+box.GetW()-25 or character->box.GetX()+character->box.GetW() < box.GetX()+25)
 		return false;
 	if (character->box.GetY()+character->box.GetH() < box.GetY() or character->box.GetY() > box.GetY()+box.GetH())
 		return false;
