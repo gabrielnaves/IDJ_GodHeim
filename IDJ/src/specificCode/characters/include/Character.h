@@ -35,6 +35,7 @@ class Character : public GameObject
     bool IsDead();
     void Render();
     void NotifyCollision(GameObject& other);
+    void RenderHP();
 
     VerticalState GetVState();
     HorizontalState GetHState();

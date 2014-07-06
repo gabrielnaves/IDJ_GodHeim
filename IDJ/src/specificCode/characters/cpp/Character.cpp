@@ -90,8 +90,6 @@ void Character::Update(float dt)
  */
 void Character::Render()
 {
-	for (int i = 0; i < (int)hp.size(); i++)
-		hp[i]->Render();
     if (not shouldRender) return;
     SDL_RendererFlip flip = (hState == MOVING_RIGHT) or (hState == STANDING_RIGHT) ?  SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
     if (vState == STANDING and (hState == MOVING_RIGHT or hState == MOVING_LEFT))
@@ -324,4 +322,10 @@ void Character::SetActionState(ActionState actionState)
 std::string Character::GetMovementType()
 {
     return movement->GetType();
+}
+
+void Character::RenderHP()
+{
+	for (int i = 0; i < (int)hp.size(); i++)
+		hp[i]->Render();
 }

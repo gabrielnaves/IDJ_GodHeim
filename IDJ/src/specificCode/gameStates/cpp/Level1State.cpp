@@ -152,6 +152,8 @@ void Level1State::Render()
         else showingCave = true;
     }
     else if (!showingCave) tileMap.RenderLayer(1,+Camera::pos.GetX(), +Camera::pos.GetY());
+	if (Thor::characterThor != NULL) Thor::characterThor->RenderHP();
+	if (Loki::characterLoki != NULL) Loki::characterLoki->RenderHP();
 }
 
 void Level1State::Input()
