@@ -45,7 +45,7 @@ void Bullet::NotifyCollision(GameObject &other)
 {
     if (shooter == "Loki")
     {
-        if (other.Is("Goat") or other.Is("Wolf"))
+        if (other.Is("Goat") or other.Is("Wolf") or other.Is("PlantBarrier"))
             distanceLeft = 0;
     }
 }

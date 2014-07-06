@@ -20,6 +20,7 @@
 #include "../../objects/include/Bridge.h"
 #include "../../objects/include/Spikes.h"
 #include "../../objects/include/Plants.h"
+#include "../../objects/include/PlantBarrier.h"
 #include "../../characters/include/Goat.h"
 #include "../../characters/include/Wolf.h"
 #include "../../characters/include/HpBar.h"

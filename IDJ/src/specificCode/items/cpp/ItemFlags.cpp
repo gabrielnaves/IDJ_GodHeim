@@ -7,7 +7,7 @@
 
 #include "../include/ItemFlags.h"
 
-bool ItemFlags::fireBall = false;
+bool ItemFlags::fireBall = true;
 bool ItemFlags::eagle = false;
 bool ItemFlags::belt = false;
 
