@@ -63,9 +63,42 @@ void Level2State::Update(float dt)
         ChecksForCollisions();
         ErasesDeadObjects();
     }
+    else
+    	EndGame(dt);
     if (Barrier::barrier == NULL) Camera::Unfollow();
+
     Camera::Update(dt);
+
+    if (StageClear()) NextLevel();
 }
+
+
+void Level2State::EndGame(float dt)
+{
+	endGame.Update(dt);
+	if (endGame.Get()>=1.5)
+	{
+		requestDelete = true;
+        Game::GetInstance().ResetWindowSize(360,275);
+		Game::GetInstance().Push(new EndState());
+	}
+}
+
+
+bool Level2State::StageClear()
+{
+	return (  	 ((Thor::characterThor) && (Thor::characterThor->box.Center().GetX() < 0) && (Thor::characterThor->box.Center().GetY() < 0)
+			   && (Loki::characterLoki) && (Loki::characterLoki->box.Center().GetX() < 0) && (Loki::characterLoki->box.Center().GetY() < 0)) ? true : false);
+}
+
+
+void Level2State::NextLevel()
+{
+	requestDelete = true;
+	Game::GetInstance().ResetWindowSize(360,275);
+	Game::GetInstance().Push(new EndState());
+}
+
 
 void Level2State::Render()
 {
