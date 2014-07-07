@@ -46,7 +46,6 @@ void Level1State::SelectMusic()
 
 Level1State::~Level1State()
 {
-	objectArray.clear();
 }
 
 void Level1State::EmplaceInitialObjects()
@@ -147,8 +146,8 @@ void Level1State::EndGame(float dt)
 
 bool Level1State::StageClear()
 {
-	return (  	 ((Thor::characterThor->box.Center().GetX() > 1210) && (Thor::characterThor->box.Center().GetY() > 2150)
-			   && (Loki::characterLoki->box.Center().GetX() > 1210) && (Loki::characterLoki->box.Center().GetY() > 2150)) ? true : false);
+	return (  	 ((Thor::characterThor) && (Thor::characterThor->box.Center().GetX() > 1210) && (Thor::characterThor->box.Center().GetY() > 2150)
+			   && (Loki::characterLoki) && (Loki::characterLoki->box.Center().GetX() > 1210) && (Loki::characterLoki->box.Center().GetY() > 2150)) ? true : false);
 }
 
 
