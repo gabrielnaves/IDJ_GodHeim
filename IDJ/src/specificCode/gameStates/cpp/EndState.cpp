@@ -20,11 +20,6 @@ void EndState::Update(float dt)
 {
 	Input();
 	timer.Update(dt);
-}
-
-void EndState::Render()
-{
-	bg[bgCount]->Render(0,0);
 	if (timer.Get()>=0.5)
 	{
 		loopCounter++;
@@ -35,9 +30,14 @@ void EndState::Render()
 	if (loopCounter >= 16)
 	{
 		requestDelete = true;
-        Game::GetInstance().ResetWindowSize(574,600);
+		Game::GetInstance().ResetWindowSize(574,600);
 		Game::GetInstance().Push(new TitleState());
 	}
+}
+
+void EndState::Render()
+{
+	bg[bgCount]->Render(0,0);
 }
 
 void EndState::Input()

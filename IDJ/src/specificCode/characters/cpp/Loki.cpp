@@ -30,6 +30,7 @@ Loki::Loki(float x, float y, MovementMap movMap) :
 
 Loki::~Loki()
 {
+	characterLoki = NULL;
 }
 
 void Loki::Shoot()

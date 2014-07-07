@@ -19,6 +19,7 @@ Barrier::Barrier()
 
 Barrier::~Barrier()
 {
+	barrier = NULL;
 }
 
 /**
