@@ -146,8 +146,8 @@ void Level1State::EndGame(float dt)
 
 bool Level1State::StageClear()
 {
-	return (  	 ((Thor::characterThor) && (Thor::characterThor->box.Center().GetX() > 1210) && (Thor::characterThor->box.Center().GetY() > 2150)
-			   && (Loki::characterLoki) && (Loki::characterLoki->box.Center().GetX() > 1210) && (Loki::characterLoki->box.Center().GetY() > 2150)) ? true : false);
+	return (  	 ((Thor::characterThor) && (Thor::characterThor->box.Center().GetX() > 1155) && (Thor::characterThor->box.Center().GetY() > 2090)
+			   && (Loki::characterLoki) && (Loki::characterLoki->box.Center().GetX() > 1155) && (Loki::characterLoki->box.Center().GetY() > 2090)) ? true : false);
 }
 
 
