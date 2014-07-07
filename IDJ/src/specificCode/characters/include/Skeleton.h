@@ -16,7 +16,7 @@ namespace SkeletonNamespace
 {
 	enum State {RESTING, WALKING, ATTACKING};
 	const float VISION_DISTANCE = 12*55;
-	const float WALK_SPEED = 200;
+	const float WALK_SPEED = 125;
 }
 
 class Skeleton : public GameObject

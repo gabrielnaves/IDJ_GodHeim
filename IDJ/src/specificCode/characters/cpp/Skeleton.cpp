@@ -56,7 +56,7 @@ void Skeleton::Walk(float dt)
     float distance = target.Center().GetX() - box.Center().GetX();
     float signal = (distance >= 0 ? 1 : -1);
     facingRight = (signal == 1 ? true : false);
-    if (abs(distance) >= 60)
+    if (abs(distance) >= 30)
         box.MoveRect(dt*SkeletonNamespace::WALK_SPEED*signal, 0);
 //    else state = SkeletonNamespace::ATTACKING;
 }
@@ -76,7 +76,8 @@ void Skeleton::Render()
 
 void Skeleton::NotifyCollision(GameObject& other)
 {
-
+	if (other.Is("Thor")) Thor::characterThor->DealDamage();
+	if (other.Is("Loki")) Loki::characterLoki->DealDamage();
 }
 
 bool Skeleton::IsDead()
