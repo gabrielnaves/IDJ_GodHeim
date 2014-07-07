@@ -23,12 +23,15 @@ class Thor : public Character
 
     bool canHoldWolf;
   private:
+    Timer hitting;
     bool IndividualMovStateSelection();
     void UpdateSprite();
     void UpdateVerticalState();
     void UpdatesStateOnTheFall();
     void Act();
     void Hit();
+
+    const float HITTING_COOLDOWN = 0.3;
 };
 
 #endif /* THOR_H_ */

@@ -14,7 +14,7 @@
 #include "../../items/include/ItemFlags.h"
 #include "HpBar.h"
 
-enum ActionState {NONE, CLIMBING, CLIMBING_GATE, PUSHING};
+enum ActionState {NONE, CLIMBING, CLIMBING_GATE, PUSHING, JUST_ATTACKED, ATTACKING};
 enum VerticalState {STANDING, JUST_JUMPED, JUMPING, FALLING};
 enum HorizontalState {STANDING_RIGHT, STANDING_LEFT, MOVING_RIGHT, MOVING_LEFT};
 

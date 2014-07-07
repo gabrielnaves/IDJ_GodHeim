@@ -24,7 +24,11 @@ void Rock::Render()
 void Rock::NotifyCollision(GameObject& other)
 {
 	if (other.Is("Thor"))
-	    InteractsWith(Thor::characterThor);
+	{
+		InteractsWith(Thor::characterThor);
+		if (Thor::characterThor->actionState == JUST_ATTACKED)
+			Die();
+	}
 	if (other.Is("Loki"))
 		InteractsWith(Loki::characterLoki);
 }

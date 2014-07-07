@@ -33,10 +33,17 @@ Thor::~Thor()
  */
 void Thor::Act()
 {
+	if (actionState == JUST_ATTACKED) SetActionState(ATTACKING);
+    hitting.Update(dt);
     if (!actionButton) return;
+    if (actionState == ATTACKING and hitting.Get() < HITTING_COOLDOWN) return;
+    else if (actionState == ATTACKING and hitting.Get() > HITTING_COOLDOWN) SetActionState(NONE);
+
     if (canPressSwitch)
         pressSwitch = true;
-    if (ItemFlags::belt)
+    else if (ItemFlags::hammer)
+    	Hit();
+    else if (ItemFlags::belt)
     {
         if (GetMovementType() == "HoldingWolf")
             ChangeMovementState("Regular"); //if he is holding the wolf, releases it
@@ -56,7 +63,8 @@ bool Thor::IndividualMovStateSelection()
 
 void Thor::Hit()
 {
-
+	hitting.Restart();
+	SetActionState(JUST_ATTACKED);
 }
 
 void Thor::UpdateVerticalState()
