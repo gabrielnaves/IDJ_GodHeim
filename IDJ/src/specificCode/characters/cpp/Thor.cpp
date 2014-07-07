@@ -42,15 +42,12 @@ void Thor::Act()
 
     if (canPressSwitch)
         pressSwitch = true;
+    else if (ItemFlags::belt and GetMovementType() == "HoldingWolf")
+        ChangeMovementState("Regular"); //if he is holding the wolf, releases it
+    else if (ItemFlags::belt and canHoldWolf)
+            ChangeMovementState("HoldingWolf"); //if he can hold the wolf, holds it
     else if (ItemFlags::hammer)
     	Hit();
-    else if (ItemFlags::belt)
-    {
-        if (GetMovementType() == "HoldingWolf")
-            ChangeMovementState("Regular"); //if he is holding the wolf, releases it
-        else if (canHoldWolf)
-            ChangeMovementState("HoldingWolf"); //if he can hold the wolf, holds it
-    }
 
     actionButton = false;
 }
