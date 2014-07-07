@@ -16,14 +16,32 @@ StoneBlock::StoneBlock(std::string sprite,float x, float y)
 
 void StoneBlock::Update(float dt)
 {
-	if (!ItemFlags::belt)
+	if (CloseTo(Thor::characterThor->box)) CharactersStandOnBlock(Thor::characterThor);
+	if (CloseTo(Loki::characterLoki->box)) CharactersStandOnBlock(Loki::characterLoki);
+
+	if (ItemFlags::belt)
 	{
-		if (CloseTo(Thor::characterThor->box)) Blocks(Thor::characterThor);
+		if (CloseTo(Thor::characterThor->box)) Push();
 	}
+	else if (CloseTo(Thor::characterThor->box)) Blocks(Thor::characterThor);
 	if (CloseTo(Loki::characterLoki->box)) Blocks(Loki::characterLoki);
 
 	prevLoki = Loki::characterLoki->box;
 	prevThor = Thor::characterThor->box;
+}
+
+void StoneBlock::Push()
+{
+	Character *character = Thor::characterThor;
+	if (character->box.GetY() < box.GetY()+box.GetH() and character->box.GetY() + character->box.GetH() > box.GetY())
+	{
+		//blocks from colliding on the left
+		if (ShouldCollideLeftWall(character,prevThor))
+			box.SetPoint(character->box.GetX()+character->box.GetW(),box.GetY());
+		//blocks from colliding on the right
+		if (ShouldCollideRightWall(character,prevThor))
+			box.SetPoint(character->box.GetX()-box.GetW(),box.GetY());
+	}
 }
 
 bool StoneBlock::CloseTo(Rect character)
@@ -33,7 +51,6 @@ bool StoneBlock::CloseTo(Rect character)
 
 void StoneBlock::Blocks(Character *character)
 {
-	character->standingOnObject = false;
 	Rect prevChar = character->Is("Thor") ? prevThor : prevLoki;
 	if (character->box.GetY() < box.GetY()+box.GetH() and character->box.GetY() + character->box.GetH() > box.GetY())
 	{
@@ -44,6 +61,11 @@ void StoneBlock::Blocks(Character *character)
 		if (ShouldCollideRightWall(character,prevChar))
 			character->box.SetPoint(box.GetX()+box.GetW(),character->box.GetY());
 	}
+}
+
+void StoneBlock::CharactersStandOnBlock(Character *character)
+{
+	character->standingOnObject = false;
 	if (character->box.GetX()+character->box.GetW()/2 > box.GetX() and character->box.GetX()+character->box.GetW()/2 < box.GetX()+box.GetW())
 	{
 		//blocks from colliding above

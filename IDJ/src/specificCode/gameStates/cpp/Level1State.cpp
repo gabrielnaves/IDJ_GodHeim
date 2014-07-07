@@ -61,8 +61,8 @@ void Level1State::EmplaceInitialObjects()
     objectArray.emplace_back(new Rope("img/objects/rope.png", 950, 495));
     objectArray.emplace_back(new Rope("img/objects/smallRope.png",550,1045));
     objectArray.emplace_back(new BrokenHouseBack(500, 320));
-    objectArray.emplace_back(new Loki(70,220, movementMap));
-    objectArray.emplace_back(new Thor(30,220, movementMap));
+    objectArray.emplace_back(new Loki(12*55,1500, movementMap));
+    objectArray.emplace_back(new Thor(12*55,1500, movementMap));
     objectArray.emplace_back(new Bridge(220, 330));
     objectArray.emplace_back(new BrokenHouseFront(500, 320));
     objectArray.emplace_back(new Item(355,520,"img/items/lokifire.png", "LokiFire", false, true));
@@ -99,7 +99,7 @@ void Level1State::EmplaceInitialObjects()
     objectArray.emplace_back(new Plants("img/level1/plants/10.png",610,375));
     objectArray.emplace_back(new PlantBarrier("img/objects/plant.png",870,880));
     objectArray.emplace_back(new Rock("img/objects/pedra.png",1045,1045));
-    objectArray.emplace_back(new StoneBlock("img/objects/pedra.png",850,1540));
+    objectArray.emplace_back(new StoneBlock("img/objects/pedraBig.png",11*55,1540));
     objectArray.emplace_back(new Goat(800, 310));
     objectArray.emplace_back(new Wolf(75, 744, 565, movementMap));
     objectArray.emplace_back(new Barrier());

@@ -24,6 +24,8 @@ class StoneBlock : public GameObject
 
     bool Is(std::string type);
   private:
+    void CharactersStandOnBlock(Character *character);
+    void Push();
     bool ShouldStand(Character *character);
     bool ShouldCollideLeftWall(Character *character, Rect prevChar);
     bool ShouldCollideRightWall(Character *character, Rect prevChar);

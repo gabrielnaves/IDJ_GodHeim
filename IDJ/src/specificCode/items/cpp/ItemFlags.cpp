@@ -9,7 +9,7 @@
 
 bool ItemFlags::fireBall = true;
 bool ItemFlags::eagle = false;
-bool ItemFlags::belt = false;
+bool ItemFlags::belt = true;
 bool ItemFlags::hammer = false;
 
 void ItemFlags::ChangeFlag(std::string name, bool newValue)
