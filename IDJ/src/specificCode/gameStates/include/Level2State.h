@@ -10,8 +10,9 @@
 
 #include "../../../Engine.h"
 #include "../../characters/include/Barrier.h"
-#include "../../objects/include/FloatingBlock.h"
+#include "../../characters/include/ChainedDragon.h"
 #include "../../characters/include/Skeleton.h"
+#include "../../objects/include/FloatingBlock.h"
 #include "../../objects/include/LavaCircle.h"
 #include "../../objects/include/Lava.h"
 #include "../../objects/include/Meteor.h"
