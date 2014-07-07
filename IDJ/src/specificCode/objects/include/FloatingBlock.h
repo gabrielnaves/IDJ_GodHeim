@@ -32,6 +32,7 @@ class FloatingBlock: public GameObject{
 	FloatingBlockState state;
 	Timer timer;
 	float alreadyMoved;
+	bool thorStanding, lokiStanding;
 
 	float VEL, ALTITUDE, WAITTIME;
 };

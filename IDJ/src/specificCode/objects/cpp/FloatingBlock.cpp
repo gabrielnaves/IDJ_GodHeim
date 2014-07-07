@@ -18,6 +18,7 @@ FloatingBlock::FloatingBlock(std::string sprite, int x, int y, FloatingBlockStat
 	ALTITUDE = altitude;
 	alreadyMoved = 0;
 	WAITTIME = wait;
+	thorStanding = lokiStanding = false;
 }
 
 void FloatingBlock::Update(float dt)
@@ -27,9 +28,15 @@ void FloatingBlock::Update(float dt)
 	Move(dt);
 
 	if(Thor::characterThor && !(IsOnTop(Thor::characterThor)))
+	{
 		Thor::characterThor->standingOnObject = false;
+		thorStanding = false;
+	}
 	if(Loki::characterLoki && !(IsOnTop(Loki::characterLoki)))
+	{
 		Loki::characterLoki->standingOnObject = false;
+		lokiStanding = false;
+	}
 }
 
 void FloatingBlock::Render()
@@ -53,6 +60,7 @@ void FloatingBlock::NotifyCollision(GameObject& other)
 				Loki::characterLoki->box.SetPoint(Loki::characterLoki->box.GetX(), box.GetY() - Loki::characterLoki->box.GetH());		//Moves Loki to standing position on top;
 				Loki::characterLoki->SetVState(STANDING);
 				Loki::characterLoki->standingOnObject = true;
+				lokiStanding = true;
 			}
 		}
 		else if (prevLokiPos.GetY() >= prevBlockPos.GetY() + prevBlockPos.GetH())														//Loki coming from below;
@@ -81,6 +89,7 @@ void FloatingBlock::NotifyCollision(GameObject& other)
 				Thor::characterThor->box.SetPoint(Thor::characterThor->box.GetX(), box.GetY() - Thor::characterThor->box.GetH());		//Moves Thor to standing position on top;
 				Thor::characterThor->SetVState(STANDING);
 				Thor::characterThor->standingOnObject = true;
+				thorStanding = true;
 			}
 		}
 		else if (prevThorPos.GetY() >= prevBlockPos.GetY() + prevBlockPos.GetH())														//Thor coming from below;
@@ -151,6 +160,10 @@ void FloatingBlock::Move(float dt)
 		else
 			box.MoveRect(0,VEL*dt);
 	}
+	if (Thor::characterThor && thorStanding && Thor::characterThor->GetVState() == STANDING)
+		Thor::characterThor->box.SetPoint(Thor::characterThor->box.GetX(), box.GetY() - Thor::characterThor->box.GetH());
+	if (Loki::characterLoki && lokiStanding && Loki::characterLoki->GetVState() == STANDING)
+		Loki::characterLoki->box.SetPoint(Loki::characterLoki->box.GetX(), box.GetY() - Loki::characterLoki->box.GetH());
 }
 
 
