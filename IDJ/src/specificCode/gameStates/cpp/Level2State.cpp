@@ -48,17 +48,17 @@ void Level2State::Update(float dt)
     Input();
     lavaCircle->Update(dt);
 
-    for (auto it = objectArray.begin(); it != objectArray.end(); it++){		//Prevents wrong null pointers;
-    	if(it->get()->Is("Thor"))
-    		Thor::characterThor = (Thor*) it->get();
-    	if(it->get()->Is("Loki"))
-    		Loki::characterLoki = (Loki*) it->get();
-    	if(it->get()->Is("Barrier"))
-    		Barrier::barrier = (Barrier*) it->get();
-    }
-
     if (Thor::characterThor != NULL && Loki::characterLoki != NULL && Barrier::barrier != NULL)
     {
+        for (auto it = objectArray.begin(); it != objectArray.end(); it++) //Prevents wrong null pointers
+        {
+        	if(it->get()->Is("Thor"))
+        		Thor::characterThor = (Thor*) it->get();
+        	if(it->get()->Is("Loki"))
+        		Loki::characterLoki = (Loki*) it->get();
+        	if(it->get()->Is("Barrier"))
+        		Barrier::barrier = (Barrier*) it->get();
+        }
         UpdateArray(dt);
         ChecksForCollisions();
         ErasesDeadObjects();
@@ -159,5 +159,4 @@ void Level2State::ErasesDeadObjects()
     for (unsigned int i = 0; i < objectArray.size(); i++)
         if (objectArray[i]->IsDead())
             objectArray.erase(objectArray.begin()+i), i--;
-
 }

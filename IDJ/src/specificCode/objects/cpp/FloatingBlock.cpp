@@ -41,8 +41,10 @@ void FloatingBlock::Update(float dt)
 
 void FloatingBlock::Render()
 {
-	prevThorPos = Thor::characterThor->box;
-	prevLokiPos = Loki::characterLoki->box;
+	if (Thor::characterThor != NULL)
+		prevThorPos = Thor::characterThor->box;
+	if (Loki::characterLoki != NULL)
+		prevLokiPos = Loki::characterLoki->box;
 	prevBlockPos = box;
 
 	block.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY());

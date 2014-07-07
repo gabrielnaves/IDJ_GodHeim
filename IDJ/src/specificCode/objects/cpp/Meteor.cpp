@@ -39,10 +39,25 @@ void Meteor::Fall()
 	sp.SetFrameCount(5);
 	sp.SetFrameTime(0.7);
 	sp.SetFrame(1);
-	box.SetPoint(0,0);
+	box.SetPoint(rand() % 700,0);
+	float x = rand() % 700;
+	float y = rand() % 1600;
+
+	rotation = (y - box.GetY())/(x - box.GetX());
 	SetState(MeteorNamespace::FALLING);
 	meltTime.Restart();
 }
+
+//void Meteor::Fall()
+//{
+//	sp.Open("img/level2/meteorFalling.png");
+//	sp.SetFrameCount(5);
+//	sp.SetFrameTime(0.7);
+//	sp.SetFrame(1);
+//	box.SetPoint(0,0);
+//	SetState(MeteorNamespace::FALLING);
+//	meltTime.Restart();
+//}
 
 void Meteor::Render()
 {

@@ -14,7 +14,7 @@
 
 namespace MeteorNamespace
 {
-	const float FALLING_SPEED = 6;
+	const float FALLING_SPEED = 4;
 	enum State {FALLING, MELTING};
 }
 
