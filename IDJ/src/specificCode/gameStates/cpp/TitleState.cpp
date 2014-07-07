@@ -34,7 +34,9 @@ void TitleState::Update(float dt)
     if (startEndTimer) endTimer.Update(dt);
     if (endTimer.Get() >= 2.5)
     {
-        requestDelete = true;
+//        requestDelete = true;
+    	endTimer.Restart();
+    	startEndTimer = false;
         Game::GetInstance().ResetWindowSize(1200,650);
         Game::GetInstance().Push(SelectLevel());
     }
@@ -84,6 +86,7 @@ void TitleState::UpdateArray(float dt)
             cursor.ChangeSp("img/menu/mouseThunder.png");
             startEndTimer = true;
             titleMusic.Stop(2.4);
+            objectArray[i]->Activate();
         }
         else if (objectArray[i]->IsDead() && objectArray[i]->Is("Options"))
         {

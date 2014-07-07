@@ -20,6 +20,7 @@ class MenuBox : public GameObject
 
     bool IsDead();
     bool Is(std::string type);
+    void Activate();
 
   private:
     Sprite sp1, sp2;

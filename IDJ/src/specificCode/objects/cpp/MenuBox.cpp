@@ -47,6 +47,11 @@ bool MenuBox::IsDead()
     return click;
 }
 
+void MenuBox::Activate()
+{
+	click = false;
+}
+
 bool MenuBox::Is(std::string type)
 {
     return type == this->type ? true : false;

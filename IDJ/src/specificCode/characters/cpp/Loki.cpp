@@ -12,7 +12,7 @@
 Loki* Loki::characterLoki;
 
 Loki::Loki(float x, float y, MovementMap movMap) :
-        Character(movMap,"img/characters/loki_walk.png",8,0.1,"img/characters/lokiJump.png",4,0.1,"img/characters/lokiStairs.png",2,0.15)
+        Character(movMap,"img/characters/loki_walk.png",7,0.1,"img/characters/lokiJump.png",4,0.1,"img/characters/lokiStairs.png",2,0.15)
 {
 	characterSp.Open("img/characters/loki.png");
 	box.Set(x-characterSp.GetWidth()/2, y-characterSp.GetHeight()/2, characterSp.GetWidth(), characterSp.GetHeight());
@@ -128,7 +128,7 @@ void Loki::UpdateSprite()
         if (vState == STANDING)
         {
             if (hState == MOVING_RIGHT or hState == MOVING_LEFT)
-                prevHState != hState ? ChangeSp("walkSp","img/characters/loki_walk.png",8) : walkSp.Update(dt);
+                prevHState != hState ? ChangeSp("walkSp","img/characters/loki_walk.png",7) : walkSp.Update(dt);
             else if (hState == STANDING_RIGHT or hState == STANDING_LEFT)
                 ChangeSp("characterSp","img/characters/loki.png",1);
         }
