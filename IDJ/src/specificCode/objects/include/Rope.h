@@ -16,7 +16,7 @@
 class Rope : public GameObject
 {
   public:
-    Rope(std::string rope, int x, int y, bool active = true);
+    Rope(std::string rope, int x, int y, bool active = true, int frameCount = 1, float frameTime = 1);
     void Update(float dt);
     void Render();
     void NotifyCollision(GameObject& other);

@@ -7,7 +7,7 @@
 
 #include "../include/Rope.h"
 
-Rope::Rope(std::string rope, int x, int y, bool active) : ropeSp(rope)
+Rope::Rope(std::string rope, int x, int y, bool active, int frameCount, float frameTime) : ropeSp(rope,frameCount,frameTime)
 {
     box.Set(x,y,ropeSp.GetWidth(),ropeSp.GetHeight());
     thorClimbing = lokiClimbing = false;
@@ -16,7 +16,7 @@ Rope::Rope(std::string rope, int x, int y, bool active) : ropeSp(rope)
 
 void Rope::Render()
 {
-    if (active) ropeSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY());
+    ropeSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY());
 }
 
 void Rope::NotifyCollision(GameObject& other)
@@ -49,6 +49,8 @@ bool Rope::Is(std::string type)
 
 void Rope::Update(float dt)
 {
+	if (active and ropeSp.GetCurrentFrame() != ropeSp.GetFrameCount())
+		ropeSp.Update(dt);
     if (thorClimbing)
     {
         if (Thor::characterThor->horizontal == 1 or Thor::characterThor->horizontal ==-1)
