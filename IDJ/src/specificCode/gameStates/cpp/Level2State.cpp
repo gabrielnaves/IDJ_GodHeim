@@ -19,6 +19,10 @@ Level2State::Level2State() : State(), tileSet(55,55,"img/level2/level2Tiles.png"
     Follow("Barrier");
     SelectMusic();
     music->Play(-1);
+    ItemFlags::belt = true;
+    ItemFlags::eagle = true;
+    ItemFlags::fireBall = true;
+    ItemFlags::hammer = true;
 }
 
 Level2State::~Level2State()

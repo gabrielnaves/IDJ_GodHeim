@@ -7,5 +7,5 @@
 
 #include "../include/StateData.h"
 
-int StateData::startingLevel = 1;
-std::string StateData::soundMode = "Normal";
+int StateData::startingLevel = 2;
+std::string StateData::soundMode = "8bits";

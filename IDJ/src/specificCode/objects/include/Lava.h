@@ -9,6 +9,8 @@
 #define LAVA_H_
 
 #include "../../../Engine.h"
+#include "../../characters/include/Thor.h"
+#include "../../characters/include/Loki.h"
 
 class Lava : public GameObject
 {
@@ -19,6 +21,7 @@ class Lava : public GameObject
     void Update(float dt);
     void Render();
     bool Is(std::string type);
+    void NotifyCollision(GameObject &other);
 
   private:
     Sprite sp;
