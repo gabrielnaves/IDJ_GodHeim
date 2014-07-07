@@ -61,8 +61,8 @@ void Level1State::EmplaceInitialObjects()
     objectArray.emplace_back(new Rope("img/objects/rope.png", 950, 495));
     objectArray.emplace_back(new Rope("img/objects/smallRope.png",550,1045));
     objectArray.emplace_back(new BrokenHouseBack(500, 320));
-    objectArray.emplace_back(new Loki(12*55,1500, movementMap));
-    objectArray.emplace_back(new Thor(12*55,1500, movementMap));
+    objectArray.emplace_back(new Loki(70,220, movementMap));
+    objectArray.emplace_back(new Thor(30,220, movementMap));
     objectArray.emplace_back(new Bridge(220, 330));
     objectArray.emplace_back(new BrokenHouseFront(500, 320));
     objectArray.emplace_back(new Item(355,520,"img/items/lokifire.png", "LokiFire", false, true));

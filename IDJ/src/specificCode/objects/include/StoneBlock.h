@@ -32,6 +32,8 @@ class StoneBlock : public GameObject
     void Stand(Character *character);
     void Blocks(Character *character);
     bool CloseTo(Rect character);
+    bool ShouldFall();
+    void Fall();
     Sprite sp;
     Rect prevLoki, prevThor;
 };

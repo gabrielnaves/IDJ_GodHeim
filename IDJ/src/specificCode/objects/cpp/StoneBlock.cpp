@@ -19,6 +19,8 @@ void StoneBlock::Update(float dt)
 	if (CloseTo(Thor::characterThor->box)) CharactersStandOnBlock(Thor::characterThor);
 	if (CloseTo(Loki::characterLoki->box)) CharactersStandOnBlock(Loki::characterLoki);
 
+	if (ShouldFall()) Fall();
+
 	if (ItemFlags::belt)
 	{
 		if (CloseTo(Thor::characterThor->box)) Push();
@@ -28,6 +30,19 @@ void StoneBlock::Update(float dt)
 
 	prevLoki = Loki::characterLoki->box;
 	prevThor = Thor::characterThor->box;
+}
+
+void StoneBlock::Fall()
+{
+	if (box.GetY() < 39*55)
+		box.SetPoint(7*55,box.GetY()+10);
+	else
+		box.SetPoint(7*55,39*55);
+}
+
+bool StoneBlock::ShouldFall()
+{
+	return (box.GetX() > 7*55-5 and box.GetX() < 7*55+5) ? true : false;
 }
 
 void StoneBlock::Push()

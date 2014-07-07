@@ -7,9 +7,9 @@
 
 #include "../include/ItemFlags.h"
 
-bool ItemFlags::fireBall = true;
+bool ItemFlags::fireBall = false;
 bool ItemFlags::eagle = false;
-bool ItemFlags::belt = true;
+bool ItemFlags::belt = false;
 bool ItemFlags::hammer = false;
 
 void ItemFlags::ChangeFlag(std::string name, bool newValue)
