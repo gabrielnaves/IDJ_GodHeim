@@ -14,10 +14,7 @@ Rock::Rock(std::string sprite,float x, float y)
 	broke = false;
 }
 
-void Rock::Update(float dt)
-{
-
-}
+void Rock::Update(float dt) {}
 
 void Rock::Render()
 {

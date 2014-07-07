@@ -32,7 +32,7 @@ Character::Character(MovementMap movMap,
     horizontal = vertical = 0;
     actionButton = false;
     insideBridge = false;
-    aboveStairs = false;
+    standingOnObject = false;
     barrierSuspended = false;
     shouldRender = true;
     pressSwitch = canPressSwitch = false;
@@ -257,7 +257,7 @@ void Character::CheckMovementLimits()
     		SetVState(JUMPING);
     }
     // If character speed > 0, then the character is falling
-    else if ((!insideBridge) && (speed.GetY() >= 0) && (!aboveStairs))
+    else if ((!insideBridge) && (speed.GetY() >= 0) && (!standingOnObject))
     {
         SetVState(FALLING);
     }

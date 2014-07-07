@@ -23,6 +23,7 @@
 #include "../../objects/include/Plants.h"
 #include "../../objects/include/PlantBarrier.h"
 #include "../../objects/include/Rock.h"
+#include "../../objects/include/StoneBlock.h"
 #include "../../characters/include/Goat.h"
 #include "../../characters/include/Wolf.h"
 #include "../../characters/include/HpBar.h"

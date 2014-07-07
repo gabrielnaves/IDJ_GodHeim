@@ -47,7 +47,7 @@ class Character : public GameObject
     void Heal();
     std::string GetMovementType();
 
-    bool canPressSwitch,pressSwitch, aboveStairs, insideBridge, barrierSuspended, actionButton;
+    bool canPressSwitch,pressSwitch, standingOnObject, insideBridge, barrierSuspended, actionButton;
     Point speed;
     float dt;
     int horizontal, vertical;

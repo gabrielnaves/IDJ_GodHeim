@@ -48,12 +48,12 @@ void Gate::InteractsWith(Character *character)
 {
 	if (!IsCloseTo(character)) return;
 	if (ShouldDrop(character)) Drop(character);
-	character->aboveStairs = false;
+	character->standingOnObject = false;
 	if (ShouldStandOnStairs(character)) Stand(character);
-	if (character->aboveStairs == true and character->vertical<0)
+	if (character->standingOnObject == true and character->vertical<0)
 	{
 		character->SetActionState(CLIMBING_GATE);
-		character->aboveStairs = false;
+		character->standingOnObject = false;
 		character->box.MoveRect(0,1);
 	}
 }
@@ -69,9 +69,8 @@ bool Gate::ShouldStandOnStairs(Character *character)
 }
 void Gate::Stand(Character *character)
 {
-	character->aboveStairs = true;
+	character->standingOnObject = true;
     character->box.MoveRect(0, box.GetY()-(character->box.GetY()+character->box.GetH()));
-//	character->box.SetPoint(character->box.GetX(),box.GetY()-character->box.GetW());
 	character->SetActionState(NONE);
 	character->SetVState(STANDING);
 }
@@ -126,7 +125,7 @@ void Gate::NotifyCollision(GameObject& other)
         if (other.Is("Thor")) character = Thor::characterThor;
         if (CanClimb(character) and character->actionState != CLIMBING_GATE)
             if (character->vertical != 0)
-                    character->SetActionState(CLIMBING_GATE);
+                character->SetActionState(CLIMBING_GATE);
     }
 
 }
