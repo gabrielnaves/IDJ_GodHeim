@@ -30,7 +30,8 @@ void EndState::Update(float dt)
 	if (loopCounter >= 8)
 	{
 		requestDelete = true;
-		Game::GetInstance().ResetWindowSize(574,600);
+		requestQuit = true;
+//		Game::GetInstance().ResetWindowSize(574,600);
 //		Game::GetInstance().Push(new TitleState());
 	}
 }

@@ -15,6 +15,12 @@ Cursor::Cursor(): sp("img/menu/mouse.png")
 	click = false;
 }
 
+void Cursor::Find()
+{
+	box.Set(InputManager::GetInstance().GetMouseX()-sp.GetWidth()/2 -15,
+			InputManager::GetInstance().GetMouseY()-sp.GetHeight()/2 +15, sp.GetWidth(), sp.GetHeight());
+}
+
 void Cursor::Update(float dt)
 {
 	if (InputManager::GetInstance().MousePress(1))	click = true;

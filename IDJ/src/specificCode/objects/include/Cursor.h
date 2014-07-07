@@ -19,6 +19,7 @@ class Cursor: public GameObject
 	void Render();
 	bool Is(std::string type);
 	void ChangeSp(std::string sprite);
+	void Find();
   private:
 	Sprite sp;
 	Timer timer;
