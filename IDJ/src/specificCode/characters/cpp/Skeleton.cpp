@@ -27,7 +27,6 @@ void Skeleton::Update(float dt)
 {
 	if (state == SkeletonNamespace::RESTING) Rest(dt);
 	if (state == SkeletonNamespace::WALKING) Walk(dt);
-	if (state == SkeletonNamespace::ATTACKING) Attack(dt);
 }
 
 void Skeleton::Rest(float dt)
@@ -58,12 +57,6 @@ void Skeleton::Walk(float dt)
     facingRight = (signal == 1 ? true : false);
     if (abs(distance) >= 30)
         box.MoveRect(dt*SkeletonNamespace::WALK_SPEED*signal, 0);
-//    else state = SkeletonNamespace::ATTACKING;
-}
-
-void Skeleton::Attack(float dt)
-{
-
 }
 
 void Skeleton::Render()

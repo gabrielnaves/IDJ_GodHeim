@@ -14,7 +14,7 @@
 
 namespace SkeletonNamespace
 {
-	enum State {RESTING, WALKING, ATTACKING};
+	enum State {RESTING, WALKING};
 	const float VISION_DISTANCE = 12*55;
 	const float WALK_SPEED = 125;
 }
@@ -39,7 +39,6 @@ class Skeleton : public GameObject
     bool facingRight;
     Sprite restSp, walkSp;
     Rect visionField;
-//    MovementMap movMap;
     SkeletonNamespace::State state;
 };
 
