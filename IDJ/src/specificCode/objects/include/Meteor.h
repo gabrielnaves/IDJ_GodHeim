@@ -15,7 +15,7 @@
 namespace MeteorNamespace
 {
 	const float FALLING_SPEED = 10;
-	enum State {FALLING, MELTING, EXPLODING};
+	enum State {FALLING, MELTING};
 }
 
 class Meteor : public GameObject

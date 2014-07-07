@@ -29,16 +29,6 @@ void Meteor::Update(float dt)
 	if (state == MeteorNamespace::FALLING) box.MoveRect(FALLING_SPEED*cos(rotation),FALLING_SPEED*sin(rotation));
 	if (state == MeteorNamespace::MELTING) explosion.Update(dt);
 	if (explosion.Get()>0.6) box.MoveRect(0,1);
-//	if (explosion.Get()>0.2 and state == MeteorNamespace::MELTING)
-//	{
-//		SetState(MeteorNamespace::EXPLODING);
-//		sp.Open("img/level2/meteorExploding.png");
-//		sp.SetFrame(1);
-//		sp.SetFrameCount(7);
-//		sp.SetFrameTime(0.1);
-//		box.MoveRect(0,-270);
-//	}
-	if (state == MeteorNamespace::EXPLODING and sp.GetCurrentFrame() == sp.GetFrameCount()) dead = true;
 }
 void Meteor::Render()
 {
@@ -57,16 +47,16 @@ void Meteor::NotifyCollision(GameObject& other)
 	}
 	if (other.Is("Loki"))
 	{
-		Loki::characterLoki->DealDamage();
+		Loki::characterLoki->Kill();
 	}
 	if (other.Is("Thor"))
 	{
-		Thor::characterThor->DealDamage();
+		Thor::characterThor->Kill();
 	}
 }
 bool Meteor::IsDead()
 {
-	return dead;
+	return (explosion.Get() > 5 ? true:false);
 }
 bool Meteor::Is(std::string type)
 {

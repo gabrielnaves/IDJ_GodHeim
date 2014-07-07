@@ -36,6 +36,6 @@ void Lava::NotifyCollision(GameObject &other)
 {
 	if (other.box.GetX() > box.GetX()+box.GetW()+5 or other.box.GetX()+other.box.GetW() < box.GetX()-5) return;
 	if (other.box.GetY()+other.box.GetH() < box.GetY()-10 or other.box.GetY() > box.GetY()+box.GetH()+10) return;
-	if (other.Is("Thor")) Thor::characterThor->DealDamage();
-	if (other.Is("Loki")) Loki::characterLoki->DealDamage();
+	if (other.Is("Thor")) Thor::characterThor->Kill();
+	if (other.Is("Loki")) Loki::characterLoki->Kill();
 }

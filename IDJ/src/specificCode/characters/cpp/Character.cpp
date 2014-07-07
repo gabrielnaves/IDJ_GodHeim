@@ -131,6 +131,12 @@ void Character::Heal()
 	}
 }
 
+void Character::Kill()
+{
+	for (int i=hp.size()-1;i>=0;i--)
+		hp[i]->Empty();
+}
+
 void Character::ChangeMovementState(std::string type)
 {
     if (type == movement->GetType()) return;

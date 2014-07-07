@@ -38,6 +38,6 @@ void Spikes::NotifyCollision(GameObject &other)
         Character *character;
         if (other.Is("Loki")) character = Loki::characterLoki;
         else character = Thor::characterThor;
-        character->DealDamage();
+        character->Kill();
     }
 }
