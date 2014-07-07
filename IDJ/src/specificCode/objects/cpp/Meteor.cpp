@@ -7,7 +7,7 @@
 
 #include "../include/Meteor.h"
 
-Meteor::Meteor(float x, float y, float X, float Y) : sp("img/level2/meteorFalling.png", 5,0.9,false)
+Meteor::Meteor(float x, float y, float X, float Y) : sp("img/level2/meteorFalling.png", 5,0.7,false)
 {
 	box.Set(x,y,sp.GetWidth(),sp.GetHeight());
 	state = MeteorNamespace::FALLING;
@@ -27,23 +27,38 @@ void Meteor::Update(float dt)
 	float FALLING_SPEED = MeteorNamespace::FALLING_SPEED;
 	sp.Update(dt);
 	if (state == MeteorNamespace::FALLING) box.MoveRect(FALLING_SPEED*cos(rotation),FALLING_SPEED*sin(rotation));
-	if (state == MeteorNamespace::MELTING) explosion.Update(dt);
-	if (explosion.Get()>0.6) box.MoveRect(0,1);
+	if (state == MeteorNamespace::MELTING) meltTime.Update(dt);
+	if (meltTime.Get()>0.6 and state == MeteorNamespace::MELTING) box.MoveRect(0,1);
+	if (meltTime.Get()>15) Fall();
+	prevState = state;
 }
+
+void Meteor::Fall()
+{
+	sp.Open("img/level2/meteorFalling.png");
+	sp.SetFrameCount(5);
+	sp.SetFrameTime(0.7);
+	sp.SetFrame(1);
+	box.SetPoint(0,0);
+	SetState(MeteorNamespace::FALLING);
+	meltTime.Restart();
+}
+
 void Meteor::Render()
 {
 	sp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY());
 }
+
 void Meteor::NotifyCollision(GameObject& other)
 {
 	if (other.Is("Lava") and prevState == MeteorNamespace::FALLING)
 	{
 		SetState(MeteorNamespace::MELTING);
 		sp.Open("img/level2/meteorMelting.png");
-		box.MoveRect(0,20);
 		sp.SetFrameCount(6);
 		sp.SetFrameTime(0.4);
 		sp.SetFrame(1);
+		box.MoveRect(0,40);
 	}
 	if (other.Is("Loki"))
 	{
@@ -56,7 +71,7 @@ void Meteor::NotifyCollision(GameObject& other)
 }
 bool Meteor::IsDead()
 {
-	return (explosion.Get() > 5 ? true:false);
+	return (false);
 }
 bool Meteor::Is(std::string type)
 {

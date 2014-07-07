@@ -14,7 +14,7 @@
 
 namespace MeteorNamespace
 {
-	const float FALLING_SPEED = 10;
+	const float FALLING_SPEED = 6;
 	enum State {FALLING, MELTING};
 }
 
@@ -29,9 +29,10 @@ class Meteor : public GameObject
 	bool Is(std::string type);
   private:
 	void SetState(MeteorNamespace::State newState);
+	void Fall();
 	Sprite sp;
 	MeteorNamespace::State state, prevState;
-	Timer explosion;
+	Timer meltTime;
 	bool dead;
 };
 
