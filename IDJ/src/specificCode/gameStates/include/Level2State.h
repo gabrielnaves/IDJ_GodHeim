@@ -12,6 +12,7 @@
 #include "../../characters/include/Barrier.h"
 #include "../../objects/include/LavaCircle.h"
 #include "../../objects/include/Lava.h"
+#include "../../objects/include/Meteor.h"
 #include "StateData.h"
 #include "EndState.h"
 
