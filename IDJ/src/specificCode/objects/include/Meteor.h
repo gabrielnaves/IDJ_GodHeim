@@ -21,7 +21,7 @@ namespace MeteorNamespace
 class Meteor : public GameObject
 {
   public:
-	Meteor(float x, float y);
+	Meteor(float x, float y, float X, float Y);
 	void Update(float dt);
 	void Render();
 	void NotifyCollision(GameObject& other);

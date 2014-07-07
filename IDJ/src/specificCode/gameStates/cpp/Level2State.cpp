@@ -119,7 +119,7 @@ void Level2State::EmplaceInitialObjects()
     objectArray.emplace_back(new Thor(1225,100, movementMap));
     objectArray.emplace_back(new Skeleton(22*55,21.1*55));
     objectArray.emplace_back(new Barrier());
-    objectArray.emplace_back(new Meteor(9*55,0));
+    objectArray.emplace_back(new Meteor(0,0,9*55,29*55));
     objectArray.emplace_back(new ChainedDragon(800, 600));
     objectArray.emplace_back(new Lava(0, 1430));
 }
