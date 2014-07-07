@@ -37,7 +37,7 @@ void Loki::Shoot()
 {
     Sprite spBullet("img/characters/lokiFireball.png",3,0.1);
     float shootingAngle = (hState == MOVING_RIGHT or hState == STANDING_RIGHT) ? 0 : M_PI;
-    Bullet* fireBall=new Bullet(box.Center().GetX(),box.Center().GetY(),shootingAngle,FIREBALL_SPEED,FIREBALL_DISTANCE,spBullet,"Loki");
+    Bullet* fireBall=new Bullet(box.Center().GetX(),box.Center().GetY(),shootingAngle,FIREBALL_SPEED,FIREBALL_DISTANCE,spBullet,"Loki",movementMap);
     Game::GetInstance().GetCurrentState().AddObject(fireBall); //add the bullet to the objectArray
 
     shootCooldown.Restart(); //restart the timer

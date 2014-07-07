@@ -10,7 +10,9 @@
 /**
  * @Param angle must be in radians
  */
-Bullet::Bullet(float x, float y, float angle, float speed, float maxDistance, Sprite sprite, std::string shooter) : sp(sprite)
+Bullet::Bullet(float x, float y, float angle, float speed, float maxDistance, Sprite sprite, std::string shooter, MovementMap movMap)
+	: sp(sprite), movementMap(movMap)
+
 {
 	box.Set(x,y,sp.GetWidth(),sp.GetHeight());
 	this->speed.Set(speed*cos(angle),speed*sin(angle));
@@ -24,6 +26,17 @@ void Bullet::Update(float dt)
 	box.MoveRect(speed.GetX()*dt,speed.GetY()*dt);
 	distanceLeft -= sqrt(pow(speed.GetX()*dt, 2) + pow(speed.GetY()*dt, 2));
 	sp.Update(dt);
+	CheckCollisionWithWall();
+}
+
+void Bullet::CheckCollisionWithWall()
+{
+    // Checks the right limit
+    if (!movementMap.IsZero(box.Center().GetX() + box.GetW()/2, box.Center().GetY()))
+        distanceLeft = 0;
+    // Checks the left limit
+    if (!movementMap.IsZero(box.Center().GetX() - box.GetW()/2, box.Center().GetY()))
+    	distanceLeft = 0;
 }
 
 void Bullet::Render()
