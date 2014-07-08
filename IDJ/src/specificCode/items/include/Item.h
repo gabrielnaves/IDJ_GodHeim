@@ -18,6 +18,7 @@ class Item : public GameObject
     Item(int x, int y, std::string imageAdress, std::string name, bool thorCatches, bool lokiCatches);
     Item(int x, int y, std::string imageAdress, std::string name, bool thorCatches, bool lokiCatches, bool delayed, float delay);
     virtual ~Item();
+    void SetHover(bool hover);
     void Update(float dt);
     void Render();
     void NotifyCollision(GameObject& other);
@@ -34,6 +35,7 @@ class Item : public GameObject
     bool hasItem, disappear, delayed;
     bool thorCatches, lokiCatches;
     float delayTime, angle, initialY;
+    bool hover;
 };
 
 #endif /* ITEM_H_ */

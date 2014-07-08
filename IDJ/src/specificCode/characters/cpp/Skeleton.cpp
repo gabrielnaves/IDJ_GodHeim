@@ -79,8 +79,8 @@ void Skeleton::NotifyCollision(GameObject& other)
 	if (other.Is("Loki")) Loki::characterLoki->DealDamage();
 	if (other.Is("Thor"))
 	{
-		if (!ItemFlags::redPotion)
-			Thor::characterThor->DealDamage();
+//		if (!ItemFlags::redPotion)
+//			Thor::characterThor->DealDamage();
 		if (Thor::characterThor->actionState == ATTACKING)
 		{
 			hp -= 1;
@@ -105,6 +105,10 @@ void Skeleton::Die()
     Sprite skeletonDeath("img/characters/esqueletomorre.png", 12, 0.1);
     StillAnimation *sa = new StillAnimation(box.Center().GetX(),box.Center().GetY(),rotation,skeletonDeath,1.2,true);
     Game::GetInstance().GetCurrentState().AddObject(sa);
+
+    Item *helmet = new Item(box.Center().GetX(), box.Center().GetY(),"img/characters/skeletonHelmet.png", "Meat", false, false, true, 1.2);
+    helmet->SetHover(false);
+    Game::GetInstance().GetCurrentState().AddObject(helmet);
 }
 
 Rect Skeleton::FindClosestCharacter()

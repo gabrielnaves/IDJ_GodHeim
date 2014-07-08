@@ -35,9 +35,15 @@ void Item::SetConstructor(int x, int y, std::string imageAdress, std::string nam
     delayTime = delay;
     this->thorCatches = thorCatches;
     this->lokiCatches = lokiCatches;
+    hover = true;
 }
 
 Item::~Item() {}
+
+void Item::SetHover(bool hover)
+{
+	this->hover = hover;
+}
 
 void Item::Update(float dt)
 {
@@ -90,6 +96,7 @@ bool Item::IsDead()
 
 void Item::Hover(float dt)
 {
+	if (!hover) return;
     angle = angle + dt * 3;
     if (angle >= 2*M_PI) angle -= 2*M_PI;
     box.Set(box.GetX(), initialY + cos(angle) * 5, box.GetW(), box.GetH());
