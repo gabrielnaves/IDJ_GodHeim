@@ -125,6 +125,7 @@ void Level2State::EmplaceInitialObjects()
     objectArray.emplace_back(new Barrier());
     objectArray.emplace_back(new Meteor(0,0,11*55,29*55));
     objectArray.emplace_back(new Lava(0, 1430));
+    objectArray.emplace_back(new Item(20,7.5*55,"img/items/redPotion.png","redPotion",true,false));
 }
 
 void Level2State::Input()

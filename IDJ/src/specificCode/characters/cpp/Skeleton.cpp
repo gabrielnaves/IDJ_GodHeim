@@ -74,8 +74,18 @@ void Skeleton::NotifyCollision(GameObject& other)
 		if (other.box.GetX() > box.GetX()+box.GetW()+5 or other.box.GetX()+other.box.GetW() < box.GetX()-5) return;
     	if (other.box.GetY()+other.box.GetH() < box.GetY()-10 or other.box.GetY() > box.GetY()+box.GetH()+10) return;
 	}
-	if (other.Is("Thor")) Thor::characterThor->DealDamage();
 	if (other.Is("Loki")) Loki::characterLoki->DealDamage();
+	if (other.Is("Thor"))
+	{
+		if (!ItemFlags::redPotion)
+			Thor::characterThor->DealDamage();
+		if (Thor::characterThor->actionState == ATTACKING)
+		{
+			hp -= 1;
+			Die();
+		}
+	}
+
 }
 
 bool Skeleton::IsDead()
