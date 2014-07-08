@@ -12,7 +12,9 @@ ChainedDragon::ChainedDragon(float x, float y, bool facingRight, MovementMap mov
                             restSp("img/characters/dragonResting.png", 2, 0.7, true),
                             movementMap(movMap)
 {
-    box.Set(x, y, attackSp.GetWidth(), attackSp.GetHeight());
+	REST_TIME = (rand() % 400);
+	REST_TIME = REST_TIME/100;
+	box.Set(x, y, attackSp.GetWidth(), attackSp.GetHeight());
     this->facingRight = facingRight;
     rotation = 0;
     state = CDragon::RESTING;
@@ -28,7 +30,9 @@ ChainedDragon::ChainedDragon(FloatingBlock* block, bool facingRight, MovementMap
                             restSp("img/characters/dragonResting.png", 2, 0.7, true),
                             movementMap(movMap)
 {
-    float x, y;
+	REST_TIME = (rand() % 400);
+	REST_TIME = REST_TIME/100;
+	float x, y;
     x = block->box.Center().GetX()-restSp.GetWidth()/2;
     y = block->box.GetY() - restSp.GetHeight() + 10;
     box.Set(x, y, restSp.GetWidth(), restSp.GetHeight());
@@ -73,7 +77,7 @@ void ChainedDragon::Rest(float dt)
 
     restSp.Update(dt);
     restTimer.Update(dt);
-    if (restTimer.Get() >= CDragon::REST_TIME)
+    if (restTimer.Get() >= REST_TIME)
     {
         // If any character is within the dragon's field of view, attacks
         if (Collision::IsColliding(thor, visionField, 0, 0) or Collision::IsColliding(loki, visionField, 0, 0))
