@@ -39,7 +39,7 @@ void Meteor::Fall()
 	sp.SetFrameCount(5);
 	sp.SetFrameTime(0.7);
 	sp.SetFrame(1);
-	box.SetPoint(rand() % 200 + 300,0);
+	box.SetPoint(rand() % 200 + 300,-400);
 
 	rotation = 1.0 + (rand() % 10)/11.0;
 
