@@ -83,6 +83,7 @@ void Skeleton::NotifyCollision(GameObject& other)
 			Thor::characterThor->DealDamage();
 		if (Thor::characterThor->actionState == ATTACKING)
 		{
+			Thor::characterThor->SetActionState(NONE);
 			hp -= 1;
 			Die();
 		}
