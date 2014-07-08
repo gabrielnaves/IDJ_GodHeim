@@ -24,7 +24,7 @@ class Character : public GameObject
 {
   public:
     Character(MovementMap movMap,std::string,int frameCount,float frameTime,
-            std::string jump,int jumpFrameCount,float jumpFrameTime,std::string climb, int cFrameCount, float cFrameTime);
+            std::string jump,int jumpFrameCount,float jumpFrameTime,std::string climb, int cFrameCount, float cFrameTime, std::string hitSp);
     virtual ~Character() {}
     bool IsClimbing();
     void CancelAction();
@@ -67,11 +67,12 @@ class Character : public GameObject
     void ChangeMovementState(std::string type);
 
     std::vector<std::unique_ptr<HpBar>> hp;
-    Sprite characterSp, walkSp, jumpSp, climbSp;
+    Sprite characterSp, walkSp, jumpSp, climbSp, hitSp;
     MovementMap movementMap;
     MovementState *movement;
 
     bool shouldRender; //flag in case the characters should not be rendered for being covered by something
+    bool damaged;
 
   private:
     void Input();
@@ -80,6 +81,8 @@ class Character : public GameObject
     void UpdateState();
     void CheckMovementLimits();
     void UpdatePrevState();
+
+    Timer damageTime, imuneTime;
 };
 
 #endif /* CHARACTER_H_ */

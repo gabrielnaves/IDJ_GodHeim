@@ -79,8 +79,8 @@ void Skeleton::NotifyCollision(GameObject& other)
 	if (other.Is("Loki")) Loki::characterLoki->DealDamage();
 	if (other.Is("Thor"))
 	{
-//		if (!ItemFlags::redPotion)
-//			Thor::characterThor->DealDamage();
+		if (!ItemFlags::redPotion)
+			Thor::characterThor->DealDamage();
 		if (Thor::characterThor->actionState == ATTACKING)
 		{
 			hp -= 1;

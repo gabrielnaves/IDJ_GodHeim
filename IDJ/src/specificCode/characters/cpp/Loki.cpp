@@ -12,7 +12,8 @@
 Loki* Loki::characterLoki;
 
 Loki::Loki(float x, float y, MovementMap movMap) :
-        Character(movMap,"img/characters/loki_walk.png",7,0.1,"img/characters/lokiJump.png",4,0.1,"img/characters/lokiStairs.png",3,0.15)
+        Character(movMap,"img/characters/loki_walk.png",7,0.1,"img/characters/lokiJump.png",4,0.1,"img/characters/lokiStairs.png",3,0.15,
+        		"img/characters/lokihit.png")
 {
 	characterSp.Open("img/characters/loki.png");
 	box.Set(x-characterSp.GetWidth()/2, y-characterSp.GetHeight()/2, characterSp.GetWidth(), characterSp.GetHeight());

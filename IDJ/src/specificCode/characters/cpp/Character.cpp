@@ -17,10 +17,12 @@
 Character::Character(MovementMap movMap,
            std::string walk,int wFrameCount,float wFrameTime,
            std::string jump,int jFrameCount,float jFrameTime,
-           std::string climb, int cFrameCount, float cFrameTime)
+           std::string climb, int cFrameCount, float cFrameTime,
+           std::string hit)
          : walkSp(walk,wFrameCount,wFrameTime),
            jumpSp(jump,jFrameCount,jFrameTime,false),
            climbSp(climb,cFrameCount,cFrameTime),
+           hitSp(hit),
            movementMap(movMap)
 {
     rotation = 0;
@@ -36,6 +38,7 @@ Character::Character(MovementMap movMap,
     barrierSuspended = false;
     shouldRender = true;
     pressSwitch = canPressSwitch = false;
+    damaged = false;
 }
 
 void Character::Input()
@@ -73,6 +76,17 @@ void Character::Input()
 void Character::Update(float dt)
 {
     this->dt = dt;
+	imuneTime.Update(dt);
+    if (damaged)
+    {
+    	damageTime.Update(dt);
+    	if (damageTime.Get()>0.4)
+    	{
+    		damaged=false;
+    		damageTime.Restart();
+    		imuneTime.Restart();
+    	}
+    }
     Input();
     Act();
     UpdateState();
@@ -93,7 +107,11 @@ void Character::Render()
 {
     if (not shouldRender) return;
     SDL_RendererFlip flip = (hState == MOVING_RIGHT) or (hState == STANDING_RIGHT) ?  SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
-    if (vState == STANDING and (hState == MOVING_RIGHT or hState == MOVING_LEFT))
+    if (damaged)
+    {
+    	hitSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(),rotation, flip);
+    }
+    else if (vState == STANDING and (hState == MOVING_RIGHT or hState == MOVING_LEFT))
         walkSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(),rotation, flip);
     else if (actionState == CLIMBING or actionState == CLIMBING_GATE)
         climbSp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY(),rotation);
@@ -112,6 +130,8 @@ void Character::NotifyCollision(GameObject& other)
 
 void Character::DealDamage()
 {
+	if (damaged or imuneTime.Get() <= 0.8) return;
+	damaged=true;
 	for (int i=hp.size()-1;i>=0;i--)
 	{
 		if (!hp[i]->IsDead())
