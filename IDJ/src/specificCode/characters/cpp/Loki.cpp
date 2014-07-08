@@ -12,7 +12,7 @@
 Loki* Loki::characterLoki;
 
 Loki::Loki(float x, float y, MovementMap movMap) :
-        Character(movMap,"img/characters/loki_walk.png",7,0.1,"img/characters/lokiJump.png",4,0.1,"img/characters/lokiStairs.png",2,0.15)
+        Character(movMap,"img/characters/loki_walk.png",7,0.1,"img/characters/lokiJump.png",4,0.1,"img/characters/lokiStairs.png",3,0.15)
 {
 	characterSp.Open("img/characters/loki.png");
 	box.Set(x-characterSp.GetWidth()/2, y-characterSp.GetHeight()/2, characterSp.GetWidth(), characterSp.GetHeight());
@@ -135,13 +135,13 @@ void Loki::UpdateSprite()
         else if (actionState == CLIMBING)
         {
             if (prevActionState != CLIMBING)
-                ChangeSp("climbSp","img/characters/lokiStairs.png",2);
+                ChangeSp("climbSp","img/characters/lokiStairs.png",3);
             else if (vertical != 0) climbSp.Update(dt);
         }
         else if (actionState == CLIMBING_GATE)
         {
             if (prevActionState != CLIMBING_GATE)
-                ChangeSp("climbSp","img/characters/lokiStairs.png",2);
+                ChangeSp("climbSp","img/characters/lokiStairs.png",3);
             else if (vertical != 0 or horizontal != 0)
             	climbSp.Update(dt);
         }
