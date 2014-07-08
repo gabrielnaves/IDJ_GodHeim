@@ -9,3 +9,5 @@
 
 int StateData::startingLevel = 2;
 std::string StateData::soundMode = "Normal";
+bool StateData::unlockedLevel[10] = {false, true, true, false, false, false, false, false, false, false};		//unlockedLevel[0] NOT USED!!!!
+bool StateData::unlockedSound[4] = {false, true, true, false};

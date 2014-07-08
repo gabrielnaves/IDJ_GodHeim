@@ -34,11 +34,23 @@ void TitleState::Update(float dt)
     if (startEndTimer) endTimer.Update(dt);
     if (endTimer.Get() >= 2.5)
     {
-//        requestDelete = true;
+    	//        requestDelete = true;
     	endTimer.Restart();
     	startEndTimer = false;
-        Game::GetInstance().ResetWindowSize(1200,650);
-        Game::GetInstance().Push(SelectLevel());
+    	if (clicked == "New Game")
+    	{
+    		Game::GetInstance().ResetWindowSize(1200,650);
+    		Game::GetInstance().Push(SelectLevel());
+    	}
+    	else if (clicked == "Options")
+    	{
+    		Game::GetInstance().Push(new OptionsState());
+    	}
+    	else if (clicked == "Continue")
+    	{
+
+    	}
+    	clicked = "";
     }
 }
 
@@ -83,6 +95,7 @@ void TitleState::UpdateArray(float dt)
         }
         else if (objectArray[i]->IsDead() && objectArray[i]->Is("New Game"))
         {
+        	clicked = "New Game";
             cursor.ChangeSp("img/menu/mouseThunder.png");
             startEndTimer = true;
             titleMusic.Stop(2.4);
@@ -90,6 +103,11 @@ void TitleState::UpdateArray(float dt)
         }
         else if (objectArray[i]->IsDead() && objectArray[i]->Is("Options"))
         {
+        	clicked = "Options";
+        	cursor.ChangeSp("img/menu/mouseThunder.png");
+        	startEndTimer = true;
+        	titleMusic.Stop(2.4);
+        	objectArray[i]->Activate();
         }
     }
 }

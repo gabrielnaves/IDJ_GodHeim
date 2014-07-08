@@ -13,6 +13,7 @@
 #include "../../objects/include/Cursor.h"
 #include "Level1State.h"
 #include "Level2State.h"
+#include "OptionsState.h"
 #include "StateData.h"
 
 class TitleState : public State
@@ -30,6 +31,7 @@ class TitleState : public State
     Timer endTimer;
     Cursor cursor;
 
+    std::string clicked;
     bool startEndTimer;
     State* SelectLevel();
     void SelectMusic();
