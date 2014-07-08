@@ -13,9 +13,12 @@
 #include "../../../Engine.h"
 #include "Goat.h"
 
-class Bullet : public GameObject {
+class Bullet : public GameObject
+{
   public:
 	Bullet(float x, float y, float angle, float speed, float maxDistance, Sprite sprite, std::string shooter, MovementMap movMap);
+	void FlipImage(SDL_RendererFlip flip);
+	void SetStillAnimation(std::string sp, int frameCount, float frameTime);
 	bool IsDead();
 	void Render();
 	void Update(float dt);
@@ -28,6 +31,8 @@ class Bullet : public GameObject {
 	float distanceLeft;
 	std::string shooter;
     MovementMap movementMap;
+    Sprite *saSprite;
+    SDL_RendererFlip flip;
 };
 
 #endif /* BULLET_H_ */

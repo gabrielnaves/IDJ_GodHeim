@@ -106,6 +106,8 @@ void Character::Render()
 void Character::NotifyCollision(GameObject& other)
 {
     if (other.Is("Meat")) Heal();
+    if (other.Is("CDragonBullet"))
+    	DealDamage();
 }
 
 void Character::DealDamage()

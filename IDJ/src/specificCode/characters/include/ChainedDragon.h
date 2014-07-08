@@ -9,6 +9,7 @@
 #define CHAINEDDRAGON_H_
 
 #include "../../../Engine.h"
+#include "Bullet.h"
 #include "../../objects/include/FloatingBlock.h"
 
 namespace CDragon
@@ -22,8 +23,8 @@ namespace CDragon
 class ChainedDragon : public GameObject
 {
   public:
-    ChainedDragon(float x, float y, bool facingRight);
-    ChainedDragon(FloatingBlock* block, bool facingRight);
+    ChainedDragon(float x, float y, bool facingRight, MovementMap movMap);
+    ChainedDragon(FloatingBlock* block, bool facingRight, MovementMap movMap);
     void Update(float dt);
     void Render();
     void NotifyCollision(GameObject& other);
@@ -35,12 +36,15 @@ class ChainedDragon : public GameObject
     void FollowBlock();
     void Rest(float dt);
     void Attack(float dt);
+    void Shoot();
 
     Sprite attackSp, restSp;
     Timer restTimer, attackTimer;
     FloatingBlock *block;
     bool facingRight;
     CDragon::DragonState state;
+    Rect visionField;
+    MovementMap movementMap;
 };
 
 #endif /* CHAINEDDRAGON_H_ */

@@ -7,9 +7,10 @@
 
 #include "../include/ChainedDragon.h"
 
-ChainedDragon::ChainedDragon(float x, float y, bool facingRight) :
+ChainedDragon::ChainedDragon(float x, float y, bool facingRight, MovementMap movMap) :
                             attackSp("img/characters/dragon.png", 13, 0.1, true),
-                            restSp("img/characters/dragonResting.png", 2, 0.7, true)
+                            restSp("img/characters/dragonResting.png", 2, 0.7, true),
+                            movementMap(movMap)
 {
     box.Set(x, y, attackSp.GetWidth(), attackSp.GetHeight());
     this->facingRight = facingRight;
@@ -18,9 +19,10 @@ ChainedDragon::ChainedDragon(float x, float y, bool facingRight) :
     block = NULL;
 }
 
-ChainedDragon::ChainedDragon(FloatingBlock* block, bool facingRight) :
+ChainedDragon::ChainedDragon(FloatingBlock* block, bool facingRight, MovementMap movMap) :
                             attackSp("img/characters/dragon.png", 13, 0.1, true),
-                            restSp("img/characters/dragonResting.png", 2, 0.7, true)
+                            restSp("img/characters/dragonResting.png", 2, 0.7, true),
+                            movementMap(movMap)
 {
     float x, y;
     x = block->box.Center().GetX()-restSp.GetWidth()/2;
@@ -49,6 +51,8 @@ void ChainedDragon::FollowBlock()
 
 void ChainedDragon::Rest(float dt)
 {
+//	Rect thor = Thor::characterThor->box;
+//	Rect loki = Loki::characterLoki->box;
     restSp.Update(dt);
     restTimer.Update(dt);
     if (restTimer.Get() >= CDragon::REST_TIME)
@@ -63,12 +67,27 @@ void ChainedDragon::Attack(float dt)
 {
     attackSp.Update(dt);
     attackTimer.Update(dt);
+    if (attackSp.GetCurrentFrame() == 8)
+    	Shoot();
     if (attackTimer.Get() >= CDragon::ATTACK_TIME)
     {
         state = CDragon::RESTING;
         attackTimer.Restart();
         attackSp.SetFrame(1);
     }
+}
+
+void ChainedDragon::Shoot()
+{
+    Sprite spBullet("img/characters/dragonFirebreath.png",3,0.1);
+    float shootingAngle = M_PI/6;
+    Bullet* fireBall=new Bullet(box.Center().GetX()+box.GetW()/6,box.Center().GetY()-box.GetH()/7,shootingAngle,
+    		CDragon::FIREBALL_SPEED,10000,spBullet,"CDragon",movementMap);
+
+    fireBall->FlipImage(SDL_FLIP_HORIZONTAL);
+    fireBall->SetStillAnimation("img/characters/fireStillAnimation.png", 2, 0.2);
+
+    Game::GetInstance().GetCurrentState().AddObject(fireBall); //add the bullet to the objectArray
 }
 
 void ChainedDragon::Render()

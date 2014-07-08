@@ -120,7 +120,7 @@ void Level2State::EmplaceInitialObjects()
     objectArray.emplace_back(new Skeleton(22*55,21.1*55));
     objectArray.emplace_back(new Barrier());
     objectArray.emplace_back(new Meteor(0,0,11*55,29*55));
-    objectArray.emplace_back(new ChainedDragon(800, 600, true));
+    objectArray.emplace_back(new ChainedDragon(800, 600, true, movementMap));
     objectArray.emplace_back(new Lava(0, 1430));
 }
 
