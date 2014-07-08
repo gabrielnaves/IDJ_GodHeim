@@ -114,11 +114,18 @@ void Level2State::Render()
 
 void Level2State::EmplaceInitialObjects()
 {
-    FloatingBlock *block = new FloatingBlock("img/level2/FloatingBlock3.png", 600, 400, BACKWARD, 0, 100, 400, 3);
+    FloatingBlock *block = new FloatingBlock("img/level2/FloatingBlock4.png", 600, 400, BACKWARD, 0, 100, 400, 3);
     objectArray.emplace_back(block);
-    objectArray.emplace_back(new FloatingBlock("img/level2/FloatingBlock2.png", 600, 770, FORWARD, 3*M_PI/2, 100, 250, 3));
     objectArray.emplace_back(new ChainedDragon(block, true, movementMap));
-	objectArray.emplace_back(new FloatingBlock("img/level2/FloatingBlock1.png", 850, 772, FORWARD, M_PI, 100, 250, 3));
+    block = new FloatingBlock("img/level2/FloatingBlock4.png", 880, 400, BACKWARD, M_PI/2, 0, 400, 3);
+    objectArray.emplace_back(block);
+    objectArray.emplace_back(new ChainedDragon(block, false, movementMap));
+    block = new FloatingBlock("img/level2/FloatingBlock4.png", 110, 275, BACKWARD, M_PI/2, 100, 100, 3);
+    objectArray.emplace_back(block);
+    objectArray.emplace_back(new ChainedDragon(block, true, movementMap));
+    objectArray.emplace_back(new FloatingBlock("img/level2/FloatingBlock2.png", 450, 770, BACKWARD, 3*M_PI/2, 100, 250, 3));
+    objectArray.emplace_back(new FloatingBlock("img/level2/FloatingBlock1.png", 850, 772, FORWARD, M_PI, 100, 250, 3));
+    objectArray.emplace_back(new FloatingBlock("img/level2/FloatingBlock3.png", 282, 1267, FORWARD, -M_PI/2, 100, 1000, 3));
     objectArray.emplace_back(new Loki(1175,100, movementMap));
     objectArray.emplace_back(new Thor(1225,100, movementMap));
     objectArray.emplace_back(new Skeleton(22*55,21.1*55));

@@ -28,6 +28,8 @@ class FloatingBlock: public GameObject
 	bool IsDead();
 	bool IsOnTop(GameObject* character);
   private:
+	bool ConfirmCharacterCollision(GameObject& character);
+
 	Rect prevThorPos, prevLokiPos, prevBlockPos;
 	Sprite block;
 	FloatingBlockState state;

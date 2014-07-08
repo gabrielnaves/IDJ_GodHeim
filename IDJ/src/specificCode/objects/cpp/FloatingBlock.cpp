@@ -56,6 +56,7 @@ void FloatingBlock::NotifyCollision(GameObject& other)
 {
 	if (other.Is("Loki"))
 	{
+	    if (!ConfirmCharacterCollision(other)) return;
 		if (prevLokiPos.GetY() + prevLokiPos.GetH() <= prevBlockPos.GetY())																//Loki coming from above;
 		{
 			if (prevLokiPos.GetX() + prevLokiPos.GetW() > prevBlockPos.GetX()
@@ -85,6 +86,7 @@ void FloatingBlock::NotifyCollision(GameObject& other)
 	}
 	else if(other.Is("Thor"))
 	{
+	    if (!ConfirmCharacterCollision(other)) return;
 		if (prevThorPos.GetY() + prevThorPos.GetH() <= prevBlockPos.GetY())																//Thor coming from above;
 		{
 			if (prevThorPos.GetX() + prevThorPos.GetW() > prevBlockPos.GetX()
@@ -112,6 +114,15 @@ void FloatingBlock::NotifyCollision(GameObject& other)
 			Thor::characterThor->box.SetPoint(box.GetX() + box.GetW(), Thor::characterThor->box.GetY());								//Moves Thor to falling position on right side;
 
 	}
+}
+
+bool FloatingBlock::ConfirmCharacterCollision(GameObject& character)
+{
+    if (character.box.GetX() > box.GetX()+box.GetW()) return false;
+    if (character.box.GetX() + character.box.GetW() < box.GetX()) return false;
+    if (character.box.GetY() > box.GetY()+box.GetH()) return false;
+    if (character.box.GetY() + character.box.GetH() < box.GetY()) return false;
+    return true;
 }
 
 void FloatingBlock::UpdateState()
