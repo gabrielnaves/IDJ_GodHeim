@@ -29,6 +29,7 @@ void Bullet::SetStillAnimation(std::string sp,int frameCount, float frameTime)
 
 void Bullet::Update(float dt)
 {
+	timeElapsed.Update(dt);
 	box.MoveRect(speed.GetX()*dt,speed.GetY()*dt);
 	distanceLeft -= sqrt(pow(speed.GetX()*dt, 2) + pow(speed.GetY()*dt, 2));
 	sp.Update(dt);
@@ -79,7 +80,7 @@ void Bullet::NotifyCollision(GameObject &other)
     {
     	if ((other.Is("Thor") or other.Is("Loki")) and distanceLeft > 10)
     		distanceLeft = 10;
-    	if (other.Is("FloatingBlock") and distanceLeft > 10)
+    	if (other.Is("FloatingBlock") and distanceLeft > 10 and timeElapsed.Get()>3)
     	{
             distanceLeft = 10;
             if (saSprite != NULL)

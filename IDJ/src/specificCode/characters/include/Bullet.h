@@ -33,6 +33,7 @@ class Bullet : public GameObject
     MovementMap movementMap;
     Sprite *saSprite;
     SDL_RendererFlip flip;
+    Timer timeElapsed;
 };
 
 #endif /* BULLET_H_ */

@@ -16,8 +16,8 @@ Skeleton::Skeleton(float x, float y)
     facingRight = false;
     SetState(SkeletonNamespace::RESTING);
     visionField.Set(640, (box.GetY()+box.GetH())-110, SkeletonNamespace::VISION_DISTANCE, 110);
-    WALK_SPEED = rand() % 10;
-    WALK_SPEED = WALK_SPEED*10 + 100;
+    WALK_SPEED = rand() % 20;
+    WALK_SPEED = WALK_SPEED*10 + 50;
 }
 
 void Skeleton::SetState(SkeletonNamespace::State state)
