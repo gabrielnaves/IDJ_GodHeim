@@ -36,6 +36,7 @@ class Level2State : public State
     void Follow(std::string object);
     void SelectMusic();
     void EndGame(float dt);
+    void CorrectStaticPointers();
     void NextLevel();
     bool StageClear();
 

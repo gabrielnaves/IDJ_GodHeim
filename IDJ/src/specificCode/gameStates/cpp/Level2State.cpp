@@ -47,18 +47,10 @@ void Level2State::Update(float dt)
 {
     Input();
     lavaCircle->Update(dt);
+    CorrectStaticPointers();
 
     if (Thor::characterThor != NULL && Loki::characterLoki != NULL && Barrier::barrier != NULL)
     {
-        for (auto it = objectArray.begin(); it != objectArray.end(); it++) //Prevents wrong null pointers
-        {
-        	if(it->get()->Is("Thor"))
-        		Thor::characterThor = (Thor*) it->get();
-        	if(it->get()->Is("Loki"))
-        		Loki::characterLoki = (Loki*) it->get();
-        	if(it->get()->Is("Barrier"))
-        		Barrier::barrier = (Barrier*) it->get();
-        }
         UpdateArray(dt);
         ChecksForCollisions();
         ErasesDeadObjects();
@@ -128,8 +120,8 @@ void Level2State::EmplaceInitialObjects()
     objectArray.emplace_back(new FloatingBlock("img/level2/FloatingBlock3.png", 1*55, 20*55,3*M_PI/2, 100, 150, 2.5));
     objectArray.emplace_back(new FloatingBlock("img/level2/FloatingBlock2.png", 282, 1267, -M_PI/2, 100, 150, 3));
     objectArray.emplace_back(new FloatingBlock("img/level2/FloatingBlock3.png", 397, 590, 0, 0, 0, 4));
-    objectArray.emplace_back(new Loki(1175,100, movementMap));
-    objectArray.emplace_back(new Thor(1225,100, movementMap));
+    objectArray.emplace_back(new Loki(1175,200, movementMap));
+    objectArray.emplace_back(new Thor(1225,200, movementMap));
     objectArray.emplace_back(new Skeleton(22*55,21.1*55));
     objectArray.emplace_back(new Skeleton(20*55,21.1*55));
     objectArray.emplace_back(new Skeleton(18*55,21.1*55));
@@ -177,3 +169,17 @@ void Level2State::ErasesDeadObjects()
         if (objectArray[i]->IsDead())
             objectArray.erase(objectArray.begin()+i), i--;
 }
+
+void Level2State::CorrectStaticPointers()
+{
+	for (auto it = objectArray.begin(); it != objectArray.end(); it++) //Prevents wrong null pointers
+	{
+		if(it->get()->Is("Thor"))
+			Thor::characterThor = (Thor*) it->get();
+		if(it->get()->Is("Loki"))
+			Loki::characterLoki = (Loki*) it->get();
+		if(it->get()->Is("Barrier"))
+			Barrier::barrier = (Barrier*) it->get();
+	}
+}
+
