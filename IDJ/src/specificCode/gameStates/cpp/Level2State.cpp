@@ -114,13 +114,16 @@ void Level2State::Render()
 
 void Level2State::EmplaceInitialObjects()
 {
-	objectArray.emplace_back(new FloatingBlock("img/level2/FloatingBlock1.png", 850, 770, FORWARD, M_PI, 100, 250, 3));
+    FloatingBlock *block = new FloatingBlock("img/level2/FloatingBlock3.png", 600, 400, BACKWARD, 0, 100, 400, 3);
+    objectArray.emplace_back(block);
+    objectArray.emplace_back(new FloatingBlock("img/level2/FloatingBlock2.png", 600, 770, FORWARD, 3*M_PI/2, 100, 250, 3));
+    objectArray.emplace_back(new ChainedDragon(block, true, movementMap));
+	objectArray.emplace_back(new FloatingBlock("img/level2/FloatingBlock1.png", 850, 772, FORWARD, M_PI, 100, 250, 3));
     objectArray.emplace_back(new Loki(1175,100, movementMap));
     objectArray.emplace_back(new Thor(1225,100, movementMap));
     objectArray.emplace_back(new Skeleton(22*55,21.1*55));
     objectArray.emplace_back(new Barrier());
     objectArray.emplace_back(new Meteor(0,0,11*55,29*55));
-    objectArray.emplace_back(new ChainedDragon(800, 600, true, movementMap));
     objectArray.emplace_back(new Lava(0, 1430));
 }
 

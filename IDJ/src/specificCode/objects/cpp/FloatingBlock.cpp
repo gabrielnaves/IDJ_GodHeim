@@ -7,7 +7,8 @@
 
 #include "../include/FloatingBlock.h"
 
-FloatingBlock::FloatingBlock(std::string sprite, int x, int y, FloatingBlockState state, float angle, float vel, float distance, float wait)
+FloatingBlock::FloatingBlock(std::string sprite, int x, int y, FloatingBlockState state,
+                             float angle, float vel, float distance, float wait)
 {
 	this->state = state;
 	block.Open(sprite);
