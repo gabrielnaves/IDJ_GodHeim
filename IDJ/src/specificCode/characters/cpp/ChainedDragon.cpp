@@ -17,6 +17,10 @@ ChainedDragon::ChainedDragon(float x, float y, bool facingRight, MovementMap mov
     rotation = 0;
     state = CDragon::RESTING;
     block = NULL;
+    if (facingRight)
+    	visionField.Set(box.GetX(), (box.GetY()+box.GetH())-220, CDragon::VISION_DISTANCE, CDragon::VISION_DISTANCE);
+    else
+    	visionField.Set(0, (box.GetY()+box.GetH())-220, box.GetX(), CDragon::VISION_DISTANCE);
 }
 
 ChainedDragon::ChainedDragon(FloatingBlock* block, bool facingRight, MovementMap movMap) :
@@ -32,6 +36,10 @@ ChainedDragon::ChainedDragon(FloatingBlock* block, bool facingRight, MovementMap
     rotation = 0;
     state = CDragon::RESTING;
     this->block = block;
+    if (facingRight)
+    	visionField.Set(box.GetX(), (box.GetY()+box.GetH())-220, CDragon::VISION_DISTANCE, CDragon::VISION_DISTANCE);
+    else
+    	visionField.Set(0, (box.GetY()+box.GetH())-220, box.GetX(), CDragon::VISION_DISTANCE);
 }
 
 void ChainedDragon::Update(float dt)
@@ -51,15 +59,20 @@ void ChainedDragon::FollowBlock()
 
 void ChainedDragon::Rest(float dt)
 {
-//	Rect thor = Thor::characterThor->box;
-//	Rect loki = Loki::characterLoki->box;
+	Rect thor = Thor::characterThor->box;
+	Rect loki = Loki::characterLoki->box;
+
     restSp.Update(dt);
     restTimer.Update(dt);
     if (restTimer.Get() >= CDragon::REST_TIME)
     {
-        state = CDragon::ATTACKING;
-        restTimer.Restart();
-        restSp.SetFrame(1);
+        // If any character is within the dragon's field of view, attacks
+        if (Collision::IsColliding(thor, visionField, 0, 0) or Collision::IsColliding(loki, visionField, 0, 0))
+        {
+            state = CDragon::ATTACKING;
+            restTimer.Restart();
+            restSp.SetFrame(1);
+        }
     }
 }
 
@@ -80,8 +93,13 @@ void ChainedDragon::Attack(float dt)
 void ChainedDragon::Shoot()
 {
     Sprite spBullet("img/characters/dragonFirebreath.png",3,0.1);
-    float shootingAngle = M_PI/6;
-    Bullet* fireBall=new Bullet(box.Center().GetX()+box.GetW()/6,box.Center().GetY()-box.GetH()/7,shootingAngle,
+    float shootingAngle = facingRight ? M_PI/4 : 3*M_PI/4;
+    	Point mouth;
+    if (facingRight)
+    	mouth.Set(box.Center().GetX()+box.GetW()/6,box.Center().GetY()-box.GetH()/7);
+    else
+    	mouth.Set(box.Center().GetX()-box.GetW()/1.5,box.Center().GetY()-box.GetH()/7);
+    Bullet* fireBall=new Bullet(mouth.GetX(),mouth.GetY(),shootingAngle,
     		CDragon::FIREBALL_SPEED,10000,spBullet,"CDragon",movementMap);
 
     fireBall->FlipImage(SDL_FLIP_HORIZONTAL);

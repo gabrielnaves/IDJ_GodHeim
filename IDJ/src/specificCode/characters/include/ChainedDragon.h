@@ -14,9 +14,10 @@
 
 namespace CDragon
 {
-    const float REST_TIME = 4;
+    const float REST_TIME = 2;
     const float ATTACK_TIME = 1.3;
     const float FIREBALL_SPEED = 300;
+    const float VISION_DISTANCE = 5000;
     enum DragonState { RESTING, ATTACKING };
 }
 

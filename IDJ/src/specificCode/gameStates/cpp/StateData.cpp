@@ -8,4 +8,4 @@
 #include "../include/StateData.h"
 
 int StateData::startingLevel = 2;
-std::string StateData::soundMode = "8bits";
+std::string StateData::soundMode = "Normal";
