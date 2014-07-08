@@ -96,20 +96,11 @@ void Barrier::CheckCollision(Character* character)
     distance = character->box.Center().Distance(other->box.Center());
     if (distance > DIAMETER + DRAG_TOLERANCE)
     {
-  		character->box.MoveRectWithAngle(distance - DIAMETER, character->box.Center().FindAngle(other->box.Center()));
+    	if (character->barrierSuspended)
+    		character->box.MoveRectWithAngle(distance - DIAMETER, character->box.Center().FindAngle(other->box.Center()));
+    	else if (other->barrierSuspended)
+    		other->box.MoveRectWithAngle(distance - DIAMETER, other->box.Center().FindAngle(character->box.Center()));
+    	else
+    		character->box.MoveRectWithAngle(distance - DIAMETER, character->box.Center().FindAngle(other->box.Center()));
     }
-
-//    if (abs(character->box.GetX() - other->box.GetX()) > DIAMETER)
-//    {
-//        if (character->box.GetX() > other->box.GetX())
-//            character->box.SetPoint(other->box.GetX() + DIAMETER, character->box.GetY());
-//        else character->box.SetPoint(other->box.GetX() - DIAMETER, character->box.GetY());
-//    }
-//    if (abs(character->box.GetY() - other->box.GetY()) > DIAMETER)
-//    {
-//        if (character->box.GetY() > other->box.GetY())
-//            character->box.SetPoint(character->box.GetX(), other->box.GetY() + DIAMETER);
-//        else
-//            character->box.SetPoint(character->box.GetX(), other->box.GetY() - DIAMETER);
-//    }
 }
