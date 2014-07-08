@@ -51,6 +51,14 @@ void Rope::Update(float dt)
 {
 	if (active and ropeSp.GetCurrentFrame() != ropeSp.GetFrameCount())
 		ropeSp.Update(dt);
+	else if (active and ropeSp.GetCurrentFrame() == ropeSp.GetFrameCount() and ropeSp.GetFrameCount() > 1)
+	{
+		ropeSp.Open("img/objects/rope.png");
+		ropeSp.SetFrameCount(1);
+		ropeSp.SetFrame(1);
+		box.MoveRect(47,0);
+		box.Set(box.GetX(),box.GetY(),ropeSp.GetWidth(),ropeSp.GetHeight());
+	}
     if (thorClimbing)
     {
         if (Thor::characterThor->horizontal == 1 or Thor::characterThor->horizontal ==-1)
