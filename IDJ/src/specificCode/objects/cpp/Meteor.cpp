@@ -65,11 +65,13 @@ void Meteor::NotifyCollision(GameObject& other)
 	}
 	if (other.Is("Loki"))
 	{
-		Loki::characterLoki->Kill();
+		if (box.Center().Distance(Loki::characterLoki->box.Center()) < 75)
+			Loki::characterLoki->Kill();
 	}
 	if (other.Is("Thor"))
 	{
-		Thor::characterThor->Kill();
+		if (box.Center().Distance(Thor::characterThor->box.Center()) < 75)
+			Thor::characterThor->Kill();
 	}
 }
 bool Meteor::IsDead()
