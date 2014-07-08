@@ -23,6 +23,7 @@ ChainedDragon::ChainedDragon(float x, float y, bool facingRight, MovementMap mov
     	visionField.Set(box.GetX(), (box.GetY()+box.GetH())-220, CDragon::VISION_DISTANCE, CDragon::VISION_DISTANCE);
     else
     	visionField.Set(0, (box.GetY()+box.GetH())-220, box.GetX(), CDragon::VISION_DISTANCE);
+    hasShot = false;
 }
 
 ChainedDragon::ChainedDragon(FloatingBlock* block, bool facingRight, MovementMap movMap) :
@@ -44,6 +45,7 @@ ChainedDragon::ChainedDragon(FloatingBlock* block, bool facingRight, MovementMap
     	visionField.Set(box.GetX(), (box.GetY()+box.GetH())-220, CDragon::VISION_DISTANCE, CDragon::VISION_DISTANCE);
     else
     	visionField.Set(0, (box.GetY()+box.GetH())-220, box.GetX(), CDragon::VISION_DISTANCE);
+    hasShot = false;
 }
 
 void ChainedDragon::Update(float dt)
@@ -93,21 +95,29 @@ void ChainedDragon::Attack(float dt)
 {
     attackSp.Update(dt);
     attackTimer.Update(dt);
-    if (attackSp.GetCurrentFrame() == 8)
+    if (attackSp.GetCurrentFrame() == 8 and !hasShot)
     	Shoot();
     if (attackTimer.Get() >= CDragon::ATTACK_TIME)
     {
         state = CDragon::RESTING;
         attackTimer.Restart();
         attackSp.SetFrame(1);
+        hasShot = false;
     }
 }
 
 void ChainedDragon::Shoot()
 {
+	hasShot = true;
     Sprite spBullet("img/characters/dragonFirebreath.png",3,0.1);
-    float shootingAngle = facingRight ? M_PI/4 : 3*M_PI/4;
-    	Point mouth;
+
+    float shootingAngle = rand() % 20 + 35;
+    if (!facingRight) shootingAngle = 180 - shootingAngle;
+    shootingAngle = (shootingAngle*M_PI)/180;
+
+
+//    float shootingAngle = facingRight ? M_PI/4 : 3*M_PI/4;
+    Point mouth;
     if (facingRight)
     	mouth.Set(box.Center().GetX()+box.GetW()/6,box.Center().GetY()-box.GetH()/7);
     else

@@ -47,6 +47,7 @@ class ChainedDragon : public GameObject
     Rect visionField;
     MovementMap movementMap;
     float REST_TIME;
+    bool hasShot;
 };
 
 #endif /* CHAINEDDRAGON_H_ */
