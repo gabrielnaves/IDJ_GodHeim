@@ -101,6 +101,7 @@ void Level1State::EmplaceInitialObjects()
     objectArray.emplace_back(new StoneBlock("img/objects/pedraBig.png",11*55,1540));
     objectArray.emplace_back(new Goat(800, 310));
     objectArray.emplace_back(new Wolf(75, 744, 565, movementMap));
+//    objectArray.emplace_back(new Geyser(270, 400));
     objectArray.emplace_back(new Barrier());
 }
 
