@@ -25,7 +25,7 @@ class GameObject
 	virtual bool Is(std::string type) = 0;
 	virtual void Activate() {}
 	Rect box;
-	float rotation;
+	float rotation; //given in degress
 };
 
 #endif /* GAMEOBJECT_H_ */
