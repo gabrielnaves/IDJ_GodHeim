@@ -31,6 +31,7 @@ class OptionBox : public GameObject
 	GameObject* increaseButton, *decreaseButton;
 
 	void ChangeStateDataMusic();
+	void ChangeStateControls();
 	void SelectMusic();
 };
 

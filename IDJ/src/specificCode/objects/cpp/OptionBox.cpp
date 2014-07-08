@@ -26,6 +26,11 @@ OptionBox::OptionBox(float x, float y, std::string type, int value)
 		sp.Open(fileName);
 		SelectMusic();
 	}
+	else if (type == "ControlsOption")
+	{
+		fileName += "img/menu/levelbonus", fileName += std::to_string(value), fileName += ".png";
+		sp.Open(fileName);
+	}
 	spLock.Open("img/menu/locked.png");
 	box.Set(x, y, sp.GetWidth(), sp.GetHeight());
 
@@ -58,6 +63,12 @@ void OptionBox::Update(float dt)
 			ChangeStateDataMusic();
 			SelectMusic();
 		}
+		else if (type == "ControlsOption")
+		{
+			fileName = "img/menu/music", fileName += std::to_string(value), fileName += ".png";
+			sp.Open(fileName);
+			ChangeStateControls();
+		}
 	}
 	increaseButton->Update(dt);
 	decreaseButton->Update(dt);
@@ -74,6 +85,11 @@ void OptionBox::Render()
 	else if (type == "SoundOption")
 	{
 		if (!StateData::unlockedSound[value])
+			spLock.Render(box.GetX(), box.GetY(), -10);
+	}
+	else if (type == "ControlsOption")
+	{
+		if (!StateData::unlockedControls[value])
 			spLock.Render(box.GetX(), box.GetY(), -10);
 	}
 	increaseButton->Render();
@@ -113,6 +129,14 @@ void OptionBox::ChangeStateDataMusic()
 		StateData::soundMode = "8bits";
 	else if (value == 3)
 		StateData::soundMode = "SNES";
+}
+
+void OptionBox::ChangeStateControls()
+{
+	if (value == 1)
+		StateData::controls = "Keyboard";
+	else if (value == 2)
+		StateData::controls = "Joystick";
 }
 
 int OptionBox::GetValue()

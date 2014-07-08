@@ -22,12 +22,13 @@ class OptionsState: public State
 	void Update(float dt);
 	void Render();
 
+	void UpdateArray(float dt);
    private:
 	Sprite bg;
 	Cursor cursor;
 	Timer endTimer;
 
-	bool startEndTimer;
+	bool startEndTimer, canReturn;
 };
 
 

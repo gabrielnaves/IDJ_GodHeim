@@ -76,6 +76,14 @@ void ArrowButton::Activate()
 				clickSound.Play(0);
 			}
 		}
+		else if (father->Is("ControlsOption"))
+		{
+			if (father->GetValue() < 2)
+			{
+				father->SetValue(father->GetValue() + 1);
+				clickSound.Play(0);
+			}
+		}
 	}
 	else if (!increase)
 	{
@@ -88,6 +96,14 @@ void ArrowButton::Activate()
 			}
 		}
 		else if (father->Is("SoundOption"))
+		{
+			if (father->GetValue() > 1)
+			{
+				father->SetValue(father->GetValue() - 1);
+				clickSound.Play(0);
+			}
+		}
+		else if (father->Is("ControlsOption"))
 		{
 			if (father->GetValue() > 1)
 			{
