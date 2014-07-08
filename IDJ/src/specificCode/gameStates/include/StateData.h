@@ -18,6 +18,8 @@ class StateData
   public:
     static int startingLevel;
     static std::string soundMode;
+    static bool unlockedLevel[10];
+    static bool unlockedSound[4];
 };
 
 #endif /* STATEDATA_H_ */
