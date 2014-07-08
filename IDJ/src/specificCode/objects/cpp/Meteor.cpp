@@ -63,6 +63,11 @@ void Meteor::NotifyCollision(GameObject& other)
 		sp.SetFrame(1);
 		box.MoveRect(0,40);
 	}
+	if (other.Is("Loki") or other.Is("Thor"))
+	{
+		if (other.box.GetX() > box.GetX()+box.GetW()+5 or other.box.GetX()+other.box.GetW() < box.GetX()-5) return;
+    	if (other.box.GetY()+other.box.GetH() < box.GetY()-10 or other.box.GetY() > box.GetY()+box.GetH()+10) return;
+	}
 	if (other.Is("Loki"))
 	{
 		if (box.Center().Distance(Loki::characterLoki->box.Center()) < 75)
