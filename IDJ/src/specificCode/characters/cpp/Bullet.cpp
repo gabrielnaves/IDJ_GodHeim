@@ -76,8 +76,19 @@ void Bullet::NotifyCollision(GameObject &other)
         if (other.Is("Goat") or other.Is("Wolf") or other.Is("PlantBarrier") or other.Is("Skeleton"))
             distanceLeft = 0;
     if (shooter == "CDragon")
+    {
     	if (other.Is("Thor") or other.Is("Loki"))
     		if (distanceLeft > 10) distanceLeft = 10;
+    	if (other.Is("FloatingBlock"))
+    	{
+            distanceLeft = 0;
+            if (saSprite != NULL)
+            {
+                StillAnimation *sa = new StillAnimation(box.Center().GetX(),box.Center().GetY(),rotation,*saSprite,0.4,true);
+            	Game::GetInstance().GetCurrentState().AddObject(sa);
+            }
+    	}
+    }
 }
 
 void Bullet::FlipImage(SDL_RendererFlip flip)
