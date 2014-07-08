@@ -17,8 +17,8 @@ enum FloatingBlockState{ FORWARD, BACKWARD, FWDSTOP, BACKSTOP };
 class FloatingBlock: public GameObject
 {
   public:
-	FloatingBlock(std::string sprite, int x, int y, FloatingBlockState state,
-	              float angle, float vel = 100, float distance = 300, float wait = 4);
+	FloatingBlock(std::string sprite, int x, int y, float angle,
+	        float vel = 100, float distance = 300, float wait = 4);
 	void Update(float dt);
 	void Move(float dt);
 	void UpdateState();

@@ -114,20 +114,20 @@ void Level2State::Render()
 
 void Level2State::EmplaceInitialObjects()
 {
-    FloatingBlock *block = new FloatingBlock("img/level2/FloatingBlock3.png", 600, 300, BACKWARD, 0, 100, 400, 3);
+    FloatingBlock *block = new FloatingBlock("img/level2/FloatingBlock3.png", 580, 300, M_PI, 100, 300, 3);
     objectArray.emplace_back(block);
     objectArray.emplace_back(new ChainedDragon(block, true, movementMap));
-//    block = new FloatingBlock("img/level2/FloatingBlock3.png", 880, 400, BACKWARD, M_PI/2, 0, 400, 3);
-//    objectArray.emplace_back(block);
-//    objectArray.emplace_back(new ChainedDragon(block, false, movementMap));
-//    block = new FloatingBlock("img/level2/FloatingBlock3.png", 110, 275, BACKWARD, M_PI/2, 100, 100, 3);
-//    objectArray.emplace_back(block);
-//    objectArray.emplace_back(new ChainedDragon(block, true, movementMap));
-    objectArray.emplace_back(new FloatingBlock("img/level2/FloatingBlock3.png", 450, 770, FORWARD, M_PI, 100, 250, 3));
-    objectArray.emplace_back(new FloatingBlock("img/level2/FloatingBlock1.png", 795, 1022, FORWARD, -M_PI/2, 100, 250, 3)); //
-    objectArray.emplace_back(new FloatingBlock("img/level2/FloatingBlock3.png", 1*55, 20*55, FORWARD,3*M_PI/2, 100, 150, 2.5));
-    objectArray.emplace_back(new FloatingBlock("img/level2/FloatingBlock2.png", 282, 1267, FORWARD, -M_PI/2, 100, 150, 3));
-    objectArray.emplace_back(new FloatingBlock("img/level2/FloatingBlock3.png", 397, 590, FORWARD, 0, 0, 0, 4));
+    block = new FloatingBlock("img/level2/FloatingBlock3.png", 880, 300, -M_PI/2, 100, 160, 3);
+    objectArray.emplace_back(block);
+    objectArray.emplace_back(new ChainedDragon(block, false, movementMap));
+    block = new FloatingBlock("img/level2/FloatingBlock3.png", 880, 490, 0, 0, 0, 3);
+    objectArray.emplace_back(block);
+    objectArray.emplace_back(new ChainedDragon(block, false, movementMap));
+    objectArray.emplace_back(new FloatingBlock("img/level2/FloatingBlock3.png", 450, 770, M_PI, 100, 250, 3));
+    objectArray.emplace_back(new FloatingBlock("img/level2/FloatingBlock1.png", 795, 1022, -M_PI/2, 100, 250, 3));
+    objectArray.emplace_back(new FloatingBlock("img/level2/FloatingBlock3.png", 1*55, 20*55,3*M_PI/2, 100, 150, 2.5));
+    objectArray.emplace_back(new FloatingBlock("img/level2/FloatingBlock2.png", 282, 1267, -M_PI/2, 100, 150, 3));
+    objectArray.emplace_back(new FloatingBlock("img/level2/FloatingBlock3.png", 397, 590, 0, 0, 0, 4));
     objectArray.emplace_back(new Loki(1175,100, movementMap));
     objectArray.emplace_back(new Thor(1225,100, movementMap));
     objectArray.emplace_back(new Skeleton(22*55,21.1*55));
@@ -150,8 +150,9 @@ void Level2State::Follow(std::string object)
 {
     for (int i = 0; i < (int)objectArray.size(); i++)
         if (objectArray[i]->Is(object))
-            Camera::Follow(&(*objectArray[i]), true, 0, 0, tileMap.GetWidth()*tileSet.GetTileWidth() - Game::GetInstance().GetWindowWidth(),
-                           tileMap.GetHeight()*tileSet.GetTileHeight() - Game::GetInstance().GetWindowHeight());
+            Camera::Follow(&(*objectArray[i]), true, 0, 0,
+                    tileMap.GetWidth()*tileSet.GetTileWidth() - Game::GetInstance().GetWindowWidth(),
+                    tileMap.GetHeight()*tileSet.GetTileHeight() - Game::GetInstance().GetWindowHeight());
 }
 
 void Level2State::ChecksForCollisions()

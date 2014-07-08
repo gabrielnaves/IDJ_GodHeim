@@ -7,10 +7,10 @@
 
 #include "../include/FloatingBlock.h"
 
-FloatingBlock::FloatingBlock(std::string sprite, int x, int y, FloatingBlockState state,
-                             float angle, float vel, float distance, float wait)
+FloatingBlock::FloatingBlock(std::string sprite, int x, int y, float angle,
+                             float vel, float distance, float wait)
 {
-	this->state = state;
+	this->state = FORWARD;
 	block.Open(sprite);
 	box.Set(x,y,block.GetWidth(),block.GetHeight()-20);
 	prevBlockPos = box;
