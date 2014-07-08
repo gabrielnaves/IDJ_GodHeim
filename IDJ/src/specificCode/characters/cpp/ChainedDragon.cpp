@@ -44,9 +44,18 @@ ChainedDragon::ChainedDragon(FloatingBlock* block, bool facingRight, MovementMap
 
 void ChainedDragon::Update(float dt)
 {
+	UpdateVisionField();
     if (block != NULL) FollowBlock();
     if (state == CDragon::RESTING) Rest(dt);
     else if (state == CDragon::ATTACKING) Attack(dt);
+}
+
+void ChainedDragon::UpdateVisionField()
+{
+    if (facingRight)
+    	visionField.Set(box.GetX(), (box.GetY()+box.GetH())-220, CDragon::VISION_DISTANCE, CDragon::VISION_DISTANCE);
+    else
+    	visionField.Set(0, (box.GetY()+box.GetH())-220, box.GetX(), CDragon::VISION_DISTANCE);
 }
 
 void ChainedDragon::FollowBlock()

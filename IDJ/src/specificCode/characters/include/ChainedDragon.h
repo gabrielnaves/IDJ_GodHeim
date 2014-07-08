@@ -34,6 +34,7 @@ class ChainedDragon : public GameObject
     bool Is(std::string type);
 
   private:
+    void UpdateVisionField();
     void FollowBlock();
     void Rest(float dt);
     void Attack(float dt);
