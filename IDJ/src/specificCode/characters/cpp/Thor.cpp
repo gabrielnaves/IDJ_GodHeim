@@ -96,7 +96,7 @@ bool Thor::Is(std::string type)
 void Thor::UpdateSprite()
 {
     if (GetMovementType() == "HoldingWolf")
-        ChangeSp("characterSp","img/characters/thorHoldingWolf.png",1);
+        ChangeSp("characterSp","img/characters/thorShield.png",1);
     else if (vState == STANDING)
     {
         if (hState == MOVING_RIGHT or hState == MOVING_LEFT)

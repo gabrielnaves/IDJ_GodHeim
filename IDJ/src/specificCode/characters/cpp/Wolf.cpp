@@ -54,6 +54,7 @@ void Wolf::CheckIfWolfCanBeHeld()
     Thor* thor = Thor::characterThor;
     if (thor == NULL)
         return;
+    if (state == WolfNamespace::BEING_HELD) return;
     else
     {
         if (thor->GetVState() != STANDING)
@@ -210,8 +211,8 @@ void Wolf::BeHeld(float dt)
         if (facingRight)
         {
             if (thorBox.GetX() >= box.GetX()+box.GetW())
-                box.MoveRect(abs(thorBox.GetX()-(box.GetX()+box.GetW())), 0);
-            else box.MoveRect(-abs(thorBox.GetX()-(box.GetX()+box.GetW())), 0);
+                box.MoveRect(abs(thorBox.GetX()-(box.GetX()+box.GetW()))+box.GetW()/3-10, 0);
+            else box.MoveRect(-abs(thorBox.GetX()-(box.GetX()+box.GetW()))+box.GetW()/3-10, 0);
         }
         else
         {
