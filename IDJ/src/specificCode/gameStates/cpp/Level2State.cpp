@@ -114,7 +114,7 @@ void Level2State::Render()
 
 void Level2State::EmplaceInitialObjects()
 {
-	objectArray.emplace_back(new FloatingBlock("img/objects/pedra.png", 850, 650, DOWN, 100, 250, 3));
+	objectArray.emplace_back(new FloatingBlock("img/level2/FloatingBlock1.png", 850, 770, FORWARD, M_PI, 100, 250, 3));
     objectArray.emplace_back(new Loki(1175,100, movementMap));
     objectArray.emplace_back(new Thor(1225,100, movementMap));
     objectArray.emplace_back(new Skeleton(22*55,21.1*55));

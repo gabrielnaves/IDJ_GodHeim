@@ -7,18 +7,19 @@
 
 #include "../include/FloatingBlock.h"
 
-FloatingBlock::FloatingBlock(std::string sprite, int x, int y, FloatingBlockState state, float vel, float altitude, float wait)
+FloatingBlock::FloatingBlock(std::string sprite, int x, int y, FloatingBlockState state, float angle, float vel, float distance, float wait)
 {
 	this->state = state;
 	block.Open(sprite);
-	box.Set(x,y,block.GetWidth(),block.GetHeight());
+	box.Set(x,y,block.GetWidth(),block.GetHeight()-20);
 	prevBlockPos = box;
 	prevLokiPos = prevThorPos = Rect();
 	VEL = vel;
-	ALTITUDE = altitude;
+	DISTANCE = distance;
 	alreadyMoved = 0;
 	WAITTIME = wait;
 	thorStanding = lokiStanding = false;
+	movAngle = angle;
 }
 
 void FloatingBlock::Update(float dt)
@@ -114,25 +115,25 @@ void FloatingBlock::NotifyCollision(GameObject& other)
 
 void FloatingBlock::UpdateState()
 {
-	if (state == UP)
+	if (state == FORWARD)
 	{
-		if (alreadyMoved >= ALTITUDE)
+		if (alreadyMoved >= DISTANCE)
 		{
-			state = UPSTOP;
+			state = FWDSTOP;
 			alreadyMoved = 0;
 			timer.Restart();
 		}
 	}
-	else if (state == UPSTOP)
+	else if (state == FWDSTOP)
 	{
 		if (timer.Get() >= WAITTIME)
-			state = DOWN;
+			state = BACKWARD;
 	}
-	else if (state == DOWN)
+	else if (state == BACKWARD)
 	{
-		if (alreadyMoved >= ALTITUDE)
+		if (alreadyMoved >= DISTANCE)
 		{
-			state = DOWNSTOP;
+			state = BACKSTOP;
 			alreadyMoved = 0;
 			timer.Restart();
 		}
@@ -140,34 +141,44 @@ void FloatingBlock::UpdateState()
 	else
 	{
 		if (timer.Get() >= WAITTIME)
-			state = UP;
+			state = FORWARD;
 	}
 }
 
 void FloatingBlock::Move(float dt)
 {
-	if (state == UP)
+    Point speed(VEL*cos(movAngle)*dt, VEL*sin(movAngle)*dt);
+	if (state == FORWARD)
 	{
-		alreadyMoved += VEL*dt;
-		if (alreadyMoved > ALTITUDE)
-			box.MoveRect(0, -VEL*dt + (alreadyMoved - ALTITUDE));
+		alreadyMoved += speed.Distance(Point());
+		if (alreadyMoved > DISTANCE)
+			box.MoveRect(speed.GetX(), speed.GetY() + (alreadyMoved - DISTANCE));
 		else
-			box.MoveRect(0,-VEL*dt);
+			box.MoveRect(speed.GetX(), speed.GetY());
 	}
-	else if (state == DOWN)
+	else if (state == BACKWARD)
 	{
-		alreadyMoved += VEL*dt;
-		if (alreadyMoved > ALTITUDE)
-			box.MoveRect(0, VEL*dt - (alreadyMoved - ALTITUDE));
+		alreadyMoved += speed.Distance(Point());
+		if (alreadyMoved > DISTANCE)
+			box.MoveRect(-speed.GetX(), -speed.GetY() - (alreadyMoved - DISTANCE));
 		else
-			box.MoveRect(0,VEL*dt);
+			box.MoveRect(-speed.GetX(), -speed.GetY());
 	}
 	if (Thor::characterThor && thorStanding && Thor::characterThor->GetVState() == STANDING)
-		Thor::characterThor->box.SetPoint(Thor::characterThor->box.GetX(), box.GetY() - Thor::characterThor->box.GetH());
+	{
+	    if (state == FORWARD)
+	        Thor::characterThor->box.SetPoint(Thor::characterThor->box.GetX()+speed.GetX(), box.GetY() - Thor::characterThor->box.GetH());
+	    else if (state == BACKWARD)
+	        Thor::characterThor->box.SetPoint(Thor::characterThor->box.GetX()-speed.GetX(), box.GetY() - Thor::characterThor->box.GetH());
+	}
 	if (Loki::characterLoki && lokiStanding && Loki::characterLoki->GetVState() == STANDING)
-		Loki::characterLoki->box.SetPoint(Loki::characterLoki->box.GetX(), box.GetY() - Loki::characterLoki->box.GetH());
+	{
+	    if (state == FORWARD)
+	        Loki::characterLoki->box.SetPoint(Loki::characterLoki->box.GetX()+speed.GetX(), box.GetY() - Loki::characterLoki->box.GetH());
+	    if (state == BACKWARD)
+            Loki::characterLoki->box.SetPoint(Loki::characterLoki->box.GetX()-speed.GetX(), box.GetY() - Loki::characterLoki->box.GetH());
+	}
 }
-
 
 bool FloatingBlock::IsOnTop(GameObject* character)
 {
