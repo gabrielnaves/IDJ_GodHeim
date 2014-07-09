@@ -90,6 +90,7 @@ bool Level2State::StageClear()
 void Level2State::NextLevel()
 {
 	requestDelete = true;
+	StateData::checkpoint = false;
 	Game::GetInstance().ResetWindowSize(360,275);
 	Game::GetInstance().Push(new EndState());
 }

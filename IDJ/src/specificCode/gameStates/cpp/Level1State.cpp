@@ -159,6 +159,7 @@ bool Level1State::StageClear()
 void Level1State::NextLevel()
 {
 	requestDelete = true;
+	StateData::checkpoint = false;
 	caveMusic->Stop();
 	Game::GetInstance().Push(new Level2State());
 }
