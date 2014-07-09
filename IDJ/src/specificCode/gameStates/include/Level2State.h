@@ -49,7 +49,7 @@ class Level2State : public State
     MovementMap movementMap;
     Music *music;
     Timer endGame;
-    bool changedMusic;
+    bool changedMusic, end;
 };
 
 #endif /* LEVEL2STATE_H_ */

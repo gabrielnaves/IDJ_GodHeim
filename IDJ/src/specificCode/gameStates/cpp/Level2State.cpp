@@ -33,7 +33,7 @@ Level2State::Level2State() : State(), tileSet(55,55,"img/level2/level2Tiles.png"
     ItemFlags::fireBall = true;
     ItemFlags::hammer = true;
     changedMusic = false;
-
+    end = false;
 
     StateData::CreateCheckPoint();
     StateData::startingLevel = 2;
@@ -77,6 +77,12 @@ void Level2State::Update(float dt)
     lavaCircle->Update(dt);
     CorrectStaticPointers();
 
+    if (end)
+    {
+        SelectMusic();
+        end = false;
+    }
+
     if (!changedMusic and ItemFlags::redPotion)
     {
     	music->Stop();
@@ -102,6 +108,7 @@ void Level2State::EndGame(float dt)
 {
 //	Game::GetInstance().ResetWindowSize(360,275);
 	Game::GetInstance().Push(new EndState());
+	end = true;
 }
 
 bool Level2State::StageClear()
@@ -124,6 +131,7 @@ void Level2State::NextLevel()
     }
 //	Game::GetInstance().ResetWindowSize(360,275);
 	Game::GetInstance().Push(new EndState());
+	end = true;
 }
 
 void Level2State::Render()

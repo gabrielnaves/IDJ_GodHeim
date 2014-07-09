@@ -20,21 +20,36 @@ EndState::EndState() : State()
 	bg.emplace_back(new Sprite("img/gameover/gameoverefeito9.png"));
 	bg.emplace_back(new Sprite("img/gameover/gameoverefeito10.png"));
 	bg.emplace_back(new Sprite("img/gameover/gameoverefeito11.png"));
+	bg.emplace_back(new Sprite("img/gameover/gameover1.png"));
+	bg.emplace_back(new Sprite("img/gameover/gameover2.png"));
+	bg.emplace_back(new Sprite("img/gameover/gameover3.png"));
+	bg.emplace_back(new Sprite("img/gameover/gameover2.png"));
+	bg.emplace_back(new Sprite("img/gameover/gameover1.png"));
+	bg.emplace_back(new Sprite("img/gameover/gameover2.png"));
+    bg.emplace_back(new Sprite("img/gameover/gameover3.png"));
+    bg.emplace_back(new Sprite("img/gameover/gameover2.png"));
+    bg.emplace_back(new Sprite("img/gameover/gameover1.png"));
+    bg.emplace_back(new Sprite("img/gameover/gameover2.png"));
+    bg.emplace_back(new Sprite("img/gameover/gameover3.png"));
+    bg.emplace_back(new Sprite("img/gameover/gameover2.png"));
+    bg.emplace_back(new Sprite("img/gameover/gameover1.png"));
 	bgCount = loopCounter = 0;
+	music.Open("audio/GAME OVER.mp3");
+	music.Play(-1);
 }
 
 void EndState::Update(float dt)
 {
 	Input();
 	timer.Update(dt);
-	if (timer.Get()>=0.1)
+	if (timer.Get()>=0.15)
 	{
 		loopCounter++;
 		bgCount ++;
 		timer.Restart();
 	}
 	if (bgCount == (int)bg.size()) bgCount = 0;
-	if (loopCounter >= 11)
+	if (loopCounter >= (int)bg.size())
 	{
 		requestDelete = true;
 		StateData::haveDied = false;
