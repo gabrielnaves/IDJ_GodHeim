@@ -37,7 +37,7 @@ Level2State::Level2State() : State(), tileSet(55,55,"img/level2/level2Tiles.png"
 
     StateData::CreateCheckPoint();
     StateData::startingLevel = 2;
-    StateData::SaveCheckpoint();
+    StateData::SaveCheckpoint("SavedData.txt");
 }
 
 Level2State::~Level2State()
@@ -114,15 +114,15 @@ bool Level2State::StageClear()
 void Level2State::NextLevel()
 {
 	requestDelete = true;
-	StateData::SaveCheckpoint();
 	StateData::checkpoint = false;
 	StateData::UnlockSound(3);
+	StateData::SaveCheckpoint("SavedData.txt");
     if (Portal::endLevel2)
     {
         Game::GetInstance().Push(new Credits());
         return;
     }
-	Game::GetInstance().ResetWindowSize(360,275);
+//	Game::GetInstance().ResetWindowSize(360,275);
 	Game::GetInstance().Push(new EndState());
 }
 

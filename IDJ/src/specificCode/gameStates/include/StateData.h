@@ -31,8 +31,8 @@ class StateData
     static Point thorBox;
 
     static void CreateCheckPoint();
-    static void SaveCheckpoint();
-    static void RetrieveCheckpoint();
+    static void SaveCheckpoint(std::string file);
+    static void RetrieveCheckpoint(std::string file);
     static void UnlockLevel(int i);
     static void UnlockSound(int i);
 };

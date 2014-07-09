@@ -32,6 +32,7 @@ OptionsState::OptionsState()
 	endTimer.Restart();
 	startEndTimer = false;
 	canReturn = true;
+	StateData::RetrieveCheckpoint("NewData.txt");
 }
 
 OptionsState::~OptionsState()
@@ -50,7 +51,7 @@ void OptionsState::Update(float dt)
 		requestDelete = true;
 		StateData::lokiBox = Point();
 		StateData::thorBox = Point();
-		StateData::SaveCheckpoint();
+		StateData::SaveCheckpoint("NewData.txt");
 	}
 }
 
@@ -107,3 +108,5 @@ void OptionsState::UpdateArray(float dt)
 		}
 	}
 }
+
+

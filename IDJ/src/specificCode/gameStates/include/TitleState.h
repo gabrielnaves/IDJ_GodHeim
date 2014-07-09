@@ -33,7 +33,7 @@ class TitleState : public State
     Cursor cursor;
 
     std::string clicked;
-    bool startEndTimer;
+    bool startEndTimer, optionsUsed;
     State* SelectLevel();
     void SelectMusic();
 };

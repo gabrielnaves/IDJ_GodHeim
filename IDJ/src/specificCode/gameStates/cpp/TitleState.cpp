@@ -17,7 +17,8 @@ TitleState::TitleState() : State()
 
     SelectMusic();
     titleMusic.Play(-1);
-    startEndTimer = false;
+    startEndTimer = optionsUsed = false;
+    StateData::RetrieveCheckpoint("NewData.txt");
 
 }
 
@@ -58,6 +59,12 @@ void TitleState::Update(float dt)
     UpdateArray(dt);
     cursor.Update(dt);
     Input();
+    if (optionsUsed)
+    {
+        optionsUsed = false;
+        SelectMusic();
+        titleMusic.Play(-1);
+    }
     if (startEndTimer) endTimer.Update(dt);
     if (endTimer.Get() >= 2.5)
     {
@@ -71,11 +78,12 @@ void TitleState::Update(float dt)
     	}
     	else if (clicked == "Options")
     	{
+    	    optionsUsed = true;
     		Game::GetInstance().Push(new OptionsState());
     	}
     	else if (clicked == "Continue")
     	{
-    		StateData::RetrieveCheckpoint();
+    		StateData::RetrieveCheckpoint("SavedData.txt");
     		Game::GetInstance().ResetWindowSize(1200,650);
     		Game::GetInstance().Push(SelectLevel());
     	}

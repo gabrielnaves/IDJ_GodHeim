@@ -24,7 +24,7 @@ Level1State::Level1State() : State(), tileSet(55,55,"img/level1/level1Tiles.png"
 
     StateData::CreateCheckPoint();
     StateData::startingLevel = 1;
-    StateData::SaveCheckpoint();
+    StateData::SaveCheckpoint("SavedData.txt");
     musicArea = "outside";
 }
 
@@ -128,6 +128,12 @@ void Level1State::Update(float dt)
     Input();
     if (Thor::characterThor != NULL && Loki::characterLoki != NULL && Barrier::barrier != NULL)
     {
+        if (Barrier::barrier->box.Center().GetY() <= 6*55)
+            if (!musicPlaying)
+            {
+                outsideMusic->Play(-1);
+                musicPlaying = true;
+            }
         UpdateArray(dt);
         ChecksForCollisions();
         ErasesDeadObjects();
@@ -146,6 +152,7 @@ void Level1State::EndGame(float dt)
 {
 //	Game::GetInstance().ResetWindowSize(360,275);
 	Game::GetInstance().Push(new EndState());
+	musicPlaying = false;
 }
 
 bool Level1State::StageClear()
@@ -251,8 +258,6 @@ void Level1State::CheckMusic(float lowerX, float upperX, float lowerY, float upp
     {
         if (barrierPos.GetY() < lowerY && !musicPlaying)
         {
-            delete outsideMusic;
-            Resource::Clear();
             SelectMusic();
             outsideMusic->Play(-1);
             musicArea = "outside";
@@ -269,8 +274,6 @@ void Level1State::CheckMusic(float lowerX, float upperX, float lowerY, float upp
         }
         if (barrierPos.GetY() > upperY && !musicPlaying)
         {
-            delete caveMusic;
-            Resource::Clear();
             SelectMusic();
             caveMusic->Play(-1);
             musicArea = "cave";

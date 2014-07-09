@@ -26,13 +26,11 @@ class OptionBox : public GameObject
    private:
 	Sprite sp, spLock;
 	std::string type;
-	Music optionMusic;
 	int value, newValue;
 	GameObject* increaseButton, *decreaseButton;
 
 	void ChangeStateDataMusic();
 	void ChangeStateControls();
-	void SelectMusic();
 };
 
 

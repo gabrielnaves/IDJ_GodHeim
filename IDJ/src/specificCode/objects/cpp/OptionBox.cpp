@@ -24,7 +24,6 @@ OptionBox::OptionBox(float x, float y, std::string type, int value)
 	{
 		fileName += "img/menu/music", fileName += std::to_string(value), fileName += ".png";
 		sp.Open(fileName);
-		SelectMusic();
 	}
 	else if (type == "ControlsOption")
 	{
@@ -106,21 +105,6 @@ void OptionBox::SetValue(int value)
 	this->newValue = value;
 }
 
-void OptionBox::SelectMusic()
-{
-	optionMusic.Stop();
-	if (StateData::unlockedSound[value])
-	{
-		if (StateData::soundMode == "Normal")
-			optionMusic.Open("audio/SOUNDTRACK MODE/Menu/Title.mp3");
-		if (StateData::soundMode == "8bits")
-			optionMusic.Open("audio/8 bit MODE/Title.mp3");
-		if (StateData::soundMode == "SNES")
-			optionMusic.Open("audio/Forever SNES MODE/Title.mp3");
-		optionMusic.Play(-1);
-	}
-}
-
 void OptionBox::ChangeStateDataMusic()
 {
 	if (value == 1)
@@ -129,7 +113,6 @@ void OptionBox::ChangeStateDataMusic()
 		StateData::soundMode = "8bits";
 	else if (value == 3)
 		StateData::soundMode = "SNES";
-	SelectMusic();
 }
 
 void OptionBox::ChangeStateControls()

@@ -36,10 +36,10 @@ void StateData::UnlockSound(int i)
 	StateData::unlockedSound[i] = true;
 }
 
-void StateData::SaveCheckpoint()
+void StateData::SaveCheckpoint(std::string file)
 {
 	std::string line;
-	std::ofstream stream("saveData.txt", std::ofstream::out | std::ofstream::trunc);
+	std::ofstream stream(file, std::ofstream::out | std::ofstream::trunc);
 
 	stream << std::to_string(StateData::startingLevel) << std::endl;
 	stream << StateData::soundMode << std::endl;
@@ -119,10 +119,10 @@ void StateData::SaveCheckpoint()
 	stream.close();
 }
 
-void StateData::RetrieveCheckpoint()
+void StateData::RetrieveCheckpoint(std::string file)
 {
 	std::string line;
-	std::ifstream stream("saveData.txt");
+	std::ifstream stream(file);
 	if (!stream.fail())
 	{
 		std::getline(stream, line);
