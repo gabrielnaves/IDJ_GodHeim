@@ -20,9 +20,12 @@ class Portal: public GameObject
     void NotifyCollision(GameObject& other);
     bool Is(std::string type);
 
+    static bool endLevel2;
   private:
     Sprite inactiveSp, activeSp;
-    bool active;
+    Timer endTimer;
+    bool active, end;
+    bool thorColliding, lokiColliding;
 };
 
 #endif /* PORTAL_H_ */

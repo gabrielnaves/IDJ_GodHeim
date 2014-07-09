@@ -111,7 +111,8 @@ void Level2State::EndGame(float dt)
 
 bool Level2State::StageClear()
 {
-	return (  	 ((Thor::characterThor) && (Thor::characterThor->box.Center().GetX() < 0) && (Thor::characterThor->box.Center().GetY() < 0)
+    if (Portal::endLevel2) return true;
+	return (((Thor::characterThor) && (Thor::characterThor->box.Center().GetX() < 0) && (Thor::characterThor->box.Center().GetY() < 0)
 			   && (Loki::characterLoki) && (Loki::characterLoki->box.Center().GetX() < 0) && (Loki::characterLoki->box.Center().GetY() < 0)) ? true : false);
 }
 
@@ -120,6 +121,11 @@ void Level2State::NextLevel()
 {
 	requestDelete = true;
 	StateData::checkpoint = false;
+    if (Portal::endLevel2)
+    {
+        Game::GetInstance().Push(new Credits());
+        return;
+    }
 	Game::GetInstance().ResetWindowSize(360,275);
 	Game::GetInstance().Push(new EndState());
 }

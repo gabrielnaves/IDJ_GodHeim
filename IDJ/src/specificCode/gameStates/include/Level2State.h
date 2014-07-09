@@ -19,6 +19,7 @@
 #include "../../objects/include/Portal.h"
 #include "StateData.h"
 #include "EndState.h"
+#include "Credits.h"
 
 class Level2State : public State
 {

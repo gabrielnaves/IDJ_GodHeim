@@ -12,7 +12,7 @@ ChainedDragon::ChainedDragon(float x, float y, bool facingRight, MovementMap mov
                             restSp("img/characters/dragonResting.png", 2, 0.7, true),
                             movementMap(movMap)
 {
-	REST_TIME = (rand() % 500 + 100);
+	REST_TIME = (rand() % 500 + 300);
 	REST_TIME = REST_TIME/100;
 	box.Set(x, y, attackSp.GetWidth(), attackSp.GetHeight());
     this->facingRight = facingRight;
