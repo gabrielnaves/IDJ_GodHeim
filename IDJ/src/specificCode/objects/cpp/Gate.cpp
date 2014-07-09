@@ -67,6 +67,7 @@ bool Gate::ShouldStandOnStairs(Character *character)
 		return(false);
 	return(true);
 }
+
 void Gate::Stand(Character *character)
 {
 	character->standingOnObject = true;
@@ -127,7 +128,6 @@ void Gate::NotifyCollision(GameObject& other)
             if (character->vertical != 0)
                 character->SetActionState(CLIMBING_GATE);
     }
-
 }
 
 /**
@@ -141,6 +141,7 @@ bool Gate::CanClimb(Character *character)
 		return false;
 	return (true);
 }
+
 bool Gate::Is(std::string type)
 {
 	return(type == "Gate" ? true : false);

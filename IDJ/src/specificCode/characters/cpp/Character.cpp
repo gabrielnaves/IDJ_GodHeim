@@ -137,7 +137,7 @@ void Character::DealDamage()
 	{
 		if (!hp[i]->IsDead())
 		{
-			hp[i]->Empty();
+//			hp[i]->Empty();
 			return;
 		}
 	}

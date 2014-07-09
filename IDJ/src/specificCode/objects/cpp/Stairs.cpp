@@ -7,6 +7,12 @@
 
 #include "../include/Stairs.h"
 
+bool Stairs::IsStairsBelow(Rect character)
+{
+    return (character.GetY()+character.GetW()<box.GetY() ? true : false);
+}
+
+//------------------------------------------
 Stairs::Stairs(std::string stairs, int x, int y) : stairsSp(stairs)
 {
     box.Set(x,y,stairsSp.GetWidth(),stairsSp.GetHeight());
@@ -28,15 +34,28 @@ void Stairs::NotifyCollision(GameObject& other)
             Loki::characterLoki->cannotTransform = true;
         }
         if (other.Is("Thor")) character = Thor::characterThor;
-        if (IsCloseToStairs(character))
-        {
+        if (CanClimb(character) and character->actionState != CLIMBING)
             if (character->vertical != 0)
-                {
-                    character->SetActionState(CLIMBING);
-                    character->box.SetPoint(box.GetX()+box.GetW()/2-character->box.GetW()/2,character->box.GetY());
-                }
-        }
+            {
+            	//centralizes on the stairs
+                character->box.SetPoint(box.GetX()+box.GetW()/2-character->box.GetW()/2,character->box.GetY());
+            	character->SetActionState(CLIMBING);
+            }
+        if ((character->horizontal == 1 or character->horizontal == -1) and character->actionState == CLIMBING)
+        	character->SetActionState(NONE);
     }
+}
+
+/**
+ * Determines if the character is close enough to the Stairs so he can climb on it
+ */
+bool Stairs::CanClimb(Character *character)
+{
+	if (character->box.GetX() > box.GetX()+box.GetW()-25 or character->box.GetX()+character->box.GetW() < box.GetX()+25)
+		return false;
+	if (character->box.GetY()+character->box.GetH() < box.GetY() or character->box.GetY() > box.GetY()+box.GetH())
+		return false;
+	return (true);
 }
 
 bool Stairs::Is(std::string type)
@@ -44,48 +63,15 @@ bool Stairs::Is(std::string type)
     return(type == "Stairs" ? true : false);
 }
 
-bool Stairs::IsStairsBelow(Rect character)
-{
-    return (character.GetY()+character.GetW()<box.GetY() ? true : false);
-}
-
-bool Stairs::IsStairsAbove(Rect character)
-{
-    return (character.GetY()>box.GetY()+box.GetH() ? true : false);
-}
-
-bool Stairs::IsCloseToStairs(Character *character)
-{
-	if (character->box.GetX() > box.GetX()+box.GetW()-5 or character->box.GetX()+character->box.GetW() < box.GetX()+5)
-		return false;
-	if (character->box.GetY()+character->box.GetH() < box.GetY() or character->box.GetY() > box.GetY()+box.GetH())
-		return false;
-	return (true);
-}
-
-bool Stairs::IsAboveStairs(Character *character)
-{
-	if (character->box.GetY()+character->box.GetH()>box.GetY()+1) return(false);
-	if (character->box.GetX()>box.GetX()+box.GetW()-1) return(false);
-	if (character->box.GetX()+character->box.GetW() < box.GetX()+1) return(false);
-	return(true);
-}
-
 void Stairs::Update(float dt)
 {
-    Character *loki = Loki::characterLoki;
-    Character *thor = Thor::characterThor;
+	if (Thor::characterThor == NULL or Loki::characterLoki == NULL) return;
 
-    if (IsCloseToStairs(thor))
-    {
-    	InteractsWith(thor);
-        thor->standingOnObject = IsAboveStairs(thor);
-    }
-    if (IsCloseToStairs(loki))
-    {
-    	InteractsWith(loki);
-        loki->standingOnObject = IsAboveStairs(loki);
-    }
+	InteractsWith(Thor::characterThor);
+	InteractsWith(Loki::characterLoki);
+
+	prevThor = Thor::characterThor->box;
+	prevLoki = Loki::characterLoki->box;
 }
 
 /**
@@ -93,41 +79,56 @@ void Stairs::Update(float dt)
  */
 void Stairs::InteractsWith(Character *character)
 {
+	if (!IsCloseTo(character)) return;
+	if (ShouldDrop(character)) Drop(character);
 	character->standingOnObject = false;
-    if (IsStairsBelow(character->box) and character->vertical<0 and character->actionState != CLIMBING) //if is above the stairs and wants to climb down
-    {
-    	character->standingOnObject = true;
-        character->SetActionState(CLIMBING);
-        character->box.SetPoint(box.GetX()+box.GetW()/2-character->box.GetW()/2,box.GetY()-box.GetW()+2); //goes down a pixel and centralizes on the stairs
-    }
-    else if (IsStairsBelow(Rect(character->box.GetX(),character->box.GetY(),character->box.GetW(),character->box.GetH()))
-            and character->vertical>0 and character->actionState == CLIMBING)
-    {
-    	character->standingOnObject = true;
-    	character->SetActionState(NONE);
-    }
-    else if (IsStairsBelow(character->box) and character->vertical >= 0 and character->actionState != CLIMBING)
-    {
-        character->standingOnObject = true;
-        character->box.SetPoint(character->box.GetX(),box.GetPoint().GetY()-character->box.GetH()); //corrects bugs
-    	character->SetActionState(NONE);
-        character->SetVState(STANDING);
-    }
-    else if (IsStairsAbove(character->box) and character->vertical>0 and character->actionState != CLIMBING) //if is below the stairs and wants to climb up
-    {
-        character->SetActionState(CLIMBING);
-        character->box.SetPoint(box.GetX()+box.GetW()/2-character->box.GetW()/2,box.GetY()+box.GetH()+2); //goes up a pixel and centralizes on the stairs
-    }
-    //drops the stairs when finishes climbing it up
-    else if (IsStairsAbove(Rect(character->box.GetX(),character->box.GetY()+20,character->box.GetW(),character->box.GetH()))
-            and character->vertical<0 and character->actionState == CLIMBING)
-    {
-        character->SetActionState(NONE);
-    }
-    else if (character->vState == STANDING and character->vertical<0 and !IsStairsBelow(character->box))
-    {
-        character->SetActionState(NONE);
-    }
-    else if ((character->horizontal == 1 or character->horizontal == -1) and character->actionState == CLIMBING)
-        character->SetActionState(NONE);
+	if (ShouldStandOnStairs(character)) Stand(character);
+	if (character->standingOnObject == true and character->vertical<0)
+	{
+		character->SetActionState(CLIMBING);
+		character->standingOnObject = false;
+		character->box.MoveRect(0,1);
+	}
+}
+
+bool Stairs::IsCloseTo(Character *character)
+{
+	if (character->box.GetY() + character->box.GetH() < box.GetY() - 15) return (false);
+	if (character->box.GetY() > box.GetY() + box.GetH() + 50) return (false);
+	if (character->box.GetX() > box.GetX() + box.GetW() + 25) return (false);
+	if (character->box.GetX() + character->box.GetW() < box.GetX() - 25) return (false);
+	return(true);
+}
+
+/**
+ * Drops the character from the Stairs when it is not colliding with it.
+ */
+bool Stairs::ShouldDrop(Character *character)
+{
+	if (character->actionState == CLIMBING) //as to not return true even though it is not climbing the Stairs
+		return (!Collision::IsColliding(character->box,box,character->rotation,rotation));
+	return(false);
+}
+
+void Stairs::Drop(Character *character)
+{
+	character->SetActionState(NONE);
+}
+
+bool Stairs::ShouldStandOnStairs(Character *character)
+{
+	Rect prevChar = character->Is("Thor") ? prevThor : prevLoki;
+	if (!(character->box.GetY()+character->box.GetH() >= box.GetY() and prevChar.GetY()+prevChar.GetH() <= box.GetY()))
+		return (false);
+	if (character->box.GetX() > box.GetX()+box.GetW()-25 or character->box.GetX()+character->box.GetW() < box.GetX()+25)
+		return(false);
+	return(true);
+}
+
+void Stairs::Stand(Character *character)
+{
+	character->standingOnObject = true;
+    character->box.MoveRect(0, box.GetY()-(character->box.GetY()+character->box.GetH()));
+	character->SetActionState(NONE);
+	character->SetVState(STANDING);
 }

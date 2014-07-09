@@ -23,12 +23,17 @@ class Stairs: public GameObject
     bool Is(std::string type);
 
   private:
-    bool IsAboveStairs(Character *character);
-    bool IsCloseToStairs(Character *character);
     bool IsStairsBelow(Rect character);
-    bool IsStairsAbove(Rect character);
     void InteractsWith(Character *character);
+    bool ShouldStandOnStairs(Character *character);
+    void Stand(Character *character);
+    bool IsCloseTo(Character *character);
+    bool CanClimb(Character *character);
+    bool ShouldDrop(Character *character);
+    void Drop(Character *character);
     Sprite stairsSp;
+    Rect prevThor;
+    Rect prevLoki;
 };
 
 #endif /* STAIRS_H_ */
