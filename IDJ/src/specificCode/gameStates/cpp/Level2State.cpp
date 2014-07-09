@@ -98,7 +98,6 @@ void Level2State::Update(float dt)
     if (StageClear()) NextLevel();
 }
 
-
 void Level2State::EndGame(float dt)
 {
 //	Game::GetInstance().ResetWindowSize(360,275);
@@ -126,7 +125,6 @@ void Level2State::NextLevel()
 	Game::GetInstance().ResetWindowSize(360,275);
 	Game::GetInstance().Push(new EndState());
 }
-
 
 void Level2State::Render()
 {
@@ -177,6 +175,27 @@ void Level2State::Input()
 {
     InputManager &im = InputManager::GetInstance();
     if (im.ShouldQuit()) requestQuit = true;
+    if (InputManager::GetInstance().KeyPress(SDLK_1))
+    {
+    	music->Stop();
+    	StateData::soundMode = "Normal";
+    	SelectMusic();
+    	music->Play(-1);
+    }
+    if (InputManager::GetInstance().KeyPress(SDLK_2))
+    {
+    	music->Stop();
+    	StateData::soundMode = "8bits";
+    	SelectMusic();
+    	music->Play(-1);
+    }
+    if (InputManager::GetInstance().KeyPress(SDLK_3))
+    {
+    	music->Stop();
+    	StateData::soundMode = "SNES";
+    	SelectMusic();
+    	music->Play(-1);
+    }
 }
 
 void Level2State::Follow(std::string object)

@@ -61,6 +61,8 @@ class Level1State : public State
     Timer endGame;
 
     bool musicPlaying, showingCave;
+    float dt;
+    std::string musicArea;
 };
 
 #endif /* LEVEL1STATE_H_ */

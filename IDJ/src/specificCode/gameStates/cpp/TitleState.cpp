@@ -26,12 +26,38 @@ TitleState::~TitleState()
 //    titleMusic.Stop();
 }
 
+void TitleState::Input()
+{
+	if (InputManager::GetInstance().ShouldQuit())
+	        requestQuit = true;
+//    if (InputManager::GetInstance().KeyPress(SDLK_1))
+//    {
+//    	titleMusic.Stop();
+//    	StateData::soundMode = "Normal";
+//    	SelectMusic();
+//    	titleMusic.Play(-1);
+//    }
+//    if (InputManager::GetInstance().KeyPress(SDLK_2))
+//    {
+//    	titleMusic.Stop();
+//    	StateData::soundMode = "8bits";
+//    	SelectMusic();
+//    	titleMusic.Play(-1);
+//    }
+//    if (InputManager::GetInstance().KeyPress(SDLK_3))
+//    {
+//    	titleMusic.Stop();
+//    	StateData::soundMode = "SNES";
+//    	SelectMusic();
+//    	titleMusic.Play(-1);
+//    }
+}
+
 void TitleState::Update(float dt)
 {
     UpdateArray(dt);
     cursor.Update(dt);
-    if (InputManager::GetInstance().ShouldQuit())
-        requestQuit = true;
+    Input();
     if (startEndTimer) endTimer.Update(dt);
     if (endTimer.Get() >= 2.5)
     {
@@ -72,7 +98,6 @@ State* TitleState::SelectLevel()
  */
 void TitleState::SelectMusic()
 {
-    titleMusic.Stop();
     if (StateData::soundMode == "Normal")
         titleMusic.Open("audio/SOUNDTRACK MODE/Menu/Title.mp3");
     if (StateData::soundMode == "8bits")

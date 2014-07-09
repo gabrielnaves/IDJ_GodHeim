@@ -20,10 +20,12 @@ Level1State::Level1State() : State(), tileSet(55,55,"img/level1/level1Tiles.png"
     outsideMusic->Play(-1);
     musicPlaying = true;
     showingCave = false;
+    dt = 0;
 
     StateData::CreateCheckPoint();
     StateData::startingLevel = 1;
     StateData::SaveCheckpoint();
+    musicArea = "outside";
 }
 
 /**
@@ -122,6 +124,7 @@ void Level1State::Follow(std::string object)
 
 void Level1State::Update(float dt)
 {
+	this->dt = dt;
     Input();
     if (Thor::characterThor != NULL && Loki::characterLoki != NULL && Barrier::barrier != NULL)
     {
@@ -145,13 +148,11 @@ void Level1State::EndGame(float dt)
 	Game::GetInstance().Push(new EndState());
 }
 
-
 bool Level1State::StageClear()
 {
 	return (  	 ((Thor::characterThor) && (Thor::characterThor->box.Center().GetX() > 1155) && (Thor::characterThor->box.Center().GetY() > 2090)
 			   && (Loki::characterLoki) && (Loki::characterLoki->box.Center().GetX() > 1155) && (Loki::characterLoki->box.Center().GetY() > 2090)) ? true : false);
 }
-
 
 void Level1State::NextLevel()
 {
@@ -160,7 +161,6 @@ void Level1State::NextLevel()
 	caveMusic->Stop();
 	Game::GetInstance().Push(new Level2State());
 }
-
 
 void Level1State::Render()
 {
@@ -184,6 +184,33 @@ void Level1State::Input()
 {
     if (InputManager::GetInstance().ShouldQuit())
         requestQuit = true;
+    if (InputManager::GetInstance().KeyPress(SDLK_1))
+    {
+    	outsideMusic->Stop();
+    	caveMusic->Stop();
+    	StateData::soundMode = "Normal";
+    	SelectMusic();
+    	if (musicArea == "outside") outsideMusic->Play(-1);
+    	else if (musicArea == "cave") caveMusic->Play(-1);
+    }
+    if (InputManager::GetInstance().KeyPress(SDLK_2))
+    {
+    	outsideMusic->Stop();
+    	caveMusic->Stop();
+    	StateData::soundMode = "8bits";
+    	SelectMusic();
+    	if (musicArea == "outside") outsideMusic->Play(-1);
+    	else if (musicArea == "cave") caveMusic->Play(-1);
+    }
+    if (InputManager::GetInstance().KeyPress(SDLK_3))
+    {
+    	outsideMusic->Stop();
+    	caveMusic->Stop();
+    	StateData::soundMode = "SNES";
+    	SelectMusic();
+    	if (musicArea == "outside") outsideMusic->Play(-1);
+    	else if (musicArea == "cave") caveMusic->Play(-1);
+    }
 }
 
 /*Sees if any objects collided*/
@@ -228,6 +255,7 @@ void Level1State::CheckMusic(float lowerX, float upperX, float lowerY, float upp
             Resource::Clear();
             SelectMusic();
             outsideMusic->Play(-1);
+            musicArea = "outside";
             musicPlaying = true;
         }
         if (barrierPos.GetY() >= lowerY && barrierPos.GetY() <= upperY)
@@ -235,6 +263,7 @@ void Level1State::CheckMusic(float lowerX, float upperX, float lowerY, float upp
             if (musicPlaying)
             {
                 outsideMusic->Stop(0.2);
+                musicArea = "none";
                 musicPlaying = false;
             }
         }
@@ -244,6 +273,7 @@ void Level1State::CheckMusic(float lowerX, float upperX, float lowerY, float upp
             Resource::Clear();
             SelectMusic();
             caveMusic->Play(-1);
+            musicArea = "cave";
             musicPlaying = true;
         }
     }

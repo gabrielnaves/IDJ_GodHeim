@@ -23,6 +23,7 @@ class TitleState : public State
     ~TitleState();
     void Update(float dt);
     void Render();
+    void Input();
 
     void UpdateArray(float dt);
   private:
