@@ -20,6 +20,9 @@ Level1State::Level1State() : State(), tileSet(55,55,"img/level1/level1Tiles.png"
     outsideMusic->Play(-1);
     musicPlaying = true;
     showingCave = false;
+
+    if (!StateData::checkpoint)
+    	StateData::CreateCheckPoint();
 }
 
 /**

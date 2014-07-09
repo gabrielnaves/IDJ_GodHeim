@@ -23,6 +23,9 @@ Level2State::Level2State() : State(), tileSet(55,55,"img/level2/level2Tiles.png"
     ItemFlags::eagle = true;
     ItemFlags::fireBall = true;
     ItemFlags::hammer = true;
+
+    if (!StateData::checkpoint)
+    	StateData::CreateCheckPoint();
 }
 
 Level2State::~Level2State()
