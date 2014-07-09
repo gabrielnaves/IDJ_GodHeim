@@ -58,7 +58,7 @@ void Level1State::EmplaceInitialObjects()
     objectArray.emplace_back(new Stairs("img/objects/stairsBig.png",110,1650));
     objectArray.emplace_back(new Gate("img/level1/grade.png",7*55,24.5*55));
     objectArray.emplace_back(new Rope("img/objects/corda desenrolando.png",1050,490,false,7,0.1));
-    objectArray.emplace_back(new Switch(1250,550,"img/objects/alavanca.png","img/objects/.png",
+    objectArray.emplace_back(new Switch(1250,550,"img/objects/alavanca.png","img/objects/alavanca2.png",
             &(*objectArray[objectArray.size()-1])));
     objectArray.emplace_back(new Rope("img/objects/rope.png", 950, 495));
     objectArray.emplace_back(new Rope("img/objects/smallRope.png",550,1045));
