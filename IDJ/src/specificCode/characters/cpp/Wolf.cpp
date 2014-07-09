@@ -19,7 +19,7 @@ Wolf::Wolf(float x, float y, float visionDistance, MovementMap map, bool facingR
              walkSp("img/characters/wolfwalk.png", 4, 0.1, true),
              getUpSp("img/characters/lobodormindo.png", 5, 0.1, false),
              lieDownSp("img/characters/lobodormindo.png", 5, 0.1, false),
-             heldSp("img/characters/wolfHeld.png", 5, 0.1, false),
+             heldSp("img/characters/wolfrun.png", 4, 0.08, true),
              movMap(map)
 {
     box.Set(x-restSp.GetWidth()/2, y-restSp.GetHeight()/2, restSp.GetWidth(), restSp.GetHeight());
@@ -206,21 +206,20 @@ void Wolf::BeHeld(float dt)
     Rect thorBox = Thor::characterThor->box;
     heldSp.Update(dt);
     heldTimer.Update(dt);
-    if (heldTimer.Get() <= 0.2)
+	if (facingRight)
+	{
+		if (thorBox.GetX() >= box.GetX()+box.GetW())
+			box.MoveRect(abs(thorBox.GetX()-(box.GetX()+box.GetW()))+box.GetW()/3-10, 0);
+		else box.MoveRect(-abs(thorBox.GetX()-(box.GetX()+box.GetW()))+box.GetW()/3-10, 0);
+	}
+    else
     {
-        if (facingRight)
-        {
-            if (thorBox.GetX() >= box.GetX()+box.GetW())
-                box.MoveRect(abs(thorBox.GetX()-(box.GetX()+box.GetW()))+box.GetW()/3-10, 0);
-            else box.MoveRect(-abs(thorBox.GetX()-(box.GetX()+box.GetW()))+box.GetW()/3-10, 0);
-        }
-        else
-        {
-            if (box.GetX() >= thorBox.GetX()+thorBox.GetW())
-                box.MoveRect(-abs((thorBox.GetX()+thorBox.GetW())-box.GetX()), 0);
-            else box.MoveRect(abs((thorBox.GetX()+thorBox.GetW())-box.GetX()), 0);
-        }
+        if (box.GetX() >= thorBox.GetX()+thorBox.GetW())
+            box.MoveRect(-abs((thorBox.GetX()+thorBox.GetW())-box.GetX()), 0);
+        else box.MoveRect(abs((thorBox.GetX()+thorBox.GetW())-box.GetX()), 0);
     }
+//	if (FindClosestCharacter().GetPoint() == Loki::characterLoki->box.GetPoint())
+//		state = WolfNamespace::ATTACKING;
 }
 
 Rect Wolf::FindClosestCharacter()

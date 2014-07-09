@@ -46,7 +46,7 @@ void Thor::Act()
     else if (ItemFlags::shield and GetMovementType() == "HoldingWolf")
         ChangeMovementState("Regular"); //if he is holding the wolf, releases it
     else if (ItemFlags::shield and canHoldWolf)
-            ChangeMovementState("HoldingWolf"); //if he can hold the wolf, holds it
+        ChangeMovementState("HoldingWolf"); //if he can hold the wolf, holds it
     else if (ItemFlags::hammer)
     	Hit();
 

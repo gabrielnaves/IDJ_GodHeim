@@ -99,3 +99,8 @@ Point Point::operator/(const float rhs) const
 	//beware: does not treat divisions by 0
     return Point(x / rhs, y / rhs);
 }
+
+bool Point::operator==(const Point& rhs) const
+{
+    return x == rhs.x and y == rhs.y ? true : false;
+}

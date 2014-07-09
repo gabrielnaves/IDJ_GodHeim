@@ -17,7 +17,7 @@ HoldingWolf::~HoldingWolf() {}
 void HoldingWolf::UpdateSpeed(Character *character, float dt)
 {
     character->SetHState(thorHState);
-    character->speed.Set(0,0);
+    character->speed.Set(character->horizontal*VEL/5,0);
 }
 
 std::string HoldingWolf::GetType()

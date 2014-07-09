@@ -35,6 +35,7 @@ class Point
     Point operator-(const Point& rhs) const;
     Point operator*(const float rhs) const;
     Point operator/(const float rhs) const;
+    bool operator==(const Point& rhs) const;
 
   private:
 	float x, y;
