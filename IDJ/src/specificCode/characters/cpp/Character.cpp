@@ -40,11 +40,11 @@ Character::Character(MovementMap movMap,
     shouldRender = true;
     pressSwitch = canPressSwitch = false;
     damaged = false;
+    invincibility = false;
 }
 
 void Character::Input()
 {
-
     int UP_KEY = Is("Thor") ? SDLK_i:SDLK_w;
     int DOWN_KEY = Is("Thor") ? SDLK_k:SDLK_s;
     int LEFT_KEY = Is("Thor") ? SDLK_j:SDLK_a;
@@ -72,6 +72,9 @@ void Character::Input()
     //Action button
     if (input.KeyPress(ACTION_BUTTON))
         actionButton = true;
+    //Invincibility Cheat
+    if (input.KeyPress(SDLK_0))
+        invincibility = !invincibility;
 }
 
 void Character::Update(float dt)
@@ -144,7 +147,8 @@ void Character::DealDamage()
 	{
 		if (!hp[i]->IsDead())
 		{
-			hp[i]->Empty();
+		    if (!invincibility)
+		        hp[i]->Empty();
 			return;
 		}
 	}
@@ -163,8 +167,9 @@ void Character::Heal()
 
 void Character::Kill()
 {
-	for (int i=hp.size()-1;i>=0;i--)
-		hp[i]->Empty();
+    if (!invincibility)
+        for (int i=hp.size()-1;i>=0;i--)
+            hp[i]->Empty();
 }
 
 void Character::Resurrect()

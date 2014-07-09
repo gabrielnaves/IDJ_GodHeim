@@ -84,6 +84,7 @@ class Character : public GameObject
     void UpdatePrevState();
 
     Timer damageTime, imuneTime;
+    bool invincibility;
 };
 
 #endif /* CHARACTER_H_ */
