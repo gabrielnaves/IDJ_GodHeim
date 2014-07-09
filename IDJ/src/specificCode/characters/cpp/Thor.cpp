@@ -45,6 +45,12 @@ void Thor::Act()
     if (actionState == ATTACKING and hitting.Get() < HITTING_COOLDOWN) return;
     else if (actionState == ATTACKING and hitting.Get() > HITTING_COOLDOWN) SetActionState(NONE);
 
+    // Debug Comments
+    //if (canPressSwitch) printf("Can press switch\n");
+    //if (ItemFlags::shield) printf("Has shield\n");
+    //if (ItemFlags::hammer) printf("Has hammer\n");
+    //if (canHoldWolf) printf("Can Hold Wolf\n");
+
     if (canPressSwitch)
         pressSwitch = true;
     else if (ItemFlags::shield and GetMovementType() == "HoldingWolf")

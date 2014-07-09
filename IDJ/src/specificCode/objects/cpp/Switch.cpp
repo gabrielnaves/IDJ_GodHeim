@@ -24,7 +24,6 @@ void Switch::Update(float dt)
     //find conditions on which the switch will NOT be pressed
     if (Thor::characterThor == NULL or Loki::characterLoki == NULL)
         return;
-    if (activated) return;
     Thor *thor = Thor::characterThor;
     Loki *loki = Loki::characterLoki;
     if (thor->box.Center().Distance(box.Center()) >= 40 and
@@ -39,10 +38,10 @@ void Switch::Update(float dt)
     if (!Collision::IsColliding(loki->box, box, loki->rotation*2*M_PI/360, rotation*2*M_PI/360))
         SetColliding("Loki",false);
     if (!thorColliding and !lokiColliding) return;
+    if (activated) return;
 
     if (thorColliding) Activate(Thor::characterThor);
     if (lokiColliding) Activate(Loki::characterLoki);
-
 }
 
 void Switch::Activate(Character *character)
