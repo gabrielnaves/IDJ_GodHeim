@@ -30,7 +30,7 @@ void Portal::Update(float dt)
             end = true;
     }
     if (end) endTimer.Update(dt);
-    if (endTimer.Get() >= 1.5)
+    if (endTimer.Get() >= 1)
         endLevel2 = true;
 }
 

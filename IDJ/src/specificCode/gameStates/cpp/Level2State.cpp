@@ -108,14 +108,12 @@ void Level2State::EndGame(float dt)
 	}
 }
 
-
 bool Level2State::StageClear()
 {
     if (Portal::endLevel2) return true;
 	return (((Thor::characterThor) && (Thor::characterThor->box.Center().GetX() < 0) && (Thor::characterThor->box.Center().GetY() < 0)
 			   && (Loki::characterLoki) && (Loki::characterLoki->box.Center().GetX() < 0) && (Loki::characterLoki->box.Center().GetY() < 0)) ? true : false);
 }
-
 
 void Level2State::NextLevel()
 {
