@@ -17,7 +17,7 @@ Level1State::Level1State() : State(), tileSet(55,55,"img/level1/level1Tiles.png"
     EmplaceInitialObjects();
     Follow("Barrier");
     SelectMusic();
-    outsideMusic->Play(-1);
+    outsideMusic.Play(-1);
     musicPlaying = true;
     showingCave = false;
     dt = 0;
@@ -35,18 +35,18 @@ void Level1State::SelectMusic()
 {
     if (StateData::soundMode == "Normal")
     {
-        outsideMusic = new Music("audio/SOUNDTRACK MODE/Fase 1/outside_music.mp3");
-        caveMusic = new Music("audio/SOUNDTRACK MODE/Fase 1/cave_music.mp3");
+        outsideMusic.Open("audio/SOUNDTRACK MODE/Fase 1/outside_music.mp3");
+        caveMusic.Open("audio/SOUNDTRACK MODE/Fase 1/cave_music.mp3");
     }
     if (StateData::soundMode == "8bits")
     {
-        outsideMusic = new Music("audio/8 bit MODE/outside_music.mp3");
-        caveMusic = new Music("audio/8 bit MODE/cave_music(eff).mp3");
+        outsideMusic.Open("audio/8 bit MODE/outside_music.mp3");
+        caveMusic.Open("audio/8 bit MODE/cave_music(eff).mp3");
     }
     if (StateData::soundMode == "SNES")
     {
-        outsideMusic = new Music("audio/Forever SNES MODE/outside_music.mp3");
-        caveMusic = new Music("audio/Forever SNES MODE/cave_music.mp3");
+        outsideMusic.Open("audio/Forever SNES MODE/outside_music.mp3");
+        caveMusic.Open("audio/Forever SNES MODE/cave_music.mp3");
     }
 }
 
@@ -131,7 +131,7 @@ void Level1State::Update(float dt)
         if (Barrier::barrier->box.Center().GetY() <= 6*55)
             if (!musicPlaying)
             {
-                outsideMusic->Play(-1);
+                outsideMusic.Play(-1);
                 musicPlaying = true;
             }
         UpdateArray(dt);
@@ -165,7 +165,7 @@ void Level1State::NextLevel()
 {
 	requestDelete = true;
 	StateData::checkpoint = false;
-	caveMusic->Stop();
+	caveMusic.Stop();
 	Game::GetInstance().Push(new Level2State());
 }
 
@@ -193,30 +193,30 @@ void Level1State::Input()
         requestQuit = true;
     if (InputManager::GetInstance().KeyPress(SDLK_1))
     {
-    	outsideMusic->Stop();
-    	caveMusic->Stop();
+    	outsideMusic.Stop();
+    	caveMusic.Stop();
     	StateData::soundMode = "Normal";
     	SelectMusic();
-    	if (musicArea == "outside") outsideMusic->Play(-1);
-    	else if (musicArea == "cave") caveMusic->Play(-1);
+    	if (musicArea == "outside") outsideMusic.Play(-1);
+    	else if (musicArea == "cave") caveMusic.Play(-1);
     }
     if (InputManager::GetInstance().KeyPress(SDLK_2))
     {
-    	outsideMusic->Stop();
-    	caveMusic->Stop();
+    	outsideMusic.Stop();
+    	caveMusic.Stop();
     	StateData::soundMode = "8bits";
     	SelectMusic();
-    	if (musicArea == "outside") outsideMusic->Play(-1);
-    	else if (musicArea == "cave") caveMusic->Play(-1);
+    	if (musicArea == "outside") outsideMusic.Play(-1);
+    	else if (musicArea == "cave") caveMusic.Play(-1);
     }
     if (InputManager::GetInstance().KeyPress(SDLK_3))
     {
-    	outsideMusic->Stop();
-    	caveMusic->Stop();
+    	outsideMusic.Stop();
+    	caveMusic.Stop();
     	StateData::soundMode = "SNES";
     	SelectMusic();
-    	if (musicArea == "outside") outsideMusic->Play(-1);
-    	else if (musicArea == "cave") caveMusic->Play(-1);
+    	if (musicArea == "outside") outsideMusic.Play(-1);
+    	else if (musicArea == "cave") caveMusic.Play(-1);
     }
 }
 
@@ -259,7 +259,7 @@ void Level1State::CheckMusic(float lowerX, float upperX, float lowerY, float upp
         if (barrierPos.GetY() < lowerY && !musicPlaying)
         {
             SelectMusic();
-            outsideMusic->Play(-1);
+            outsideMusic.Play(-1);
             musicArea = "outside";
             musicPlaying = true;
         }
@@ -267,7 +267,7 @@ void Level1State::CheckMusic(float lowerX, float upperX, float lowerY, float upp
         {
             if (musicPlaying)
             {
-                outsideMusic->Stop(0.2);
+                outsideMusic.Stop(0.2);
                 musicArea = "none";
                 musicPlaying = false;
             }
@@ -275,7 +275,7 @@ void Level1State::CheckMusic(float lowerX, float upperX, float lowerY, float upp
         if (barrierPos.GetY() > upperY && !musicPlaying)
         {
             SelectMusic();
-            caveMusic->Play(-1);
+            caveMusic.Play(-1);
             musicArea = "cave";
             musicPlaying = true;
         }

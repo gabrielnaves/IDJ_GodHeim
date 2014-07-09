@@ -27,7 +27,7 @@ Level2State::Level2State() : State(), tileSet(55,55,"img/level2/level2Tiles.png"
     EmplaceInitialObjects();
     Follow("Barrier");
     SelectMusic();
-    music->Play(-1);
+    music.Play(-1);
     ItemFlags::belt = true;
     ItemFlags::eagle = true;
     ItemFlags::fireBall = true;
@@ -53,22 +53,22 @@ void Level2State::SelectMusic()
 	if (!ItemFlags::redPotion)
 	{
 		if (StateData::soundMode == "Normal")
-			music = new Music("audio/SOUNDTRACK MODE/Fase 2/Fire Stage 1parte -Eber Filipe.mp3");
+			music.Open("audio/SOUNDTRACK MODE/Fase 2/Fire Stage 1parte -Eber Filipe.mp3");
     	if (StateData::soundMode == "8bits")
-    		music = new Music("audio/8 bit MODE/LAVA STAGE parte 2 (HOTHOTPIMENTA) .mp3");
+    		music.Open("audio/8 bit MODE/LAVA STAGE parte 2 (HOTHOTPIMENTA) .mp3");
     	if (StateData::soundMode == "SNES")
-    		music = new Music("audio/Forever SNES MODE/Stage two (DONKEY KONG style) Parte 1.mp3");
+    		music.Open("audio/Forever SNES MODE/Stage two (DONKEY KONG style) Parte 1.mp3");
 	}
 	else
 	{
 		if (StateData::soundMode == "Normal")
-			music = new Music("audio/SOUNDTRACK MODE/Fase 2/Fire Stage 2parte -Eber Filipe.mp3");
+			music.Open("audio/SOUNDTRACK MODE/Fase 2/Fire Stage 2parte -Eber Filipe.mp3");
     	if (StateData::soundMode == "8bits")
-    		music = new Music("audio/8 bit MODE/LAVA2.mp3");
+    		music.Open("audio/8 bit MODE/LAVA2.mp3");
     	if (StateData::soundMode == "SNES")
-    		music = new Music("audio/Forever SNES MODE/Stage two (DK RUMBA) Parte 2.mp3");
+    		music.Open("audio/Forever SNES MODE/Stage two (DK RUMBA) Parte 2.mp3");
 	}
-    music->Play(-1);
+    music.Play(-1);
 }
 
 void Level2State::Update(float dt)
@@ -85,7 +85,7 @@ void Level2State::Update(float dt)
 
     if (!changedMusic and ItemFlags::redPotion)
     {
-    	music->Stop();
+    	music.Stop();
     	changedMusic = true;
     	SelectMusic();
     }
@@ -185,24 +185,24 @@ void Level2State::Input()
     if (im.ShouldQuit()) requestQuit = true;
     if (InputManager::GetInstance().KeyPress(SDLK_1))
     {
-    	music->Stop();
+    	music.Stop();
     	StateData::soundMode = "Normal";
     	SelectMusic();
-    	music->Play(-1);
+    	music.Play(-1);
     }
     if (InputManager::GetInstance().KeyPress(SDLK_2))
     {
-    	music->Stop();
+    	music.Stop();
     	StateData::soundMode = "8bits";
     	SelectMusic();
-    	music->Play(-1);
+    	music.Play(-1);
     }
     if (InputManager::GetInstance().KeyPress(SDLK_3))
     {
-    	music->Stop();
+    	music.Stop();
     	StateData::soundMode = "SNES";
     	SelectMusic();
-    	music->Play(-1);
+    	music.Play(-1);
     }
 }
 

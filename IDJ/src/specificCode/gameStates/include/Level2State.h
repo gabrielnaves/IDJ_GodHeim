@@ -47,7 +47,7 @@ class Level2State : public State
     BlockTileSet tileSet;
     TileMap tileMap;
     MovementMap movementMap;
-    Music *music;
+    Music music;
     Timer endGame;
     bool changedMusic, end;
 };

@@ -57,7 +57,7 @@ class Level1State : public State
     BlockTileSet tileSet;
     TileMap tileMap;
     MovementMap movementMap;
-    Music *outsideMusic, *caveMusic;
+    Music outsideMusic, caveMusic;
     Timer endGame;
 
     bool musicPlaying, showingCave;
