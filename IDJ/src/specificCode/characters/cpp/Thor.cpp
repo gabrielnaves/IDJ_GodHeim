@@ -12,7 +12,7 @@ Thor* Thor::characterThor;
 
 Thor::Thor(float x, float y, MovementMap movMap) :
         Character(movMap,"img/characters/thor_walk.png",8,0.1,"img/characters/thor_jump.png",4,0.1,"img/characters/thorStairs.png",3,0.15,
-        		"img/characters/lokihit.png")
+        		"img/characters/hitthor.png")
 {
     characterSp.Open("img/characters/thor.png");
     box.Set(x-characterSp.GetWidth()/2, y-characterSp.GetHeight()/2, characterSp.GetWidth(), characterSp.GetHeight());
