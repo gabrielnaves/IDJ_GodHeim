@@ -208,8 +208,10 @@ void Character::ChangeSp(std::string spType, std::string sp, int frameCount, int
     }
     else if (spType == "walkSp")
     {
+    	walkSp.Open(sp);
         walkSp.SetFrameCount(frameCount);
         walkSp.SetFrame(currentFrame);
+        characterSp.SetFrameCount(frameCount);
 //        box.Set(box.GetX(), box.GetY(), walkSp.GetWidth(), walkSp.GetHeight());
     }
     else if (spType == "jumpSp")

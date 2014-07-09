@@ -100,10 +100,14 @@ void Thor::UpdateSprite()
         ChangeSp("characterSp","img/characters/thorShield.png",1);
     else if (vState == STANDING)
     {
-        if (hState == MOVING_RIGHT or hState == MOVING_LEFT)
+        if ((hState == MOVING_RIGHT or hState == MOVING_LEFT) and !ItemFlags::hammer)
             prevHState != hState ? ChangeSp("walkSp","img/characters/thor_walk.png",8) : walkSp.Update(dt);
-        else if (hState == STANDING_RIGHT or hState == STANDING_LEFT)
+        else if ((hState == MOVING_RIGHT or hState == MOVING_LEFT) and ItemFlags::hammer)
+        	prevHState != hState ? ChangeSp("walkSp","img/characters/thorpinturacaminhamartelospritsheet.png",7) : walkSp.Update(dt);
+        else if ((hState == STANDING_RIGHT or hState == STANDING_LEFT) and !ItemFlags::hammer)
             ChangeSp("characterSp","img/characters/thor.png",1);
+        else if ((hState == STANDING_RIGHT or hState == STANDING_LEFT) and ItemFlags::hammer)
+            ChangeSp("characterSp","img/characters/thorHammer.png",1);
     }
     else if (actionState == CLIMBING)
     {
