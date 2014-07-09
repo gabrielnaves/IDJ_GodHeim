@@ -27,7 +27,7 @@ OptionsState::OptionsState()
 	AddObject(new OptionBox(230, 300, "LevelOption", StateData::startingLevel));
 	AddObject(new OptionBox(230, 384, "SoundOption", sound));
 	AddObject(new OptionBox(230, 470, "ControlsOption", control));
-	AddObject(new MenuBox(500, 500, "img/menu/botao3.png", "img/menu/botao2.png", "Return"));
+	AddObject(new MenuBox(500, 500, "img/menu/return.png", "img/menu/return2.png", "Return"));
 
 	endTimer.Restart();
 	startEndTimer = false;
