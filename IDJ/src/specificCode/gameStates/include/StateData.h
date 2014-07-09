@@ -25,6 +25,7 @@ class StateData
     static bool unlockedSound[4];
     static bool unlockedControls[3];
     static bool checkpoint;
+    static bool haveDied;
     static Point lokiBox;
     static Point thorBox;
 

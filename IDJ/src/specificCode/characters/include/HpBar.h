@@ -21,6 +21,7 @@ class HpBar : public GameObject
 	bool Is(std::string type);
 	void Empty();
 	void Fill();
+	void Resurrect();
 	std::string GetSp();
 	std::string GetCharacter();
   private:

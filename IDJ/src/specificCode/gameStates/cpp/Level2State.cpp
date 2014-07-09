@@ -87,7 +87,7 @@ void Level2State::Update(float dt)
         ChecksForCollisions();
         ErasesDeadObjects();
     }
-    else
+    if (StateData::haveDied)
     	EndGame(dt);
     if (Barrier::barrier == NULL) Camera::Unfollow();
 
@@ -99,13 +99,8 @@ void Level2State::Update(float dt)
 
 void Level2State::EndGame(float dt)
 {
-	endGame.Update(dt);
-	if (endGame.Get()>=1.5)
-	{
-		requestDelete = true;
-        Game::GetInstance().ResetWindowSize(360,275);
-		Game::GetInstance().Push(new EndState());
-	}
+	Game::GetInstance().ResetWindowSize(360,275);
+	Game::GetInstance().Push(new EndState());
 }
 
 bool Level2State::StageClear()
@@ -131,14 +126,17 @@ void Level2State::NextLevel()
 
 void Level2State::Render()
 {
-    tmpBlackBg.Render(0,0);
-    bg1.Render(-Camera::pos.GetX(), -Camera::pos.GetY());
-    lavaCircle->Render();
-    bg2.Render(-Camera::pos.GetX(), -Camera::pos.GetY());
-    tileMap.RenderLayer(0, Camera::pos.GetX(), Camera::pos.GetY());
-    RenderArray();
-    if (Thor::characterThor != NULL) Thor::characterThor->RenderHP();
-    if (Loki::characterLoki != NULL) Loki::characterLoki->RenderHP();
+	if (!StateData::haveDied)
+	{
+		tmpBlackBg.Render(0,0);
+		bg1.Render(-Camera::pos.GetX(), -Camera::pos.GetY());
+		lavaCircle->Render();
+		bg2.Render(-Camera::pos.GetX(), -Camera::pos.GetY());
+		tileMap.RenderLayer(0, Camera::pos.GetX(), Camera::pos.GetY());
+		RenderArray();
+		if (Thor::characterThor != NULL) Thor::characterThor->RenderHP();
+		if (Loki::characterLoki != NULL) Loki::characterLoki->RenderHP();
+	}
 }
 
 void Level2State::EmplaceInitialObjects()

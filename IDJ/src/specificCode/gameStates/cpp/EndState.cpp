@@ -27,10 +27,12 @@ void EndState::Update(float dt)
 		timer.Restart();
 	}
 	if (bgCount == (int)bg.size()) bgCount = 0;
-	if (loopCounter >= 8)
+	if (loopCounter >= 5)
 	{
 		requestDelete = true;
-		requestQuit = true;
+		StateData::haveDied = false;
+//		requestQuit = true;
+		Game::GetInstance().ResetWindowSize(1200,650);
 //		Game::GetInstance().ResetWindowSize(574,600);
 //		Game::GetInstance().Push(new TitleState());
 	}

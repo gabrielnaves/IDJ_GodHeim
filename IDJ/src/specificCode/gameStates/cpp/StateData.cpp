@@ -14,6 +14,7 @@ bool StateData::unlockedLevel[10] = {false, true, true, false, false, false, fal
 bool StateData::unlockedSound[4] = {false, true, true, false};													//unlockedSound[0]    NOT USED!!!!
 bool StateData::unlockedControls[3] = {false, true, false};														//unlockedControls[0] NOT USED!!!!
 bool StateData::checkpoint = false;
+bool StateData::haveDied = false;
 Point StateData::lokiBox = Point();
 Point StateData::thorBox = Point();
 
@@ -22,6 +23,7 @@ void StateData::CreateCheckPoint()
 	StateData::lokiBox = Loki::characterLoki->box.GetPoint();
 	StateData::thorBox = Thor::characterThor->box.GetPoint();
 	StateData::checkpoint = true;
+	StateData::haveDied = false;
 }
 
 void StateData::UnlockLevel(int i)

@@ -61,6 +61,13 @@ void HpBar::Fill()
 	fill = true;
 }
 
+void HpBar::Resurrect()
+{
+	Fill();
+	empty = false;
+	sp.SetFrame(1);
+}
+
 std::string HpBar::GetSp()
 {
 	return(sprite);

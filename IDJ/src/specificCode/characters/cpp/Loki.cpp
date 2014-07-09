@@ -18,7 +18,7 @@ Loki::Loki(float x, float y, MovementMap movMap) :
 {
 	characterSp.Open("img/characters/loki.png");
 	if (StateData::checkpoint)
-		box.Set(StateData::lokiBox.GetX()-characterSp.GetWidth()/2, StateData::lokiBox.GetY()-characterSp.GetHeight()/2, characterSp.GetWidth(), characterSp.GetHeight());
+		box.Set(StateData::lokiBox.GetX(), StateData::lokiBox.GetY(), characterSp.GetWidth(), characterSp.GetHeight());
 	else
 		box.Set(x-characterSp.GetWidth()/2, y-characterSp.GetHeight()/2, characterSp.GetWidth(), characterSp.GetHeight());
 	characterLoki = this;

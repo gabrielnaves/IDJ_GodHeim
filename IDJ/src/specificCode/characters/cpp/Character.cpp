@@ -13,6 +13,7 @@
 #include "../include/EagleMov.h"
 #include "../include/GateMov.h"
 #include "../include/HoldingWolf.h"
+#include "../../gameStates/include/StateData.h"
 
 Character::Character(MovementMap movMap,
            std::string walk,int wFrameCount,float wFrameTime,
@@ -159,6 +160,13 @@ void Character::Kill()
 		hp[i]->Empty();
 }
 
+void Character::Resurrect()
+{
+	for (int i=hp.size()-1;i>=0;i--)
+		hp[i]->Resurrect();
+}
+
+
 void Character::ChangeMovementState(std::string type)
 {
     if (type == movement->GetType()) return;
@@ -296,7 +304,19 @@ void Character::CheckMovementLimits()
 
 bool Character::IsDead()
 {
-    return (hp[0]->IsDead() ? true : false);
+	if (hp[0]->IsDead())
+	{
+		StateData::haveDied = true;
+		Thor::characterThor->Resurrect();
+		Thor::characterThor->speed.Set(0,0);
+		Thor::characterThor->box.SetPoint(StateData::thorBox.GetX(), StateData::thorBox.GetY());
+		Loki::characterLoki->Resurrect();
+		Loki::characterLoki->speed.Set(0,0);
+		Loki::characterLoki->box.SetPoint(StateData::lokiBox.GetX(), StateData::lokiBox.GetY());
+		Barrier::barrier->box.SetPoint(Barrier::barrier->GetCorner());
+	}
+
+    return false;
 }
 bool Character::IsClimbing()
 {

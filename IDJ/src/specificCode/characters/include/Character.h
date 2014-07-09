@@ -46,6 +46,7 @@ class Character : public GameObject
     void DealDamage();
     void Heal();
     void Kill();
+    void Resurrect();
     std::string GetMovementType();
 
     bool canPressSwitch,pressSwitch, standingOnObject, insideBridge, barrierSuspended, actionButton;
