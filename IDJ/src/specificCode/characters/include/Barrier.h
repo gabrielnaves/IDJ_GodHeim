@@ -36,6 +36,7 @@ class Barrier : public GameObject
 	const float DRAG_TOLERANCE = 0;
   private:
 	Point FindCenter();
+	Sprite sp;
 };
 
 #endif /* BARRIER_H_ */

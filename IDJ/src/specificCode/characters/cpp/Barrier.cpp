@@ -10,7 +10,7 @@
 
 Barrier* Barrier::barrier;
 
-Barrier::Barrier()
+Barrier::Barrier() : sp("img/characters/barreira.png")
 {
 	box.Set(GetCorner(),DIAMETER,DIAMETER);
 	rotation = 0;
@@ -65,7 +65,11 @@ void Barrier::Update(float dt)
 	box.SetPoint(GetCorner());
 }
 
-void Barrier::Render() {}
+void Barrier::Render()
+{
+//	if (Thor::characterThor->box.Center().Distance(Loki::characterLoki->box.Center()) > DIAMETER)
+//		sp.Render(box.GetX()-Camera::pos.GetX(), box.GetY()-Camera::pos.GetY());
+}
 /**
  * Should not have to colide with anything
  */

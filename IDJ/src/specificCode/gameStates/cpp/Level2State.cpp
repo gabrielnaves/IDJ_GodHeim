@@ -7,6 +7,15 @@
 
 #include "../include/Level2State.h"
 
+/*
+ * Level2State.cpp
+ *
+ *  Created on: Jun 17, 2014
+ *      Author: Gabriel Naves
+ */
+
+#include "../include/Level2State.h"
+
 Level2State::Level2State() : State(), tileSet(55,55,"img/level2/level2Tiles.png"),
                              tileMap("map/level2.txt", &tileSet),
                              movementMap("map/level2MovementMap.txt", tileSet)
@@ -23,6 +32,7 @@ Level2State::Level2State() : State(), tileSet(55,55,"img/level2/level2Tiles.png"
     ItemFlags::eagle = true;
     ItemFlags::fireBall = true;
     ItemFlags::hammer = true;
+    changedMusic = false;
 
     if (!StateData::checkpoint)
     	StateData::CreateCheckPoint();
@@ -38,12 +48,25 @@ Level2State::~Level2State()
  */
 void Level2State::SelectMusic()
 {
-    if (StateData::soundMode == "Normal")
-        music = new Music("audio/SOUNDTRACK MODE/Fase 2/Fire Stage 1parte -Eber Filipe.mp3");
-    if (StateData::soundMode == "8bits")
-        music = new Music("audio/8 bit MODE/LAVA STAGE parte 2 (HOTHOTPIMENTA) .mp3");
-    if (StateData::soundMode == "SNES")
-        music = new Music("audio/Forever SNES MODE/Stage two (DONKEY KONG style) Parte 1.mp3");
+	if (!ItemFlags::redPotion)
+	{
+		if (StateData::soundMode == "Normal")
+			music = new Music("audio/SOUNDTRACK MODE/Fase 2/Fire Stage 1parte -Eber Filipe.mp3");
+    	if (StateData::soundMode == "8bits")
+    		music = new Music("audio/8 bit MODE/LAVA STAGE parte 2 (HOTHOTPIMENTA) .mp3");
+    	if (StateData::soundMode == "SNES")
+    		music = new Music("audio/Forever SNES MODE/Stage two (DONKEY KONG style) Parte 1.mp3");
+	}
+	else
+	{
+		if (StateData::soundMode == "Normal")
+			music = new Music("audio/SOUNDTRACK MODE/Fase 2/Fire Stage 2parte -Eber Filipe.mp3");
+    	if (StateData::soundMode == "8bits")
+    		music = new Music("audio/8 bit MODE/LAVA2.mp3");
+    	if (StateData::soundMode == "SNES")
+    		music = new Music("audio/Forever SNES MODE/Stage two (DK RUMBA) Parte 2.mp3");
+	}
+    music->Play(-1);
 }
 
 void Level2State::Update(float dt)
@@ -52,6 +75,12 @@ void Level2State::Update(float dt)
     lavaCircle->Update(dt);
     CorrectStaticPointers();
 
+    if (!changedMusic and ItemFlags::redPotion)
+    {
+    	music->Stop();
+    	changedMusic = true;
+    	SelectMusic();
+    }
     if (Thor::characterThor != NULL && Loki::characterLoki != NULL && Barrier::barrier != NULL)
     {
         UpdateArray(dt);
