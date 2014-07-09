@@ -19,7 +19,6 @@ TitleState::TitleState() : State()
     titleMusic.Play(-1);
     startEndTimer = false;
 
-    StateData::RetrieveCheckpoint();
 }
 
 TitleState::~TitleState()
@@ -50,7 +49,9 @@ void TitleState::Update(float dt)
     	}
     	else if (clicked == "Continue")
     	{
-
+    		StateData::RetrieveCheckpoint();
+    		Game::GetInstance().ResetWindowSize(1200,650);
+    		Game::GetInstance().Push(SelectLevel());
     	}
     	clicked = "";
     }
@@ -94,6 +95,11 @@ void TitleState::UpdateArray(float dt)
         objectArray[i]->Update(dt);
         if (objectArray[i]->IsDead() && objectArray[i]->Is("Continue"))
         {
+        	clicked = "Continue";
+        	cursor.ChangeSp("img/menu/mouseThunder.png");
+        	startEndTimer = true;
+        	titleMusic.Stop(2.4);
+        	objectArray[i]->Activate();
         }
         else if (objectArray[i]->IsDead() && objectArray[i]->Is("New Game"))
         {
