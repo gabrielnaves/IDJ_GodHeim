@@ -128,7 +128,7 @@ void Level1State::Update(float dt)
         ChecksForCollisions();
         ErasesDeadObjects();
     }
-    else
+    if (StateData::haveDied)
     	EndGame(dt);
     if (Barrier::barrier == NULL) Camera::Unfollow();
 
@@ -140,14 +140,8 @@ void Level1State::Update(float dt)
 
 void Level1State::EndGame(float dt)
 {
-	endGame.Update(dt);
-	if (endGame.Get()>=1.5)
-	{
-		requestDelete = true;
-		caveMusic->Stop();
-        Game::GetInstance().ResetWindowSize(360,275);
-		Game::GetInstance().Push(new EndState());
-	}
+	Game::GetInstance().ResetWindowSize(360,275);
+	Game::GetInstance().Push(new EndState());
 }
 
 

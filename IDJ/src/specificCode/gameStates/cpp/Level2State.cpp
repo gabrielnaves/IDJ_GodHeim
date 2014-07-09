@@ -114,6 +114,7 @@ void Level2State::NextLevel()
 {
 	requestDelete = true;
 	StateData::checkpoint = false;
+	StateData::UnlockSound(3);
     if (Portal::endLevel2)
     {
         Game::GetInstance().Push(new Credits());
