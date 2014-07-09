@@ -21,7 +21,6 @@ class StoneBlock : public GameObject
 	void Update(float dt);
     void Render();
     void NotifyCollision(GameObject& other);
-
     bool Is(std::string type);
   private:
     void CharactersStandOnBlock(Character *character);
@@ -36,6 +35,7 @@ class StoneBlock : public GameObject
     void Fall();
     Sprite sp;
     Rect prevLoki, prevThor;
+    bool hasFallen;
 };
 
 #endif /* STONEBLOCK_H_ */

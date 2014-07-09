@@ -39,6 +39,7 @@ class Loki : public Character
 
 	void SetAppearance(TransformState appearance);
 	void Shoot();
+	void Transform();
 
 	float TIMES_FLAPS_WINGS;
 	//constants

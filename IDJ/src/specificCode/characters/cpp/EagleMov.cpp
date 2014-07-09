@@ -31,6 +31,14 @@ void EagleMov::UpdateSpeed(Character *character, float dt)
 
     if (transformTime.Get() < TRANSFORM_COOLDOWN) character->speed.Set(0,0);
     transformTime.Update(dt);
+
+    wingTime.Update(dt);
+    if (wingTime.Get() > 1.1)
+    {
+    	wingTime.Restart();
+        Sound flap("audio/Asa batendo game.ogg");
+        flap.Play(0);
+    }
 }
 
 std::string EagleMov::GetType()

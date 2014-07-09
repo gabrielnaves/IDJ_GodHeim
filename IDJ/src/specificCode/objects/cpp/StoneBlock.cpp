@@ -12,6 +12,7 @@ StoneBlock::StoneBlock(std::string sprite,float x, float y)
 	sp.Open(sprite);
 	box.Set(x,y,sp.GetWidth(),sp.GetHeight());
 	prevLoki = prevThor = Rect();
+	hasFallen = false;
 }
 
 void StoneBlock::Update(float dt)
@@ -36,8 +37,13 @@ void StoneBlock::Fall()
 {
 	if (box.GetY() < 39*55)
 		box.SetPoint(7*55,box.GetY()+10);
-	else
+	else if (hasFallen == false)
+	{
+		hasFallen = true;
 		box.SetPoint(7*55,39*55);
+	    Sound goatCry ("audio/Pedra caindo game.ogg");
+	    goatCry.Play(0);
+	}
 }
 
 bool StoneBlock::ShouldFall()

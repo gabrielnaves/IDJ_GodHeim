@@ -20,6 +20,7 @@ class EagleMov : public MovementState
     std::string GetType();
   private:
     Timer transformTime;
+    Timer wingTime;
 
     const float MAX_FALLING_SPEED_EAGLE = 100;
     const float EAGLE_JUMP_SPEED = -350;

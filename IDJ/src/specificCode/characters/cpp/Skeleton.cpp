@@ -59,6 +59,13 @@ void Skeleton::Walk(float dt)
     facingRight = (signal == 1 ? true : false);
     if (abs(distance) >= 30)
         box.MoveRect(dt*WALK_SPEED*signal, 0);
+    MakeSound();
+}
+
+void Skeleton::MakeSound()
+{
+    Sound walk ("audio/Esqueleto andando game.ogg");
+    walk.Play(0);
 }
 
 void Skeleton::Render()

@@ -30,6 +30,7 @@ class Skeleton : public GameObject
   private:
     void Rest(float dt);
     void Walk(float dt);
+    void MakeSound();
     void Attack(float dt);
     void SetState(SkeletonNamespace::State state);
     void Die();

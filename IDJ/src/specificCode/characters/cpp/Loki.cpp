@@ -165,19 +165,26 @@ void Loki::UpdateSprite()
     else if (appearance == EAGLE)
     {
         if (prevAppearance == LOKI)
-        {
-            ChangeSp("jumpSp","img/characters/eagleFlight.png",10);
-            //adds a smoke to the screen
-            Sprite smoke("img/characters/smoke.png", 11, 0.1);
-            StillAnimation *sa = new StillAnimation(box.Center().GetX(),box.Center().GetY(),rotation,smoke,1,true);
-            Game::GetInstance().GetCurrentState().AddObject(sa);
-        }
+        	Transform();
         else if (transformTime.Get() > TRANSFORM_COOLDOWN)
             jumpSp.Update(dt);
 
         transformTime.Get() < TRANSFORM_COOLDOWN ? shouldRender = false : shouldRender = true;
     }
     prevAppearance = appearance;
+}
+
+void Loki::Transform()
+{
+    ChangeSp("jumpSp","img/characters/eagleFlight.png",10);
+
+    //adds a smoke to the screen
+    Sprite smoke("img/characters/smoke.png", 11, 0.1);
+    StillAnimation *sa = new StillAnimation(box.Center().GetX(),box.Center().GetY(),rotation,smoke,1,true);
+    Game::GetInstance().GetCurrentState().AddObject(sa);
+
+//    Sound transform ("audio/Transformação loki game.ogg");
+//    transform.Play(0);
 }
 
 /**
