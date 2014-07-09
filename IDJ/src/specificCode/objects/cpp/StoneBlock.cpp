@@ -87,7 +87,7 @@ void StoneBlock::Blocks(Character *character)
 void StoneBlock::CharactersStandOnBlock(Character *character)
 {
 	character->standingOnObject = false;
-	if (character->box.GetX()+character->box.GetW()/2 > box.GetX() and character->box.GetX()+character->box.GetW()/2 < box.GetX()+box.GetW())
+	if (character->box.GetX()+character->box.GetW()/2-5 > box.GetX() and character->box.GetX()+character->box.GetW()/2+5 < box.GetX()+box.GetW())
 	{
 		//blocks from colliding above
 		if (ShouldStand(character))
@@ -128,6 +128,13 @@ void StoneBlock::Render()
 }
 void StoneBlock::NotifyCollision(GameObject& other)
 {
+	if (other.Is("Thor") or other.Is("Loki"))
+	{
+		if (other.box.GetX() < box.GetX()+box.GetW() and other.box.GetX() > box.GetX()+box.GetW()/2 and other.box.GetY()+other.box.GetH() > box.GetY())
+			other.box.SetPoint(box.GetX()+box.GetW(),other.box.GetY());
+		if (other.box.GetX() +other.box.GetW() > box.GetX() and other.box.GetX()+other.box.GetW() < box.GetX()+box.GetW()/2 and other.box.GetY()+other.box.GetH() > box.GetY())
+			other.box.SetPoint(box.GetX()-other.box.GetW(),other.box.GetY());
+	}
 }
 
 bool StoneBlock::Is(std::string type)
