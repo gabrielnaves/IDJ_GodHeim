@@ -16,7 +16,7 @@ Thor::Thor(float x, float y, MovementMap movMap) :
         		"img/characters/hitthor.png")
 {
 	characterSp.Open("img/characters/thor.png");
-	if (StateData::checkpoint)
+	if (StateData::checkpoint && StateData::thorBox.GetX() && StateData::thorBox.GetY())
 		box.Set(StateData::thorBox.GetX(), StateData::thorBox.GetY(), characterSp.GetWidth(), characterSp.GetHeight());
 	else
 		box.Set(x-characterSp.GetWidth()/2, y-characterSp.GetHeight()/2, characterSp.GetWidth(), characterSp.GetHeight());

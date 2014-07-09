@@ -18,6 +18,8 @@ TitleState::TitleState() : State()
     SelectMusic();
     titleMusic.Play(-1);
     startEndTimer = false;
+
+    StateData::RetrieveCheckpoint();
 }
 
 TitleState::~TitleState()

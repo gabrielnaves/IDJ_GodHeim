@@ -36,6 +36,8 @@ Level2State::Level2State() : State(), tileSet(55,55,"img/level2/level2Tiles.png"
 
     if (!StateData::checkpoint)
     	StateData::CreateCheckPoint();
+    StateData::startingLevel = 2;
+    StateData::SaveCheckpoint();
 }
 
 Level2State::~Level2State()
@@ -113,6 +115,7 @@ bool Level2State::StageClear()
 void Level2State::NextLevel()
 {
 	requestDelete = true;
+	StateData::SaveCheckpoint();
 	StateData::checkpoint = false;
 	StateData::UnlockSound(3);
     if (Portal::endLevel2)

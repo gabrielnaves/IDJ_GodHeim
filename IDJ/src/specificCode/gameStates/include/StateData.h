@@ -14,6 +14,7 @@
 #include "../../../Engine.h"
 #include "../../characters/include/Barrier.h"
 #include "../../items/include/ItemFlags.h"
+#include <fstream>
 
 class StateData
 {

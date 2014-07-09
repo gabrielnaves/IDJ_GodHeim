@@ -46,7 +46,12 @@ void OptionsState::Update(float dt)
 		requestQuit = true;
 	if (startEndTimer) endTimer.Update(dt);
 	if (endTimer.Get() >= 2.5)
+	{
 		requestDelete = true;
+		StateData::lokiBox = Point();
+		StateData::thorBox = Point();
+		StateData::SaveCheckpoint();
+	}
 }
 
 void OptionsState::Render()
