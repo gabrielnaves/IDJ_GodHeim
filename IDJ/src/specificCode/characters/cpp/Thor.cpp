@@ -7,6 +7,7 @@
  */
 
 #include "../include/Thor.h"
+#include "../../gameStates/include/StateData.h"
 
 Thor* Thor::characterThor;
 
@@ -14,8 +15,11 @@ Thor::Thor(float x, float y, MovementMap movMap) :
         Character(movMap,"img/characters/thor_walk.png",8,0.1,"img/characters/thor_jump.png",4,0.1,"img/characters/thorStairs.png",3,0.15,
         		"img/characters/hitthor.png")
 {
-    characterSp.Open("img/characters/thor.png");
-    box.Set(x-characterSp.GetWidth()/2, y-characterSp.GetHeight()/2, characterSp.GetWidth(), characterSp.GetHeight());
+	characterSp.Open("img/characters/thor.png");
+	if (StateData::checkpoint)
+		box.Set(StateData::thorBox.GetX()-characterSp.GetWidth()/2, StateData::thorBox.GetY()-characterSp.GetHeight()/2, characterSp.GetWidth(), characterSp.GetHeight());
+	else
+		box.Set(x-characterSp.GetWidth()/2, y-characterSp.GetHeight()/2, characterSp.GetWidth(), characterSp.GetHeight());
     characterThor = this;
     this->movementMap.UpdatePreviousPos(box);
     canHoldWolf = false;

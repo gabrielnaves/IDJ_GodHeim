@@ -8,6 +8,7 @@
 
 #include "../include/Loki.h"
 #include "../include/EagleMov.h"
+#include "../../gameStates/include/StateData.h"
 
 Loki* Loki::characterLoki;
 
@@ -16,7 +17,10 @@ Loki::Loki(float x, float y, MovementMap movMap) :
         		"img/characters/lokihit.png")
 {
 	characterSp.Open("img/characters/loki.png");
-	box.Set(x-characterSp.GetWidth()/2, y-characterSp.GetHeight()/2, characterSp.GetWidth(), characterSp.GetHeight());
+	if (StateData::checkpoint)
+		box.Set(StateData::lokiBox.GetX()-characterSp.GetWidth()/2, StateData::lokiBox.GetY()-characterSp.GetHeight()/2, characterSp.GetWidth(), characterSp.GetHeight());
+	else
+		box.Set(x-characterSp.GetWidth()/2, y-characterSp.GetHeight()/2, characterSp.GetWidth(), characterSp.GetHeight());
 	characterLoki = this;
 	appearance = prevAppearance = LOKI;
 	flappedWings = 0;
