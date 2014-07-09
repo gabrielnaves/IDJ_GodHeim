@@ -9,10 +9,17 @@
 
 EndState::EndState() : State()
 {
-	bg.emplace_back(new Sprite("img/gameover/gameover1.png"));
-	bg.emplace_back(new Sprite("img/gameover/gameover2.png"));
-	bg.emplace_back(new Sprite("img/gameover/gameover3.png"));
-	bg.emplace_back(new Sprite("img/gameover/gameover2.png"));
+	bg.emplace_back(new Sprite("img/gameover/gameoverefeito1.png"));
+	bg.emplace_back(new Sprite("img/gameover/gameoverefeito2.png"));
+	bg.emplace_back(new Sprite("img/gameover/gameoverefeito3.png"));
+	bg.emplace_back(new Sprite("img/gameover/gameoverefeito4.png"));
+	bg.emplace_back(new Sprite("img/gameover/gameoverefeito5.png"));
+	bg.emplace_back(new Sprite("img/gameover/gameoverefeito6.png"));
+	bg.emplace_back(new Sprite("img/gameover/gameoverefeito7.png"));
+	bg.emplace_back(new Sprite("img/gameover/gameoverefeito8.png"));
+	bg.emplace_back(new Sprite("img/gameover/gameoverefeito9.png"));
+	bg.emplace_back(new Sprite("img/gameover/gameoverefeito10.png"));
+	bg.emplace_back(new Sprite("img/gameover/gameoverefeito11.png"));
 	bgCount = loopCounter = 0;
 }
 
@@ -20,19 +27,19 @@ void EndState::Update(float dt)
 {
 	Input();
 	timer.Update(dt);
-	if (timer.Get()>=0.5)
+	if (timer.Get()>=0.1)
 	{
 		loopCounter++;
 		bgCount ++;
 		timer.Restart();
 	}
 	if (bgCount == (int)bg.size()) bgCount = 0;
-	if (loopCounter >= 5)
+	if (loopCounter >= 11)
 	{
 		requestDelete = true;
 		StateData::haveDied = false;
 //		requestQuit = true;
-		Game::GetInstance().ResetWindowSize(1200,650);
+//		Game::GetInstance().ResetWindowSize(1200,650);
 //		Game::GetInstance().ResetWindowSize(574,600);
 //		Game::GetInstance().Push(new TitleState());
 	}

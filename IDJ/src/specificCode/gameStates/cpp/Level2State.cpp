@@ -34,8 +34,8 @@ Level2State::Level2State() : State(), tileSet(55,55,"img/level2/level2Tiles.png"
     ItemFlags::hammer = true;
     changedMusic = false;
 
-    if (!StateData::checkpoint)
-    	StateData::CreateCheckPoint();
+
+    StateData::CreateCheckPoint();
     StateData::startingLevel = 2;
     StateData::SaveCheckpoint();
 }
@@ -101,7 +101,7 @@ void Level2State::Update(float dt)
 
 void Level2State::EndGame(float dt)
 {
-	Game::GetInstance().ResetWindowSize(360,275);
+//	Game::GetInstance().ResetWindowSize(360,275);
 	Game::GetInstance().Push(new EndState());
 }
 

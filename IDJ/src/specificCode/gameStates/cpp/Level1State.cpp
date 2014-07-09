@@ -21,8 +21,7 @@ Level1State::Level1State() : State(), tileSet(55,55,"img/level1/level1Tiles.png"
     musicPlaying = true;
     showingCave = false;
 
-    if (!StateData::checkpoint)
-    	StateData::CreateCheckPoint();
+    StateData::CreateCheckPoint();
     StateData::startingLevel = 1;
     StateData::SaveCheckpoint();
 }
@@ -142,7 +141,7 @@ void Level1State::Update(float dt)
 
 void Level1State::EndGame(float dt)
 {
-	Game::GetInstance().ResetWindowSize(360,275);
+//	Game::GetInstance().ResetWindowSize(360,275);
 	Game::GetInstance().Push(new EndState());
 }
 
