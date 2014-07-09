@@ -109,7 +109,8 @@ void OptionBox::SetValue(int value)
 void OptionBox::SelectMusic()
 {
 	optionMusic.Stop();
-	if (StateData::unlockedSound[value]){
+	if (StateData::unlockedSound[value])
+	{
 		if (StateData::soundMode == "Normal")
 			optionMusic.Open("audio/SOUNDTRACK MODE/Menu/Title.mp3");
 		if (StateData::soundMode == "8bits")

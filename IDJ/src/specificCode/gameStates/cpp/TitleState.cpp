@@ -30,27 +30,27 @@ void TitleState::Input()
 {
 	if (InputManager::GetInstance().ShouldQuit())
 	        requestQuit = true;
-//    if (InputManager::GetInstance().KeyPress(SDLK_1))
-//    {
-//    	titleMusic.Stop();
-//    	StateData::soundMode = "Normal";
-//    	SelectMusic();
-//    	titleMusic.Play(-1);
-//    }
-//    if (InputManager::GetInstance().KeyPress(SDLK_2))
-//    {
-//    	titleMusic.Stop();
-//    	StateData::soundMode = "8bits";
-//    	SelectMusic();
-//    	titleMusic.Play(-1);
-//    }
-//    if (InputManager::GetInstance().KeyPress(SDLK_3))
-//    {
-//    	titleMusic.Stop();
-//    	StateData::soundMode = "SNES";
-//    	SelectMusic();
-//    	titleMusic.Play(-1);
-//    }
+    if (InputManager::GetInstance().KeyPress(SDLK_1))
+    {
+    	titleMusic.Stop();
+    	StateData::soundMode = "Normal";
+    	SelectMusic();
+    	titleMusic.Play(-1);
+    }
+    if (InputManager::GetInstance().KeyPress(SDLK_2))
+    {
+    	titleMusic.Stop();
+    	StateData::soundMode = "8bits";
+    	SelectMusic();
+    	titleMusic.Play(-1);
+    }
+    if (InputManager::GetInstance().KeyPress(SDLK_3))
+    {
+    	titleMusic.Stop();
+    	StateData::soundMode = "SNES";
+    	SelectMusic();
+    	titleMusic.Play(-1);
+    }
 }
 
 void TitleState::Update(float dt)
@@ -101,7 +101,7 @@ void TitleState::SelectMusic()
     if (StateData::soundMode == "Normal")
         titleMusic.Open("audio/SOUNDTRACK MODE/Menu/Title.mp3");
     if (StateData::soundMode == "8bits")
-        titleMusic.Open("audio/8 bit MODE/Title.mp3");
+    	titleMusic.Open("audio/8 bit MODE/Title.mp3");
     if (StateData::soundMode == "SNES")
         titleMusic.Open("audio/Forever SNES MODE/Title.mp3");
 }

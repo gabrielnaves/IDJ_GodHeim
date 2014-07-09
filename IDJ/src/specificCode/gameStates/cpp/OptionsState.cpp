@@ -107,5 +107,3 @@ void OptionsState::UpdateArray(float dt)
 		}
 	}
 }
-
-

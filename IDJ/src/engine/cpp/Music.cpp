@@ -46,7 +46,7 @@ void Music::Stop(float fadeTime)
 void Music::Open(std::string file)
 {
     if (music != NULL)
-        Resource::assetTable.at(file).userCount--;
+        Resource::assetTable.at(this->file).userCount--;
     this->file = file;
     //if the music does not exist in the table of assets, loads it now
     if (Resource::assetTable.find(file) == Resource::assetTable.end())
