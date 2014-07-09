@@ -99,6 +99,13 @@ void Character::Update(float dt)
     UpdatePrevState();
     for (int i=hp.size()-1;i>=0;i--)
     	hp[i]->Update(dt);
+
+    //Out of map test
+    if (box.GetX() > 5000 || box.GetY() > 5000)
+    {
+    	Kill();
+    	IsDead();
+    }
 }
 
 /**
