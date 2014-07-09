@@ -24,6 +24,10 @@ Music::~Music()
         Resource::assetTable.at(file).userCount--;
 }
 
+/**
+ * If times = -1, it will play indefinitely, until it is
+ * stopped or changed.
+ */
 void Music::Play(int times)
 {
     Mix_PlayMusic(music, times);

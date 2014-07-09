@@ -7,6 +7,7 @@
 
 #include "engine/include/Game.h"
 #include "specificCode/gameStates/include/TitleState.h"
+#include "specificCode/gameStates/include/Credits.h"
 
 int main(int argc, char** argv)
 {
