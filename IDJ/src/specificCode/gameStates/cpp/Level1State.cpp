@@ -66,7 +66,8 @@ void Level1State::EmplaceInitialObjects()
     objectArray.emplace_back(new BrokenHouseFront(500, 320));
     objectArray.emplace_back(new Item(355,520,"img/items/lokifire.png", "LokiFire", false, true));
     objectArray.emplace_back(new Item(1150,300,"img/items/lokifly.png", "LokiEagle", false, true));
-    objectArray.emplace_back(new Item(1220,590,"img/items/thorbelt.png", "ThorBelt", true, false));
+    objectArray.emplace_back(new Item(1220,585,"img/items/itemescudo.png", "ThorShield", true, false));
+    objectArray.emplace_back(new Item(20,750,"img/items/thorbelt.png", "ThorBelt", true, false));
     objectArray.emplace_back(new Item(865,2000,"img/items/thorhammer.png", "ThorHammer", true, false));
     objectArray.emplace_back(new Spikes("img/objects/spikes.png",385,2200));
     objectArray.emplace_back(new Plants("img/level1/plants/5.png",255,510));

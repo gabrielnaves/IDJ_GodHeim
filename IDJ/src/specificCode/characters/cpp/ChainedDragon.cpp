@@ -123,7 +123,7 @@ void ChainedDragon::Shoot()
     else
     	mouth.Set(box.Center().GetX()-box.GetW()/1.5,box.Center().GetY()-box.GetH()/7);
     Bullet* fireBall=new Bullet(mouth.GetX(),mouth.GetY(),shootingAngle,
-    		CDragon::FIREBALL_SPEED,10000,spBullet,"CDragon",movementMap);
+    		CDragon::FIREBALL_SPEED,100000,spBullet,"CDragon",movementMap);
 
     fireBall->FlipImage(SDL_FLIP_HORIZONTAL);
     fireBall->SetStillAnimation("img/characters/fireStillAnimation.png", 2, 0.2);

@@ -20,6 +20,7 @@ class ItemFlags
     static bool belt;
     static bool hammer;
     static bool redPotion;
+    static bool shield;
     static void ChangeFlag(std::string name, bool newValue);
 };
 
