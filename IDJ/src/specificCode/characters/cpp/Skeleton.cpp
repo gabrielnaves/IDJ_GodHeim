@@ -107,7 +107,7 @@ void Skeleton::Die()
     StillAnimation *sa = new StillAnimation(box.Center().GetX(),box.Center().GetY(),rotation,skeletonDeath,1.2,true);
     Game::GetInstance().GetCurrentState().AddObject(sa);
 
-    Item *helmet = new Item(box.Center().GetX(), box.Center().GetY(),"img/characters/skeletonHelmet.png", "Meat", false, false, true, 1.2);
+    Item *helmet = new Item(box.Center().GetX(), box.Center().GetY(),"img/characters/skeletonHelmet.png", "Helmet", false, false, true, 1.2);
     helmet->SetHover(false);
     Game::GetInstance().GetCurrentState().AddObject(helmet);
 }
