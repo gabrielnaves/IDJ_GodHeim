@@ -106,6 +106,7 @@ void Level2State::Render()
 
 void Level2State::EmplaceInitialObjects()
 {
+    objectArray.emplace_back(new Portal(22*55, 21*55));
     FloatingBlock *block = new FloatingBlock("img/level2/FloatingBlock3.png", 580, 300, M_PI, 100, 300, 3);
     objectArray.emplace_back(block);
     objectArray.emplace_back(new ChainedDragon(block, true, movementMap));

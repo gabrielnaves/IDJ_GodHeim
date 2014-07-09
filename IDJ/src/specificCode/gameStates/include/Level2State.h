@@ -16,6 +16,7 @@
 #include "../../objects/include/LavaCircle.h"
 #include "../../objects/include/Lava.h"
 #include "../../objects/include/Meteor.h"
+#include "../../objects/include/Portal.h"
 #include "StateData.h"
 #include "EndState.h"
 

@@ -7,7 +7,7 @@
 
 #include "../include/StateData.h"
 
-int StateData::startingLevel = 1;
+int StateData::startingLevel = 2;
 std::string StateData::soundMode = "Normal";
 std::string StateData::controls = "Keyboard";
 bool StateData::unlockedLevel[10] = {false, true, true, false, false, false, false, false, false, false};		//unlockedLevel[0]    NOT USED!!!!
