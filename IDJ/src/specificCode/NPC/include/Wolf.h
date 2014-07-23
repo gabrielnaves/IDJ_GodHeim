@@ -9,8 +9,8 @@
 #define WOLF_H_
 
 #include "../../../Engine.h"
-#include "Character.h"
-#include "Barrier.h"
+#include "../../characters/include/Character.h"
+#include "../../characters/include/Barrier.h"
 
 namespace WolfNamespace
 {

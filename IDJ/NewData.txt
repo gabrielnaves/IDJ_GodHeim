@@ -1,5 +1,5 @@
 1
-8bits
+Normal
 Keyboard
 false
 true

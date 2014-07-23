@@ -9,7 +9,7 @@
 #define CHAINEDDRAGON_H_
 
 #include "../../../Engine.h"
-#include "Bullet.h"
+#include "../../characters/include/Bullet.h"
 #include "../../objects/include/FloatingBlock.h"
 
 namespace CDragon

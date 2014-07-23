@@ -10,8 +10,8 @@
 
 #include "../../../Engine.h"
 #include "../../characters/include/Barrier.h"
-#include "../../characters/include/ChainedDragon.h"
-#include "../../characters/include/Skeleton.h"
+#include "../../NPC/include/ChainedDragon.h"
+#include "../../NPC/include/Skeleton.h"
 #include "../../objects/include/FloatingBlock.h"
 #include "../../objects/include/LavaCircle.h"
 #include "../../objects/include/Lava.h"
