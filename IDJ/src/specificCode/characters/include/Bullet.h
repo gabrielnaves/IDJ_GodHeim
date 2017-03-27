@@ -11,7 +11,7 @@
 #define BULLET_H_
 
 #include "../../../Engine.h"
-#include "../../NPC/include/Goat.h"
+#include "Goat.h"
 
 class Bullet : public GameObject
 {
