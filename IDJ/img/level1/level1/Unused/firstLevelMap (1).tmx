@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="24" height="41" tilewidth="55" tileheight="55">
+ <tileset firstgid="1" name="tileSet" tilewidth="55" tileheight="55">
+  <image source="../IDJ_GameDevs/IDJ/img/firstLevelTiles.png" width="165" height="660"/>
+ </tileset>
+ <layer name="movementMap" width="24" height="41" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJztlDsOACAIQ128/5VdnIy/Io2/NmEx+IQGCUGS7Io50Hw02PzWW+U5Wp+Fj2jUB+of8h6D7yHL3JT3egw2f5Tv9XesfcxqB9/Tr5f8Qed61h9GveKLfwsf2Rke++cUfk0/8Fe0k8/a/+L3+QnHSgZQ
+  </data>
+ </layer>
+ <layer name="SecondLayer" width="24" height="41">
+  <data encoding="base64" compression="zlib">
+   eJztVYsOgjAMnA9UEA0GTUxQRMP/f6NdZLGp3UZBxJBdcmGw9ui6rVUqIKA7TsCNwH4NPDd+bZ4z4FagnwDnwEXjG3m4BO7QP+lacLyae+IbeeIxtiYmupaEiUkC6nsEroAxMAXmHTQl/+sS89DI1Hv9Uj+cO/08MHYX4B1YC/VL9Zm3wmNP40nJN26vJfo+mz4YQ9+WG9s4Ju94v6eSH1oTzJjClS/uPpQDxFuQ96Af9P9ZX98NfCdM7+H6Bu5LXF3PGX1aH1w1w8w91Ks/VcAbGtdf0rfVKy4/v9Y3vfnK+Ou5yjLXVr8PxtKn9d91Pl09wHY+Obr218Wp6T8BsFEToA==
+  </data>
+ </layer>
+ <layer name="Third Layer" width="24" height="41">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRQA/AioYH2nx09aRi6SFuvgiNzSfkH1zqlIBYHogVgFgRylYhw3xFLOaA2LJY/CqDR70i1H5C8TEKRsFIA5xAzAPEbFCa2oCaZfpIMB9XvSFHwGxSzOemsflDyf2jADcAANLaB7U=
+  </data>
+ </layer>
+</map>
