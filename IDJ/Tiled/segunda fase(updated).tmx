@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="24" height="31" tilewidth="55" tileheight="55">
+ <tileset firstgid="1" name="tileSet" tilewidth="55" tileheight="55">
+  <image source="../img/level2/level2Tiles.png" width="275" height="330"/>
+ </tileset>
+ <layer name="movementMap" width="24" height="31" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAOEEXCyGLUAqPmj5pPC/PRxQar+fjspBUYNZ9+5oviwaPm47dz1PzhbT6u9ISvvKUEj5o/igcLBgDEaRUr
+  </data>
+ </layer>
+ <layer name="layer1" width="24" height="31">
+  <data encoding="base64" compression="zlib">
+   eJztld0OwiAMhXuhmxljTjf8mXPv/5iW2AZs6s1CY0x2khNogS8L0DEBwAM9U/tEL1mfxzg/kWV+QDv0CEkDlFNkeWO+9fcHY771/rTGfOv91/gV+liIr+2PPPO14lpcBH8UuZJivpU2flIH77tYow/U3xfk812MNeDJTWG+Ey5191n8LsV2hv86342/jr+DVBfyX90pcQWfdVSL9flYrK9YBy1Zex9k7Ggurwsi9tmcJmMH0N//b/yg8LzIx/4Jfc7aO/qCvqJvStzT3F5Zq41t+q1e0QUNBw==
+  </data>
+ </layer>
+</map>

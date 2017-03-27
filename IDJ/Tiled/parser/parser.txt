@@ -1,0 +1,139 @@
+#include <string>
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+string removeSpaces(string str)
+{
+    while (str[0] == ' ') str.erase(str.begin());
+    return str;
+}
+
+bool isData(string str)
+{
+    if (str.size() < 4) return false;
+    string aux;
+    aux.resize(4);
+    for (int i = 0; i < 4; i++)
+        aux[i] = str[i];
+    if (aux == "data") return true;
+    return false;
+}
+
+void findNextData(string& str, ifstream& InputFile)
+{
+    while (true)
+    {
+        getline(InputFile,str);
+        str = removeSpaces(str);
+        if (isData(str)) break;
+    }
+}
+
+string processString(string str, int mapWidth)
+{
+    string aux1;
+    for (int i = 0; i < mapWidth; i++)
+    {
+        string aux2;
+        int j = 0;
+        while (str[0] != ',')
+        {
+            if (str[0] == ' ') str.erase(str.begin());
+            string aux3; aux3.resize(1); aux3[0] = str[0];
+            aux2.append(aux3);
+            str.erase(str.begin());
+            j++;
+        }
+        str.erase(str.begin());
+        if (stoi(aux2) < 10) aux2.insert(0, 1, '0');
+        aux2.append(",");
+        aux1.append(aux2);
+    }
+    
+    aux1.append("\n");
+    return aux1;
+}
+
+int main()
+{
+    std::ifstream InputFile;
+    std::ofstream MovementMap, TileMap;
+    
+    string FileName;
+    
+    cout << "Name of the file: " << endl;
+    cin >> FileName;
+    
+    InputFile.open(FileName);
+    
+    if (!InputFile.is_open())
+    {
+        std::cerr << "Could not open tileMap file." << std::endl;
+        return 0;
+    }
+    
+    MovementMap.open("movementMap.txt");
+    TileMap.open("tileMap.txt");
+    
+    string mapWidth, mapHeight;
+    int mapDepth;
+    std::string str;
+    char a;
+    
+    // Get the depth of the tile Map
+    cout << "Depth of the tileMap: ";
+    cin >> mapDepth;
+
+    // Get the width of the tile Map    
+    for (int i = 0; i < 5; i++)
+        getline(InputFile, str);
+    str.erase(0, 10);
+    str.pop_back();
+    mapWidth = str;
+    
+    // Get the height of the tile Map
+    getline(InputFile, str);
+    str.erase(0,11); str.pop_back();
+    mapHeight = str;
+    
+    // Place the basic information on the maps
+    str.clear();
+    str.append(mapWidth); str.append(","); str.append(mapHeight); str.append(",");
+    str.append(to_string(1)); str.append(",\n"); MovementMap << str << "\n";
+    str.pop_back(); str.pop_back(); str.pop_back(); str.append(to_string(mapDepth)); str.append(",\n");
+    TileMap << str;
+    
+    // Finds the next "data" on the input file
+    findNextData(str, InputFile);
+    
+    // Prints the movement Map to the movement map file
+    for (int i = 0; i < stoi(mapHeight); i++)
+    {
+        getline(InputFile, str);
+        str = removeSpaces(str);
+        if (i == stoi(mapHeight) - 1) str.append(",");
+        str = processString(str, stoi(mapWidth));
+        MovementMap << str;
+    }
+    
+    for (int counter = 0; counter < mapDepth; counter++)
+    { 
+        // Finds the next "data" on the input file
+        findNextData(str, InputFile);
+        
+        // Prints the tile map to the tilemap file
+        TileMap << "\n";
+        for (int i = 0; i < stoi(mapHeight); i++)
+        {
+            getline(InputFile, str);
+            str = removeSpaces(str);
+            if (i == stoi(mapHeight) - 1) str.append(",");
+            str = processString(str, stoi(mapWidth));
+            TileMap << str;
+        }
+    }
+    
+    return 0;
+}
